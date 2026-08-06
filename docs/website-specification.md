@@ -1,5 +1,5 @@
-# The BrokerAI — Website Specification Document
-This document defines the narrative, deterministic, and human‑readable specification of the BrokerAI website.  
+# Ragtime-Pro — Website Specification Document
+This document defines the narrative, deterministic, and human‑readable specification of the Ragtime-Pro website.  
 Claude Code must maintain this document and ensure it always reflects the current state of the codebase, architecture, content, design system, and authoritative documents.
 
 ---
@@ -90,11 +90,13 @@ Immediate clarity: what The BrokerAI does, for whom, and why it matters.
 
 ### Hero Section
 - **Headline:** A `RotatingHeadline` component (`src/components/RotatingHeadline.tsx`)
-  cycles through five two-line phrases every 10 seconds, cross-fading between them:
-  "Unlock your future … adopt AI to transform your business", "If the path is not
-  clear … we shape your AI roadmap", "If there are doubts … we become your trusted
-  advisor", "If skills are missing … we find the right ones for your journey", "If
-  resources are limited … we adjust the roadmap to your capabilities".
+  cycles through five two-line phrases every 8 seconds, cross-fading between them, and
+  starts on a random phrase each time the component mounts (page load or return
+  navigation to `/`) rather than always opening on the same one: "If your product looks
+  like falling behind… we modernize it", "Your software doesn't need a rewrite… It needs
+  a new rhythm.", "If daily operations lock your resources… we do it for them", "If it
+  risks becoming replaceable… we make it indispensable again", "If AI modernization
+  feels overwhelming… we make it simple, structured, and real".
 - **Subheadline:** A safe, structured, and high‑impact approach to AI adoption for European SMEs.  
 - **CTAs:**  
   - Book an Intro Call → `/contact`
@@ -102,7 +104,9 @@ Immediate clarity: what The BrokerAI does, for whom, and why it matters.
     Roadmap Guide video in a modal (not a download)
 
 ### Hero Visual
-The microchip/circuit logo (`logo.png`) as a 3D flip-animated central motif, linking to `/about`.
+The Ragtime-Pro logo (`Ragtime-Pro_Logo.png` — the equalizer-bar icon paired with the
+"RAGTIME-PRO" wordmark) as a 3D flip-animated central motif (350×169, sized to the
+logo's real aspect ratio), linking to `/about`.
 
 ### Key Value Blocks
 Each block links to the page that expands on it. Grid order (2 columns: top-left,
@@ -183,8 +187,8 @@ into a solved problem"), then drawing on the AI Roadmap Guide's "Coaching: The B
 Breaker" section — the real challenge being uncertainty rather than the technology itself,
 coaching replacing guesswork with methodology and fragmented experimentation with strategic
 alignment, and working barrier by barrier to demystify AI, build skills, reduce resistance,
-and keep recommendations aligned with the EU AI Act. On the right, The BrokerAI logo
-(`logo.png`) above a "We can help you …" link button → `/about`. Same layout pattern as The
+and keep recommendations aligned with the EU AI Act. On the right, the Ragtime-Pro logo
+(`Ragtime-Pro_Logo.png`) above a "We can help you …" link button → `/about`. Same layout pattern as The
 AI Dilemma and Core Barriers pages' intro text + icon/button groups.
 
 ### Key Blocks
@@ -591,7 +595,8 @@ so this was deliberately left for a lawyer or the site owner to add.
 # 4. Visual Identity Specification
 
 ## 4.1 Logo
-Use the microchip/circuit graphic as the brand symbol.
+Use the Ragtime-Pro lockup (`public/Ragtime-Pro_Logo.png`) — three ascending equalizer
+bars (the "AI" mark) paired with the "RAGTIME-PRO" wordmark — as the brand symbol.
 
 ## 4.2 Color Palette
 - Primary: Deep navy / charcoal  
@@ -645,9 +650,9 @@ Each page must include:
 - Meta description  
 - OG image  
 
-**Favicon:** `src/app/icon.png` — the logo/microchip mark (`public/logo.png`,
-374×362), picked up automatically by Next.js's App Router file convention
-(no code in `layout.tsx` needed). Site-wide, not per-page.
+**Favicon:** `src/app/icon.png` — a copy of `public/favicon.png` (the equalizer-bar
+icon mark only, no wordmark), picked up automatically by Next.js's App Router file
+convention (no code in `layout.tsx` needed). Site-wide, not per-page.
 
 ---
 
@@ -827,9 +832,9 @@ Claude must:
 # 10. Component Library
 
 ## 10.1 Current Components
-- **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo link is a hover `group`: hovering either the flip-animated logo icon or the "The BrokerAI" text turns the text electric-blue.
+- **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `Ragtime-Pro_Logo.png` lockup (icon + wordmark, no separate text label), flip-animated in a 40×83px box sized to its aspect ratio.
 - **Footer** (`src/components/Footer.tsx`) — footer navigation (Privacy Policy, Terms of Service, Contact) and copyright line. No LinkedIn link yet — see §2.2.
-- **RotatingHeadline** (`src/components/RotatingHeadline.tsx`) — client component cycling through 5 two-line phrases on the Home hero, one every 8 seconds with a cross-fade transition.
+- **RotatingHeadline** (`src/components/RotatingHeadline.tsx`) — client component cycling through 5 two-line phrases on the Home hero, one every 8 seconds with a cross-fade transition. Starts on a random phrase on each mount (not always the first) so repeat visits and refreshes don't always open on the same line.
 - **RoadmapVideoButton** (`src/components/RoadmapVideoButton.tsx`) — reusable video-icon trigger; renders a small icon (optionally with a text label) that opens a centered modal video player animating in/out from the icon's screen position. Takes a `src` (defaults to the AI Roadmap Guide video), an optional `lowBandwidthSrc` for connection-aware source switching, and a `blueHoverIcon` toggle (icon swaps to an electric-blue variant on hover; disabled on Home and Start Your Journey, where a size-only hover effect is used instead). Used on: Home, Start Your Journey (two instances), The AI Dilemma, Core Barriers, Coaching, About, AI Solution Categories, Our Methodology, Engagement Model, and every Solution Class detail page (via `SolutionDetail`).
 - **VertexTriadNav** (`src/components/VertexTriadNav.tsx`) — small Driving-Triad diagram used in the left-side nav slot on the Need/Opportunity/Readiness pages; highlights the current vertex and links to the other two.
 - **SolutionDetail** (`src/components/SolutionDetail.tsx`) — shared template rendering a single Solution Class's Quote, Overview, sidebar of the other four categories, Value/Examples/Readiness Requirements/Roadmap Fit cards, and a roadmap CTA; used by the dynamic `/solutions/[slug]` route. See Page 6 for its 3-column grid layout.
