@@ -6,7 +6,7 @@ Claude must treat these rules as authoritative and apply them to all tasks, plan
 ---
 
 ## 1. Project Overview
-- Purpose: Build and maintain Eduardo’s consulting website focused on AI‑Consulting and AI‑Solutions.
+- Purpose: Build and maintain Ragtime-Pro’s consulting website focused on AI‑Modernization for legacy software solutions.
 - Stack: Next.js 15 (App Router), React 18, TypeScript, Tailwind CSS.
 - Deployment: Vercel.
 - Package manager: **npm only**.
@@ -163,10 +163,7 @@ Claude must never:
 
 Claude must treat the following documents as canonical:
 
-1. AI Roadmap Guide ("./The BrokerAI - AI Roadmap Guide.pdf")
-2. The BrokerAI Website Specification Document ("./TheBrokerAI - Website Initial Spec.pdf")
-3. TheBrokerAI Presentation Deck ("./theBrokerAI.pptx")
-4. The BrokerAI Logo / Microchip Graphic ("./logo.png")
+1. Ragtime-Pro - Modernizing Legacy Software with AI located at the project root folder
 
 ### 12.1 Usage Rules
 - Claude must reference these documents before generating pages.
@@ -175,11 +172,11 @@ Claude must treat the following documents as canonical:
 - Claude must follow the sitemap and UX rules exactly.
 - Claude must maintain brand personality and messaging.
 - Claude must warn if user instructions contradict the documents.
+- Claude can update these documents when asked (by prompt) to write some content in the web page contradicitng or deviating from these original documents
 
 ### 12.2 Priority Order
-1. Website Specification Document  
-2. AI Roadmap Guide  
-3. PPT Deck  
+1. The user prompt input when given content input (update the source documents if required)  
+2. The original content source document
 4. CLAUDE.md  
 
 ---

@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 
 const PHRASES: [string, string][] = [
-  ["Unlock your future …", "adopt AI to transform your business"],
-  ["If the path is not clear …", "we shape your AI roadmap"],
-  ["If there are doubts …", "we become your trusted advisor"],
-  ["If skills are missing …", "we find the right ones for your journey"],
-  ["If resources are limited …", "we adjust the roadmap to your capabilities"],
+  ["If your product looks like falling behind…", "we modernize it"],
+  ["Your software doesn't need a rewrite…", "It needs a new rhythm."],
+  ["If daily operations lock your resources…", "we do it for them"],
+  ["If it risks becoming replaceable…", "we make it indispensable again"],
+  ["If AI modernization feels overwhelming…", "we make it simple, structured, and real"],
 ];
 
 const STAY_MS = 8000;
@@ -18,6 +18,8 @@ export default function RotatingHeadline() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
+    setIndex(Math.floor(Math.random() * PHRASES.length));
+
     let stayTimeout: ReturnType<typeof setTimeout>;
     let fadeTimeout: ReturnType<typeof setTimeout>;
 

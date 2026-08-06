@@ -66,21 +66,21 @@ export default function Home() {
             href="/about"
             className="inline-block [perspective:1000px] transition-transform duration-300 hover:scale-105"
           >
-            <div className="relative h-[280px] w-[280px] animate-[spin-3d_10s_linear_infinite] [transform-style:preserve-3d]">
+            <div className="relative h-[169px] w-[350px] animate-[spin-3d_10s_linear_infinite] [transform-style:preserve-3d]">
               <Image
-                src="/logo.png"
-                alt="The BrokerAI microchip motif"
-                width={280}
-                height={280}
+                src="/Ragtime-Pro_Logo.png"
+                alt="Ragtime-Pro logo — syncopated rhythm bars symbolizing structured AI modernization"
+                width={350}
+                height={169}
                 priority
                 className="absolute inset-0 [backface-visibility:hidden]"
               />
               <Image
-                src="/logo.png"
+                src="/Ragtime-Pro_Logo.png"
                 alt=""
                 aria-hidden="true"
-                width={280}
-                height={280}
+                width={350}
+                height={169}
                 className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]"
               />
             </div>

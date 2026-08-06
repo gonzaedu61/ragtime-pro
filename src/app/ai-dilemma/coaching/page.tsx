@@ -74,10 +74,10 @@ export default function CoachingPage() {
           </div>
           <Link href="/about" className="group flex flex-col items-center gap-4">
             <Image
-              src="/logo.png"
-              alt="The BrokerAI logo"
-              width={374}
-              height={362}
+              src="/Ragtime-Pro_Logo.png"
+              alt="Ragtime-Pro logo"
+              width={280}
+              height={135}
               className="h-32 w-auto"
             />
             <span className="whitespace-nowrap rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">

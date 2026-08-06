@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const openSans = Open_Sans({ subsets: ["latin"], variable: "--font-open-sans" });
 
 export const metadata: Metadata = {
-  title: "The BrokerAI",
-  description: "AI adoption roadmaps and coaching for European SMEs.",
+  title: "Ragtime-Pro",
+  description: "AI-driven modernization for legacy software products.",
 };
 
 export default function RootLayout({

@@ -29,33 +29,30 @@ export default function Navbar() {
           className="group flex shrink-0 items-center gap-2"
           onClick={() => setIsOpen(false)}
         >
-          <div className="relative h-[52px] w-[52px] [perspective:1000px]">
+          <div className="relative h-10 w-[83px] [perspective:1000px]">
             <div
               className={`relative h-full w-full [transform-style:preserve-3d] ${
                 isHome ? "" : "animate-[spin-3d_10s_linear_infinite]"
               }`}
             >
               <Image
-                src="/logo.png"
-                alt="The BrokerAI"
-                width={52}
-                height={52}
+                src="/Ragtime-Pro_Logo.png"
+                alt="Ragtime-Pro"
+                width={280}
+                height={135}
                 priority
                 className="absolute inset-0 [backface-visibility:hidden]"
               />
               <Image
-                src="/logo.png"
+                src="/Ragtime-Pro_Logo.png"
                 alt=""
                 aria-hidden="true"
-                width={52}
-                height={52}
+                width={280}
+                height={135}
                 className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]"
               />
             </div>
           </div>
-          <span className="whitespace-nowrap font-heading text-lg font-semibold text-navy transition-colors group-hover:text-electric-blue">
-            The BrokerAI
-          </span>
         </Link>
 
         <nav className="hidden xl:flex xl:items-center xl:gap-6">
