@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const PILLARS = [
   {
-    slug: "need",
+    slug: "boost-point",
     title: "Boost Point",
     body: "Where AI can create the highest product value with minimal disruption — a workflow that can be automated, a module that can gain intelligence, or a knowledge domain that can be operationalized.",
   },

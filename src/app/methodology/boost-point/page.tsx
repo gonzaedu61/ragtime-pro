@@ -28,7 +28,7 @@ const CARDS = [
   },
 ];
 
-export default function NeedPage() {
+export default function BoostPointPage() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
@@ -60,7 +60,7 @@ export default function NeedPage() {
         </div>
 
         <div className="mx-auto mb-10 flex max-w-4xl justify-center px-6 lg:col-start-1 lg:row-start-1 lg:mb-0 lg:items-center lg:justify-center lg:px-0">
-          <VertexTriadNav current="need" />
+          <VertexTriadNav current="boost-point" />
         </div>
 
         <div className="mx-auto grid max-w-4xl gap-8 px-6 sm:grid-cols-2 lg:col-start-2 lg:row-start-2 lg:-mt-12">

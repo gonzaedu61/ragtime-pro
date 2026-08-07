@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export type Vertex = "need" | "opportunity" | "readiness";
+export type Vertex = "boost-point" | "opportunity" | "readiness";
 
 const VERTICES: { slug: Vertex; label: string; top: string; left: string }[] = [
-  { slug: "need", label: "Boost Point", top: "16.7%", left: "49.2%" },
+  { slug: "boost-point", label: "Boost Point", top: "16.7%", left: "49.2%" },
   { slug: "readiness", label: "Readiness", top: "79.4%", left: "19%" },
   { slug: "opportunity", label: "Opportunity", top: "79.4%", left: "79.1%" },
 ];

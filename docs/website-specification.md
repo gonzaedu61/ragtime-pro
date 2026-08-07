@@ -12,7 +12,7 @@ legacy-software-modernization positioning. The remaining pages described below
 prior general "SME AI adoption" positioning and copy, and will be reconciled
 page by page as each is rebranded. Our Methodology (including its new
 Modernization Journey subpage) has been rebranded, as has the Boost Point vertex
-subpage (routed at `/methodology/need` — see PAGE 8); the Opportunity and Readiness
+subpage (routed at `/methodology/boost-point` — see PAGE 8); the Opportunity and Readiness
 vertex subpages have not yet.
 
 ## 1.1 Primary Goal
@@ -78,7 +78,7 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
   - Custom AI Models — `/solutions/custom-models`
 - Our Methodology — `/methodology`
   - The Modernization Journey — `/methodology/process` (standalone route, linked from Our Methodology's "Check the steps ..." CTA; not in top nav)
-  - Boost Point — `/methodology/need` (standalone route, linked from Our Methodology's pillar cards; not in top nav; URL slug still `need` — see PAGE 8)
+  - Boost Point — `/methodology/boost-point` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
   - Opportunity — `/methodology/opportunity` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
   - Readiness — `/methodology/readiness` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
 - About The BrokerAI — `/about`
@@ -308,8 +308,7 @@ Steps CTA and triad columns are `shrink-0` so only the intro paragraph reflows i
 row runs tight on width.
 
 ### Three Pillars
-1. Boost Point — links to `/methodology/need` *(page content is rebranded — see PAGE 8 —
-   but the URL slug itself is still `need`)*
+1. Boost Point — links to `/methodology/boost-point` (see PAGE 8)
 2. Opportunity — links to `/methodology/opportunity`
 3. Readiness — links to `/methodology/readiness`
 
@@ -366,8 +365,6 @@ button → `/methodology`.
 ---
 
 ## PAGE 8 — BOOST POINT
-
-*(Route remains `/methodology/need` — the URL slug has not been renamed to match yet.)*
 
 ### Purpose
 Explain the first vertex of the Product Modernization Triad: the modernization hotspot
