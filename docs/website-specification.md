@@ -44,9 +44,10 @@ Convert SME leaders who feel uncertain about AI adoption into qualified leads fo
 Home is reached via the navbar logo/brand mark, not a nav item.
 1. The AI Dilemma  
 2. AI Solutions (nav label; page is "Solution Categories")  
-3. Our Methodology  
-4. About Us (nav label; page is "About The BrokerAI")  
-5. Engagement Model  
+3. Modernization Agent (nav label; page is "Engagement Model", pending its own
+   rebrand — see §1 transitional note)  
+4. Our Methodology  
+5. About Us (nav label; page is "About The BrokerAI")  
 6. EU Compliance (nav label; page is "EU AI Act Compliance")  
 7. Start Your Journey  
 8. Contact  

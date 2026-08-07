@@ -53,7 +53,7 @@ export default function Home() {
             />
           </Link>
           <RoadmapVideoButton
-            label="Watch the AI-Roadmap-Guide video"
+            label={'Watch the "Legacy Software Modernization" video'}
             lowBandwidthSrc="/AI_Roadmap_Guide_lowbandwidth.mp4"
             ariaLabel="Play the AI Roadmap Guide video"
             blueHoverIcon={false}

@@ -7,9 +7,9 @@ import { useState } from "react";
 const NAV_ITEMS = [
   { label: "The AI Dilemma", href: "/ai-dilemma" },
   { label: "AI Solutions", href: "/solutions" },
+  { label: "Modernization Agent", href: "/engagement-model" },
   { label: "Our Methodology", href: "/methodology" },
   { label: "About Us", href: "/about" },
-  { label: "Engagement Model", href: "/engagement-model" },
   { label: "EU Compliance", href: "/eu-ai-act-compliance" },
   { label: "Start Your Journey", href: "/start" },
   { label: "Contact", href: "/contact" },
