@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Modernization Journey | Ragtime-Pro",
   description:
-    "The seven-step process behind every Ragtime-Pro modernization engagement — from product discovery to guided implementation.",
+    "The eight-step process behind every Ragtime-Pro modernization engagement — from product discovery to guided implementation.",
 };
 
 const STEPS = [
@@ -20,29 +20,34 @@ const STEPS = [
     icon: "/step_2.svg",
   },
   {
-    title: "Modernization Sequencing",
-    body: "We determine what to modernize first, next, and later — and what needs architectural preparation first — in a Modernization Sequence Plan.",
+    title: "AI Solution Category Alignment",
+    body: "Each opportunity is mapped to one of the five AI Solution Categories, aligning modernization with your product's maturity and readiness.",
     icon: "/step_3.svg",
   },
   {
-    title: "AI Solution Category Alignment",
-    body: "Each opportunity is mapped to one of the five AI Solution Categories, aligning modernization with your product's maturity and readiness.",
+    title: "Standard Ragtime-Pro Modules Mapping",
+    body: "We match each opportunity to Ragtime-Pro's library of pre-built AI Upgrade Modules — reusing one where it fits, or generating a new module for any gap.",
     icon: "/step_4.svg",
+  },
+  {
+    title: "Modernization Sequencing",
+    body: "We determine what to modernize first, next, and later — and what needs architectural preparation first — in a Modernization Sequence Plan.",
+    icon: "/step_5.svg",
   },
   {
     title: "Risk & Compliance Assessment",
     body: "We evaluate EU AI Act implications, data governance, transparency, auditability, and human oversight before any step proceeds.",
-    icon: "/step_5.svg",
+    icon: "/step_6.svg",
   },
   {
     title: "Modernization Blueprint Creation",
     body: "We produce a Modernization Blueprint — goals, sequence, integration paths, compliance alignment, expected ROI, and a rollout plan.",
-    icon: "/step_6.svg",
+    icon: "/step_7.svg",
   },
   {
     title: "Guided Implementation",
     body: "We work alongside your team on safe, incremental rollout, customer-aware deployment, monitoring, and iterative refinement.",
-    icon: "/step_6.svg",
+    icon: "/step_8.svg",
   },
 ];
 
@@ -56,8 +61,8 @@ export default function ModernizationProcessPage() {
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-7xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;This methodology transforms modernization from a risky leap into a
-            guided evolution.&rdquo;
+            &ldquo;Turning AI modernization from a risky leap into a guided
+            evolution.&rdquo;
           </p>
         </div>
       </section>
@@ -74,7 +79,7 @@ export default function ModernizationProcessPage() {
 
       <section className="mx-auto max-w-7xl px-6 pb-16">
         <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {STEPS.map((step, index) => (
+          {STEPS.slice(0, 6).map((step) => (
             <li key={step.title} className="rounded-lg bg-light-grey p-6">
               <div className="flex items-center gap-4">
                 <div className="relative h-14 w-24 shrink-0">
@@ -86,7 +91,30 @@ export default function ModernizationProcessPage() {
                   />
                 </div>
                 <h2 className="font-heading text-lg font-semibold text-navy">
-                  {index + 1}. {step.title}
+                  {step.title}
+                </h2>
+              </div>
+              <p className="mt-2 font-body text-sm text-charcoal">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+        <ol className="mt-6 flex flex-col gap-6 sm:flex-row sm:justify-center">
+          {STEPS.slice(6).map((step) => (
+            <li
+              key={step.title}
+              className="rounded-lg bg-light-grey p-6 sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]"
+            >
+              <div className="flex items-center gap-4">
+                <div className="relative h-14 w-24 shrink-0">
+                  <Image
+                    src={step.icon}
+                    alt=""
+                    fill
+                    className="object-contain object-left"
+                  />
+                </div>
+                <h2 className="font-heading text-lg font-semibold text-navy">
+                  {step.title}
                 </h2>
               </div>
               <p className="mt-2 font-body text-sm text-charcoal">{step.body}</p>
@@ -105,7 +133,7 @@ export default function ModernizationProcessPage() {
             className="h-32 w-auto"
           />
           <span className="whitespace-nowrap rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
-            Back to Our Methodology …
+            See the driving Triad ...
           </span>
         </Link>
       </section>

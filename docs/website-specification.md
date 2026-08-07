@@ -293,7 +293,7 @@ Explain the strategic framework.
 ### Intro Text + Diagram + Steps CTA (below quote, above cards)
 A centered three-column row (stacks on mobile; vertically centered at `lg` and up).
 On the left, the Steps CTA — the `steps.svg` icon above a "Check the steps ..." link
-button, → `/methodology/process`, pointing readers to the seven-step Modernization
+button, → `/methodology/process`, pointing readers to the eight-step Modernization
 Journey (see PAGE 7A). In the middle, a video icon (`RoadmapVideoButton`, playing
 `Our_Methodology.mp4`) beside intro text explaining the Product Modernization Triad —
 Boost Point, Opportunity, and Readiness — and how it keeps every recommendation checked
@@ -324,12 +324,12 @@ nested `<Link>` (the phrase "AI Solution" → `/solutions`), rendered above the 
 ## PAGE 7A — MODERNIZATION JOURNEY
 
 ### Purpose
-Lay out the seven-step process behind every modernization engagement, sourced from
+Lay out the eight-step process behind every modernization engagement, sourced from
 the authoritative modernization spec's "Our Methodology" chapter (Section 4, "The
 Modernization Journey: A Structured Process").
 
 ### Quote
-“This methodology transforms modernization from a risky leap into a guided evolution.”
+“Turning AI modernization from a risky leap into a guided evolution.”
 
 ### Intro Text (below quote, above steps)
 A centered paragraph (no video — no dedicated video asset exists for this page yet)
@@ -338,22 +338,28 @@ inspiration or experimentation, and that the methodology follows a structured,
 repeatable sequence powered by the Modernization Agent and executed by the
 consultants.
 
-### Seven Steps
+### Eight Steps
 1. Product Discovery & Context Mapping
 2. Modernization Opportunity Analysis
-3. Modernization Sequencing
-4. AI Solution Category Alignment
-5. Risk & Compliance Assessment
-6. Modernization Blueprint Creation
-7. Guided Implementation
+3. AI Solution Category Alignment
+4. Standard Ragtime-Pro Modules Mapping — matches each opportunity to Ragtime-Pro's
+   library of pre-built AI Upgrade Modules, reusing one where it fits or generating a
+   new module for any gap.
+5. Modernization Sequencing
+6. Risk & Compliance Assessment
+7. Modernization Blueprint Creation
+8. Guided Implementation
 
 Same visual pattern as the Engagement Model's six-step grid (icon + title + body per
-card, `<ol>` grid, no per-card links). Steps 6 and 7 currently reuse `step_6.svg` —
-only six numbered step icons (`step_1.svg`–`step_6.svg`) exist in `public/`; a
-dedicated `step_7.svg` has not been provided yet.
+card, no per-card links, no numeric prefix in the title since each numbered icon,
+`step_1.svg`–`step_8.svg`, already carries its step number). The first six cards sit
+in a standard `<ol>` grid (`sm:grid-cols-2 lg:grid-cols-3`); cards 7 and 8
+(Modernization Blueprint Creation, Guided Implementation) form a second `<ol>` below
+it, sized to match the grid's column width but laid out with `flex justify-center`
+so the pair centers as a group under the row above instead of sitting flush-left.
 
 ### Back CTA
-Below the steps grid, the `roadmap.svg` icon above a "Back to Our Methodology …" link
+Below the steps grid, the `roadmap.svg` icon above a "See the driving Triad ..." link
 button → `/methodology`.
 
 ---
