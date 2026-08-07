@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV_ITEMS = [
@@ -18,8 +17,6 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-  const isHome = pathname === "/";
 
   return (
     <header className="sticky top-0 z-50 border-b border-light-grey bg-white/95 backdrop-blur">
@@ -29,12 +26,8 @@ export default function Navbar() {
           className="group flex shrink-0 items-center gap-2"
           onClick={() => setIsOpen(false)}
         >
-          <div className="relative h-10 w-[83px] [perspective:1000px]">
-            <div
-              className={`relative h-full w-full [transform-style:preserve-3d] ${
-                isHome ? "" : "animate-[spin-3d_10s_linear_infinite]"
-              }`}
-            >
+          <div className="relative h-[72px] w-[149px] [perspective:1000px]">
+            <div className="relative h-full w-full animate-[spin-3d_10s_linear_infinite] [transform-style:preserve-3d]">
               <Image
                 src="/Ragtime-Pro_Logo.png"
                 alt="Ragtime-Pro"

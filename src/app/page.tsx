@@ -34,57 +34,30 @@ const VALUE_BLOCKS = [
 export default function Home() {
   return (
     <>
-      <section className="mx-auto flex max-w-7xl flex-col items-center gap-10 px-6 pt-10 pb-20 text-center lg:flex-row lg:text-left">
-        <div className="flex-1">
-          <RotatingHeadline />
-          <p className="mt-6 font-body text-lg text-charcoal">
-            A safe, structured, and high-impact approach to AI adoption for European SMEs.
-          </p>
-          <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:justify-center lg:justify-start">
-            <Link href="/contact" className="group flex flex-col items-center gap-3">
-              <span className="rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
-                Book an Intro Call
-              </span>
-              <Image
-                src="/discovery_call.svg"
-                alt=""
-                width={124}
-                height={132}
-                className="h-12 w-auto"
-              />
-            </Link>
-            <RoadmapVideoButton
-              label="Watch the AI-Roadmap-Guide video"
-              lowBandwidthSrc="/AI_Roadmap_Guide_lowbandwidth.mp4"
-              ariaLabel="Play the AI Roadmap Guide video"
-              blueHoverIcon={false}
+      <section className="mx-auto max-w-7xl px-6 pt-10 pb-20 text-center">
+        <RotatingHeadline />
+        <p className="mt-6 font-body text-lg text-charcoal">
+          A safe, structured, and high‑impact approach to AI‑driven modernization for legacy software products.
+        </p>
+        <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:justify-center">
+          <Link href="/contact" className="group flex flex-col items-center gap-3">
+            <span className="rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
+              Book an Intro Call
+            </span>
+            <Image
+              src="/discovery_call.svg"
+              alt=""
+              width={124}
+              height={132}
+              className="h-12 w-auto"
             />
-          </div>
-        </div>
-        <div className="flex flex-1 items-center justify-center">
-          <Link
-            href="/about"
-            className="inline-block [perspective:1000px] transition-transform duration-300 hover:scale-105"
-          >
-            <div className="relative h-[169px] w-[350px] animate-[spin-3d_10s_linear_infinite] [transform-style:preserve-3d]">
-              <Image
-                src="/Ragtime-Pro_Logo.png"
-                alt="Ragtime-Pro logo — syncopated rhythm bars symbolizing structured AI modernization"
-                width={350}
-                height={169}
-                priority
-                className="absolute inset-0 [backface-visibility:hidden]"
-              />
-              <Image
-                src="/Ragtime-Pro_Logo.png"
-                alt=""
-                aria-hidden="true"
-                width={350}
-                height={169}
-                className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]"
-              />
-            </div>
           </Link>
+          <RoadmapVideoButton
+            label="Watch the AI-Roadmap-Guide video"
+            lowBandwidthSrc="/AI_Roadmap_Guide_lowbandwidth.mp4"
+            ariaLabel="Play the AI Roadmap Guide video"
+            blueHoverIcon={false}
+          />
         </div>
       </section>
 

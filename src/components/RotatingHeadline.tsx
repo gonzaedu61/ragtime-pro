@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 
 const PHRASES: [string, string][] = [
-  ["If your product looks like falling behind…", "we modernize it"],
+  ["If your product seems to be falling behind…", "we bring it back to the front"],
   ["Your software doesn't need a rewrite…", "It needs a new rhythm."],
-  ["If daily operations lock your resources…", "we do it for them"],
-  ["If it risks becoming replaceable…", "we make it indispensable again"],
-  ["If AI modernization feels overwhelming…", "we make it simple, structured, and real"],
+  ["If daily operations lock your resources…", "we bring the capacity to make it happen."],
+  ["If customer satisfaction is losing momentum…", "we help your product win their hearts again"],
+  ["If AI modernization feels overwhelming…", "we make it simple and doable"],
 ];
 
 const STAY_MS = 8000;
