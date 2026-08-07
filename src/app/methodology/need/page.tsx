@@ -4,27 +4,27 @@ import type { Metadata } from "next";
 import VertexTriadNav from "@/components/VertexTriadNav";
 
 export const metadata: Metadata = {
-  title: "Need | The BrokerAI",
+  title: "Boost Point | Ragtime-Pro",
   description:
-    "The Need vertex of the Driving-Triad: anchoring AI adoption in the business problem or ambition with the highest urgency and impact.",
+    "The Boost Point vertex of the Product Modernization Triad: the modernization hotspot where AI can create the highest product value with minimal disruption.",
 };
 
 const CARDS = [
   {
-    title: "Reducing Operational Friction",
-    body: "Automating repetitive, manual processes so teams spend less time fighting friction and more time on work that actually moves the business forward.",
+    title: "Automatable Workflows",
+    body: "A manual, repetitive workflow that can be handed to AI — reducing friction without touching the surrounding architecture.",
   },
   {
-    title: "Improving Customer Experience",
-    body: "AI-driven tools that respond faster, personalize interactions, and remove friction from every customer touchpoint.",
+    title: "Modules Ready for Intelligence",
+    body: "An existing module that can be upgraded with contextual intelligence, turning a static feature into an adaptive one.",
   },
   {
-    title: "Improving Quality Through Insight",
-    body: "AI that spots issues humans miss, helping teams refine products, services, and processes with data-driven clarity and precision.",
+    title: "Operationalizable Knowledge",
+    body: "Documentation, tribal knowledge, or support history that can become a living, queryable capability inside the product.",
   },
   {
-    title: "Unlocking New Revenue Potential",
-    body: "Using AI to uncover new products, services, or business models that create measurable top-line growth.",
+    title: "Augmentable Decisions",
+    body: "A decision process where users currently rely on guesswork or experience, ready to be guided by AI-driven reasoning.",
   },
 ];
 
@@ -32,13 +32,14 @@ export default function NeedPage() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
-        <h1 className="font-heading text-4xl font-bold text-navy">&ldquo;Need&rdquo; Vertex</h1>
+        <h1 className="font-heading text-4xl font-bold text-navy">&ldquo;Boost Point&rdquo; Vertex</h1>
       </section>
 
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;AI must be adopted to solve real problems, not to follow a trend.&rdquo;
+            &ldquo;Where AI can create the highest product value with minimal
+            disruption.&rdquo;
           </p>
         </div>
       </section>
@@ -46,14 +47,15 @@ export default function NeedPage() {
       <section className="pt-8 pb-16 lg:grid lg:grid-cols-[calc(50%-26.5rem)_1fr_calc(50%-26.5rem)]">
         <div className="mx-auto max-w-3xl px-6 pt-8 pb-12 text-center lg:col-start-2 lg:row-start-1 lg:h-56 lg:overflow-hidden">
           <p className="font-body text-lg text-charcoal">
-            The first vertex of the Driving-Triad, &ldquo;Need&rdquo;, focuses on the business
-            problem or ambition with the highest urgency and impact. AI should never be adopted
-            because
-            it&apos;s fashionable or because competitors are experimenting — it should be
-            adopted because it solves a real problem: reducing operational friction, improving
-            customer experience, strengthening compliance, or unlocking new revenue potential. By
-            anchoring decisions in Need, SMEs avoid the trap of technology-driven adoption and
-            instead pursue value-driven transformation.
+            The first vertex of the Product Modernization Triad, <strong>Boost
+            Point</strong>, is a modernization hotspot — a place in the product where AI
+            can create the highest value with minimal disruption to the existing
+            architecture. Our Modernization Agent identifies Boost Points through
+            multi-dimensional analysis of your source code, documentation, workflows,
+            customer usage patterns, industry constraints, integration landscape, pain
+            points, and competitive gaps. Anchoring modernization in Boost Points ensures
+            every AI Upgrade Module targets a real, high-value opportunity — not just the
+            flashiest technology.
           </p>
         </div>
 

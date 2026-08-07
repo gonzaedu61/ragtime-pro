@@ -11,8 +11,9 @@ legacy-software-modernization positioning. The remaining pages described below
 (About, The AI Dilemma, Solutions, Engagement Model, etc.) still reflect the
 prior general "SME AI adoption" positioning and copy, and will be reconciled
 page by page as each is rebranded. Our Methodology (including its new
-Modernization Journey subpage) has been rebranded; its Need/Opportunity/
-Readiness vertex subpages have not yet.
+Modernization Journey subpage) has been rebranded, as has the Boost Point vertex
+subpage (routed at `/methodology/need` — see PAGE 8); the Opportunity and Readiness
+vertex subpages have not yet.
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -77,7 +78,7 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
   - Custom AI Models — `/solutions/custom-models`
 - Our Methodology — `/methodology`
   - The Modernization Journey — `/methodology/process` (standalone route, linked from Our Methodology's "Check the steps ..." CTA; not in top nav)
-  - Need — `/methodology/need` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
+  - Boost Point — `/methodology/need` (standalone route, linked from Our Methodology's pillar cards; not in top nav; URL slug still `need` — see PAGE 8)
   - Opportunity — `/methodology/opportunity` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
   - Readiness — `/methodology/readiness` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
 - About The BrokerAI — `/about`
@@ -307,8 +308,8 @@ Steps CTA and triad columns are `shrink-0` so only the intro paragraph reflows i
 row runs tight on width.
 
 ### Three Pillars
-1. Boost Point — links to `/methodology/need` *(page still titled "Need" Vertex, pending
-   its own rebrand — see §1 transitional note)*
+1. Boost Point — links to `/methodology/need` *(page content is rebranded — see PAGE 8 —
+   but the URL slug itself is still `need`)*
 2. Opportunity — links to `/methodology/opportunity`
 3. Readiness — links to `/methodology/readiness`
 
@@ -364,44 +365,53 @@ button → `/methodology`.
 
 ---
 
-## PAGE 8 — NEED
+## PAGE 8 — BOOST POINT
+
+*(Route remains `/methodology/need` — the URL slug has not been renamed to match yet.)*
 
 ### Purpose
-Explain the first Driving-Triad vertex: the business problem or ambition with the highest
-urgency and impact.
+Explain the first vertex of the Product Modernization Triad: the modernization hotspot
+where AI can create the highest product value with minimal disruption.
 
 ### Quote
-“AI must be adopted to solve real problems, not to follow a trend.”
+“Where AI can create the highest product value with minimal disruption.”
 
 ### Main Text (below quote, above cards)
-A centered paragraph explaining that Need anchors AI adoption in a real business problem —
-reducing operational friction, improving customer experience, strengthening compliance, or
-unlocking new revenue potential — so SMEs avoid technology-driven adoption in favor of
-value-driven transformation. Fixed height (`lg:h-56 lg:overflow-hidden`) so the flanking
-nav/CTA beside it land at the same vertical position regardless of paragraph length — see
-Flanking Nav/CTA.
+A centered paragraph explaining that a Boost Point is a modernization hotspot identified
+by the Modernization Agent through multi-dimensional analysis of source code,
+documentation, workflows, customer usage patterns, industry constraints, integration
+landscape, pain points, and competitive gaps — and that anchoring modernization in Boost
+Points ensures every AI Upgrade Module targets a real, high-value opportunity rather than
+the flashiest technology. The first mention of "Boost Point" is bolded. Fixed height
+(`lg:h-56 lg:overflow-hidden`) so the flanking nav/CTA beside it land at the same vertical
+position regardless of paragraph length — see Flanking Nav/CTA.
 
 ### Four Cards
-1. Reducing Operational Friction
-2. Improving Customer Experience
-3. Improving Quality Through Insight
-4. Unlocking New Revenue Potential
+1. Automatable Workflows
+2. Modules Ready for Intelligence
+3. Operationalizable Knowledge
+4. Augmentable Decisions
+
+Sourced from the PDF's "Examples of Boost Points" list (Page 12), which has a 5th example
+("a user experience that can be enhanced") not included here to preserve the existing
+2×2 card grid.
 
 ### Flanking Nav/CTA (left/right of the main text, `lg` and up)
-Left: `VertexTriadNav` — a small Driving-Triad diagram highlighting the current vertex,
-with the other two vertices clickable (hover swaps to a highlighted icon) to jump directly
-to their pages. Right: the `roadmap.svg` icon above a "Setting the roadmap …" link button
-→ `/methodology`. Layout is a `lg:grid lg:grid-cols-[calc(50%-26.5rem)_1fr_calc(50%-26.5rem)]`
-grid (same column widths as the flanking-CTA pattern elsewhere), with `pt-8` added to the
-section so row 1 doesn't sit flush against the quote banner above. The nav, Main Text, and
-the roadmap CTA all sit together in row 1 (`lg:items-center`, vertically centered within the
-row rather than top-aligned), coupled to the fixed-height Main Text rather than to the Four
-Cards below. The cards grid is a separate
+Left: `VertexTriadNav` — a small Product Modernization Triad diagram highlighting the
+current vertex, with the other two vertices clickable (hover swaps to a highlighted icon)
+to jump directly to their pages. Right: the `roadmap.svg` icon above a "Setting the
+roadmap …" link button → `/methodology`. Layout is a
+`lg:grid lg:grid-cols-[calc(50%-26.5rem)_1fr_calc(50%-26.5rem)]` grid (same column widths
+as the flanking-CTA pattern elsewhere), with `pt-8` added to the section so row 1 doesn't
+sit flush against the quote banner above. The nav, Main Text, and the roadmap CTA all sit
+together in row 1 (`lg:items-center`, vertically centered within the row rather than
+top-aligned), coupled to the fixed-height Main Text rather than to the Four Cards below.
+The cards grid is a separate
 row 2 (center column only) — deliberately decoupled from the nav/CTA so its row count (one
-row of 3 on Opportunity, two rows of 4 on Need/Readiness) can never affect their position.
-Because row 1's height is set by the taller nav diagram rather than the shorter Main Text,
-the cards grid carries `lg:-mt-12` to pull it back up toward the Main Text instead of leaving
-a large gap sized to the nav's height.
+row of 3 on Opportunity, two rows of 4 on Boost Point/Readiness) can never affect their
+position. Because row 1's height is set by the taller nav diagram rather than the shorter
+Main Text, the cards grid carries `lg:-mt-12` to pull it back up toward the Main Text
+instead of leaving a large gap sized to the nav's height.
 
 ---
 
@@ -426,7 +436,8 @@ overinvestment, underinvestment, and misalignment.
 3. Risk Appetite
 
 ### Flanking Nav/CTA
-Same pattern as the Need page: `VertexTriadNav` on the left, roadmap CTA on the right.
+Same pattern as the Boost Point page: `VertexTriadNav` (now displaying the Product
+Modernization Triad diagram — see PAGE 8) on the left, roadmap CTA on the right.
 
 ---
 
@@ -452,7 +463,8 @@ organization's actual capacity to execute and sustain it.
 4. Governance Capability
 
 ### Flanking Nav/CTA
-Same pattern as the Need page: `VertexTriadNav` on the left, roadmap CTA on the right.
+Same pattern as the Boost Point page: `VertexTriadNav` (now displaying the Product
+Modernization Triad diagram — see PAGE 8) on the left, roadmap CTA on the right.
 
 ---
 

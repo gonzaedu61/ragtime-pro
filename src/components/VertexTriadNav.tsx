@@ -4,7 +4,7 @@ import Link from "next/link";
 export type Vertex = "need" | "opportunity" | "readiness";
 
 const VERTICES: { slug: Vertex; label: string; top: string; left: string }[] = [
-  { slug: "need", label: "Need", top: "16.7%", left: "49.2%" },
+  { slug: "need", label: "Boost Point", top: "16.7%", left: "49.2%" },
   { slug: "readiness", label: "Readiness", top: "79.4%", left: "19%" },
   { slug: "opportunity", label: "Opportunity", top: "79.4%", left: "79.1%" },
 ];
@@ -15,7 +15,7 @@ export default function VertexTriadNav({ current }: { current: Vertex }) {
       <div className="relative">
         <Image
           src="/plain_triad.svg"
-          alt="Driving-Triad diagram: Need, Opportunity, Readiness"
+          alt="Product Modernization Triad diagram: Boost Point, Opportunity, Readiness"
           width={1559}
           height={1399}
           className="h-auto w-full"
