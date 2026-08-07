@@ -6,28 +6,28 @@ import RotatingHeadline from "@/components/RotatingHeadline";
 
 const VALUE_BLOCKS = [
   {
-    title: "Modernization Is Complex — We Bring Structure",
+    title: "We Bring Structure",
     description:
       "We analyze your product end-to-end, map its architecture, and identify modernization Boost Points that deliver maximum value with minimum disruption.",
     href: "/methodology",
   },
   {
-    title: "Powered by Our Modernization Agent",
+    title: "Our Modernization Agent",
     description:
-      "Our proprietary Modernization Agent analyzes your product end-to-end, identifies Boost Points, and generates the AI Upgrade Modules our consultants develop and integrate — AI to modernize AI.",
+      "Trained specifically for legacy modernization, our proprietary AI Agent carries the bulk of the analytical and code-generation work. Our consultants act as the human factor, validating each step to keep the transformation safe.",
     href: "/about",
+  },
+  {
+    title: "Incremental Modernization",
+    description:
+      "Guided by our Product-Modernization Triad — Boost Point, Opportunity, and Readiness — we sequence each upgrade step by step, ensuring stability, continuity, and customer trust.",
+    href: "/engagement-model",
   },
   {
     title: "AI Upgrade Modules",
     description:
-      "We integrate targeted AI capabilities — RAG assistants, workflow intelligence, reasoning agents — directly into your product, aligned with your architecture and customer needs.",
+      "The final result is a set of targeted AI capabilities — productivity boosters, RAG assistants, intelligent workflows, reasoning agents, custom models — directly integrated into your product, aligned with your architecture and customer needs.",
     href: "/solutions",
-  },
-  {
-    title: "Incremental Modernization, Not Big-Bang Rewrites",
-    description:
-      "Guided by our Product-Modernization Triad — Boost Point, Opportunity, and Readiness — we sequence each upgrade step by step, ensuring stability, continuity, and customer trust.",
-    href: "/engagement-model",
   },
 ];
 
