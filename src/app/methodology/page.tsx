@@ -5,26 +5,26 @@ import ExternalLinkIcon from "@/components/ExternalLinkIcon";
 import RoadmapVideoButton from "@/components/RoadmapVideoButton";
 
 export const metadata: Metadata = {
-  title: "Our Methodology | The BrokerAI",
+  title: "Our Methodology | Ragtime-Pro",
   description:
-    "The Driving-Triad framework: Need, Opportunity, and Readiness — the three vertices that shape every AI roadmap.",
+    "The Product Modernization Triad: Boost Point, Opportunity, and Readiness — the three vertices that shape every AI-driven legacy modernization roadmap.",
 };
 
 const PILLARS = [
   {
     slug: "need",
-    title: "Need",
-    body: "What does the business actually require? We start by identifying the real operational or strategic need — not the flashiest technology.",
+    title: "Boost Point",
+    body: "Where AI can create the highest product value with minimal disruption — a workflow that can be automated, a module that can gain intelligence, or a knowledge domain that can be operationalized.",
   },
   {
     slug: "opportunity",
     title: "Opportunity",
-    body: "What AI solution and why? We select the best fit for the need, considering technological maturity, practical availability, and the risk appetite.",
+    body: "Which AI Upgrade Module fits the Boost Point best? We match each opportunity to the right AI solution — productivity features, workflow automation, RAG assistants, reasoning agents, or custom models.",
   },
   {
     slug: "readiness",
     title: "Readiness",
-    body: "Is the organization able to execute and sustain the solution? We assess skills, resources, data, culture, and governance before committing to a path.",
+    body: "How prepared the product is for integration — architecture, APIs, data quality, team skills, governance, and industry constraints, assessed before we commit to a path.",
   },
 ];
 
@@ -38,8 +38,8 @@ export default function MethodologyPage() {
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-7xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;Adopting AI is not simply a matter of choosing tools. It is a matter of
-            choosing direction.&rdquo;
+            &ldquo;Legacy modernization is not a matter of inspiration or experimentation. It
+            is a strategic discipline.&rdquo;
           </p>
         </div>
       </section>
@@ -70,22 +70,23 @@ export default function MethodologyPage() {
               />
             </div>
             <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              The <strong>Driving-Triad</strong> is a strategic framework built on three
-              vertices — <strong>Need</strong>, <strong>Opportunity</strong>, and{" "}
-              <strong>Readiness</strong>. Adopting AI is not about choosing tools — it is
-              about choosing direction. Without alignment, even promising pilots become
-              isolated experiments. The Driving-Triad is the compass ensuring that every
-              recommendation is checked against a real business need, the right-fit
-              opportunity, and the organization&apos;s actual readiness to execute — and it
-              adapts continuously as all three evolve.
+              The <strong>Product Modernization Triad</strong> is our strategic framework,
+              built on three vertices — <strong>Boost Point</strong>,{" "}
+              <strong>Opportunity</strong>, and <strong>Readiness</strong>. Modernizing a
+              legacy product is not a linear checklist — it is a strategic decision system.
+              Without alignment, even promising AI pilots become isolated experiments. The
+              Triad is the compass ensuring every recommendation is checked against where AI
+              can create the highest value, the AI Upgrade Module that fits best, and your
+              product&apos;s actual readiness to integrate it safely — and it is continuously
+              adapted by our Modernization Agent as your product evolves.
             </p>
           </div>
           <div className="flex w-64 shrink-0 flex-col items-center gap-1">
             <Image
-              src="/methodology-triad.png"
-              alt="Triangle diagram showing the Need, Opportunity, and Readiness triad"
-              width={1507}
-              height={1286}
+              src="/product_modernization_triad.svg"
+              alt="Triangle diagram showing the Boost Point, Opportunity, and Readiness triad"
+              width={1559}
+              height={1399}
               priority
               className="h-auto w-full"
             />
