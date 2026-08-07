@@ -47,7 +47,7 @@ export default function MethodologyPage() {
       <section className="mx-auto max-w-7xl px-6 pt-8 pb-12">
         <div className="flex flex-col items-center gap-12 text-center lg:flex-row lg:items-center lg:justify-center lg:gap-12">
           <Link
-            href="/engagement-model"
+            href="/methodology/process"
             className="group flex shrink-0 flex-col items-center gap-3"
           >
             <Image

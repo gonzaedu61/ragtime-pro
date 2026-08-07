@@ -8,9 +8,11 @@ Claude Code must maintain this document and ensure it always reflects the curren
 
 **Transitional note:** Home has been rebranded to Ragtime-Pro's AI-driven,
 legacy-software-modernization positioning. The remaining pages described below
-(About, The AI Dilemma, Solutions, Methodology, etc.) still reflect the prior
-general "SME AI adoption" positioning and copy, and will be reconciled page by
-page as each is rebranded.
+(About, The AI Dilemma, Solutions, Engagement Model, etc.) still reflect the
+prior general "SME AI adoption" positioning and copy, and will be reconciled
+page by page as each is rebranded. Our Methodology (including its new
+Modernization Journey subpage) has been rebranded; its Need/Opportunity/
+Readiness vertex subpages have not yet.
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -74,6 +76,7 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
   - Reasoning Agents — `/solutions/reasoning-agents`
   - Custom AI Models — `/solutions/custom-models`
 - Our Methodology — `/methodology`
+  - The Modernization Journey — `/methodology/process` (standalone route, linked from Our Methodology's "Check the steps ..." CTA; not in top nav)
   - Need — `/methodology/need` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
   - Opportunity — `/methodology/opportunity` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
   - Readiness — `/methodology/readiness` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
@@ -279,30 +282,33 @@ sidebar, cards, roadmap CTA.
 
 ---
 
-## PAGE 7 — OUR METHODOLOGY (Driving‑Triad)
+## PAGE 7 — OUR METHODOLOGY (Product Modernization Triad)
 
 ### Purpose
 Explain the strategic framework.
 
 ### Quote
-“Adopting AI is not simply a matter of choosing tools. It is a matter of choosing direction.”
+“Legacy modernization is not a matter of inspiration or experimentation. It is a strategic discipline.”
 
 ### Intro Text + Diagram + Steps CTA (below quote, above cards)
 A centered three-column row (stacks on mobile; vertically centered at `lg` and up).
 On the left, the Steps CTA — the `steps.svg` icon above a "Check the steps ..." link
-button, → `/engagement-model`, pointing readers to the six-step engagement model. In
-the middle, a video icon (`RoadmapVideoButton`, playing `Our_Methodology.mp4`) beside
-intro text explaining the Driving-Triad framework — Need, Opportunity, and Readiness —
-and how it keeps every recommendation checked against real business need, right-fit
-opportunity, and actual readiness, adapting continuously as all three evolve. The first
-mention of "Driving-Triad", "Need", "Opportunity", and "Readiness" in this text is
-bolded. On the right, the triangle diagram (`methodology-triad.png`) with its caption
+button, → `/methodology/process`, pointing readers to the seven-step Modernization
+Journey (see PAGE 7A). In the middle, a video icon (`RoadmapVideoButton`, playing
+`Our_Methodology.mp4`) beside intro text explaining the Product Modernization Triad —
+Boost Point, Opportunity, and Readiness — and how it keeps every recommendation checked
+against where AI can create the highest value, the AI Upgrade Module that fits best, and
+the product's actual readiness to integrate it safely, continuously adapted by the
+Modernization Agent as the product evolves. The first mention of "Product Modernization
+Triad", "Boost Point", "Opportunity", and "Readiness" in this text is bolded. On the
+right, the triangle diagram (`product_modernization_triad.svg`) with its caption
 ("The roadmap adapts dynamically as these three vertices evolve.") underneath. The
 Steps CTA and triad columns are `shrink-0` so only the intro paragraph reflows if the
 row runs tight on width.
 
 ### Three Pillars
-1. Need — links to `/methodology/need`
+1. Boost Point — links to `/methodology/need` *(page still titled "Need" Vertex, pending
+   its own rebrand — see §1 transitional note)*
 2. Opportunity — links to `/methodology/opportunity`
 3. Readiness — links to `/methodology/readiness`
 
@@ -312,6 +318,43 @@ underneath (`z-0`) to its own detail page, and `pointer-events-none` on the titl
 on it still reach that overlay link. The Opportunity card's body text contains its own
 nested `<Link>` (the phrase "AI Solution" → `/solutions`), rendered above the overlay
 (`z-10`) so it stays independently clickable — see §10.3 for this pattern.
+
+---
+
+## PAGE 7A — MODERNIZATION JOURNEY
+
+### Purpose
+Lay out the seven-step process behind every modernization engagement, sourced from
+the authoritative modernization spec's "Our Methodology" chapter (Section 4, "The
+Modernization Journey: A Structured Process").
+
+### Quote
+“This methodology transforms modernization from a risky leap into a guided evolution.”
+
+### Intro Text (below quote, above steps)
+A centered paragraph (no video — no dedicated video asset exists for this page yet)
+explaining that legacy modernization is a strategic discipline, not a matter of
+inspiration or experimentation, and that the methodology follows a structured,
+repeatable sequence powered by the Modernization Agent and executed by the
+consultants.
+
+### Seven Steps
+1. Product Discovery & Context Mapping
+2. Modernization Opportunity Analysis
+3. Modernization Sequencing
+4. AI Solution Category Alignment
+5. Risk & Compliance Assessment
+6. Modernization Blueprint Creation
+7. Guided Implementation
+
+Same visual pattern as the Engagement Model's six-step grid (icon + title + body per
+card, `<ol>` grid, no per-card links). Steps 6 and 7 currently reuse `step_6.svg` —
+only six numbered step icons (`step_1.svg`–`step_6.svg`) exist in `public/`; a
+dedicated `step_7.svg` has not been provided yet.
+
+### Back CTA
+Below the steps grid, the `roadmap.svg` icon above a "Back to Our Methodology …" link
+button → `/methodology`.
 
 ---
 
