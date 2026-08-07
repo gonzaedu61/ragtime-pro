@@ -11,6 +11,10 @@ export const metadata: Metadata = {
 
 const CARDS = [
   {
+    title: "Enhanceable User Experiences",
+    body: "A user experience that feels dated or effortful — ready for an AI-assisted layer that makes it faster and more intuitive.",
+  },
+  {
     title: "Automatable Workflows",
     body: "A manual, repetitive workflow that can be handed to AI — reducing friction without touching the surrounding architecture.",
   },
@@ -38,7 +42,7 @@ export default function BoostPointPage() {
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;Where AI can create the highest product value with minimal
+            &ldquo;The point in the product where AI can create high value with minimal
             disruption.&rdquo;
           </p>
         </div>
@@ -64,12 +68,20 @@ export default function BoostPointPage() {
         </div>
 
         <div className="mx-auto grid max-w-4xl gap-8 px-6 sm:grid-cols-2 lg:col-start-2 lg:row-start-2 lg:-mt-12">
-          {CARDS.map((card) => (
-            <div key={card.title} className="rounded-lg bg-light-grey p-6 text-center">
-              <h2 className="font-heading text-lg font-semibold text-navy">{card.title}</h2>
-              <p className="mt-2 font-body text-sm text-charcoal">{card.body}</p>
-            </div>
-          ))}
+          {CARDS.map((card, index) => {
+            const isLast = index === CARDS.length - 1;
+            return (
+              <div
+                key={card.title}
+                className={`rounded-lg bg-light-grey p-6 text-center ${
+                  isLast ? "mx-auto w-full sm:col-span-2 sm:w-[calc((100%-2rem)/2)]" : ""
+                }`}
+              >
+                <h2 className="font-heading text-lg font-semibold text-navy">{card.title}</h2>
+                <p className="mt-2 font-body text-sm text-charcoal">{card.body}</p>
+              </div>
+            );
+          })}
         </div>
 
         <div className="mx-auto mt-10 flex max-w-4xl justify-center px-6 lg:col-start-3 lg:row-start-1 lg:mt-0 lg:items-center lg:justify-center lg:px-0">
@@ -82,7 +94,7 @@ export default function BoostPointPage() {
               className="h-32 w-auto"
             />
             <span className="whitespace-nowrap rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
-              Setting the roadmap …
+              Understand the Modernization-Triad ...
             </span>
           </Link>
         </div>

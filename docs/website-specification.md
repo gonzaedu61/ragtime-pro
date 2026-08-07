@@ -371,7 +371,7 @@ Explain the first vertex of the Product Modernization Triad: the modernization h
 where AI can create the highest product value with minimal disruption.
 
 ### Quote
-“Where AI can create the highest product value with minimal disruption.”
+“The point in the product where AI can create high value with minimal disruption.”
 
 ### Main Text (below quote, above cards)
 A centered paragraph explaining that a Boost Point is a modernization hotspot identified
@@ -383,21 +383,23 @@ the flashiest technology. The first mention of "Boost Point" is bolded. Fixed he
 (`lg:h-56 lg:overflow-hidden`) so the flanking nav/CTA beside it land at the same vertical
 position regardless of paragraph length — see Flanking Nav/CTA.
 
-### Four Cards
-1. Automatable Workflows
-2. Modules Ready for Intelligence
-3. Operationalizable Knowledge
-4. Augmentable Decisions
+### Five Cards
+1. Enhanceable User Experiences
+2. Automatable Workflows
+3. Modules Ready for Intelligence
+4. Operationalizable Knowledge
+5. Augmentable Decisions
 
-Sourced from the PDF's "Examples of Boost Points" list (Page 12), which has a 5th example
-("a user experience that can be enhanced") not included here to preserve the existing
-2×2 card grid.
+Sourced from the PDF's full "Examples of Boost Points" list (Page 12). The grid is
+`sm:grid-cols-2`, so cards 1–4 form two rows of two; the 5th card spans the full row
+and centers itself at a single column's width (`sm:col-span-2` plus a matching
+`sm:w-[calc((100%-2rem)/2)]`) rather than sitting flush-left under column 1.
 
 ### Flanking Nav/CTA (left/right of the main text, `lg` and up)
 Left: `VertexTriadNav` — a small Product Modernization Triad diagram highlighting the
 current vertex, with the other two vertices clickable (hover swaps to a highlighted icon)
-to jump directly to their pages. Right: the `roadmap.svg` icon above a "Setting the
-roadmap …" link button → `/methodology`. Layout is a
+to jump directly to their pages. Right: the `roadmap.svg` icon above an "Understand the
+Modernization-Triad ..." link button → `/methodology`. Layout is a
 `lg:grid lg:grid-cols-[calc(50%-26.5rem)_1fr_calc(50%-26.5rem)]` grid (same column widths
 as the flanking-CTA pattern elsewhere), with `pt-8` added to the section so row 1 doesn't
 sit flush against the quote banner above. The nav, Main Text, and the roadmap CTA all sit
