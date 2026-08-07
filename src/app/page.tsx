@@ -6,28 +6,28 @@ import RotatingHeadline from "@/components/RotatingHeadline";
 
 const VALUE_BLOCKS = [
   {
-    title: "We Bring Clarity",
+    title: "Modernization Is Complex — We Bring Structure",
     description:
-      "Cut through the noise of tools, vendors, and hype with a clear, structured path forward.",
-    href: "/ai-dilemma",
-  },
-  {
-    title: "Structured Roadmaps",
-    description:
-      "Replace scattered experiments with a deliberate, sequenced plan tied to real business value. No random pilots.",
+      "We analyze your product end-to-end, map its architecture, and identify modernization Boost Points that deliver maximum value with minimum disruption.",
     href: "/methodology",
   },
   {
-    title: "Vendor-Neutral Guidance",
+    title: "Powered by Our Modernization Agent",
     description:
-      "We represent your interests, not a platform's — every recommendation is judged on fit, not commission.",
+      "Our proprietary Modernization Agent analyzes your product end-to-end, identifies Boost Points, and generates the AI Upgrade Modules our consultants develop and integrate — AI to modernize AI.",
     href: "/about",
   },
   {
-    title: "EU Compliance Support",
+    title: "AI Upgrade Modules",
     description:
-      "Adopt AI with confidence, backed by regulatory-aware guidance built for European SMEs.",
-    href: "/eu-ai-act-compliance",
+      "We integrate targeted AI capabilities — RAG assistants, workflow intelligence, reasoning agents — directly into your product, aligned with your architecture and customer needs.",
+    href: "/solutions",
+  },
+  {
+    title: "Incremental Modernization, Not Big-Bang Rewrites",
+    description:
+      "Guided by our Product-Modernization Triad — Boost Point, Opportunity, and Readiness — we sequence each upgrade step by step, ensuring stability, continuity, and customer trust.",
+    href: "/engagement-model",
   },
 ];
 
