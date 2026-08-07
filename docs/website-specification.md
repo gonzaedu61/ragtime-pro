@@ -6,6 +6,12 @@ Claude Code must maintain this document and ensure it always reflects the curren
 
 # 1. Website Purpose & Positioning
 
+**Transitional note:** Home has been rebranded to Ragtime-Pro's AI-driven,
+legacy-software-modernization positioning. The remaining pages described below
+(About, The AI Dilemma, Solutions, Methodology, etc.) still reflect the prior
+general "SME AI adoption" positioning and copy, and will be reconciled page by
+page as each is rebranded.
+
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
 - Coaching  
@@ -77,7 +83,9 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
 - Contact — `/contact`
 - Privacy Policy — `/privacy-policy`
 - Terms of Service — `/terms-of-service`
-- EU AI Act Compliance — `/eu-ai-act-compliance` *(top-level nav item; also linked from the Home "EU Compliance Support" value block — not linked from the footer)*
+- EU AI Act Compliance — `/eu-ai-act-compliance` *(top-level nav item only — the Home
+  page no longer links here after the Ragtime-Pro rebrand dropped the "EU Compliance
+  Support" value block; not linked from the footer)*
 
 ---
 
@@ -86,35 +94,37 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
 ## PAGE 1 — HOME
 
 ### Purpose
-Immediate clarity: what The BrokerAI does, for whom, and why it matters.
+Immediate clarity: what Ragtime-Pro does, for whom, and why it matters.
 
 ### Hero Section
 - **Headline:** A `RotatingHeadline` component (`src/components/RotatingHeadline.tsx`)
   cycles through five two-line phrases every 8 seconds, cross-fading between them, and
   starts on a random phrase each time the component mounts (page load or return
-  navigation to `/`) rather than always opening on the same one: "If your product looks
-  like falling behind… we modernize it", "Your software doesn't need a rewrite… It needs
-  a new rhythm.", "If daily operations lock your resources… we do it for them", "If it
-  risks becoming replaceable… we make it indispensable again", "If AI modernization
-  feels overwhelming… we make it simple, structured, and real".
-- **Subheadline:** A safe, structured, and high‑impact approach to AI adoption for European SMEs.  
+  navigation to `/`) rather than always opening on the same one: "If your product seems
+  to be falling behind… we bring it back to the front", "Your software doesn't need a
+  rewrite… It needs a new rhythm.", "If daily operations lock your resources… we bring
+  the capacity to make it happen.", "If customer satisfaction is losing momentum… we
+  help your product win their hearts again", "If AI modernization feels overwhelming…
+  we make it simple and doable".
+- **Subheadline:** A safe, structured, and high‑impact approach to AI‑driven
+  modernization for legacy software products.
 - **CTAs:**  
-  - Book an Intro Call → `/contact`
+  - Book an Intro Call → `/contact` (with the `discovery_call.svg` icon displayed
+    beneath the button)
   - "Watch the AI-Roadmap-Guide video" — a `RoadmapVideoButton` that opens the AI
     Roadmap Guide video in a modal (not a download)
 
 ### Hero Visual
-The Ragtime-Pro logo (`Ragtime-Pro_Logo.png` — the equalizer-bar icon paired with the
-"RAGTIME-PRO" wordmark) as a 3D flip-animated central motif (350×169, sized to the
-logo's real aspect ratio), linking to `/about`.
+Removed. The Home hero no longer includes a separate large logo motif; the
+flip-animated logo lockup now appears only in the navbar (see §10.1).
 
 ### Key Value Blocks
 Each block links to the page that expands on it. Grid order (2 columns: top-left,
 top-right, bottom-left, bottom-right):
-1. We Bring Clarity → `/ai-dilemma`
-2. Structured Roadmaps → `/methodology`
-3. Vendor‑Neutral Guidance → `/about`
-4. EU Compliance Support → `/eu-ai-act-compliance`
+1. We Bring Structure → `/methodology`
+2. Our Modernization Agent → `/about`
+3. Incremental Modernization → `/engagement-model`
+4. AI Upgrade Modules → `/solutions`
 
 ---
 
@@ -539,8 +549,10 @@ info@thebrokerAI.tech
 ## PAGE 16 — EU AI ACT COMPLIANCE
 
 ### Purpose
-Expand on the Home page's "EU Compliance Support" value block; explain what the Act
-requires and how The BrokerAI builds compliance into the roadmap.
+Explain what the Act requires and how The BrokerAI builds compliance into the
+roadmap. Formerly expanded on a dedicated Home "EU Compliance Support" value
+block; Home no longer includes one after the Ragtime-Pro rebrand, so this page
+is now reached only via the top nav.
 
 ### Quote
 “Turning AI compliance obligations into a manageable, structured process.”
@@ -832,7 +844,7 @@ Claude must:
 # 10. Component Library
 
 ## 10.1 Current Components
-- **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `Ragtime-Pro_Logo.png` lockup (icon + wordmark, no separate text label), flip-animated in a 40×83px box sized to its aspect ratio.
+- **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `Ragtime-Pro_Logo.png` lockup (icon + wordmark, no separate text label), flip-animated in a 72×149px box sized to its aspect ratio.
 - **Footer** (`src/components/Footer.tsx`) — footer navigation (Privacy Policy, Terms of Service, Contact) and copyright line. No LinkedIn link yet — see §2.2.
 - **RotatingHeadline** (`src/components/RotatingHeadline.tsx`) — client component cycling through 5 two-line phrases on the Home hero, one every 8 seconds with a cross-fade transition. Starts on a random phrase on each mount (not always the first) so repeat visits and refreshes don't always open on the same line.
 - **RoadmapVideoButton** (`src/components/RoadmapVideoButton.tsx`) — reusable video-icon trigger; renders a small icon (optionally with a text label) that opens a centered modal video player animating in/out from the icon's screen position. Takes a `src` (defaults to the AI Roadmap Guide video), an optional `lowBandwidthSrc` for connection-aware source switching, and a `blueHoverIcon` toggle (icon swaps to an electric-blue variant on hover; disabled on Home and Start Your Journey, where a size-only hover effect is used instead). Used on: Home, Start Your Journey (two instances), The AI Dilemma, Core Barriers, Coaching, About, AI Solution Categories, Our Methodology, Engagement Model, and every Solution Class detail page (via `SolutionDetail`).
