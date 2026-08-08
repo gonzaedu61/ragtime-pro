@@ -21,25 +21,25 @@ export const SOLUTIONS: SolutionClass[] = [
     teaser:
       "Small improvements that create immediate value — quick wins that remove everyday friction without touching the architecture.",
     definition:
-      "AI tools that amplify individual output — drafting, summarizing, researching, and organizing work faster than manual effort allows.",
+      "Small, safe, high-impact AI enhancements that improve user productivity without destabilizing the product.",
     overview:
-      "AI tools that amplify individual output — drafting, summarizing, researching, and organizing work faster than manual effort allows. For SMEs, this is where AI adoption typically begins: immediate, low-risk productivity gains that require no changes to core systems or processes, and no disruption to how the business already runs. It's the lowest-risk entry point in the roadmap, building the team's familiarity and confidence with AI before moving on to automation or custom-built solutions.",
+      "Modernizing a legacy product doesn't begin with deep architectural change — it begins with small, safe, high-impact enhancements that improve user productivity without destabilizing what already works. Legacy products often carry workflows designed years ago, before modern UX and AI assistance existed, so users still perform repetitive tasks, search through long lists, and navigate complex forms by hand. These enhancements are the lowest-risk modernization category, yet they deliver immediate value: they prove modernization is possible, reduce internal resistance, and build the trust that carries a product into deeper modernization layers.",
     icon: "/personal_productivity.svg",
     iconHover: "/personal_productivity_blue.svg",
     video: "/Personal_Productivity.mp4",
-    quote: "The easiest and fastest way to experience tangible AI benefits.",
+    quote: "Small improvements that create immediate value.",
     smeValue:
-      "Immediate, low-risk productivity gains without changing core systems or processes.",
+      "Immediate, low-risk productivity gains — faster workflows, fewer manual steps, and visible proof that modernization is underway, without touching core architecture.",
     examples: [
-      "AI writing assistants",
-      "Meeting summarizers",
-      "Email drafting tools",
-      "Research copilots",
+      "Smart text generation",
+      "Automated summaries",
+      "Intelligent search",
+      "Guided data entry",
     ],
     readinessRequirements:
-      "Basic digital literacy and willingness to adopt new daily tools; minimal IT involvement.",
+      "Safe by design — no core logic changes, no deep refactoring, and no major UI redesign required, making this the easiest entry point regardless of your product's current architecture.",
     roadmapFit:
-      "Often the first, lowest-risk step in an AI roadmap — building familiarity before tackling automation or custom builds.",
+      "Category 1 in the modernization spectrum — the foundation that prepares your product for workflow automation, RAG assistants, reasoning agents, and custom models.",
   },
   {
     slug: "workflow-automation",
@@ -47,25 +47,25 @@ export const SOLUTIONS: SolutionClass[] = [
     teaser:
       "AI that removes friction from everyday operations — automating multi-step processes for real operational efficiency.",
     definition:
-      "AI embedded directly into existing business processes to remove repetitive manual steps.",
+      "AI-driven intelligence woven into the product's operational backbone, removing friction and accelerating user workflows.",
     overview:
-      "AI embedded directly into existing business processes to remove repetitive manual steps. Traditional automation handles predictable, rule-based tasks; AI-enhanced automation adds reasoning, classification, and decision-making at key points. By automating tasks like invoice processing, lead routing, scheduling, and document classification, it frees staff time from repetitive work and reduces error rates across day-to-day operations.",
+      "Legacy products often contain workflows designed in a different era — when automation was limited and operational efficiency wasn't yet a competitive differentiator. Over time these workflows accumulate friction: repetitive manual steps, multi-screen processes, rigid rule-based logic, and slow validation cycles. Intelligent Workflow Automations introduce AI-driven intelligence directly into the product's operational backbone, removing that friction and accelerating how users work. This is often the highest-ROI modernization category, because it directly impacts operational efficiency, support load, error rates, and customer retention — this is where modernization becomes visible, valuable, and strategically meaningful.",
     icon: "/intelligent_workflows.svg",
     iconHover: "/intelligent_workflows_blue.svg",
     video: "/Intelligent_Workflows.mp4",
-    quote: "Automations, … yes. — But smarter ones.",
+    quote: "AI that removes friction from everyday operations.",
     smeValue:
-      "Frees staff time from repetitive tasks and reduces error rates in operational workflows.",
+      "Processes become faster, smoother, and more reliable — support tickets drop and customers start to perceive the product as modern and competitive.",
     examples: [
-      "Automated invoice processing",
-      "Lead routing",
-      "Scheduling",
-      "Document classification",
+      "Automated validation",
+      "Rule-based decision support",
+      "Intelligent routing",
+      "Automated document processing",
     ],
     readinessRequirements:
-      "Documented (or discoverable) processes and the willingness to standardize workflows before automating them.",
+      "Deployable one workflow at a time — no core logic replacement, no deep refactoring, and no disruption to workflows that already work.",
     roadmapFit:
-      "A natural second step once teams are comfortable with AI tools, targeting specific operational bottlenecks.",
+      "Category 2 in the modernization spectrum — builds on Personal Productivity and lays the structural foundation for RAG assistants and reasoning agents.",
   },
   {
     slug: "rag-solutions",
@@ -73,25 +73,25 @@ export const SOLUTIONS: SolutionClass[] = [
     teaser:
       "AI that operationalizes your product's knowledge — turning documentation into a queryable assistant that leverages what you already know.",
     definition:
-      "AI becomes a knowledge assistant that operationalizes the organization's collective intelligence.",
+      "AI that turns your product's documentation, historical data, and domain expertise into a living, in-product knowledge assistant.",
     overview:
-      "AI becomes a knowledge assistant that operationalizes the organization's collective intelligence. It is the moment when AI begins to understand the business, not just automate its tasks. By grounding assistants in internal documentation, RAG solutions make the organization's own knowledge instantly searchable and usable, cutting the time lost hunting for answers. It's a mid-roadmap step: once workflows are automated, RAG unlocks the knowledge base sitting behind them.",
+      "RAG represents a pivotal moment in any product's modernization journey — the point where it stops being a static tool and starts behaving like an intelligent assistant, capable of understanding context and retrieving relevant knowledge. Legacy products often sit on extensive documentation, domain-specific rules, and tribal knowledge held by long-time engineers — valuable, but inaccessible. Users must search manually, ask colleagues, or rely on support teams. RAG solves this by embedding that knowledge directly into the product, so users no longer search for answers — the product provides them. For many vendors, this is the single most transformative modernization step.",
     icon: "/RAG.svg",
     iconHover: "/RAG_blue.svg",
     video: "/RAG_Solutions.mp4",
-    quote:
-      "Combine AI reasoning with the pulling of the right information from your trusted sources.",
+    quote: "AI that operationalizes your product's knowledge.",
     smeValue:
-      "Makes internal knowledge instantly searchable and understandable, revamping the organization's collective intelligence.",
+      "Users solve problems faster and rely less on support — RAG is often the moment customers say the product finally feels modern.",
     examples: [
-      "Internal knowledge assistants",
-      "Customer support copilots",
-      "Policy Q&A tools",
+      "Product knowledge assistants",
+      "Troubleshooting copilots",
+      "Onboarding assistants",
+      "Domain-specific Q&A",
     ],
     readinessRequirements:
-      "Accessible internal knowledge, written or verbal, which can be documented and organized with a clear data governance approach.",
+      "Deployable module by module and restricted to low-risk knowledge categories at first — no core logic changes, and compliance-aligned from day one.",
     roadmapFit:
-      "Mid-roadmap — once workflows are automated, RAG solutions unlock the organization's existing knowledge base.",
+      "Category 3 in the modernization spectrum — the bridge between workflow automation and true intelligence, preparing the product for reasoning agents and custom models.",
   },
   {
     slug: "reasoning-agents",
@@ -99,50 +99,51 @@ export const SOLUTIONS: SolutionClass[] = [
     teaser:
       "AI that guides users through complex decisions — real-time intelligence for multi-step choices as they happen.",
     definition:
-      "AI systems that plan and execute multi-step tasks with a degree of autonomy, within defined guardrails.",
+      "AI that interprets, evaluates, and guides users through complex, multi-step decisions — not just retrieving information, but applying it.",
     overview:
-      "AI systems that plan and execute multi-step tasks with a high degree of autonomy, but still within clearly defined guardrails. They elevate AI from being a supportive tool to become a strategic co-worker. They deliver both immediate cross-domain insights from open questions and the execution of complex operational tasks, handling multi-step work that goes beyond single-prompt automation, with human oversight built in wherever it's needed.",
+      "As products evolve through productivity enhancements, workflow automation, and RAG-based knowledge assistants, they reach a critical modernization milestone: the ability to reason. Reasoning Agents represent the moment when the product stops simply providing information and begins interpreting, evaluating, and guiding users through complex decisions. Legacy products often support workflows that require multi-step decision sequences, conditional logic, and domain-specific expertise — territory users have historically navigated manually, through experience, documentation, or trial-and-error, leading to inconsistent decisions and higher error rates. Reasoning Agents embed that intelligence directly into the workflow, turning the product from a tool into a guide.",
     icon: "/reasoning_agent.svg",
     iconHover: "/reasoning_agent_blue.svg",
     video: "/Reasoning_Agents.mp4",
-    quote:
-      "Bring real-time visibility and execute complex, autonomous multi-task operations across the business.",
+    quote: "AI that guides users through complex decisions.",
     smeValue:
-      "Handles complex, multi-step work that goes beyond single-prompt automation, with human oversight where needed.",
+      "Users make better decisions faster and with fewer errors — Reasoning Agents often become a product's most celebrated modernization feature.",
     examples: [
-      "Multi-step research agents",
-      "Autonomous scheduling and coordination",
-      "Autonomous smart customer interaction",
+      "Compliance guidance agents",
+      "Configuration assistants",
+      "Diagnostic agents",
+      "Scenario evaluation tools",
     ],
     readinessRequirements:
-      "Mature governance, clear escalation rules, and monitoring in place before granting autonomy.",
+      "Operates within defined decision boundaries and can be deployed workflow by workflow, monitored and audited throughout — no core logic changes required.",
     roadmapFit:
-      "A later-stage roadmap step, layered on top of workflow automation and RAG once trust and governance are established.",
+      "Category 4 in the modernization spectrum — the bridge between knowledge and intelligence, turning a knowledge assistant into a decision partner and preparing the product for custom models.",
   },
   {
     slug: "custom-models",
     title: "Custom AI Models",
     teaser:
       "AI that becomes part of your product's identity — competitive differentiation trained on your own data and workflows.",
-    definition: "Purpose-built AI models trained or fine-tuned on your own data and domain.",
+    definition:
+      "AI models trained or fine-tuned on your own domain, data, and workflows — intelligence no competitor can replicate.",
     overview:
-      "Purpose-built AI models trained or fine-tuned on your own data and domain. This is where AI stops being something the business merely uses and becomes something it creates and owns. Custom models deliver capabilities off-the-shelf tools simply can't, tailored precisely to a proprietary use case. It's the most advanced stage of the roadmap, reserved for cases where standard tools fall short of what the business actually needs.",
+      "Custom AI Models represent the fifth and deepest category in the modernization spectrum — the point where AI stops being an enhancement, an assistant, or a reasoning layer, and becomes a core capability of the product itself. Trained on your domain, your proprietary data, your historical patterns, and your product's unique logic, custom models give your product intelligence that no competitor can replicate, because the model is built from your product's own DNA. Legacy products often operate in specialized domains — manufacturing, logistics, finance, healthcare — where patterns and rules run deeper than any generic AI model can fully understand. This is modernization at its most transformative.",
     icon: "/custom_models.svg",
     iconHover: "/custom_models_blue.svg",
     video: "/Custom_AI_Models.mp4",
-    quote:
-      "Intelligence built around unique business patterns — AI is not just used. It is created.",
+    quote: "AI that becomes part of your product's identity.",
     smeValue:
-      "Delivers capabilities that off-the-shelf tools can't provide, tailored to a proprietary use case, and built as a strategic asset which strengthens long-term competitive advantage.",
+      "The product gains capabilities competitors cannot replicate — a defensible, domain-specific advantage that becomes the product's signature feature.",
     examples: [
-      "Domain-specific classification models",
-      "Proprietary forecasting models",
-      "Models fine-tuned on specialized industry data",
+      "Domain-specific prediction models",
+      "Anomaly detection",
+      "Forecasting engines",
+      "Custom embeddings",
     ],
     readinessRequirements:
-      "Sufficient proprietary data, technical capacity (in-house or via The BrokerAI's network), and a clear ROI case.",
+      "Requires high-quality proprietary data and controlled, continuously monitored integration — typically the most advanced-readiness category, deployed in low-risk contexts first.",
     roadmapFit:
-      "The most advanced roadmap stage, reserved for cases where standard tools can't meet the need.",
+      "Category 5 — the highest level of modernization maturity, building on every category before it. This is where the product becomes AI-native, not just AI-enhanced.",
   },
 ];
 

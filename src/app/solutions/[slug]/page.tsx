@@ -20,7 +20,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${solution.title} | The BrokerAI`,
+    title: `${solution.title} | Ragtime-Pro`,
     description: solution.definition,
   };
 }

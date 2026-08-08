@@ -13,9 +13,8 @@ legacy-software-modernization positioning. The remaining pages described below
 rebranded. Our Methodology (including its new Modernization Journey subpage) has been
 rebranded, as have the Boost Point (routed at `/methodology/boost-point` — see PAGE 8),
 Opportunity (see PAGE 9), and Readiness (see PAGE 10) vertex subpages — all three
-vertices are now rebranded. Solutions is partially rebranded — its five overview-card teasers now reflect the
-Opportunity vertex's AI Upgrade Module framing, but its titles, quote/intro text, and
-detail-page content have not (see PAGE 5).
+vertices are now rebranded. Solutions is also fully rebranded — overview page, card
+teasers, and all five detail pages (see PAGE 5 and PAGE 6).
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -244,14 +243,16 @@ intro text + icon/button groups on the other AI Roadmap pages.
 4. Reasoning Agents  
 5. Custom AI Models  
 
-**Partial rebrand:** each card's `teaser` in `src/lib/solutions.ts` (the overview grid
-copy) now merges this chapter's own PDF tagline (what the category is — e.g. "AI that
-operationalizes your product's knowledge") with the outcome phrase from the Product
-Modernization Triad's Opportunity vertex (why you'd pick it — e.g. "knowledge leverage";
-see PAGE 9), so each teaser reads as definition + outcome in one line. Titles, the page's
-own quote/intro text, and every solution's deeper detail-page content (`definition`,
-`overview`, `quote`, `smeValue`, `examples`, `readinessRequirements`, `roadmapFit`) still
-reflect the prior general "SME AI adoption" positioning and have not been rebranded yet.
+**Rebrand status:** this page is fully rebranded. Its quote and intro text are drawn from
+the PDF's Page 5 opening framing, plus an original quote about choosing the right category
+rather than a single AI solution. Each card's `teaser` in `src/lib/solutions.ts` (the
+overview grid copy) merges this chapter's own PDF tagline (what the category is — e.g.
+"AI that operationalizes your product's knowledge") with the outcome phrase from the
+Product Modernization Triad's Opportunity vertex (why you'd pick it — e.g. "knowledge
+leverage"; see PAGE 9), so each teaser reads as definition + outcome in one line. Every
+solution's deeper detail-page content (`definition`, `overview`, `quote`, `smeValue`,
+`examples`, `readinessRequirements`, `roadmapFit`) is rebranded too, sourced from the
+PDF's per-category chapters (see PAGE 6).
 
 ---
 
@@ -289,9 +290,18 @@ sidebar, cards, roadmap CTA.
 - **Right, row 2 — Roadmap CTA:** the `roadmap.svg` icon above a "Setting the
   roadmap …" link button → `/methodology`.
 
+### Content Status
+All five entries' `quote`, `definition`, `overview`, `smeValue`, `examples`,
+`readinessRequirements`, and `roadmapFit` fields are rebranded, sourced from the PDF's
+per-category chapters (Pages 6–10: Personal Productivity Enhancements, Intelligent
+Workflow Automations, RAG Solutions, Reasoning Agents, Custom AI Models). Each `quote`
+matches the category's Page 5 tagline; `roadmapFit` names its Category N position in the
+five-category spectrum. Titles and slugs are unchanged. The generated `<title>` now reads
+`{title} | Ragtime-Pro`.
+
 ### Example (RAG Solutions)
-- Quote: “Combine AI reasoning with the pulling of the right information from your trusted sources.”
-- Overview: “AI becomes a knowledge assistant that operationalizes the organization's collective intelligence. It is the moment when AI begins to understand the business, not just automate its tasks. By grounding assistants in internal documentation, RAG solutions make the organization's own knowledge instantly searchable and usable, cutting the time lost hunting for answers. It's a mid-roadmap step: once workflows are automated, RAG unlocks the knowledge base sitting behind them.”
+- Quote: “AI that operationalizes your product's knowledge.”
+- Overview: “RAG represents a pivotal moment in any product's modernization journey — the point where it stops being a static tool and starts behaving like an intelligent assistant, capable of understanding context and retrieving relevant knowledge. Legacy products often sit on extensive documentation, domain-specific rules, and tribal knowledge held by long-time engineers — valuable, but inaccessible. Users must search manually, ask colleagues, or rely on support teams. RAG solves this by embedding that knowledge directly into the product, so users no longer search for answers — the product provides them. For many vendors, this is the single most transformative modernization step.”
 
 ---
 
