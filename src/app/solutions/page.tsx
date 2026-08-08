@@ -6,9 +6,9 @@ import RoadmapVideoButton from "@/components/RoadmapVideoButton";
 import { SOLUTIONS } from "@/lib/solutions";
 
 export const metadata: Metadata = {
-  title: "AI Solution Categories | The BrokerAI",
+  title: "AI Solution Categories | Ragtime-Pro",
   description:
-    "Five classes of AI solutions for SMEs: personal productivity, workflow automation, RAG, reasoning agents, and custom AI models.",
+    "Five AI Solution Categories for legacy software modernization: personal productivity, workflow automation, RAG, reasoning agents, and custom AI models.",
 };
 
 export default function SolutionsPage() {
@@ -21,8 +21,8 @@ export default function SolutionsPage() {
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-7xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white lg:whitespace-nowrap">
-            &ldquo;AI adoption is not a binary choice. It is a path to select the right
-            solution at the right time.&rdquo;
+            &ldquo;There is no single AI solution — only the right category for the right
+            challenge.&rdquo;
           </p>
         </div>
       </section>
@@ -38,16 +38,16 @@ export default function SolutionsPage() {
               />
             </div>
             <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              A five-tier model for matching the right kind of AI to the right problem — from
-              personal productivity to custom models. AI isn&apos;t a single technology or
-              product category; it&apos;s a broad ecosystem of capabilities, each solving
-              different problems, each requiring a different level of readiness, and each
-              offering a different form of value. Without a structured map, organizations often start in
-              the wrong place — testing whatever tool is easiest to try rather than the one
-              aligned with their most pressing need. The five classes below organize that
-              landscape by complexity, integration, and strategic impact, so you can see not
-              just what&apos;s possible, but where to begin based on your own readiness and
-              priorities.
+              Modernizing a legacy software product is not a single leap — it is a
+              structured progression. Different products, architectures, and customer
+              bases require different modernization intensities, so we organize
+              modernization into five AI Solution Categories, each a distinct layer of
+              capability, complexity, and value. Each category can be integrated
+              incrementally, and is analyzed and sequenced by our Modernization Agent to
+              ensure safe integration into your legacy architecture.
+              These categories are not a menu of features to pick from — they are
+              carefully crafted into a roadmap, letting you modernize confidently without
+              overwhelming your team or destabilizing your product.
             </p>
           </div>
           <Link href="/methodology" className="group flex flex-col items-center gap-4">

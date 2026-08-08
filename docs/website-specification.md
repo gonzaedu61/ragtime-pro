@@ -220,19 +220,20 @@ AI Dilemma and Core Barriers pages' intro text + icon/button groups.
 ## PAGE 5 — AI SOLUTION CATEGORIES
 
 ### Purpose
-Introduce the 5‑tier model.
+Introduce the five AI Solution Categories as a modernization roadmap, not a menu.
 
 ### Quote
-“AI adoption is not a binary choice. It is a path to select the right solution at the
-right time.” *(kept on one line via `lg:whitespace-nowrap` on wide viewports)*
+“There is no single AI solution — only the right category for the right challenge.”
+*(kept on one line via `lg:whitespace-nowrap` on wide viewports)*
 
 ### Intro Text + Icon/CTA (below quote, above cards)
 A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `AI_Solutions.mp4`) beside intro text summarizing the
-five-tier framing plus the AI Roadmap Guide's "AI Solution Classes" section — AI as a broad
-ecosystem of capabilities rather than one technology, why organizations without a
-structured map start in the wrong place, and how the five classes organize the landscape by
-complexity, integration, and strategic impact. On the right, a roadmap icon (`roadmap.svg`)
+(`RoadmapVideoButton`, playing `AI_Solutions.mp4`) beside intro text explaining that
+different products, architectures, and customer bases require different modernization
+intensities, so modernization is organized into five AI Solution Categories — each a
+distinct layer of capability, complexity, and value, integrable incrementally, and
+sequenced by the Modernization Agent — not a menu of features to pick from, but
+carefully crafted into a roadmap. On the right, a roadmap icon (`roadmap.svg`)
 above a "Setting the roadmap …" link button → `/methodology`. Same layout pattern as the
 intro text + icon/button groups on the other AI Roadmap pages.
 
@@ -244,13 +245,13 @@ intro text + icon/button groups on the other AI Roadmap pages.
 5. Custom AI Models  
 
 **Partial rebrand:** each card's `teaser` in `src/lib/solutions.ts` (the overview grid
-copy) has been aligned with the Product Modernization Triad's Opportunity vertex — quick
-wins, operational efficiency, knowledge leverage, real-time intelligence, competitive
-differentiation, matching the outcome each maps to as an AI Upgrade Module category (see
-PAGE 9). Titles, the page's own quote/intro text, and every solution's deeper detail-page
-content (`definition`, `overview`, `quote`, `smeValue`, `examples`,
-`readinessRequirements`, `roadmapFit`) still reflect the prior general "SME AI adoption"
-positioning and have not been rebranded yet.
+copy) now merges this chapter's own PDF tagline (what the category is — e.g. "AI that
+operationalizes your product's knowledge") with the outcome phrase from the Product
+Modernization Triad's Opportunity vertex (why you'd pick it — e.g. "knowledge leverage";
+see PAGE 9), so each teaser reads as definition + outcome in one line. Titles, the page's
+own quote/intro text, and every solution's deeper detail-page content (`definition`,
+`overview`, `quote`, `smeValue`, `examples`, `readinessRequirements`, `roadmapFit`) still
+reflect the prior general "SME AI adoption" positioning and have not been rebranded yet.
 
 ---
 
