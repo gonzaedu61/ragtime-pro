@@ -299,12 +299,19 @@ All five entries' `quote`, `definition`, `overview`, `smeValue`, `examples`,
 `readinessRequirements`, and `roadmapFit` fields are rebranded, sourced from the PDF's
 per-category chapters (Pages 6–10: Personal Productivity Enhancements, Intelligent
 Workflow Automations, RAG Solutions, Reasoning Agents, Custom AI Models). Each `quote`
-matches the category's Page 5 tagline; `roadmapFit` names its Category N position in the
-five-category spectrum. Titles and slugs are unchanged. The generated `<title>` now reads
-`{title} | Ragtime-Pro`.
+matches the category's Page 5 tagline, except RAG Solutions and Reasoning Agents. RAG
+Solutions' `quote` is an original line pulled from its own `overview` text instead ("Users
+no longer search for answers — the product provides them."); Reasoning Agents' `quote`
+("Guiding users through complex decisions... and executing actions when asked.") reflects
+its `overview` being extended to note the agent can execute, not just guide, when
+requested. `roadmapFit` names its Category N complexity tier
+in the five-category spectrum while explicitly noting that actual roadmap placement is
+decided by the Product Modernization Triad (Boost Point, Opportunity, Readiness — see
+PAGE 7) rather than by a mandatory category sequence. Titles and slugs are unchanged. The
+generated `<title>` now reads `{title} | Ragtime-Pro`.
 
 ### Example (RAG Solutions)
-- Quote: “AI that operationalizes your product's knowledge.”
+- Quote: “Users no longer search for answers — the product provides them.”
 - Overview: “RAG represents a pivotal moment in any product's modernization journey — the point where it stops being a static tool and starts behaving like an intelligent assistant, capable of understanding context and retrieving relevant knowledge. Legacy products often sit on extensive documentation, domain-specific rules, and tribal knowledge held by long-time engineers — valuable, but inaccessible. Users must search manually, ask colleagues, or rely on support teams. RAG solves this by embedding that knowledge directly into the product, so users no longer search for answers — the product provides them. For many vendors, this is the single most transformative modernization step.”
 
 ---

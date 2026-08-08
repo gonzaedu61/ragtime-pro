@@ -19,7 +19,7 @@ export const SOLUTIONS: SolutionClass[] = [
     slug: "personal-productivity",
     title: "Personal Productivity",
     teaser:
-      "Small improvements that create immediate value — quick wins that remove everyday friction without touching the architecture.",
+      "Small improvements that create immediate value — quick wins that boost individual output without touching the architecture.",
     definition:
       "Small, safe, high-impact AI enhancements that improve user productivity without destabilizing the product.",
     overview:
@@ -39,7 +39,7 @@ export const SOLUTIONS: SolutionClass[] = [
     readinessRequirements:
       "Safe by design — no core logic changes, no deep refactoring, and no major UI redesign required, making this the easiest entry point regardless of your product's current architecture.",
     roadmapFit:
-      "Category 1 in the modernization spectrum — the foundation that prepares your product for workflow automation, RAG assistants, reasoning agents, and custom models.",
+      "Category 1 in the modernization spectrum — typically the lowest-complexity, fastest-to-deploy tier. Where it actually lands in your roadmap is decided by your product's Boost Points, not by a fixed sequence.",
   },
   {
     slug: "workflow-automation",
@@ -49,23 +49,22 @@ export const SOLUTIONS: SolutionClass[] = [
     definition:
       "AI-driven intelligence woven into the product's operational backbone, removing friction and accelerating user workflows.",
     overview:
-      "Legacy products often contain workflows designed in a different era, before automation and efficiency were competitive differentiators. Over time they accumulate friction: repetitive steps, rigid logic, and slow validation. Intelligent Workflow Automations introduce AI directly into the product's operational backbone, removing that friction. This is often the highest-ROI modernization category — it directly impacts efficiency, support load, and customer retention, making modernization visible and strategically meaningful.",
+      "AI embedded directly into your product's existing legacy workflows to remove repetitive manual steps. Traditional automation handles predictable, rule-based tasks; AI-enhanced automation adds reasoning, classification, and decision-making at key points, enhancing workflows that already work rather than replacing them. By automating tasks like invoice processing, lead routing, scheduling, and document classification, it frees staff time from repetitive work and reduces error rates across day-to-day operations.",
     icon: "/intelligent_workflows.svg",
     iconHover: "/intelligent_workflows_blue.svg",
     video: "/Intelligent_Workflows.mp4",
-    quote: "AI that removes friction from everyday operations.",
+    quote: "Automations, … yes. — But smarter ones.",
     smeValue:
       "Processes become faster, smoother, and more reliable — support tickets drop and customers start to perceive the product as modern and competitive.",
     examples: [
-      "Automated validation",
-      "Rule-based decision support",
-      "Intelligent routing",
-      "Automated document processing",
+      "Enhanced end-to-end invoice processing",
+      "Intelligent documents classification and routing",
+      "Automated scheduling",
     ],
     readinessRequirements:
       "Deployable one workflow at a time — no core logic replacement, no deep refactoring, and no disruption to workflows that already work.",
     roadmapFit:
-      "Category 2 in the modernization spectrum — builds on Personal Productivity and lays the structural foundation for RAG assistants and reasoning agents.",
+      "Category 2 in the modernization spectrum — a moderate-complexity tier that often follows early productivity gains. Its actual place in the roadmap is set by the Product Modernization Triad, not by category order.",
   },
   {
     slug: "rag-solutions",
@@ -79,7 +78,7 @@ export const SOLUTIONS: SolutionClass[] = [
     icon: "/RAG.svg",
     iconHover: "/RAG_blue.svg",
     video: "/RAG_Solutions.mp4",
-    quote: "AI that operationalizes your product's knowledge.",
+    quote: "Users no longer search for answers — the product provides them.",
     smeValue:
       "Users solve problems faster and rely less on support — RAG is often the moment customers say the product finally feels modern.",
     examples: [
@@ -91,7 +90,7 @@ export const SOLUTIONS: SolutionClass[] = [
     readinessRequirements:
       "Deployable module by module and restricted to low-risk knowledge categories at first — no core logic changes, and compliance-aligned from day one.",
     roadmapFit:
-      "Category 3 in the modernization spectrum — the bridge between workflow automation and true intelligence, preparing the product for reasoning agents and custom models.",
+      "Category 3 in the modernization spectrum — a higher-complexity tier that unlocks a product's existing knowledge. The Product Modernization Triad, not sequence alone, determines when it's prioritized.",
   },
   {
     slug: "reasoning-agents",
@@ -101,11 +100,11 @@ export const SOLUTIONS: SolutionClass[] = [
     definition:
       "AI that interprets, evaluates, and guides users through complex, multi-step decisions — not just retrieving information, but applying it.",
     overview:
-      "As products evolve through productivity enhancements, workflow automation, and RAG-based knowledge assistants, they reach a critical modernization milestone: the ability to reason. Reasoning Agents interpret, evaluate, and guide users through complex decisions, rather than simply providing information. Legacy products often support workflows that require multi-step decision sequences and domain-specific expertise — territory users have historically navigated manually, leading to inconsistent decisions and higher error rates. Reasoning Agents embed that intelligence directly into the workflow, turning the product from a tool into a guide.",
+      "As products evolve through productivity enhancements, workflow automation, and RAG-based knowledge assistants, they reach a critical modernization milestone: the ability to reason. Reasoning Agents interpret, evaluate, guide — and, when requested, execute — complex decisions, rather than simply providing information. Legacy products often support workflows that require multi-step decisions and domain expertise — territory users have historically navigated manually, leading to inconsistent decisions and higher error rates. Reasoning Agents embed that intelligence directly into the workflow, turning the product from a tool into a guide.",
     icon: "/reasoning_agent.svg",
     iconHover: "/reasoning_agent_blue.svg",
     video: "/Reasoning_Agents.mp4",
-    quote: "AI that guides users through complex decisions.",
+    quote: "Guiding users through complex decisions... and executing actions when asked.",
     smeValue:
       "Users make better decisions faster and with fewer errors — Reasoning Agents often become a product's most celebrated modernization feature.",
     examples: [
@@ -117,7 +116,7 @@ export const SOLUTIONS: SolutionClass[] = [
     readinessRequirements:
       "Operates within defined decision boundaries and can be deployed workflow by workflow, monitored and audited throughout — no core logic changes required.",
     roadmapFit:
-      "Category 4 in the modernization spectrum — the bridge between knowledge and intelligence, turning a knowledge assistant into a decision partner and preparing the product for custom models.",
+      "Category 4 in the modernization spectrum — a deeper-complexity tier that turns knowledge into guided decisions. Whether it comes before or after other categories depends on your product's own Boost Points and Readiness.",
   },
   {
     slug: "custom-models",
@@ -143,7 +142,7 @@ export const SOLUTIONS: SolutionClass[] = [
     readinessRequirements:
       "Requires high-quality proprietary data and controlled, continuously monitored integration — typically the most advanced-readiness category, deployed in low-risk contexts first.",
     roadmapFit:
-      "Category 5 — the highest level of modernization maturity, building on every category before it. This is where the product becomes AI-native, not just AI-enhanced.",
+      "Category 5 — the highest-complexity tier in the modernization spectrum. It's often reached later in a roadmap, but the Product Modernization Triad — not category order — decides when it's the right move.",
   },
 ];
 
