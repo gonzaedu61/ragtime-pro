@@ -101,7 +101,7 @@ export const SOLUTIONS: SolutionClass[] = [
     definition:
       "AI that interprets, evaluates, and guides users through complex, multi-step decisions — not just retrieving information, but applying it.",
     overview:
-      "As products evolve through productivity enhancements, workflow automation, and RAG-based knowledge assistants, they reach a critical modernization milestone: the ability to reason. Reasoning Agents interpret, evaluate, guide — and, when requested, execute — complex decisions, rather than simply providing information. Legacy products often support workflows that require multi-step decisions and domain expertise — territory users have historically navigated manually, leading to inconsistent decisions and higher error rates. Reasoning Agents embed that intelligence directly into the workflow, turning the product from a tool into a guide.",
+      "As products evolve through productivity enhancements, workflow automation, and RAG-based knowledge assistants, they reach a critical modernization milestone: the ability to reason. Reasoning Agents interpret, evaluate, guide — and, when requested, execute — complex decisions, rather than simply providing information. Legacy products often support workflows that require multi-step decisions and domain expertise — territory users have historically navigated manually, leading to inconsistent decisions and higher error rates. Reasoning Agents embed that intelligence directly into the workflow, turning the product into a working partner.",
     icon: "/reasoning_agent.svg",
     iconHover: "/reasoning_agent_blue.svg",
     video: "/Reasoning_Agents.mp4",
