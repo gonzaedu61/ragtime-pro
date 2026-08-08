@@ -259,11 +259,13 @@ PDF's per-category chapters (see PAGE 6).
 ## PAGE 6 — SOLUTION CLASS DETAIL PAGES
 
 Rendered by the shared `SolutionDetail` component for each `/solutions/[slug]` route.
-On wide viewports (`lg` and up) the page below the quote is a 3-column CSS grid —
-sidebar | center content | roadmap CTA — matching the width of the flanking CTAs
-used elsewhere (`calc(50% - 26.5rem)` gutters either side of a centered `max-w-4xl`
-column). Below `lg`, all three stack into a single column in the order: intro,
-sidebar, cards, roadmap CTA.
+On wide viewports (custom `min-[1440px]` breakpoint, wider than the `lg` used elsewhere)
+the page below the quote is a 3-column CSS grid — sidebar | center content | roadmap
+CTA — using wider `calc(50% - 30rem)` gutters (vs. the `calc(50% - 26.5rem)` pattern used
+on other flanking-CTA pages) either side of a centered `max-w-5xl` column, giving the
+overview paragraph and the four cards more horizontal room than the site's other
+flanking-CTA layouts. Below 1440px, all three stack into a single column in the order:
+intro, sidebar, cards, roadmap CTA.
 
 ### Structure
 - Hero: solution title only (no subheading)  
@@ -271,19 +273,21 @@ sidebar, cards, roadmap CTA.
 - **Center, row 1 — Intro block:** a video icon (`RoadmapVideoButton`, playing the
   solution's `video` field) beside the overview paragraph (`overview` field), with an
   optional solution icon (`icon` field) to the right. This block has a fixed height
-  (`lg:h-72`, clipped via `overflow-hidden`) on wide viewports so that switching
+  (`min-[1440px]:h-72`, clipped via `overflow-hidden`) on wide viewports so that switching
   between solutions never shifts the sidebar or roadmap CTA below it vertically,
-  regardless of how long a given solution's overview text is.
+  regardless of how long a given solution's overview text is — the wider `max-w-5xl`
+  column (widened from `max-w-4xl` alongside the gutter change above) gives longer
+  overview paragraphs enough width to fit within that fixed height without clipping.
 - **Left, row 2 — Sidebar:** the other four Solution Classes, each as an icon (hover
   swaps to the `iconHover` variant) + title link to its own detail page. No heading
   label above the list. Icon size defaults to `h-16 w-10` but is tuned per solution
   where needed (currently: Personal Productivity smaller at `h-14 w-9`, Reasoning
   Agents larger at `h-[4.5rem] w-[2.75rem]`). Rows are left-aligned relative to each
   other at every viewport width (`items-start`, no responsive override), but the list
-  itself is a `w-fit mx-auto` block below `lg` so the whole group sits horizontally
+  itself is a `w-fit mx-auto` block below 1440px so the whole group sits horizontally
   centered in the viewport rather than stuck to the left edge — resets to
-  `lg:w-auto lg:mx-0` at `lg` and up, where the outer `<nav>`'s own `justify-center`
-  already centers it within the sidebar gutter.
+  `min-[1440px]:w-auto min-[1440px]:mx-0` at that breakpoint and up, where the outer
+  `<nav>`'s own `justify-center` already centers it within the sidebar gutter.
 - **Center, row 2 — Four cards** arranged two-by-two below the intro block: Value
   (`smeValue`), Examples (`examples`), Readiness Requirements
   (`readinessRequirements`), Roadmap Fit (`roadmapFit`).

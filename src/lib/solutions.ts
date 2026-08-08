@@ -23,7 +23,7 @@ export const SOLUTIONS: SolutionClass[] = [
     definition:
       "Small, safe, high-impact AI enhancements that improve user productivity without destabilizing the product.",
     overview:
-      "Modernizing a legacy product doesn't begin with deep architectural change — it begins with small, safe, high-impact enhancements that improve user productivity without destabilizing what already works. Legacy products often carry workflows designed years ago, before modern UX and AI assistance existed, so users still perform repetitive tasks, search through long lists, and navigate complex forms by hand. These enhancements are the lowest-risk modernization category, yet they deliver immediate value: they prove modernization is possible, reduce internal resistance, and build the trust that carries a product into deeper modernization layers.",
+      "Modernizing a legacy product does not necessarily begin with deep architectural change — it begins with small, safe, high-impact enhancements that improve user productivity without destabilizing what already works. Legacy products often carry workflows designed years ago, before modern UX and AI assistance existed, so users still perform repetitive tasks, search through long lists, and navigate complex forms by hand. These enhancements are the lowest-risk modernization category, yet they deliver immediate value: they prove modernization is possible, reduce internal resistance, and build the trust that carries a product into deeper modernization layers.",
     icon: "/personal_productivity.svg",
     iconHover: "/personal_productivity_blue.svg",
     video: "/Personal_Productivity.mp4",
@@ -49,7 +49,7 @@ export const SOLUTIONS: SolutionClass[] = [
     definition:
       "AI-driven intelligence woven into the product's operational backbone, removing friction and accelerating user workflows.",
     overview:
-      "Legacy products often contain workflows designed in a different era — when automation was limited and operational efficiency wasn't yet a competitive differentiator. Over time these workflows accumulate friction: repetitive manual steps, multi-screen processes, rigid rule-based logic, and slow validation cycles. Intelligent Workflow Automations introduce AI-driven intelligence directly into the product's operational backbone, removing that friction and accelerating how users work. This is often the highest-ROI modernization category, because it directly impacts operational efficiency, support load, error rates, and customer retention — this is where modernization becomes visible, valuable, and strategically meaningful.",
+      "Legacy products often contain workflows designed in a different era, before automation and efficiency were competitive differentiators. Over time they accumulate friction: repetitive steps, rigid logic, and slow validation. Intelligent Workflow Automations introduce AI directly into the product's operational backbone, removing that friction. This is often the highest-ROI modernization category — it directly impacts efficiency, support load, and customer retention, making modernization visible and strategically meaningful.",
     icon: "/intelligent_workflows.svg",
     iconHover: "/intelligent_workflows_blue.svg",
     video: "/Intelligent_Workflows.mp4",
@@ -101,7 +101,7 @@ export const SOLUTIONS: SolutionClass[] = [
     definition:
       "AI that interprets, evaluates, and guides users through complex, multi-step decisions — not just retrieving information, but applying it.",
     overview:
-      "As products evolve through productivity enhancements, workflow automation, and RAG-based knowledge assistants, they reach a critical modernization milestone: the ability to reason. Reasoning Agents represent the moment when the product stops simply providing information and begins interpreting, evaluating, and guiding users through complex decisions. Legacy products often support workflows that require multi-step decision sequences, conditional logic, and domain-specific expertise — territory users have historically navigated manually, through experience, documentation, or trial-and-error, leading to inconsistent decisions and higher error rates. Reasoning Agents embed that intelligence directly into the workflow, turning the product from a tool into a guide.",
+      "As products evolve through productivity enhancements, workflow automation, and RAG-based knowledge assistants, they reach a critical modernization milestone: the ability to reason. Reasoning Agents interpret, evaluate, and guide users through complex decisions, rather than simply providing information. Legacy products often support workflows that require multi-step decision sequences and domain-specific expertise — territory users have historically navigated manually, leading to inconsistent decisions and higher error rates. Reasoning Agents embed that intelligence directly into the workflow, turning the product from a tool into a guide.",
     icon: "/reasoning_agent.svg",
     iconHover: "/reasoning_agent_blue.svg",
     video: "/Reasoning_Agents.mp4",
@@ -127,7 +127,7 @@ export const SOLUTIONS: SolutionClass[] = [
     definition:
       "AI models trained or fine-tuned on your own domain, data, and workflows — intelligence no competitor can replicate.",
     overview:
-      "Custom AI Models represent the fifth and deepest category in the modernization spectrum — the point where AI stops being an enhancement, an assistant, or a reasoning layer, and becomes a core capability of the product itself. Trained on your domain, your proprietary data, your historical patterns, and your product's unique logic, custom models give your product intelligence that no competitor can replicate, because the model is built from your product's own DNA. Legacy products often operate in specialized domains — manufacturing, logistics, finance, healthcare — where patterns and rules run deeper than any generic AI model can fully understand. This is modernization at its most transformative.",
+      "Custom AI Models represent the fifth and deepest category in the modernization spectrum — the point where AI becomes a core capability of the product itself. Trained on your domain and data, custom models give your product intelligence that no competitor can replicate — built from your product's own DNA. Legacy products often operate in specialized domains — manufacturing, logistics, finance, healthcare — where patterns and rules run deeper than any generic AI model can fully understand. This is modernization at its most transformative.",
     icon: "/custom_models.svg",
     iconHover: "/custom_models_blue.svg",
     video: "/Custom_AI_Models.mp4",
