@@ -19,7 +19,7 @@ const PILLARS = [
   {
     slug: "opportunity",
     title: "Opportunity",
-    body: "Which AI Upgrade Module fits the Boost Point best? We match each opportunity to the right AI solution — productivity features, workflow automation, RAG assistants, reasoning agents, or custom models.",
+    body: "Which AI solution category best fits the Boost Point? We weigh its fit, how mature the underlying technology is, and how much effort it takes to integrate into your product's architecture.",
   },
   {
     slug: "readiness",
@@ -77,8 +77,8 @@ export default function MethodologyPage() {
               Without alignment, even promising AI pilots become isolated experiments. The
               Triad is the compass ensuring every recommendation is checked against where AI
               can create the highest value, the AI Upgrade Module that fits best, and your
-              product&apos;s actual readiness to integrate it safely — and it is continuously
-              adapted by our Modernization Agent as your product evolves.
+              product&apos;s actual readiness to integrate it safely — and it gets
+              continuously adjusted as your product and its context evolves.
             </p>
           </div>
           <div className="flex w-64 shrink-0 flex-col items-center gap-1">

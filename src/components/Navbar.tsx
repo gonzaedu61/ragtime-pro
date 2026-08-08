@@ -26,7 +26,7 @@ export default function Navbar() {
           className="group flex shrink-0 items-center gap-2"
           onClick={() => setIsOpen(false)}
         >
-          <div className="relative h-[72px] w-[149px] [perspective:1000px]">
+          <div className="relative h-[82px] w-[170px] [perspective:1000px]">
             <div className="relative h-full w-full animate-[spin-3d_10s_linear_infinite] [transform-style:preserve-3d]">
               <Image
                 src="/Ragtime-Pro_Logo.png"

@@ -310,8 +310,8 @@ Journey (see PAGE 7A). In the middle, a video icon (`RoadmapVideoButton`, playin
 `Our_Methodology.mp4`) beside intro text explaining the Product Modernization Triad —
 Boost Point, Opportunity, and Readiness — and how it keeps every recommendation checked
 against where AI can create the highest value, the AI Upgrade Module that fits best, and
-the product's actual readiness to integrate it safely, continuously adapted by the
-Modernization Agent as the product evolves. The first mention of "Product Modernization
+the product's actual readiness to integrate it safely, continuously adjusted as the
+product and its context evolve. The first mention of "Product Modernization
 Triad", "Boost Point", "Opportunity", and "Readiness" in this text is bolded. On the
 right, the triangle diagram (`product_modernization_triad.svg`) with its caption
 ("The roadmap adapts dynamically as these three vertices evolve.") underneath. The
@@ -923,7 +923,7 @@ Claude must:
 # 10. Component Library
 
 ## 10.1 Current Components
-- **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `Ragtime-Pro_Logo.png` lockup (icon + wordmark, no separate text label), flip-animated in a 72×149px box sized to its aspect ratio.
+- **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `Ragtime-Pro_Logo.png` lockup (icon + wordmark, no separate text label), flip-animated in an 82×170px box sized to its aspect ratio.
 - **Footer** (`src/components/Footer.tsx`) — footer navigation (Privacy Policy, Terms of Service, Contact) and copyright line. No LinkedIn link yet — see §2.2.
 - **RotatingHeadline** (`src/components/RotatingHeadline.tsx`) — client component cycling through 5 two-line phrases on the Home hero, one every 8 seconds with a cross-fade transition. Starts on a random phrase on each mount (not always the first) so repeat visits and refreshes don't always open on the same line.
 - **RoadmapVideoButton** (`src/components/RoadmapVideoButton.tsx`) — reusable video-icon trigger; renders a small icon (optionally with a text label) that opens a centered modal video player animating in/out from the icon's screen position. Takes a `src` (defaults to the AI Roadmap Guide video), an optional `lowBandwidthSrc` for connection-aware source switching, and a `blueHoverIcon` toggle (icon swaps to an electric-blue variant on hover; disabled on Home and Start Your Journey, where a size-only hover effect is used instead). Used on: Home, Start Your Journey (two instances), The AI Dilemma, Core Barriers, Coaching, About, AI Solution Categories, Our Methodology, Engagement Model, and every Solution Class detail page (via `SolutionDetail`).
