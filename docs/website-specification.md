@@ -8,12 +8,14 @@ Claude Code must maintain this document and ensure it always reflects the curren
 
 **Transitional note:** Home has been rebranded to Ragtime-Pro's AI-driven,
 legacy-software-modernization positioning. The remaining pages described below
-(About, The AI Dilemma, Solutions, Engagement Model, etc.) still reflect the
-prior general "SME AI adoption" positioning and copy, and will be reconciled
-page by page as each is rebranded. Our Methodology (including its new
-Modernization Journey subpage) has been rebranded, as has the Boost Point vertex
-subpage (routed at `/methodology/boost-point` — see PAGE 8); the Opportunity and Readiness
-vertex subpages have not yet.
+(About, The AI Dilemma, Engagement Model, etc.) still reflect the prior general
+"SME AI adoption" positioning and copy, and will be reconciled page by page as each is
+rebranded. Our Methodology (including its new Modernization Journey subpage) has been
+rebranded, as have the Boost Point (routed at `/methodology/boost-point` — see PAGE 8)
+and Opportunity (see PAGE 9) vertex subpages; the Readiness vertex subpage has not yet.
+Solutions is partially rebranded — its five overview-card teasers now reflect the
+Opportunity vertex's AI Upgrade Module framing, but its titles, quote/intro text, and
+detail-page content have not (see PAGE 5).
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -241,6 +243,15 @@ intro text + icon/button groups on the other AI Roadmap pages.
 4. Reasoning Agents  
 5. Custom AI Models  
 
+**Partial rebrand:** each card's `teaser` in `src/lib/solutions.ts` (the overview grid
+copy) has been aligned with the Product Modernization Triad's Opportunity vertex — quick
+wins, operational efficiency, knowledge leverage, real-time intelligence, competitive
+differentiation, matching the outcome each maps to as an AI Upgrade Module category (see
+PAGE 9). Titles, the page's own quote/intro text, and every solution's deeper detail-page
+content (`definition`, `overview`, `quote`, `smeValue`, `examples`,
+`readinessRequirements`, `roadmapFit`) still reflect the prior general "SME AI adoption"
+positioning and have not been rebranded yet.
+
 ---
 
 ## PAGE 6 — SOLUTION CLASS DETAIL PAGES
@@ -417,26 +428,33 @@ instead of leaving a large gap sized to the nav's height.
 ## PAGE 9 — OPPORTUNITY
 
 ### Purpose
-Explain the second Driving-Triad vertex: matching the identified need to the best-fit AI
-solution category.
+Explain the second vertex of the Product Modernization Triad: matching the identified
+Boost Point to the best-fit AI Upgrade Module.
 
 ### Quote
-“Pick the right AI solution at the right point in time.”
+“Which AI Solution Category fits the Boost Point best.”
 
 ### Main Text (below quote, above cards)
-A centered paragraph explaining that Opportunity ensures the organization selects the
-solution category that fits the problem, the maturity and availability of the underlying
-technology, and the organization's own willingness to take on risk — preventing
-overinvestment, underinvestment, and misalignment.
+A centered paragraph explaining that Opportunity identifies which AI Upgrade Module fits
+the Boost Point best — weighing how well a candidate module fits the Boost Point, how
+mature the underlying technology is, and how much integration effort it will take within
+the product's existing architecture. The first mention of "Opportunity" is bolded.
 
 ### Three Cards
-1. Fit for the Problem
+1. Boost Point Fit
 2. Technology Maturity
-3. Risk Appetite
+3. Integration Challenge
+
+These are evaluation criteria for choosing an AI Upgrade Module (fit, maturity,
+integration effort) — distinct from the five AI Upgrade Module categories themselves
+(Productivity Features, Workflow Automations, RAG Assistants, Reasoning Agents, Custom
+Models), which live on the AI Solutions overview page instead (see PAGE 5) rather than
+being duplicated here.
 
 ### Flanking Nav/CTA
 Same pattern as the Boost Point page: `VertexTriadNav` (now displaying the Product
-Modernization Triad diagram — see PAGE 8) on the left, roadmap CTA on the right.
+Modernization Triad diagram — see PAGE 8) on the left, the `roadmap.svg` icon above an
+"Understand the Modernization-Triad ..." link button → `/methodology` on the right.
 
 ---
 

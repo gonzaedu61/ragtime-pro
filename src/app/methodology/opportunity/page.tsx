@@ -4,23 +4,23 @@ import type { Metadata } from "next";
 import VertexTriadNav from "@/components/VertexTriadNav";
 
 export const metadata: Metadata = {
-  title: "Opportunity | The BrokerAI",
+  title: "Opportunity | Ragtime-Pro",
   description:
-    "The Opportunity vertex of the Driving-Triad: matching each business need to the best-fit AI solution class.",
+    "The Opportunity vertex of the Product Modernization Triad: matching each Boost Point to the best-fit AI Upgrade Module.",
 };
 
 const CARDS = [
   {
-    title: "Fit for the Problem",
-    body: "How clearly an AI capability matches the actual business challenge, avoiding solutions that are simply not designed for the problem at hand.",
+    title: "Boost Point Fit",
+    body: "How precisely the AI Upgrade Module category addresses the Boost Point — not the closest match, but the right one for the job.",
   },
   {
     title: "Technology Maturity",
-    body: "How proven and production-ready a given AI capability is today, versus still emerging or unproven for SME use.",
+    body: "How proven and production-ready the underlying AI capability is today, versus still emerging or unproven for legacy environments.",
   },
   {
-    title: "Risk Appetite",
-    body: "How much uncertainty, change, and investment the business is genuinely willing to take on at this stage.",
+    title: "Integration Challenge",
+    body: "How much effort it takes to integrate the module into the product's existing architecture without destabilizing it.",
   },
 ];
 
@@ -34,7 +34,7 @@ export default function OpportunityPage() {
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;Pick the right AI solution at the right point in time.&rdquo;
+            &ldquo;Which AI Solution Category fits the Boost Point best.&rdquo;
           </p>
         </div>
       </section>
@@ -42,15 +42,13 @@ export default function OpportunityPage() {
       <section className="pt-8 pb-16 lg:grid lg:grid-cols-[calc(50%-26.5rem)_1fr_calc(50%-26.5rem)]">
         <div className="mx-auto max-w-3xl px-6 pt-8 pb-12 text-center lg:col-start-2 lg:row-start-1 lg:h-56 lg:overflow-hidden">
           <p className="font-body text-lg text-charcoal">
-            The second vertex of the Driving-Triad, &ldquo;Opportunity&rdquo;, identifies the AI
-            solution category best suited to the need. Not every problem requires a custom
-            model. Not
-            every workflow needs automation. Not every knowledge gap calls for a RAG system.
-            The Opportunity vertex ensures the organization selects the solution category based
-            on fit for the problem, the maturity and availability of the underlying technology,
-            and the organization&apos;s own willingness to take on risk — preventing
-            overinvestment, underinvestment, and misalignment between expectations and
-            capabilities.
+            The second vertex of the Product Modernization Triad, <strong>Opportunity</strong>,
+            identifies which AI Upgrade Module fits the Boost Point best. Not every Boost
+            Point calls for the same category of AI Upgrade Module. The Opportunity vertex
+            weighs how well a candidate module fits the Boost Point, how mature the
+            underlying technology actually is, and how much integration effort it will take
+            within the product&apos;s existing architecture — so modernization targets the
+            module that delivers the most real value, not just the most obvious one.
           </p>
         </div>
 
@@ -77,7 +75,7 @@ export default function OpportunityPage() {
               className="h-32 w-auto"
             />
             <span className="whitespace-nowrap rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
-              Setting the roadmap …
+              Understand the Modernization-Triad ...
             </span>
           </Link>
         </div>

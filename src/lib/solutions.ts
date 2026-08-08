@@ -19,7 +19,7 @@ export const SOLUTIONS: SolutionClass[] = [
     slug: "personal-productivity",
     title: "Personal Productivity",
     teaser:
-      "AI as a personal amplifier — drafting, summarizing, and accelerating everyday individual work.",
+      "Quick wins — lightweight AI capabilities that remove everyday friction without touching the underlying architecture.",
     definition:
       "AI tools that amplify individual output — drafting, summarizing, researching, and organizing work faster than manual effort allows.",
     overview:
@@ -45,7 +45,7 @@ export const SOLUTIONS: SolutionClass[] = [
     slug: "workflow-automation",
     title: "Intelligent Workflows",
     teaser:
-      "AI woven into existing processes, removing repetitive steps, reducing manual handoffs, and handling cases where fixed rules fall short.",
+      "Operational efficiency — automating multi-step processes to reduce manual work and errors.",
     definition:
       "AI embedded directly into existing business processes to remove repetitive manual steps.",
     overview:
@@ -71,7 +71,7 @@ export const SOLUTIONS: SolutionClass[] = [
     slug: "rag-solutions",
     title: "RAG Solutions",
     teaser:
-      "AI becomes a knowledge assistant that operationalizes the organization's collective intelligence.",
+      "Knowledge leverage — turning documentation and tribal knowledge into a queryable, in-product assistant.",
     definition:
       "AI becomes a knowledge assistant that operationalizes the organization's collective intelligence.",
     overview:
@@ -97,7 +97,7 @@ export const SOLUTIONS: SolutionClass[] = [
     slug: "reasoning-agents",
     title: "Reasoning Agents",
     teaser:
-      "AI that provides instant cross-domain insights from open questions, and executes multi-step tasks autonomously and safely.",
+      "Real-time intelligence — guiding users through complex, multi-step decisions as they happen.",
     definition:
       "AI systems that plan and execute multi-step tasks with a degree of autonomy, within defined guardrails.",
     overview:
@@ -122,7 +122,8 @@ export const SOLUTIONS: SolutionClass[] = [
   {
     slug: "custom-models",
     title: "Custom AI Models",
-    teaser: "Purpose-built models tailored to your data and domain, where off-the-shelf tools fall short.",
+    teaser:
+      "Competitive differentiation — domain-specific intelligence trained on your product's own data and workflows.",
     definition: "Purpose-built AI models trained or fine-tuned on your own data and domain.",
     overview:
       "Purpose-built AI models trained or fine-tuned on your own data and domain. This is where AI stops being something the business merely uses and becomes something it creates and owns. Custom models deliver capabilities off-the-shelf tools simply can't, tailored precisely to a proprietary use case. It's the most advanced stage of the roadmap, reserved for cases where standard tools fall short of what the business actually needs.",
