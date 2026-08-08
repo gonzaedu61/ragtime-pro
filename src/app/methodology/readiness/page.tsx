@@ -4,27 +4,27 @@ import type { Metadata } from "next";
 import VertexTriadNav from "@/components/VertexTriadNav";
 
 export const metadata: Metadata = {
-  title: "Readiness | The BrokerAI",
+  title: "Readiness | Ragtime-Pro",
   description:
-    "The Readiness vertex of the Driving-Triad: evaluating an SME's technical, organizational, financial, and governance capacity to adopt AI.",
+    "The Readiness vertex of the Product Modernization Triad: how prepared the product is to safely integrate the selected AI Upgrade Module.",
 };
 
 const CARDS = [
   {
-    title: "Technical Capability",
-    body: "Data quality, system integration, and infrastructure that determine how smoothly a solution can actually be deployed.",
+    title: "Architecture & APIs",
+    body: "How well the product's existing architecture and integration points can absorb a new AI capability without destabilizing what already works.",
   },
   {
-    title: "Organizational Capability",
-    body: "Process stability and internal skills — whether teams and workflows can absorb a new way of working.",
+    title: "Data & Documentation",
+    body: "Whether the data quality and documentation available are sufficient for the Modernization Agent — and the module itself — to work with reliably.",
   },
   {
-    title: "Financial Capability",
-    body: "Budget and resourcing to sustain a solution beyond the pilot, not just fund its initial rollout.",
+    title: "Team & Governance",
+    body: "Whether internal skills and clear ownership are in place to build, oversee, and maintain the module once it's live.",
   },
   {
-    title: "Governance Capability",
-    body: "Clear ownership, oversight, and compliance processes — including alignment with the EU AI Act — before a solution goes live.",
+    title: "Industry & Compliance",
+    body: "Whether industry-specific constraints and the product's compliance posture — including the EU AI Act — are accounted for before deployment.",
   },
 ];
 
@@ -38,8 +38,8 @@ export default function ReadinessPage() {
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;Ensures the AI adoption at a pace that fits reality — not faster, not
-            slower.&rdquo;
+            &ldquo;How prepared the product is to safely integrate a new AI Upgrade
+            Module?&rdquo;
           </p>
         </div>
       </section>
@@ -47,13 +47,13 @@ export default function ReadinessPage() {
       <section className="pt-8 pb-16 lg:grid lg:grid-cols-[calc(50%-26.5rem)_1fr_calc(50%-26.5rem)]">
         <div className="mx-auto max-w-3xl px-6 pt-8 pb-12 text-center lg:col-start-2 lg:row-start-1 lg:h-56 lg:overflow-hidden">
           <p className="font-body text-lg text-charcoal">
-            The third vertex of the Driving-Triad, &ldquo;Readiness&rdquo;, assesses the
-            technical, organizational, financial, and governance capacity to adopt and sustain a
-            given solution. Readiness is often the most overlooked dimension — a business may
-            have a clear need and a promising opportunity, but lack the data quality, process
-            stability, or internal skills required to implement the solution effectively.
-            Readiness ensures that the organizations adopt AI at a pace that fits their reality
-            — not faster, not slower.
+            The third vertex of the Product Modernization Triad, <strong>Readiness</strong>,
+            assesses how prepared the product is for integration. Even when a Boost Point
+            and Opportunity are clear, modernization must respect the product&apos;s current
+            readiness — its architecture, APIs, data quality, documentation, team skills,
+            governance, industry constraints, and compliance posture. Readiness answers a
+            single question: can we safely modernize this now? It is the guardrail of
+            modernization.
           </p>
         </div>
 
@@ -80,7 +80,7 @@ export default function ReadinessPage() {
               className="h-32 w-auto"
             />
             <span className="whitespace-nowrap rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
-              Setting the roadmap …
+              Understand the Modernization-Triad ...
             </span>
           </Link>
         </div>

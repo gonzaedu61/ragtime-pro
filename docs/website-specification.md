@@ -11,9 +11,9 @@ legacy-software-modernization positioning. The remaining pages described below
 (About, The AI Dilemma, Engagement Model, etc.) still reflect the prior general
 "SME AI adoption" positioning and copy, and will be reconciled page by page as each is
 rebranded. Our Methodology (including its new Modernization Journey subpage) has been
-rebranded, as have the Boost Point (routed at `/methodology/boost-point` — see PAGE 8)
-and Opportunity (see PAGE 9) vertex subpages; the Readiness vertex subpage has not yet.
-Solutions is partially rebranded — its five overview-card teasers now reflect the
+rebranded, as have the Boost Point (routed at `/methodology/boost-point` — see PAGE 8),
+Opportunity (see PAGE 9), and Readiness (see PAGE 10) vertex subpages — all three
+vertices are now rebranded. Solutions is partially rebranded — its five overview-card teasers now reflect the
 Opportunity vertex's AI Upgrade Module framing, but its titles, quote/intro text, and
 detail-page content have not (see PAGE 5).
 
@@ -461,27 +461,33 @@ Modernization Triad diagram — see PAGE 8) on the left, the `roadmap.svg` icon 
 ## PAGE 10 — READINESS
 
 ### Purpose
-Explain the third Driving-Triad vertex: the technical, organizational, financial, and
-governance capacity to adopt and sustain a given solution.
+Explain the third vertex of the Product Modernization Triad: how prepared the product is
+for integration.
 
 ### Quote
-“Ensures the AI adoption at a pace that fits reality — not faster, not slower.”
+“How prepared the product is to safely integrate a new AI Upgrade Module?”
 
 ### Main Text (below quote, above cards)
-A centered paragraph explaining that Readiness is often the most overlooked dimension — a
-business may have a clear need and opportunity but lack the data quality, process stability, or
-internal skills to implement a solution effectively, and that Readiness paces adoption to the
-organization's actual capacity to execute and sustain it.
+A centered paragraph explaining that even when a Boost Point and Opportunity are clear,
+modernization must respect the product's current readiness — architecture, APIs, data
+quality, documentation, team skills, governance, industry constraints, and compliance
+posture — and that Readiness answers whether it's safe to modernize now. The first
+mention of "Readiness" is bolded.
 
 ### Four Cards
-1. Technical Capability
-2. Organizational Capability
-3. Financial Capability
-4. Governance Capability
+1. Architecture & APIs
+2. Data & Documentation
+3. Team & Governance
+4. Industry & Compliance
+
+Sourced from the PDF's eight Readiness factors (Page 12), paired two-per-card to fit the
+existing 2×2 grid. The old "Financial Capability" card is dropped — it isn't part of the
+PDF's Readiness definition.
 
 ### Flanking Nav/CTA
 Same pattern as the Boost Point page: `VertexTriadNav` (now displaying the Product
-Modernization Triad diagram — see PAGE 8) on the left, roadmap CTA on the right.
+Modernization Triad diagram — see PAGE 8) on the left, the `roadmap.svg` icon above an
+"Understand the Modernization-Triad ..." link button → `/methodology` on the right.
 
 ---
 
