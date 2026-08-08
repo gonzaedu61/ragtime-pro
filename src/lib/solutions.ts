@@ -29,17 +29,17 @@ export const SOLUTIONS: SolutionClass[] = [
     video: "/Personal_Productivity.mp4",
     quote: "Small improvements that create immediate value.",
     smeValue:
-      "Immediate, low-risk productivity gains — faster workflows, fewer manual steps, and visible proof that modernization is underway, without touching core architecture.",
+      "Boosts legacy software usability by reducing friction, accelerating daily tasks, and helping users work faster with simplified interactions.",
     examples: [
-      "Smart text generation",
-      "Automated summaries",
-      "Intelligent search",
-      "Guided data entry",
+      "Smart suggestions",
+      "Guided inputs",
+      "Instant summaries",
+      "Contextual assistance",
     ],
     readinessRequirements:
-      "Safe by design — no core logic changes, no deep refactoring, and no major UI redesign required, making this the easiest entry point regardless of your product's current architecture.",
+      "Clear user roles, accessible screens, basic workflow documentation, and stable touchpoints so AI can streamline common tasks without deep changes.",
     roadmapFit:
-      "Category 1 in the modernization spectrum — typically the lowest-complexity, fastest-to-deploy tier. Where it actually lands in your roadmap is decided by your product's Boost Points, not by a fixed sequence.",
+      "Ideal early modernization win that immediately improves user satisfaction and demonstrates fast, low-risk AI value.",
   },
   {
     slug: "workflow-automation",
@@ -55,16 +55,17 @@ export const SOLUTIONS: SolutionClass[] = [
     video: "/Intelligent_Workflows.mp4",
     quote: "Automations, … yes. — But smarter ones.",
     smeValue:
-      "Processes become faster, smoother, and more reliable — support tickets drop and customers start to perceive the product as modern and competitive.",
+      "Transforms rigid legacy processes into smooth, automated flows that reduce delays, errors, and manual handoffs across departments.",
     examples: [
-      "Enhanced end-to-end invoice processing",
-      "Intelligent documents classification and routing",
-      "Automated scheduling",
+      "Automated approvals",
+      "Proactive notifications",
+      "Guided steps",
+      "Cross-module coordination",
     ],
     readinessRequirements:
-      "Deployable one workflow at a time — no core logic replacement, no deep refactoring, and no disruption to workflows that already work.",
+      "Defined processes, consistent data inputs, and stable integration points to safely automate around existing legacy logic.",
     roadmapFit:
-      "Category 2 in the modernization spectrum — a moderate-complexity tier that often follows early productivity gains. Its actual place in the roadmap is set by the Product Modernization Triad, not by category order.",
+      "Strong mid-stage modernization layer that enhances operations while preserving legacy system stability.",
   },
   {
     slug: "rag-solutions",
@@ -80,17 +81,17 @@ export const SOLUTIONS: SolutionClass[] = [
     video: "/RAG_Solutions.mp4",
     quote: "Users no longer search for answers — the product provides them.",
     smeValue:
-      "Users solve problems faster and rely less on support — RAG is often the moment customers say the product finally feels modern.",
+      "Adds a modern knowledge layer to legacy software, enabling users to instantly find accurate answers from documents and ERP data.",
     examples: [
-      "Product knowledge assistants",
-      "Troubleshooting copilots",
-      "Onboarding assistants",
-      "Domain-specific Q&A",
+      "Searchable manuals",
+      "Policy lookup",
+      "Contextual help",
+      "Guided troubleshooting",
     ],
     readinessRequirements:
-      "Deployable module by module and restricted to low-risk knowledge categories at first — no core logic changes, and compliance-aligned from day one.",
+      "Organized documents, metadata structure, secure access to information sources, and clear ownership of knowledge assets.",
     roadmapFit:
-      "Category 3 in the modernization spectrum — a higher-complexity tier that unlocks a product's existing knowledge. The Product Modernization Triad, not sequence alone, determines when it's prioritized.",
+      "Foundational capability that improves usability, reduces dependency on expert users, and supports all future AI initiatives.",
   },
   {
     slug: "reasoning-agents",
@@ -106,17 +107,17 @@ export const SOLUTIONS: SolutionClass[] = [
     video: "/Reasoning_Agents.mp4",
     quote: "Guiding users through complex decisions... and executing actions when asked.",
     smeValue:
-      "Users make better decisions faster and with fewer errors — Reasoning Agents often become a product's most celebrated modernization feature.",
+      "Introduces intelligent automation capable of navigating legacy complexity, resolving issues, and completing multi-step tasks autonomously.",
     examples: [
-      "Compliance guidance agents",
-      "Configuration assistants",
-      "Diagnostic agents",
-      "Scenario evaluation tools",
+      "Exception-handling bots",
+      "Reconciliation agents",
+      "Scheduling optimizers",
+      "Multi-system coordination assistants",
     ],
     readinessRequirements:
-      "Operates within defined decision boundaries and can be deployed workflow by workflow, monitored and audited throughout — no core logic changes required.",
+      "Clear decision rules, audit trails, deterministic APIs, and safe sandbox environments for testing autonomous behavior.",
     roadmapFit:
-      "Category 4 in the modernization spectrum — a deeper-complexity tier that turns knowledge into guided decisions. Whether it comes before or after other categories depends on your product's own Boost Points and Readiness.",
+      "Advanced modernization stage unlocking semi-autonomous operations and significant efficiency gains.",
   },
   {
     slug: "custom-models",
@@ -132,17 +133,18 @@ export const SOLUTIONS: SolutionClass[] = [
     video: "/Custom_AI_Models.mp4",
     quote: "AI that becomes part of your product's identity.",
     smeValue:
-      "The product gains capabilities competitors cannot replicate — a defensible, domain-specific advantage that becomes the product's signature feature.",
+      "Injects predictive intelligence into legacy systems, enabling smarter decisions and proactive insights without changing core architecture.",
     examples: [
-      "Domain-specific prediction models",
+      "Forecasting",
       "Anomaly detection",
-      "Forecasting engines",
-      "Custom embeddings",
+      "Pricing insights",
+      "Risk scoring",
+      "Domain-specific models for unique business needs",
     ],
     readinessRequirements:
-      "Requires high-quality proprietary data and controlled, continuously monitored integration — typically the most advanced-readiness category, deployed in low-risk contexts first.",
+      "Reliable historical data, defined business goals, labeling strategy, and MLOps readiness for training and deployment.",
     roadmapFit:
-      "Category 5 — the highest-complexity tier in the modernization spectrum. It's often reached later in a roadmap, but the Product Modernization Triad — not category order — decides when it's the right move.",
+      "Strategic long-term investment that differentiates the business and transforms legacy software from reactive to proactive.",
   },
 ];
 
