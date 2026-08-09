@@ -17,7 +17,8 @@ PAGE 10) vertex subpages — all three vertices are now rebranded. Solutions is 
 fully rebranded — overview page, card teasers, and all five detail pages (see PAGE 5
 and PAGE 6). The Modernization Agent page (formerly "Engagement Model") is fully
 rebranded (see PAGE 12), About (formerly "About The BrokerAI") is fully rebranded
-(see PAGE 11), and EU AI Act Compliance is fully rebranded (see PAGE 15).
+(see PAGE 11), EU AI Act Compliance is fully rebranded (see PAGE 15), and Start Your
+Journey is fully rebranded (see PAGE 13).
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -614,23 +615,43 @@ bottom edges of the two cards above it rather than sitting flush-left.
 ## PAGE 13 — STARTING THE JOURNEY
 
 ### Purpose
-Conversion page.
+Conversion page. Sourced from the PDF's "PAGE 14 — CONTACT & ENGAGEMENT" chapter's
+"Modernization Begins With a Conversation" and "How Engagement Works" sections.
 
 ### Quote
-“The first step in any AI journey should not be a technology purchase — it should be a conversation.”
+“One conversation can change how you see your product's future.”
 
-### Intro Text (below quote, above CTAs)
-A video icon (`RoadmapVideoButton`, playing `Starting_The_Journey.mp4`) sits at the
-top-left of the intro text, which summarizes the AI Roadmap Guide's "Starting the Journey
-Together" section: starting an AI journey is exciting but daunting, The BrokerAI's
-understanding-first approach, the Driving-Triad grounding every recommendation, and the
-partnership (not vendor) framing carried through discovery, roadmap design, pilot
-selection, and scaling.
+### Intro Text + CTA (below quote, above cards)
+A centered two-column group (stacks on mobile, `lg:flex-row lg:justify-center`): on
+the left, a video icon (`RoadmapVideoButton`, playing `Starting_The_Journey.mp4`)
+beside intro text explaining that legacy modernization is a partnership, not a
+transaction — every product has its own history, architecture, constraints, and
+ambitions, so engagement with Ragtime-Pro (inline `<Link>` → `/about`) begins not with
+a proposal but with a conversation, with the goal of giving clarity, structure, and
+confidence. On the right, the
+`discovery_call.svg` icon below a "Request a Modernization Consultation" link button
+→ `/contact`, vertically centered with the intro text. Same flanking-CTA pattern as
+the Modernization Journey and Modernization Agent pages. The previous
+`journey_start.svg` decorative icon (not a link) was dropped in favor of this
+actionable CTA occupying the same slot.
 
-### CTAs
-- Book a Discovery Call → `/contact`
-- "Watch the full AI-Roadmap-Guide video" — a `RoadmapVideoButton` that opens the AI
-  Roadmap Guide video in a modal (not a download)
+### Three Engagement-Phase Cards (below CTAs)
+1. **Our First Talk** — a conversation covering the product, goals, and constraints,
+   plus an explanation of the methodology, the Modernization Agent, and the AI Upgrade
+   Modules. No commitments or pressure. Body text nests three inline `<Link>`s: "our
+   methodology" → `/methodology`, "Modernization Agent" → `/modernization-agent`, "AI
+   Upgrade Modules" → `/solutions`.
+2. **Modernization Assessment** — a structured, Modernization Agent-supported
+   assessment (architecture mapping, Boost Point detection, Triad alignment,
+   compliance considerations) producing a Modernization Assessment Report. Body text
+   nests two inline `<Link>`s: "Boost Point" → `/methodology/boost-point` and
+   "compliance considerations" → `/eu-ai-act-compliance`.
+3. **Modernization Partnership** — incremental AI Upgrade Module delivery, guided
+   integration, and continuous sequencing once the roadmap is validated.
+
+Grid is `sm:grid-cols-3`. The PDF's Free/Fixed Scope/Ongoing qualifiers (from "Phase 1
+— Introductory Consultation (Free)" etc.) are dropped from the site copy entirely —
+titles are plain.
 
 ---
 
