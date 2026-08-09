@@ -8,17 +8,18 @@ Claude Code must maintain this document and ensure it always reflects the curren
 
 **Transitional note:** Home has been rebranded to Ragtime-Pro's AI-driven,
 legacy-software-modernization positioning. The remaining pages described below
-(The AI Dilemma, Core Barriers, Coaching, Starting the Journey, etc.) still reflect
-the prior general "SME AI adoption" positioning and copy, and will be reconciled page
-by page as each is rebranded. Our Methodology (including its new Modernization
-Journey subpage) has been rebranded, as have the Boost Point (routed at
-`/methodology/boost-point` — see PAGE 8), Opportunity (see PAGE 9), and Readiness (see
-PAGE 10) vertex subpages — all three vertices are now rebranded. Solutions is also
-fully rebranded — overview page, card teasers, and all five detail pages (see PAGE 5
-and PAGE 6). The Modernization Agent page (formerly "Engagement Model") is fully
-rebranded (see PAGE 12), About (formerly "About The BrokerAI") is fully rebranded
-(see PAGE 11), EU AI Act Compliance is fully rebranded (see PAGE 15), and Start Your
-Journey is fully rebranded (see PAGE 13).
+(Core Barriers, Coaching, etc.) still reflect the prior general "SME AI adoption"
+positioning and copy, and will be reconciled page by page as each is rebranded. Our
+Methodology (including its new Modernization Journey subpage) has been rebranded, as
+have the Boost Point (routed at `/methodology/boost-point` — see PAGE 8), Opportunity
+(see PAGE 9), and Readiness (see PAGE 10) vertex subpages — all three vertices are now
+rebranded. Solutions is also fully rebranded — overview page, card teasers, and all
+five detail pages (see PAGE 5 and PAGE 6). The Modernization Agent page (formerly
+"Engagement Model") is fully rebranded (see PAGE 12), About (formerly "About The
+BrokerAI") is fully rebranded (see PAGE 11), EU AI Act Compliance is fully rebranded
+(see PAGE 15), Start Your Journey is fully rebranded (see PAGE 13), and The
+Modernization Dilemma (formerly "The AI Dilemma," nav label and route unchanged) is
+fully rebranded (see PAGE 2).
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -136,29 +137,37 @@ top-right, bottom-left, bottom-right):
 
 ---
 
-## PAGE 2 — THE AI DILEMMA
+## PAGE 2 — THE MODERNIZATION DILEMMA
 
 ### Purpose
-Explain the problem SMEs face.
+Explain the problem legacy software vendors face. Sourced from the PDF's "PAGE 2 —
+THE MODERNIZATION DILEMMA" chapter. H1 and metadata title renamed from "The AI
+Dilemma" to "The Modernization Dilemma" to match the PDF chapter title; the nav label
+("The AI Dilemma") and route (`/ai-dilemma`) are unchanged for now — same
+kept-until-explicitly-renamed pattern as the Modernization Agent page before its own
+route rename (see PAGE 12).
 
 ### Quote
-“AI adoption is not a choice — but the path forward feels risky and uncertain.”
+“The product still works — but the market has moved.”
 
 ### Intro Text + Icon/CTA (below quote, above cards)
 A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `The_AI_Dilema.mp4`) beside intro text on AI adoption
-for SMEs being full of interest and noise but rarely clarity, the accessibility of
-tools outpacing the sense of where to start, and more than 75% having already tried
-something without turning it into lasting value. On the right, the `barriers.svg`
-icon above a "Know the barriers …" link button → `/ai-dilemma/barriers`. Same layout
-pattern as the intro text + icon/button groups on the other AI Roadmap pages.
+(`RoadmapVideoButton`, playing `The_AI_Dilema.mp4`) beside intro text explaining that
+thousands of European software vendors run legacy products that are stable and
+trusted but risk falling behind as AI-native competitors move faster, customers
+expect modern experiences, and regulatory pressure increases — and that while AI
+itself (RAG, workflow automation, reasoning agents, custom models) is ready and
+accessible, the modernization path forward often isn't clear. On the right, the
+`barriers.svg` icon above a "Know the barriers …" link button →
+`/ai-dilemma/barriers`. Same layout pattern as the intro text + icon/button groups on
+the other AI Roadmap pages.
 
 ### Sections
-- Accessible, but unclear  
-- Experimentations without value  
-- Feeling the pressure — body text nests an inline `<Link>` on "EU AI Act" →
+- Legacy at a Crossroads  
+- Experimentation Without Strategy  
+- Mounting Pressure — body text nests an inline `<Link>` on "EU AI Act" →
   `/eu-ai-act-compliance`  
-- Stuck in a paradox  
+- The Paradox of Reliability  
 
 ---
 

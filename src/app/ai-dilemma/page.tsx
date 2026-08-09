@@ -4,27 +4,27 @@ import type { Metadata } from "next";
 import RoadmapVideoButton from "@/components/RoadmapVideoButton";
 
 export const metadata: Metadata = {
-  title: "The AI Dilemma | The BrokerAI",
+  title: "The Modernization Dilemma | Ragtime-Pro",
   description:
-    "Why SME AI adoption stalls: accessible tools, unclear outcomes, and the pressure from competitors, vendors, and regulators.",
+    "The product still works — but the market has moved. Why legacy software vendors hesitate to modernize, and what actually gets in the way.",
 };
 
 const SECTIONS = [
   {
-    title: "Accessible, but unclear",
-    body: "Tools are cheaper and easier to access than ever. What's missing isn't access — it's a clear sense of where to start and what actually matters for your business.",
+    title: "Legacy at a Crossroads",
+    body: "AI-native competitors ship modern experiences faster, customers expect automation and personalization, and integration standards keep evolving. The product still works — but the market has moved.",
   },
   {
-    title: "Experimentations without value",
-    body: "Most SMEs have already tried something — a chatbot, a pilot, an automation script. Few have turned that experimentation into measurable business value.",
+    title: "Experimentation Without Strategy",
+    body: "A chatbot pilot here, a workflow script there — isolated experiments rarely scale, because they're disconnected from your architecture, your customers, and your long-term roadmap.",
   },
   {
-    title: "Feeling the pressure",
-    body: "Competitors are moving, vendors are pitching, and regulators — especially under the EU AI Act — are raising the bar. Standing still carries its own risk.",
+    title: "Mounting Pressure",
+    body: "Competitors are moving, customers expect more, internal teams are already stretched thin, and regulators — especially under the EU AI Act — are raising the bar.",
   },
   {
-    title: "Stuck in a paradox",
-    body: "Interest in AI has never been higher, yet clarity on how to adopt it safely and effectively remains rare. That gap is where most SMEs get stuck.",
+    title: "The Paradox of Reliability",
+    body: "Legacy products succeed because they're reliable — and hesitate to evolve for the same reason. Vendors don't lack vision. They lack clarity.",
   },
 ];
 
@@ -32,14 +32,13 @@ export default function AiDilemmaPage() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
-        <h1 className="font-heading text-4xl font-bold text-navy">The AI Dilemma</h1>
+        <h1 className="font-heading text-4xl font-bold text-navy">The Modernization Dilemma</h1>
       </section>
 
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;AI adoption is not a choice — but the path forward feels risky and
-            uncertain.&rdquo;
+            &ldquo;The product still works — but the market has moved.&rdquo;
           </p>
         </div>
       </section>
@@ -55,14 +54,15 @@ export default function AiDilemmaPage() {
               />
             </div>
             <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              AI adoption for SMEs is full of interest and full of noise — rarely full of
-              clarity. AI has never been more accessible — cloud tools deploy in minutes, and
-              low-code platforms let non-technical teams automate real work. Yet most SMEs still
-              hesitate. They see competitors experimenting, vendors pitching, and regulators
-              raising the bar, but the path forward stays unclear. More than 75% have already
-              tried something — a chatbot, a summarizer, a pilot — without turning that
-              experimentation into lasting value. The potential is there — it just needs
-              direction.
+              Thousands of European software vendors rely on products built years —
+              sometimes decades — ago: stable, trusted, and deeply embedded in customer
+              operations. But the market around them has changed. AI-native competitors
+              move faster, customers expect modern experiences, and regulatory pressure
+              keeps increasing. Legacy products are not failing — but they risk falling
+              behind. AI itself is ready: RAG, workflow automation, reasoning agents, and
+              custom models are all accessible today. What is not yet clear is the path —
+              where to begin, what is safe to modernize first, and how to integrate AI
+              into an architecture built over years without breaking what already works.
             </p>
           </div>
           <Link
@@ -88,14 +88,14 @@ export default function AiDilemmaPage() {
           <div key={section.title} className="rounded-lg bg-light-grey p-6">
             <h2 className="font-heading text-lg font-semibold text-navy">{section.title}</h2>
             <p className="mt-2 font-body text-sm text-charcoal">
-              {section.title === "Feeling the pressure" ? (
+              {section.title === "Mounting Pressure" ? (
                 <>
-                  Competitors are moving, vendors are pitching, and regulators — especially
-                  under the{" "}
+                  Competitors are moving, customers expect more, internal teams are
+                  already stretched thin, and regulators — especially under the{" "}
                   <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
                     EU AI Act
                   </Link>{" "}
-                  — are raising the bar. Standing still carries its own risk.
+                  — are raising the bar.
                 </>
               ) : (
                 section.body
