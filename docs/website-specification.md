@@ -8,13 +8,16 @@ Claude Code must maintain this document and ensure it always reflects the curren
 
 **Transitional note:** Home has been rebranded to Ragtime-Pro's AI-driven,
 legacy-software-modernization positioning. The remaining pages described below
-(About, The AI Dilemma, Engagement Model, etc.) still reflect the prior general
-"SME AI adoption" positioning and copy, and will be reconciled page by page as each is
-rebranded. Our Methodology (including its new Modernization Journey subpage) has been
-rebranded, as have the Boost Point (routed at `/methodology/boost-point` — see PAGE 8),
-Opportunity (see PAGE 9), and Readiness (see PAGE 10) vertex subpages — all three
-vertices are now rebranded. Solutions is also fully rebranded — overview page, card
-teasers, and all five detail pages (see PAGE 5 and PAGE 6).
+(The AI Dilemma, Core Barriers, Coaching, Starting the Journey, EU AI Act Compliance,
+etc.) still reflect the prior general "SME AI adoption" positioning and copy, and will
+be reconciled page by page as each is rebranded. Our Methodology (including its new
+Modernization Journey subpage) has been rebranded, as have the Boost Point (routed at
+`/methodology/boost-point` — see PAGE 8), Opportunity (see PAGE 9), and Readiness (see
+PAGE 10) vertex subpages — all three vertices are now rebranded. Solutions is also
+fully rebranded — overview page, card teasers, and all five detail pages (see PAGE 5
+and PAGE 6). The Modernization Agent page (formerly "Engagement Model") is fully
+rebranded (see PAGE 12), and About (formerly "About The BrokerAI") is fully rebranded
+(see PAGE 11).
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -48,10 +51,9 @@ Convert SME leaders who feel uncertain about AI adoption into qualified leads fo
 Home is reached via the navbar logo/brand mark, not a nav item.
 1. The AI Dilemma  
 2. AI Solutions (nav label; page is "Solution Categories")  
-3. Modernization Agent (nav label; page is "Engagement Model", pending its own
-   rebrand — see §1 transitional note)  
+3. Modernization Agent (nav label; page is "The Modernization Agent" — see PAGE 12)  
 4. Our Methodology  
-5. About Us (nav label; page is "About The BrokerAI")  
+5. About Us (nav label; page is "About Ragtime-Pro" — see PAGE 11)  
 6. EU Compliance (nav label; page is "EU AI Act Compliance")  
 7. Start Your Journey  
 8. Contact  
@@ -82,7 +84,7 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
   - Boost Point — `/methodology/boost-point` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
   - Opportunity — `/methodology/opportunity` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
   - Readiness — `/methodology/readiness` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
-- About The BrokerAI — `/about`
+- About Ragtime-Pro — `/about`
 - Engagement Model — `/engagement-model`
 - Start Your Journey — `/start`
 - Contact — `/contact`
@@ -515,28 +517,40 @@ Modernization Triad diagram — see PAGE 8) on the left, the `roadmap.svg` icon 
 
 ---
 
-## PAGE 11 — ABOUT THE BROKERAI
+## PAGE 11 — ABOUT RAGTIME-PRO
 
 ### Purpose
-Build trust.
+Build trust by explaining Ragtime-Pro's modernization system as a whole — the
+Modernization Agent, the Product Modernization Triad, the Consulting Layer, and AI
+Upgrade Modules working together — sourced from the PDF's "PAGE 13 — ABOUT
+RAGTIME-PRO" chapter.
 
 ### Intro Text + Icon/CTA (below quote, above cards)
 A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `We_Can_Help.mp4`) beside intro text explaining that
-organizations struggle with AI because the journey is unclear, not because the technology is
-complex, and introducing The BrokerAI as a vendor-neutral European multi-disciplinary
-network. On the right, the `mail_icon.svg` icon above a "Contact us …" link button →
-`/contact`. Same layout pattern as the intro text + icon/button groups on The AI Dilemma,
-Core Barriers, and Coaching pages.
+(`RoadmapVideoButton`, playing `We_Can_Help.mp4` — no dedicated About video asset
+exists yet, so the existing asset is reused) beside intro text introducing Ragtime-Pro
+as a modernization partner for legacy software vendors, transforming mission-critical
+products without rewrites or disruptive architectural change, through a combination of
+AI-augmented analysis, structured methodology, expert consulting, and incremental AI
+Upgrade Modules. On the right, the `mail_icon.svg` icon above a "Contact us …" link
+button → `/contact`. Same layout pattern as the intro text + icon/button groups on The
+AI Dilemma, Core Barriers, and Coaching pages. Intro text opens "Ragtime-Pro is a
+modernization partner for European software vendors ..." — "European" added to align
+with the site's EU-focused positioning.
 
 ### Sections
-- Mission  
-- Skills Network  
-- Vendor‑Neutral  
-- Regulatory Expertise  
+- Our Modernization Agent — linked card (`<Link>`, `ExternalLinkIcon`, hover-lift
+  state) → `/engagement-model`
+- The Product Modernization Triad — linked card → `/methodology`
+- The Consulting Layer — linked card → `/methodology/process`
+- AI Upgrade Modules — linked card → `/solutions`
+
+The four pillars of Ragtime-Pro's "precision-engineered system," per the PDF chapter's
+"What Makes Us Different" section. All four cards link out, same linked-card pattern as
+the Home value blocks and Solution Class cards (see §10.3 Shared Visual Patterns).
 
 ### Quote
-“We are not a vendor. We are a strategic partner.”
+“We are not a generic AI consultancy. We are a modernization partner.”
 
 ---
 

@@ -1,30 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import ExternalLinkIcon from "@/components/ExternalLinkIcon";
 import RoadmapVideoButton from "@/components/RoadmapVideoButton";
 
 export const metadata: Metadata = {
-  title: "About The BrokerAI | The BrokerAI",
+  title: "About Ragtime-Pro | Ragtime-Pro",
   description:
-    "A vendor-neutral, European network of AI experts helping SMEs adopt AI safely — with deep EU AI Act regulatory expertise.",
+    "Ragtime-Pro is a modernization partner for legacy software vendors — an AI-augmented Modernization Agent, the Product Modernization Triad, expert consultants, and AI Upgrade Modules.",
 };
 
 const SECTIONS = [
   {
-    title: "Mission",
-    body: "Our mission is to give European SMEs a clear, safe, and structured path into AI adoption — without the confusion, hype, or vendor bias that often surrounds it.",
+    title: "Our Modernization Agent",
+    body: "Our proprietary AI engine ingests your product's source code, workflows, documentation, and business context to produce actionable modernization intelligence.",
+    href: "/engagement-model",
   },
   {
-    title: "Skills Network",
-    body: "We draw on a multi-disciplinary network of AI experts across Europe, bringing the right specialist to the right problem — not a one-size-fits-all team.",
+    title: "The Product Modernization Triad",
+    body: "The strategic framework that aligns Boost Point, Opportunity, and Readiness — dynamically adapted to your product's industry, architecture, and regulatory environment.",
+    href: "/methodology",
   },
   {
-    title: "Vendor-Neutral",
-    body: "We have no allegiance to any platform or vendor. Our recommendations are judged purely on fit for your business.",
+    title: "The Consulting Layer",
+    body: "Our expert consultants interpret the Agent's analysis, validate it with your team, and execute modernization safely and collaboratively.",
+    href: "/methodology/process",
   },
   {
-    title: "Regulatory Expertise",
-    body: "Deep familiarity with the EU AI Act and evolving compliance requirements means your roadmap is safe by design, not by accident.",
+    title: "AI Upgrade Modules",
+    body: "The tangible deliverables — Productivity Features, Workflow Automations, RAG Assistants, Reasoning Agents, and Custom Models — integrated directly into your product.",
+    href: "/solutions",
   },
 ];
 
@@ -32,13 +37,13 @@ export default function AboutPage() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
-        <h1 className="font-heading text-4xl font-bold text-navy">About The BrokerAI</h1>
+        <h1 className="font-heading text-4xl font-bold text-navy">About Ragtime-Pro</h1>
       </section>
 
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;We are not a vendor. We are a strategic partner.&rdquo;
+            &ldquo;We are not a generic AI consultancy. We are a modernization partner.&rdquo;
           </p>
         </div>
       </section>
@@ -54,13 +59,13 @@ export default function AboutPage() {
               />
             </div>
             <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              Organizations don&apos;t struggle with AI because the technology is too complex — they
-              struggle because the journey is unclear. The BrokerAI is a European
-              multi-disciplinary network of technical specialists, organizational strategists,
-              and regulatory advisors, brought together because AI adoption is a business
-              challenge, a people challenge, and a governance challenge all at once. We hold no
-              allegiance to any platform or vendor: every recommendation is judged purely on fit for your
-              business.
+              Ragtime-Pro is a modernization partner for European software vendors who carry the weight —
+              and the value — of legacy products. We specialize in transforming long-standing,
+              mission-critical software into modern, intelligent, competitive products, without
+              rewrites, risky migrations, or disruptive architectural changes. We combine
+              AI-augmented analysis, a structured modernization methodology, expert consulting
+              execution, and incremental, safe AI Upgrade Modules into a single modernization
+              system.
             </p>
           </div>
           <Link href="/contact" className="group flex flex-col items-center gap-4">
@@ -79,12 +84,26 @@ export default function AboutPage() {
       </section>
 
       <section className="mx-auto grid max-w-7xl gap-8 px-6 pt-8 pb-16 sm:grid-cols-2">
-        {SECTIONS.map((section) => (
-          <div key={section.title} className="rounded-lg bg-light-grey p-6">
-            <h2 className="font-heading text-lg font-semibold text-navy">{section.title}</h2>
-            <p className="mt-2 font-body text-sm text-charcoal">{section.body}</p>
-          </div>
-        ))}
+        {SECTIONS.map((section) =>
+          section.href ? (
+            <Link
+              key={section.title}
+              href={section.href}
+              className="group relative block rounded-lg border border-transparent bg-light-grey p-6 pb-10 transition-all hover:-translate-y-1 hover:border-electric-blue hover:shadow-md"
+            >
+              <h2 className="font-heading text-lg font-semibold text-navy transition-colors group-hover:text-electric-blue">
+                {section.title}
+              </h2>
+              <p className="mt-2 font-body text-sm text-charcoal">{section.body}</p>
+              <ExternalLinkIcon className="absolute bottom-4 right-4 h-5 w-5 text-charcoal/40 transition-colors group-hover:text-electric-blue" />
+            </Link>
+          ) : (
+            <div key={section.title} className="rounded-lg bg-light-grey p-6">
+              <h2 className="font-heading text-lg font-semibold text-navy">{section.title}</h2>
+              <p className="mt-2 font-body text-sm text-charcoal">{section.body}</p>
+            </div>
+          )
+        )}
       </section>
     </>
   );
