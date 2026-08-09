@@ -4,31 +4,31 @@ import type { Metadata } from "next";
 import RoadmapVideoButton from "@/components/RoadmapVideoButton";
 
 export const metadata: Metadata = {
-  title: "Coaching: The Barrier's Breaker | The BrokerAI",
+  title: "Coaching: The AI-Augmented Barrier Breaker | Ragtime-Pro",
   description:
-    "How structured AI coaching demystifies adoption, bridges the skills gap, reduces resistance, and ensures EU AI Act compliance.",
+    "How AI-augmented coaching, powered by the Modernization Agent, demystifies modernization, bridges the skills gap, reduces resistance, and ensures EU AI Act compliance.",
 };
 
 const KEY_BLOCKS = [
   {
     title: "Demystification",
-    body: "We translate AI capabilities into plain, practical language tied to your business — no jargon, no hype.",
+    body: "Legacy architectures are often undocumented and fragmented. The Modernization Agent analyzes them automatically, highlights risks and constraints, and explains integration options in plain language.",
   },
   {
     title: "Bridging the Skills Gap",
-    body: "Hands-on coaching builds your team's confidence to evaluate and adopt AI tools without over-relying on external vendors.",
+    body: "The Modernization Agent generates safe integration points for RAG, workflow, and reasoning capabilities, with technical explanations tailored to your team's skill level.",
   },
   {
     title: "Reducing Resistance",
-    body: "Structured change management turns hesitant stakeholders into engaged participants in the roadmap.",
+    body: "Evidence-based modernization paths, risk-controlled integration plans, and early wins turn modernization from a threat into a guided evolution.",
   },
   {
     title: "Ensuring Compliance",
-    body: "Every recommendation accounts for EU AI Act requirements from the outset, not as an afterthought.",
+    body: "The Modernization Agent evaluates risk categories, transparency, data governance, and human oversight against the EU AI Act before any step proceeds.",
   },
   {
     title: "Building Confidence",
-    body: "The result: a leadership team that understands its AI roadmap and trusts the decisions behind it.",
+    body: "The result: a leadership team that understands its modernization roadmap and trusts the decisions behind it.",
   },
 ];
 
@@ -37,15 +37,15 @@ export default function CoachingPage() {
     <>
       <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">
-          The Barrier&apos;s Breaker
+          The AI-Augmented Barrier Breaker
         </h1>
       </section>
 
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;Coaching turns uncertainty into a structured and confident path toward
-            value.&rdquo;
+            &ldquo;Coaching becomes the engine breaking the barriers - amplified by AI
+            itself.&rdquo;
           </p>
         </div>
       </section>
@@ -61,18 +61,24 @@ export default function CoachingPage() {
               />
             </div>
             <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              Structured coaching is how The BrokerAI turns each core barrier into a solved
-              problem. For most SMEs, the greatest challenge isn&apos;t the technology —
-              it&apos;s the uncertainty surrounding it. Coaching replaces guesswork with
-              methodology and fragmented experimentation with strategic alignment, giving SMEs
-              access to external expertise that understands both AI and the realities of
-              small-business operations. Working barrier by barrier, it demystifies AI, builds
-              internal skills, brings hesitant teams on board, and keeps every recommendation
-              aligned with{" "}
+              Modernizing a legacy software product traditionally depended entirely on
+              human consultants. Ragtime-Pro&apos;s coaching is AI-augmented, powered by
+              the{" "}
+              <Link href="/modernization-agent" className="underline hover:text-electric-blue">
+                Modernization Agent
+              </Link>
+              , which performs the heavy analytical work — scanning code, mapping
+              dependencies, identifying{" "}
+              <Link href="/methodology/boost-point" className="underline hover:text-electric-blue">
+                Boost Points
+              </Link>
+              , evaluating integration paths, and assessing{" "}
               <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
-                EU AI Act requirements
+                EU AI Act
               </Link>{" "}
-              — turning AI adoption from a risky leap into a guided journey.
+              implications. Your team brings product knowledge, our consultants bring
+              modernization expertise, and the Modernization Agent brings analytical
+              acceleration — together breaking every barrier.
             </p>
           </div>
           <Link href="/about" className="group flex flex-col items-center gap-4">
@@ -109,11 +115,12 @@ export default function CoachingPage() {
               <p className="mt-2 font-body text-sm text-charcoal">
                 {block.title === "Ensuring Compliance" ? (
                   <>
-                    Every recommendation accounts for{" "}
+                    The Modernization Agent evaluates risk categories, transparency,
+                    data governance, and human oversight against the{" "}
                     <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
-                      EU AI Act requirements
+                      EU AI Act
                     </Link>{" "}
-                    from the outset, not as an afterthought.
+                    before any step proceeds.
                   </>
                 ) : (
                   block.body

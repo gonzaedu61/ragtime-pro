@@ -8,8 +8,8 @@ Claude Code must maintain this document and ensure it always reflects the curren
 
 **Transitional note:** Home has been rebranded to Ragtime-Pro's AI-driven,
 legacy-software-modernization positioning. The remaining pages described below
-(Coaching, etc.) still reflect the prior general "SME AI adoption" positioning and
-copy, and will be reconciled page by page as each is rebranded. Our
+still reflect the prior general "SME AI adoption" positioning and copy, and will be
+reconciled page by page as each is rebranded. Our
 Methodology (including its new Modernization Journey subpage) has been rebranded, as
 have the Boost Point (routed at `/methodology/boost-point` — see PAGE 8), Opportunity
 (see PAGE 9), and Readiness (see PAGE 10) vertex subpages — all three vertices are now
@@ -19,8 +19,11 @@ five detail pages (see PAGE 5 and PAGE 6). The Modernization Agent page (formerl
 BrokerAI") is fully rebranded (see PAGE 11), EU AI Act Compliance is fully rebranded
 (see PAGE 15), Start Your Journey is fully rebranded (see PAGE 13), The
 Modernization Dilemma (formerly "The AI Dilemma," nav label and route unchanged) is
-fully rebranded (see PAGE 2), and Core Barriers to Modernization (formerly "Core
-Barriers") is fully rebranded (see PAGE 3).
+fully rebranded (see PAGE 2), Core Barriers to Modernization (formerly "Core
+Barriers") is fully rebranded (see PAGE 3), and Coaching: The AI-Augmented Barrier
+Breaker (formerly "The Barrier's Breaker") is fully rebranded (see PAGE 4). Not yet
+rebranded: Privacy Policy and Terms of Service still reference "The BrokerAI" (see
+PAGE 16 and PAGE 17), as does the `/api/contact` route's email copy.
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -211,34 +214,43 @@ Dilemma page's intro text + barriers icon/button group.
 
 ---
 
-## PAGE 4 — COACHING: THE BARRIER’S BREAKER
+## PAGE 4 — COACHING: THE AI-AUGMENTED BARRIER BREAKER
 
 ### Purpose
-Explain the core service: structured coaching.
+Explain the core service: AI-augmented coaching, powered by the Modernization Agent.
+Sourced from the PDF's "PAGE 4 — COACHING: THE AI-AUGMENTED BARRIER BREAKER" chapter.
+H1 and metadata title renamed from "The Barrier's Breaker" to "The AI-Augmented
+Barrier Breaker" (metadata title keeps the "Coaching:" prefix, H1 does not).
 
 ### Quote
-“Coaching turns uncertainty into a structured and confident path toward value.”
+“Coaching becomes the engine breaking the barriers - amplified by AI itself.”
 
 ### Intro Text + Icon/CTA (below quote, above cards)
 A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `Barriers_Breaker.mp4`) beside intro text opening with the
-former hero subheadline ("Structured coaching is how The BrokerAI turns each core barrier
-into a solved problem"), then drawing on the AI Roadmap Guide's "Coaching: The Barrier's
-Breaker" section — the real challenge being uncertainty rather than the technology itself,
-coaching replacing guesswork with methodology and fragmented experimentation with strategic
-alignment, and working barrier by barrier to demystify AI, build skills, reduce resistance,
-and keep recommendations aligned with the EU AI Act — "EU AI Act requirements" is an
-inline `<Link>` → `/eu-ai-act-compliance`. On the right, the Ragtime-Pro logo
-(`Ragtime-Pro_Logo.png`) above a "We can help you …" link button → `/about`. Same layout pattern as The
-AI Dilemma and Core Barriers pages' intro text + icon/button groups.
+(`RoadmapVideoButton`, playing `Barriers_Breaker.mp4`) beside intro text explaining
+that modernization coaching traditionally depended entirely on human consultants, but
+Ragtime-Pro's coaching is AI-augmented, powered by the Modernization Agent (first
+mention is an inline `<Link>` → `/modernization-agent`), which performs the heavy
+analytical work (scanning code, mapping dependencies, identifying Boost Points —
+inline `<Link>` → `/methodology/boost-point` — evaluating integration paths,
+assessing EU AI Act implications — inline `<Link>` → `/eu-ai-act-compliance`). The
+consulting team brings modernization expertise, the vendor's team brings product
+knowledge, and the Modernization Agent brings analytical acceleration. On the right,
+the Ragtime-Pro logo (`Ragtime-Pro_Logo.png`) above a "We can help you …" link button
+→ `/about`. Same layout pattern as The Modernization Dilemma and Core Barriers to
+Modernization pages' intro text + icon/button groups.
 
 ### Key Blocks
-- Demystification  
-- Bridging the skills gap  
-- Reducing resistance  
-- Ensuring compliance — body text nests an inline `<Link>` on "EU AI Act requirements"
-  → `/eu-ai-act-compliance`  
-- Building Confidence (second row, alongside Ensuring Compliance)  
+- Demystification — the Modernization Agent analyzes undocumented/fragmented legacy
+  architectures automatically, highlighting risks and constraints.
+- Bridging the Skills Gap — safe integration points for RAG, workflow, and reasoning
+  capabilities, with explanations tailored to the team's skill level.
+- Reducing Resistance — evidence-based paths, risk-controlled plans, and early wins.
+- Ensuring Compliance — body text nests an inline `<Link>` on "EU AI Act" →
+  `/eu-ai-act-compliance`; risk categories, transparency, data governance, and human
+  oversight evaluated before any step proceeds.
+- Building Confidence (second row, alongside Ensuring Compliance) — a leadership team
+  that understands its modernization roadmap and trusts the decisions behind it.
 
 ---
 
