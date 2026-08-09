@@ -79,7 +79,7 @@ export default function ReadinessPage() {
                   <>
                     Whether the data quality and documentation available are sufficient
                     for the{" "}
-                    <Link href="/engagement-model" className="underline hover:text-electric-blue">
+                    <Link href="/modernization-agent" className="underline hover:text-electric-blue">
                       Modernization Agent
                     </Link>{" "}
                     — and the module itself — to work with reliably.

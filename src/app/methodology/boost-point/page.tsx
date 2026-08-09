@@ -55,7 +55,7 @@ export default function BoostPointPage() {
             Point</strong>, is a modernization hotspot — a place in the product where AI
             can create the highest value with minimal disruption to the existing
             architecture. Our{" "}
-            <Link href="/engagement-model" className="underline hover:text-electric-blue">
+            <Link href="/modernization-agent" className="underline hover:text-electric-blue">
               Modernization Agent
             </Link>{" "}
             identifies Boost Points through multi-dimensional analysis of your source

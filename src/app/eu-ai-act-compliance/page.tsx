@@ -87,7 +87,7 @@ export default function EuAiActCompliancePage() {
                 <>
                   Compliance doesn&apos;t end at launch. High-risk systems require
                   post-market monitoring as your product — and its data — evolve. Our{" "}
-                  <Link href="/engagement-model" className="underline hover:text-electric-blue">
+                  <Link href="/modernization-agent" className="underline hover:text-electric-blue">
                     Modernization Agent
                   </Link>{" "}
                   keeps watch as part of its ongoing analysis.

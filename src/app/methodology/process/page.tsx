@@ -73,7 +73,7 @@ export default function ModernizationProcessPage() {
             Legacy modernization is not a matter of inspiration or experimentation — it is a
             strategic discipline. Our methodology follows a structured, repeatable sequence,
             powered by the{" "}
-            <Link href="/engagement-model" className="underline hover:text-electric-blue">
+            <Link href="/modernization-agent" className="underline hover:text-electric-blue">
               <strong>Modernization Agent</strong>
             </Link>{" "}
             and executed by our consultants, that turns your product&apos;s architecture,
@@ -124,7 +124,7 @@ export default function ModernizationProcessPage() {
                 ) : step.title === "Modernization Opportunity Analysis" ? (
                   <>
                     The{" "}
-                    <Link href="/engagement-model" className="underline hover:text-electric-blue">
+                    <Link href="/modernization-agent" className="underline hover:text-electric-blue">
                       Modernization Agent
                     </Link>{" "}
                     surfaces friction points, bottlenecks, knowledge gaps, and automation

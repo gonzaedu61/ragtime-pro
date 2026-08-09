@@ -44,7 +44,7 @@ export default function SolutionsPage() {
               modernization into five AI Solution Categories, each a distinct layer of
               capability, complexity, and value. Each category can be integrated
               incrementally, and is analyzed and sequenced by our{" "}
-              <Link href="/engagement-model" className="underline hover:text-electric-blue">
+              <Link href="/modernization-agent" className="underline hover:text-electric-blue">
                 Modernization Agent
               </Link>{" "}
               to ensure safe integration into your legacy architecture.

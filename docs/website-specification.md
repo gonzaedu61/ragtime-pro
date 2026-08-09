@@ -85,7 +85,7 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
   - Opportunity — `/methodology/opportunity` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
   - Readiness — `/methodology/readiness` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
 - About Ragtime-Pro — `/about`
-- Engagement Model — `/engagement-model`
+- The Modernization Agent — `/modernization-agent`
 - Start Your Journey — `/start`
 - Contact — `/contact`
 - Privacy Policy — `/privacy-policy`
@@ -129,7 +129,7 @@ flip-animated logo lockup now appears only in the navbar (see §10.1).
 Each block links to the page that expands on it. Grid order (2 columns: top-left,
 top-right, bottom-left, bottom-right):
 1. We Bring Structure → `/methodology/boost-point`
-2. Our Modernization Agent → `/engagement-model`
+2. Our Modernization Agent → `/modernization-agent`
 3. Incremental Modernization → `/methodology`
 4. AI Upgrade Modules → `/solutions`
 
@@ -235,7 +235,7 @@ A centered two-column group (stacks on mobile): on the left, a video icon
 different products, architectures, and customer bases require different modernization
 intensities, so modernization is organized into five AI Solution Categories — each a
 distinct layer of capability, complexity, and value, integrable incrementally, and
-sequenced by the Modernization Agent (an inline `<Link>` → `/engagement-model`) — not
+sequenced by the Modernization Agent (an inline `<Link>` → `/modernization-agent`) — not
 a menu of features to pick from, but carefully crafted into a roadmap. On the right, a
 roadmap icon (`roadmap.svg`)
 above a "Setting the roadmap …" link button → `/methodology`. Same layout pattern as the
@@ -380,14 +380,14 @@ left, intro text (no video — no dedicated video asset exists for this page yet
 explaining that legacy modernization is a strategic discipline, not a matter of
 inspiration or experimentation, and that the methodology follows a structured,
 repeatable sequence powered by the Modernization Agent (bolded and an inline `<Link>`
-→ `/engagement-model`) and executed by the consultants. On the right, the
+→ `/modernization-agent`) and executed by the consultants. On the right, the
 `roadmap.svg` icon above a link button, "Check the Product Modernization Triad ..." →
 `/methodology`.
 
 ### Eight Steps
 1. Product Discovery & Context Mapping
 2. Modernization Opportunity Analysis — body text nests an inline `<Link>` on
-   "Modernization Agent" → `/engagement-model`
+   "Modernization Agent" → `/modernization-agent`
 3. AI Solution Category Alignment
 4. Standard Ragtime-Pro Modules Mapping — matches each opportunity to Ragtime-Pro's
    library of pre-built AI Upgrade Modules, reusing one where it fits or generating a
@@ -398,7 +398,7 @@ repeatable sequence powered by the Modernization Agent (bolded and an inline `<L
 7. Modernization Blueprint Creation
 8. Guided Implementation
 
-Same visual pattern as the Engagement Model's six-step grid (icon + title + body per
+Same visual pattern as the Modernization Agent page's card grid (icon + title + body per
 card, per-card links only on steps 2 and 6, no numeric prefix in the title since each
 numbered icon, `step_1.svg`–`step_8.svg`, already carries its step number). The first
 six cards sit
@@ -420,7 +420,7 @@ where AI can create the highest product value with minimal disruption.
 
 ### Main Text (below quote, above cards)
 A centered paragraph explaining that a Boost Point is a modernization hotspot identified
-by the Modernization Agent (an inline `<Link>` → `/engagement-model`) through
+by the Modernization Agent (an inline `<Link>` → `/modernization-agent`) through
 multi-dimensional analysis of source code, documentation, workflows, customer usage,
 and competitive gaps — and that anchoring modernization in Boost Points ensures every
 AI Upgrade Module targets a real, high-value opportunity rather than the flashiest
@@ -512,7 +512,7 @@ mention of "Readiness" is bolded.
 ### Four Cards
 1. Architecture & APIs
 2. Data & Documentation — body text nests an inline `<Link>` on "Modernization Agent"
-   → `/engagement-model`
+   → `/modernization-agent`
 3. Team & Governance
 4. Industry & Compliance — body text nests an inline `<Link>` on "the EU AI Act" →
    `/eu-ai-act-compliance`
@@ -551,7 +551,7 @@ with the site's EU-focused positioning.
 
 ### Sections
 - Our Modernization Agent — linked card (`<Link>`, `ExternalLinkIcon`, hover-lift
-  state) → `/engagement-model`
+  state) → `/modernization-agent`
 - The Product Modernization Triad — linked card → `/methodology`
 - The Consulting Layer — linked card → `/methodology/process`
 - AI Upgrade Modules — linked card → `/solutions`
@@ -709,7 +709,7 @@ you …" link button → `/about` (unchanged from prior content pass).
    traceability for high-risk systems.
 6. **Lifecycle Monitoring** — post-market monitoring as the product and its data
    evolve, tied to the Modernization Agent's ongoing analysis; body text nests an
-   inline `<Link>` on "Modernization Agent" → `/engagement-model`.
+   inline `<Link>` on "Modernization Agent" → `/modernization-agent`.
 
 Grid is `sm:grid-cols-2 lg:grid-cols-3` (two rows of three). No page-ending CTA; the
 obligation cards are the page's final content.
@@ -990,7 +990,7 @@ Claude must:
 - **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `Ragtime-Pro_Logo.png` lockup (icon + wordmark, no separate text label), flip-animated in an 82×170px box sized to its aspect ratio.
 - **Footer** (`src/components/Footer.tsx`) — footer navigation (Privacy Policy, Terms of Service, Contact) and copyright line. No LinkedIn link yet — see §2.2.
 - **RotatingHeadline** (`src/components/RotatingHeadline.tsx`) — client component cycling through 5 two-line phrases on the Home hero, one every 8 seconds with a cross-fade transition. Starts on a random phrase on each mount (not always the first) so repeat visits and refreshes don't always open on the same line.
-- **RoadmapVideoButton** (`src/components/RoadmapVideoButton.tsx`) — reusable video-icon trigger; renders a small icon (optionally with a text label) that opens a centered modal video player animating in/out from the icon's screen position. Takes a `src` (defaults to the AI Roadmap Guide video), an optional `lowBandwidthSrc` for connection-aware source switching, and a `blueHoverIcon` toggle (icon swaps to an electric-blue variant on hover; disabled on Home and Start Your Journey, where a size-only hover effect is used instead). Used on: Home, Start Your Journey (two instances), The AI Dilemma, Core Barriers, Coaching, About, AI Solution Categories, Our Methodology, Engagement Model, and every Solution Class detail page (via `SolutionDetail`).
+- **RoadmapVideoButton** (`src/components/RoadmapVideoButton.tsx`) — reusable video-icon trigger; renders a small icon (optionally with a text label) that opens a centered modal video player animating in/out from the icon's screen position. Takes a `src` (defaults to the AI Roadmap Guide video), an optional `lowBandwidthSrc` for connection-aware source switching, and a `blueHoverIcon` toggle (icon swaps to an electric-blue variant on hover; disabled on Home and Start Your Journey, where a size-only hover effect is used instead). Used on: Home, Start Your Journey (two instances), The AI Dilemma, Core Barriers, Coaching, About, AI Solution Categories, Our Methodology, the Modernization Agent, and every Solution Class detail page (via `SolutionDetail`).
 - **VertexTriadNav** (`src/components/VertexTriadNav.tsx`) — small Driving-Triad diagram used in the left-side nav slot on the Need/Opportunity/Readiness pages; highlights the current vertex and links to the other two.
 - **SolutionDetail** (`src/components/SolutionDetail.tsx`) — shared template rendering a single Solution Class's Quote, Overview, sidebar of the other four categories, Value/Examples/Readiness Requirements/Roadmap Fit cards, and a roadmap CTA; used by the dynamic `/solutions/[slug]` route. See Page 6 for its 3-column grid layout.
 - **ExternalLinkIcon** (`src/components/ExternalLinkIcon.tsx`) — small inline SVG "leads elsewhere" arrow icon (hand-drawn, no external asset). Used on every card that is itself a link, positioned bottom-right; see Section 10.3.
@@ -1002,7 +1002,7 @@ Claude must:
 - **Navy pull-quote bar** — a slim `bg-navy py-8` band holding one italic, centered quote (`text-2xl font-medium italic text-white`), placed directly beneath each page's H1 hero. Used on every page except Home. Quotes are sourced verbatim from the AI Roadmap Guide PDF (Section 12 authoritative source), one per page — see each page's "Quote" entry in Section 3.
 - **Card color scheme** — two deliberately inverted schemes depending on page:
   - *Home*: white cards (`bg-white`) sit on a gray section (`bg-light-grey`).
-  - *Every other page*: gray cards (`bg-light-grey`) sit directly on the white page background — no wrapping gray section. This applies to all content card grids (About, AI Dilemma, Core Barriers, Coaching, Methodology, Solution Class cards and detail-page cards, Engagement Model's cards, EU AI Act Compliance).
+  - *Every other page*: gray cards (`bg-light-grey`) sit directly on the white page background — no wrapping gray section. This applies to all content card grids (About, AI Dilemma, Core Barriers, Coaching, Methodology, Solution Class cards and detail-page cards, the Modernization Agent's cards, EU AI Act Compliance).
 - **Linked-card indicator** — every card that is itself a `<Link>` (Home value blocks, Solution Class cards) shows the `ExternalLinkIcon` component pinned `absolute bottom-4 right-4` (card given `relative` + extra `pb-10`), at `text-charcoal/40` resting and `text-electric-blue` on hover, in place of any "Learn more →" text. Purely informational cards never show this icon.
 - **Card hover state (linked cards only)** — `border border-transparent` at rest, transitioning to `hover:-translate-y-1 hover:border-electric-blue hover:shadow-md`. Applied only to cards that are actual links (Home value blocks, Solution Class cards); purely informational card grids do not use this pattern.
 - **Intro text + video icon** — most content pages place a small `RoadmapVideoButton` icon at the top-left of the page's intro paragraph (`iconClassName="h-9 w-auto"`, wrapped in a `shrink-0` container to prevent flex-shrink distortion), opening a page-specific explainer video in a modal. See each page's "Intro Text" section above for its video file.

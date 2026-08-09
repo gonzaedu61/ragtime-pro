@@ -15,7 +15,7 @@ const VALUE_BLOCKS = [
     title: "Our Modernization Agent",
     description:
       "Trained specifically for legacy modernization, our proprietary AI Agent carries the bulk of the analytical and code-generation work. Our consultants act as the human factor, validating each step to keep the transformation safe.",
-    href: "/engagement-model",
+    href: "/modernization-agent",
   },
   {
     title: "Incremental Modernization",

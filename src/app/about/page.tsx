@@ -14,7 +14,7 @@ const SECTIONS = [
   {
     title: "Our Modernization Agent",
     body: "Our proprietary AI engine ingests your product's source code, workflows, documentation, and business context to produce actionable modernization intelligence.",
-    href: "/engagement-model",
+    href: "/modernization-agent",
   },
   {
     title: "The Product Modernization Triad",
