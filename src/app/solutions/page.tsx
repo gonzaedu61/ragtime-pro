@@ -43,8 +43,11 @@ export default function SolutionsPage() {
               bases require different modernization intensities, so we organize
               modernization into five AI Solution Categories, each a distinct layer of
               capability, complexity, and value. Each category can be integrated
-              incrementally, and is analyzed and sequenced by our Modernization Agent to
-              ensure safe integration into your legacy architecture.
+              incrementally, and is analyzed and sequenced by our{" "}
+              <Link href="/engagement-model" className="underline hover:text-electric-blue">
+                Modernization Agent
+              </Link>{" "}
+              to ensure safe integration into your legacy architecture.
               These categories are not a menu of features to pick from — they are
               carefully crafted into a roadmap, letting you modernize confidently without
               overwhelming your team or destabilizing your product.

@@ -103,7 +103,37 @@ export default function EngagementModelPage() {
               }`}
             >
               <h2 className="font-heading text-lg font-semibold text-navy">{step.title}</h2>
-              <p className="mt-2 font-body text-sm text-charcoal">{step.body}</p>
+              <p className="mt-2 font-body text-sm text-charcoal">
+                {step.title === "Classifies the Right Module" ? (
+                  <>
+                    Matches each{" "}
+                    <Link href="/methodology/boost-point" className="underline hover:text-electric-blue">
+                      Boost Point
+                    </Link>{" "}
+                    to one of the 5 AI Upgrade Module categories and drafts its
+                    specification.
+                  </>
+                ) : step.title === "Adapts to Your Industry" ? (
+                  <>
+                    Tunes the{" "}
+                    <Link href="/methodology" className="underline hover:text-electric-blue">
+                      Product Modernization Triad
+                    </Link>{" "}
+                    to your product&apos;s specific industry and constraints.
+                  </>
+                ) : step.title === "Code AI Upgrade Modules" ? (
+                  <>
+                    Generates the required code to adapt and integrate existing standard
+                    Ragtime-Pro{" "}
+                    <Link href="/solutions" className="underline hover:text-electric-blue">
+                      AI Modules
+                    </Link>{" "}
+                    or develop ad-hoc ones if required.
+                  </>
+                ) : (
+                  step.body
+                )}
+              </p>
             </li>
           ))}
         </ol>

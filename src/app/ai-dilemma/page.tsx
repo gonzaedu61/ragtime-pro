@@ -87,7 +87,20 @@ export default function AiDilemmaPage() {
         {SECTIONS.map((section) => (
           <div key={section.title} className="rounded-lg bg-light-grey p-6">
             <h2 className="font-heading text-lg font-semibold text-navy">{section.title}</h2>
-            <p className="mt-2 font-body text-sm text-charcoal">{section.body}</p>
+            <p className="mt-2 font-body text-sm text-charcoal">
+              {section.title === "Feeling the pressure" ? (
+                <>
+                  Competitors are moving, vendors are pitching, and regulators — especially
+                  under the{" "}
+                  <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
+                    EU AI Act
+                  </Link>{" "}
+                  — are raising the bar. Standing still carries its own risk.
+                </>
+              ) : (
+                section.body
+              )}
+            </p>
           </div>
         ))}
       </section>

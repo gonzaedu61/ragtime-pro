@@ -72,9 +72,12 @@ export default function ModernizationProcessPage() {
           <p className="font-body text-lg text-charcoal lg:max-w-2xl lg:text-left">
             Legacy modernization is not a matter of inspiration or experimentation — it is a
             strategic discipline. Our methodology follows a structured, repeatable sequence,
-            powered by the <strong>Modernization Agent</strong> and executed by our
-            consultants, that turns your product&apos;s architecture, workflows, and
-            constraints into a safe, incremental modernization roadmap.
+            powered by the{" "}
+            <Link href="/engagement-model" className="underline hover:text-electric-blue">
+              <strong>Modernization Agent</strong>
+            </Link>{" "}
+            and executed by our consultants, that turns your product&apos;s architecture,
+            workflows, and constraints into a safe, incremental modernization roadmap.
           </p>
           <Link href="/methodology" className="group flex flex-col items-center gap-4">
             <Image
@@ -108,7 +111,29 @@ export default function ModernizationProcessPage() {
                   {step.title}
                 </h2>
               </div>
-              <p className="mt-2 font-body text-sm text-charcoal">{step.body}</p>
+              <p className="mt-2 font-body text-sm text-charcoal">
+                {step.title === "Risk & Compliance Assessment" ? (
+                  <>
+                    We evaluate{" "}
+                    <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
+                      EU AI Act
+                    </Link>{" "}
+                    implications, data governance, transparency, auditability, and human
+                    oversight before any step proceeds.
+                  </>
+                ) : step.title === "Modernization Opportunity Analysis" ? (
+                  <>
+                    The{" "}
+                    <Link href="/engagement-model" className="underline hover:text-electric-blue">
+                      Modernization Agent
+                    </Link>{" "}
+                    surfaces friction points, bottlenecks, knowledge gaps, and automation
+                    opportunities, producing a Modernization Opportunity Matrix.
+                  </>
+                ) : (
+                  step.body
+                )}
+              </p>
             </li>
           ))}
         </ol>

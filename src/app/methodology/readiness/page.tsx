@@ -65,7 +65,29 @@ export default function ReadinessPage() {
           {CARDS.map((card) => (
             <div key={card.title} className="rounded-lg bg-light-grey p-6 text-center">
               <h2 className="font-heading text-lg font-semibold text-navy">{card.title}</h2>
-              <p className="mt-2 font-body text-sm text-charcoal">{card.body}</p>
+              <p className="mt-2 font-body text-sm text-charcoal">
+                {card.title === "Industry & Compliance" ? (
+                  <>
+                    Whether industry-specific constraints and the product&apos;s compliance
+                    posture — including{" "}
+                    <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
+                      the EU AI Act
+                    </Link>{" "}
+                    — are accounted for before deployment.
+                  </>
+                ) : card.title === "Data & Documentation" ? (
+                  <>
+                    Whether the data quality and documentation available are sufficient
+                    for the{" "}
+                    <Link href="/engagement-model" className="underline hover:text-electric-blue">
+                      Modernization Agent
+                    </Link>{" "}
+                    — and the module itself — to work with reliably.
+                  </>
+                ) : (
+                  card.body
+                )}
+              </p>
             </div>
           ))}
         </div>

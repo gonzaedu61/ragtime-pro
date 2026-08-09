@@ -54,10 +54,13 @@ export default function BoostPointPage() {
             The first vertex of the Product Modernization Triad, <strong>Boost
             Point</strong>, is a modernization hotspot — a place in the product where AI
             can create the highest value with minimal disruption to the existing
-            architecture. Our Modernization Agent identifies Boost Points through
-            multi-dimensional analysis of your source code, documentation, workflows,
-            customer usage patterns, industry constraints, integration landscape, pain
-            points, and competitive gaps. Anchoring modernization in Boost Points ensures
+            architecture. Our{" "}
+            <Link href="/engagement-model" className="underline hover:text-electric-blue">
+              Modernization Agent
+            </Link>{" "}
+            identifies Boost Points through multi-dimensional analysis of your source
+            code, documentation, workflows, customer usage, and competitive gaps.
+            Anchoring modernization in Boost Points ensures
             every AI Upgrade Module targets a real, high-value opportunity — not just the
             flashiest technology.
           </p>

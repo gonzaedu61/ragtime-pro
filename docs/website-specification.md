@@ -8,16 +8,16 @@ Claude Code must maintain this document and ensure it always reflects the curren
 
 **Transitional note:** Home has been rebranded to Ragtime-Pro's AI-driven,
 legacy-software-modernization positioning. The remaining pages described below
-(The AI Dilemma, Core Barriers, Coaching, Starting the Journey, EU AI Act Compliance,
-etc.) still reflect the prior general "SME AI adoption" positioning and copy, and will
-be reconciled page by page as each is rebranded. Our Methodology (including its new
-Modernization Journey subpage) has been rebranded, as have the Boost Point (routed at
+(The AI Dilemma, Core Barriers, Coaching, Starting the Journey, etc.) still reflect
+the prior general "SME AI adoption" positioning and copy, and will be reconciled page
+by page as each is rebranded. Our Methodology (including its new Modernization
+Journey subpage) has been rebranded, as have the Boost Point (routed at
 `/methodology/boost-point` — see PAGE 8), Opportunity (see PAGE 9), and Readiness (see
 PAGE 10) vertex subpages — all three vertices are now rebranded. Solutions is also
 fully rebranded — overview page, card teasers, and all five detail pages (see PAGE 5
 and PAGE 6). The Modernization Agent page (formerly "Engagement Model") is fully
-rebranded (see PAGE 12), and About (formerly "About The BrokerAI") is fully rebranded
-(see PAGE 11).
+rebranded (see PAGE 12), About (formerly "About The BrokerAI") is fully rebranded
+(see PAGE 11), and EU AI Act Compliance is fully rebranded (see PAGE 15).
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -155,7 +155,8 @@ pattern as the intro text + icon/button groups on the other AI Roadmap pages.
 ### Sections
 - Accessible, but unclear  
 - Experimentations without value  
-- Feeling the pressure  
+- Feeling the pressure — body text nests an inline `<Link>` on "EU AI Act" →
+  `/eu-ai-act-compliance`  
 - Stuck in a paradox  
 
 ---
@@ -204,7 +205,8 @@ into a solved problem"), then drawing on the AI Roadmap Guide's "Coaching: The B
 Breaker" section — the real challenge being uncertainty rather than the technology itself,
 coaching replacing guesswork with methodology and fragmented experimentation with strategic
 alignment, and working barrier by barrier to demystify AI, build skills, reduce resistance,
-and keep recommendations aligned with the EU AI Act. On the right, the Ragtime-Pro logo
+and keep recommendations aligned with the EU AI Act — "EU AI Act requirements" is an
+inline `<Link>` → `/eu-ai-act-compliance`. On the right, the Ragtime-Pro logo
 (`Ragtime-Pro_Logo.png`) above a "We can help you …" link button → `/about`. Same layout pattern as The
 AI Dilemma and Core Barriers pages' intro text + icon/button groups.
 
@@ -212,7 +214,8 @@ AI Dilemma and Core Barriers pages' intro text + icon/button groups.
 - Demystification  
 - Bridging the skills gap  
 - Reducing resistance  
-- Ensuring compliance  
+- Ensuring compliance — body text nests an inline `<Link>` on "EU AI Act requirements"
+  → `/eu-ai-act-compliance`  
 - Building Confidence (second row, alongside Ensuring Compliance)  
 
 ---
@@ -232,8 +235,9 @@ A centered two-column group (stacks on mobile): on the left, a video icon
 different products, architectures, and customer bases require different modernization
 intensities, so modernization is organized into five AI Solution Categories — each a
 distinct layer of capability, complexity, and value, integrable incrementally, and
-sequenced by the Modernization Agent — not a menu of features to pick from, but
-carefully crafted into a roadmap. On the right, a roadmap icon (`roadmap.svg`)
+sequenced by the Modernization Agent (an inline `<Link>` → `/engagement-model`) — not
+a menu of features to pick from, but carefully crafted into a roadmap. On the right, a
+roadmap icon (`roadmap.svg`)
 above a "Setting the roadmap …" link button → `/methodology`. Same layout pattern as the
 intro text + icon/button groups on the other AI Roadmap pages.
 
@@ -375,25 +379,29 @@ A centered two-column group (stacks on mobile, `lg:flex-row lg:justify-center`):
 left, intro text (no video — no dedicated video asset exists for this page yet)
 explaining that legacy modernization is a strategic discipline, not a matter of
 inspiration or experimentation, and that the methodology follows a structured,
-repeatable sequence powered by the Modernization Agent and executed by the
-consultants. On the right, the `roadmap.svg` icon above a link button, "Check the
-Product Modernization Triad ..." → `/methodology`.
+repeatable sequence powered by the Modernization Agent (bolded and an inline `<Link>`
+→ `/engagement-model`) and executed by the consultants. On the right, the
+`roadmap.svg` icon above a link button, "Check the Product Modernization Triad ..." →
+`/methodology`.
 
 ### Eight Steps
 1. Product Discovery & Context Mapping
-2. Modernization Opportunity Analysis
+2. Modernization Opportunity Analysis — body text nests an inline `<Link>` on
+   "Modernization Agent" → `/engagement-model`
 3. AI Solution Category Alignment
 4. Standard Ragtime-Pro Modules Mapping — matches each opportunity to Ragtime-Pro's
    library of pre-built AI Upgrade Modules, reusing one where it fits or generating a
    new module for any gap.
 5. Modernization Sequencing
-6. Risk & Compliance Assessment
+6. Risk & Compliance Assessment — body text nests an inline `<Link>` on "EU AI Act" →
+   `/eu-ai-act-compliance`
 7. Modernization Blueprint Creation
 8. Guided Implementation
 
 Same visual pattern as the Engagement Model's six-step grid (icon + title + body per
-card, no per-card links, no numeric prefix in the title since each numbered icon,
-`step_1.svg`–`step_8.svg`, already carries its step number). The first six cards sit
+card, per-card links only on steps 2 and 6, no numeric prefix in the title since each
+numbered icon, `step_1.svg`–`step_8.svg`, already carries its step number). The first
+six cards sit
 in a standard `<ol>` grid (`sm:grid-cols-2 lg:grid-cols-3`); cards 7 and 8
 (Modernization Blueprint Creation, Guided Implementation) form a second `<ol>` below
 it, sized to match the grid's column width but laid out with `flex justify-center`
@@ -412,13 +420,14 @@ where AI can create the highest product value with minimal disruption.
 
 ### Main Text (below quote, above cards)
 A centered paragraph explaining that a Boost Point is a modernization hotspot identified
-by the Modernization Agent through multi-dimensional analysis of source code,
-documentation, workflows, customer usage patterns, industry constraints, integration
-landscape, pain points, and competitive gaps — and that anchoring modernization in Boost
-Points ensures every AI Upgrade Module targets a real, high-value opportunity rather than
-the flashiest technology. The first mention of "Boost Point" is bolded. Fixed height
-(`lg:h-56 lg:overflow-hidden`) so the flanking nav/CTA beside it land at the same vertical
-position regardless of paragraph length — see Flanking Nav/CTA.
+by the Modernization Agent (an inline `<Link>` → `/engagement-model`) through
+multi-dimensional analysis of source code, documentation, workflows, customer usage,
+and competitive gaps — and that anchoring modernization in Boost Points ensures every
+AI Upgrade Module targets a real, high-value opportunity rather than the flashiest
+technology. The first mention of "Boost Point" is bolded. Fixed height (`lg:h-56
+lg:overflow-hidden`) so the flanking nav/CTA beside it land at the same vertical
+position regardless of paragraph length — see Flanking Nav/CTA. Trimmed to fit six
+lines within the box (previously clipped its final word at wide viewports).
 
 ### Five Cards
 1. Enhanceable User Experiences
@@ -502,9 +511,11 @@ mention of "Readiness" is bolded.
 
 ### Four Cards
 1. Architecture & APIs
-2. Data & Documentation
+2. Data & Documentation — body text nests an inline `<Link>` on "Modernization Agent"
+   → `/engagement-model`
 3. Team & Governance
-4. Industry & Compliance
+4. Industry & Compliance — body text nests an inline `<Link>` on "the EU AI Act" →
+   `/eu-ai-act-compliance`
 
 Sourced from the PDF's eight Readiness factors (Page 12), paired two-per-card to fit the
 existing 2×2 grid. The old "Financial Capability" card is dropped — it isn't part of the
@@ -578,14 +589,16 @@ exactly how legacy systems can be enhanced, extended, or transformed. On the rig
    workflows and data flows, end to end.
 2. Detects Boost Points — identifies the modernization hotspots where AI can create the
    highest value with minimal disruption.
-3. Classifies the Right Module — matches each Boost Point to one of the 5 AI Upgrade
-   Module categories and drafts its specification.
-4. Adapts to Your Industry — tunes the Product Modernization Triad to the product's
-   specific industry and constraints.
+3. Classifies the Right Module — matches each Boost Point (inline `<Link>` →
+   `/methodology/boost-point`) to one of the 5 AI Upgrade Module categories and drafts
+   its specification.
+4. Adapts to Your Industry — tunes the Product Modernization Triad (inline `<Link>` →
+   `/methodology`) to the product's specific industry and constraints.
 5. Produces the Blueprint — generates the modernization blueprint and suggests safe
    integration patterns for the architecture.
 6. Code AI Upgrade Modules — generates the required code to adapt and integrate
-   existing standard Ragtime-Pro AI Modules or develop ad-hoc ones if required.
+   existing standard Ragtime-Pro AI Modules (inline `<Link>` → `/solutions`) or develop
+   ad-hoc ones if required.
 7. Ensures Safe Execution — ensures compliance alignment and supports our consultants
    throughout execution.
 
@@ -660,27 +673,46 @@ info@thebrokerAI.tech
 ## PAGE 15 — EU AI ACT COMPLIANCE
 
 ### Purpose
-Explain what the Act requires and how The BrokerAI builds compliance into the
-roadmap. Formerly expanded on a dedicated Home "EU Compliance Support" value
-block; Home no longer includes one after the Ragtime-Pro rebrand, so this page
-is now reached only via the top nav.
+Explain what the EU AI Act requires of software vendors integrating AI into legacy
+products, and how Ragtime-Pro builds compliance into every modernization roadmap.
+Content is grounded in the PDF's Core Barriers ("Barrier 4 — Compliance & Ethics")
+and Coaching ("Breaks Barrier 4") chapters, supplemented with current, externally
+researched EU AI Act specifics (risk-tier definitions, obligation deadlines, and
+penalty figures) since the PDF itself does not contain a dedicated compliance
+chapter. Formerly expanded on a dedicated Home "EU Compliance Support" value block;
+Home no longer includes one after the Ragtime-Pro rebrand, so this page is now
+reached only via the top nav.
 
 ### Quote
-“Turning AI compliance obligations into a manageable, structured process.”
+“Compliance built into the roadmap — not bolted on after launch.”
 
 ### Intro Text (below quote, above cards)
-Opens with the former hero subheadline ("Regulatory-aware guidance built into every
-roadmap — not bolted on at the end"), then explains that the Act's actual impact on
-SMEs is manageable and that every roadmap accounts for these requirements from the
-outset.
+A centered two-column group (stacks on mobile): on the left, intro text explaining
+that the EU AI Act does not exempt software vendors integrating AI into an existing
+product, that every AI Upgrade Module is classified against the Act's four risk
+tiers (unacceptable, high-risk, limited-risk, minimal-risk), and citing concrete
+dates and figures — prohibited practices in force since February 2025, high-risk
+obligations fully enforceable from August 2026, penalties up to €35M or 7% of
+global turnover. On the right, the `EU_compliance.svg` icon above a "We can help
+you …" link button → `/about` (unchanged from prior content pass).
 
-### Four Obligation Cards
-1. **Risk Classification**  
-2. **Transparency**  
-3. **Data Governance**  
-4. **Human Oversight**  
+### Six Obligation Cards
+1. **Risk Classification** — the Act's four-tier system and correctly classifying
+   each AI Upgrade Module before it ships.
+2. **Transparency** — AI-interaction disclosure for limited-risk systems like RAG
+   assistants and Reasoning Agents.
+3. **Data Governance** — data quality/provenance audits before RAG or Custom Model
+   integration.
+4. **Human Oversight** — meaningful human-in-the-loop for high-risk automated
+   decisions.
+5. **Auditability & Documentation** — technical documentation, logging, and
+   traceability for high-risk systems.
+6. **Lifecycle Monitoring** — post-market monitoring as the product and its data
+   evolve, tied to the Modernization Agent's ongoing analysis; body text nests an
+   inline `<Link>` on "Modernization Agent" → `/engagement-model`.
 
-No page-ending CTA; the obligation cards are the page's final content.
+Grid is `sm:grid-cols-2 lg:grid-cols-3` (two rows of three). No page-ending CTA; the
+obligation cards are the page's final content.
 
 ---
 

@@ -68,8 +68,11 @@ export default function CoachingPage() {
               access to external expertise that understands both AI and the realities of
               small-business operations. Working barrier by barrier, it demystifies AI, builds
               internal skills, brings hesitant teams on board, and keeps every recommendation
-              aligned with EU AI Act requirements — turning AI adoption from a risky leap into a
-              guided journey.
+              aligned with{" "}
+              <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
+                EU AI Act requirements
+              </Link>{" "}
+              — turning AI adoption from a risky leap into a guided journey.
             </p>
           </div>
           <Link href="/about" className="group flex flex-col items-center gap-4">
@@ -103,7 +106,19 @@ export default function CoachingPage() {
               className="w-full rounded-lg bg-light-grey p-6 sm:w-[calc((100%-4rem)/3)]"
             >
               <h2 className="font-heading text-lg font-semibold text-navy">{block.title}</h2>
-              <p className="mt-2 font-body text-sm text-charcoal">{block.body}</p>
+              <p className="mt-2 font-body text-sm text-charcoal">
+                {block.title === "Ensuring Compliance" ? (
+                  <>
+                    Every recommendation accounts for{" "}
+                    <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
+                      EU AI Act requirements
+                    </Link>{" "}
+                    from the outset, not as an afterthought.
+                  </>
+                ) : (
+                  block.body
+                )}
+              </p>
             </div>
           ))}
         </div>
