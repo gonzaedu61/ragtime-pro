@@ -84,7 +84,6 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
   - Readiness — `/methodology/readiness` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
 - About The BrokerAI — `/about`
 - Engagement Model — `/engagement-model`
-  - Value-Centered Layers — `/engagement-model/value-centered-layers` (standalone route, linked from Engagement Model's "See the value-centered layers ..." button; not in top nav)
 - Start Your Journey — `/start`
 - Contact — `/contact`
 - Privacy Policy — `/privacy-policy`
@@ -560,13 +559,7 @@ language or architecture, user manuals, technical specifications, actual and int
 workflows, business processes, industry constraints, regulatory context, and the
 competitive landscape — and produces actionable modernization intelligence, showing
 exactly how legacy systems can be enhanced, extended, or transformed. On the right, the
-`roadmap.svg` icon
-above a link button, "See Our Methodology …" → `/methodology`.
-
-Note: the CTA previously targeted `/engagement-model/value-centered-layers`. That
-subpage still exists in the codebase but is now orphaned (no inbound links) since its
-"business value layers" content no longer matches this page's Modernization Agent
-framing; it was intentionally left in place rather than deleted.
+`roadmap.svg` icon above a link button, "See Our Methodology …" → `/methodology`.
 
 ### Six Cards
 1. Maps the Full Picture — maps the product's architecture and understands its
@@ -588,35 +581,7 @@ cards (no icons), grid `sm:grid-cols-2 lg:grid-cols-3`.
 
 ---
 
-## PAGE 13 — VALUE-CENTERED LAYERS
-
-### Purpose
-Explain the three layers of value the engagement model delivers, per the AI Roadmap
-Guide's "value-centric model" section.
-
-### Quote
-“ROI tracking at key value layers — from daily operations to long-term
-differentiation.” *(kept on one line via `lg:whitespace-nowrap` on wide viewports)*
-
-### Main Text (below quote, above cards)
-A centered paragraph explaining Operational, Strategic, and Transformational value in
-sequence — immediate day-one gains, followed by sharper decision-making and resilience,
-followed by proprietary capabilities and new business models.
-
-### Three Cards
-1. Operational  
-2. Strategic  
-3. Transformational  
-
-### Flanking CTAs (left/right of the main text + cards, `lg` and up)
-Left: the `roadmap.svg` icon above a "Setting the roadmap …" link button →
-`/methodology`. Right: the `steps.svg` icon (nudged toward the bottom of its box via
-`items-end`, closer to the button below it) above a "Check the steps …" link button →
-`/engagement-model`. Both flank the centered content via `calc(50% - 26.5rem)` gutters.
-
----
-
-## PAGE 14 — STARTING THE JOURNEY
+## PAGE 13 — STARTING THE JOURNEY
 
 ### Purpose
 Conversion page.
@@ -639,7 +604,7 @@ selection, and scaling.
 
 ---
 
-## PAGE 15 — CONTACT
+## PAGE 14 — CONTACT
 
 ### Quote
 “We are prepared to support you from the very first question.”
@@ -675,7 +640,7 @@ info@thebrokerAI.tech
 
 ---
 
-## PAGE 16 — EU AI ACT COMPLIANCE
+## PAGE 15 — EU AI ACT COMPLIANCE
 
 ### Purpose
 Explain what the Act requires and how The BrokerAI builds compliance into the
@@ -702,7 +667,7 @@ No page-ending CTA; the obligation cards are the page's final content.
 
 ---
 
-## PAGE 17 — PRIVACY POLICY
+## PAGE 16 — PRIVACY POLICY
 
 ### Purpose
 Footer/legal page explaining what personal data the site collects and how it's used.
@@ -715,7 +680,7 @@ noting the site uses no cookies or analytics); How we use your information; Lega
 basis for processing; Sharing your information; Data retention; Your rights (GDPR);
 Changes to this policy; Contact us (mailto link).
 
-## PAGE 18 — TERMS OF SERVICE
+## PAGE 17 — TERMS OF SERVICE
 
 ### Purpose
 Footer/legal page governing use of the website (a separate signed agreement governs
@@ -988,11 +953,11 @@ Claude must:
 - **Navy pull-quote bar** — a slim `bg-navy py-8` band holding one italic, centered quote (`text-2xl font-medium italic text-white`), placed directly beneath each page's H1 hero. Used on every page except Home. Quotes are sourced verbatim from the AI Roadmap Guide PDF (Section 12 authoritative source), one per page — see each page's "Quote" entry in Section 3.
 - **Card color scheme** — two deliberately inverted schemes depending on page:
   - *Home*: white cards (`bg-white`) sit on a gray section (`bg-light-grey`).
-  - *Every other page*: gray cards (`bg-light-grey`) sit directly on the white page background — no wrapping gray section. This applies to all content card grids (About, AI Dilemma, Core Barriers, Coaching, Methodology, Solution Class cards and detail-page cards, Engagement Model's steps and Value-Centered Layers cards, EU AI Act Compliance).
+  - *Every other page*: gray cards (`bg-light-grey`) sit directly on the white page background — no wrapping gray section. This applies to all content card grids (About, AI Dilemma, Core Barriers, Coaching, Methodology, Solution Class cards and detail-page cards, Engagement Model's cards, EU AI Act Compliance).
 - **Linked-card indicator** — every card that is itself a `<Link>` (Home value blocks, Solution Class cards) shows the `ExternalLinkIcon` component pinned `absolute bottom-4 right-4` (card given `relative` + extra `pb-10`), at `text-charcoal/40` resting and `text-electric-blue` on hover, in place of any "Learn more →" text. Purely informational cards never show this icon.
 - **Card hover state (linked cards only)** — `border border-transparent` at rest, transitioning to `hover:-translate-y-1 hover:border-electric-blue hover:shadow-md`. Applied only to cards that are actual links (Home value blocks, Solution Class cards); purely informational card grids do not use this pattern.
 - **Intro text + video icon** — most content pages place a small `RoadmapVideoButton` icon at the top-left of the page's intro paragraph (`iconClassName="h-9 w-auto"`, wrapped in a `shrink-0` container to prevent flex-shrink distortion), opening a page-specific explainer video in a modal. See each page's "Intro Text" section above for its video file.
-- **Flanking side CTAs** — on pages with a centered `max-w-4xl` (or `max-w-3xl`) content column and side elements, the side elements sit in `calc(50% - 26.5rem)` gutters, flanking the centered column without narrowing it. Three implementations, in increasing order of position stability: Value-Centered Layers uses `lg:absolute lg:inset-y-0` with `items-center` (vertically centered against the whole block — shifts if content length varies). Solution Class detail pages (`SolutionDetail`) use an explicit `lg:grid` with the intro text pinned to a fixed height (`lg:h-72 lg:overflow-hidden`) in row 1, and the sidebar nav / roadmap CTA placed in row 2 alongside the Value/Examples/Readiness/Roadmap Fit cards, with `lg:items-start` — their Y-start is fixed, but they're still grid siblings of the cards row. Need/Opportunity/Readiness vertex pages go one step further: the flanking `VertexTriadNav` and roadmap CTA are placed in the *same row* as the fixed-height (`lg:h-56`) intro text (row 1), not the cards row (row 2) — fully decoupling their position from the Four/Three Cards grid below, which varies in row count between vertex pages.
+- **Flanking side CTAs** — on pages with a centered `max-w-4xl` (or `max-w-3xl`/`max-w-5xl`) content column and side elements, the side elements sit in `calc(50% - 26.5rem)` (or `calc(50% - 30rem)`) gutters, flanking the centered column without narrowing it. Two implementations, in increasing order of position stability: Solution Class detail pages (`SolutionDetail`) use an explicit `min-[1440px]:grid` with the intro text pinned to a fixed height (`min-[1440px]:h-72 min-[1440px]:overflow-hidden`) in row 1, and the sidebar nav / roadmap CTA placed in row 2 alongside the Value/Examples/Readiness/Roadmap Fit cards, with `min-[1440px]:items-start` — their Y-start is fixed, but they're still grid siblings of the cards row. Boost Point/Opportunity/Readiness vertex pages go one step further: the flanking `VertexTriadNav` and roadmap CTA are placed in the *same row* as the fixed-height (`lg:h-56`) intro text (row 1), not the cards row (row 2) — fully decoupling their position from the Four/Three Cards grid below, which varies in row count between vertex pages.
 - **Overlay-link cards with a nested link** — Our Methodology's three pillar cards use a `<div>` with an absolutely-positioned full-card `<Link>` underneath (`z-0`, so clicking anywhere still navigates to the pillar page) and `pointer-events-none` on the title (`z-10`) so clicks on it still reach that overlay link. This exists because the Opportunity card's body text contains its own nested `<Link>` (the phrase "AI Solution" → `/solutions`), rendered above the overlay so it stays independently clickable — a plain wrapping `<Link>` can't contain another `<Link>`.
 
 ---
