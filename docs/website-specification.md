@@ -368,12 +368,14 @@ Modernization Journey: A Structured Process").
 ### Quote
 “Turning AI modernization from a risky leap into a guided evolution.”
 
-### Intro Text (below quote, above steps)
-A centered paragraph (no video — no dedicated video asset exists for this page yet)
+### Intro Text + CTA (below quote, above steps)
+A centered two-column group (stacks on mobile, `lg:flex-row lg:justify-center`): on the
+left, intro text (no video — no dedicated video asset exists for this page yet)
 explaining that legacy modernization is a strategic discipline, not a matter of
 inspiration or experimentation, and that the methodology follows a structured,
 repeatable sequence powered by the Modernization Agent and executed by the
-consultants.
+consultants. On the right, the `roadmap.svg` icon above a link button, "Check the
+Product Modernization Triad ..." → `/methodology`.
 
 ### Eight Steps
 1. Product Discovery & Context Mapping
@@ -394,10 +396,6 @@ in a standard `<ol>` grid (`sm:grid-cols-2 lg:grid-cols-3`); cards 7 and 8
 (Modernization Blueprint Creation, Guided Implementation) form a second `<ol>` below
 it, sized to match the grid's column width but laid out with `flex justify-center`
 so the pair centers as a group under the row above instead of sitting flush-left.
-
-### Back CTA
-Below the steps grid, the `roadmap.svg` icon above a "See the driving Triad ..." link
-button → `/methodology`.
 
 ---
 
@@ -549,9 +547,9 @@ Explain the Modernization Agent: Ragtime-Pro's proprietary AI system and the int
 intelligence engine behind every modernization engagement — not a customer-facing tool.
 
 ### Quote
-“It is the engine behind our modernization service.”
+“The engine behind our modernization service.”
 
-### Intro Text + CTA (below quote, above the six cards)
+### Intro Text + CTA (below quote, above the seven cards)
 A centered two-column group (stacks on mobile): on the left, a video icon
 (`RoadmapVideoButton`, playing `Engagement_Model.mp4`) beside intro text explaining that
 the Modernization Agent ingests the product's entire context — source code in any
@@ -561,7 +559,7 @@ competitive landscape — and produces actionable modernization intelligence, sh
 exactly how legacy systems can be enhanced, extended, or transformed. On the right, the
 `roadmap.svg` icon above a link button, "See Our Methodology …" → `/methodology`.
 
-### Six Cards
+### Seven Cards
 1. Maps the Full Picture — maps the product's architecture and understands its
    workflows and data flows, end to end.
 2. Detects Boost Points — identifies the modernization hotspots where AI can create the
@@ -572,12 +570,17 @@ exactly how legacy systems can be enhanced, extended, or transformed. On the rig
    specific industry and constraints.
 5. Produces the Blueprint — generates the modernization blueprint and suggests safe
    integration patterns for the architecture.
-6. Ensures Safe Execution — ensures compliance alignment and supports our consultants
+6. Code AI Upgrade Modules — generates the required code to adapt and integrate
+   existing standard Ragtime-Pro AI Modules or develop ad-hoc ones if required.
+7. Ensures Safe Execution — ensures compliance alignment and supports our consultants
    throughout execution.
 
 Sourced from the PDF's opening "1. The Modernization Agent" section and the "PAGE 4 —
 COACHING" chapter's "2. The Modernization Agent: Your AI Partner" section. Text-only
-cards (no icons), grid `sm:grid-cols-2 lg:grid-cols-3`.
+cards (no icons), grid `sm:grid-cols-2 lg:grid-cols-3`. The 7th card spans the full row
+(`sm:col-span-2 lg:col-span-3`) and centers itself (`lg:mx-auto`) at double the width of
+a standard grid column (`lg:w-[calc(((100%-3rem)/3)*2)]`), so it visually overlaps the
+bottom edges of the two cards above it rather than sitting flush-left.
 
 ---
 

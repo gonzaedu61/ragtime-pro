@@ -67,14 +67,28 @@ export default function ModernizationProcessPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 pt-8 pb-12 text-center">
-        <p className="font-body text-lg text-charcoal">
-          Legacy modernization is not a matter of inspiration or experimentation — it is a
-          strategic discipline. Our methodology follows a structured, repeatable sequence,
-          powered by the <strong>Modernization Agent</strong> and executed by our
-          consultants, that turns your product&apos;s architecture, workflows, and
-          constraints into a safe, incremental modernization roadmap.
-        </p>
+      <section className="mx-auto max-w-7xl px-6 pt-8 pb-12">
+        <div className="flex flex-col items-center gap-8 text-center lg:flex-row lg:justify-center lg:gap-16">
+          <p className="font-body text-lg text-charcoal lg:max-w-2xl lg:text-left">
+            Legacy modernization is not a matter of inspiration or experimentation — it is a
+            strategic discipline. Our methodology follows a structured, repeatable sequence,
+            powered by the <strong>Modernization Agent</strong> and executed by our
+            consultants, that turns your product&apos;s architecture, workflows, and
+            constraints into a safe, incremental modernization roadmap.
+          </p>
+          <Link href="/methodology" className="group flex flex-col items-center gap-4">
+            <Image
+              src="/roadmap.svg"
+              alt="Roadmap icon"
+              width={198}
+              height={263}
+              className="h-32 w-auto"
+            />
+            <span className="whitespace-nowrap rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
+              Check the Product Modernization Triad ...
+            </span>
+          </Link>
+        </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-16">
@@ -121,21 +135,6 @@ export default function ModernizationProcessPage() {
             </li>
           ))}
         </ol>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 pb-16 flex justify-center">
-        <Link href="/methodology" className="group flex flex-col items-center gap-4">
-          <Image
-            src="/roadmap.svg"
-            alt="Roadmap icon"
-            width={198}
-            height={263}
-            className="h-32 w-auto"
-          />
-          <span className="whitespace-nowrap rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
-            See the driving Triad ...
-          </span>
-        </Link>
       </section>
     </>
   );

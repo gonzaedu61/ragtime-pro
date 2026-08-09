@@ -31,6 +31,10 @@ const STEPS = [
     body: "Generates the modernization blueprint and suggests safe integration patterns for your architecture.",
   },
   {
+    title: "Code AI Upgrade Modules",
+    body: "Generates the required code to adapt and integrate existing standard Ragtime-Pro AI Modules or develop ad-hoc ones if required.",
+  },
+  {
     title: "Ensures Safe Execution",
     body: "Ensures compliance alignment and supports our consultants throughout execution.",
   },
@@ -40,13 +44,13 @@ export default function EngagementModelPage() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
-        <h1 className="font-heading text-4xl font-bold text-navy">The Modernization Agent</h1>
+        <h1 className="font-heading text-4xl font-bold text-navy">Modernization Agent</h1>
       </section>
 
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-7xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;It is the engine behind our modernization service.&rdquo;
+            &ldquo;The engine behind our modernization service.&rdquo;
           </p>
         </div>
       </section>
@@ -89,8 +93,15 @@ export default function EngagementModelPage() {
 
       <section className="mx-auto max-w-7xl px-6 pb-16">
         <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {STEPS.map((step) => (
-            <li key={step.title} className="rounded-lg bg-light-grey p-6">
+          {STEPS.map((step, index) => (
+            <li
+              key={step.title}
+              className={`rounded-lg bg-light-grey p-6 ${
+                index === STEPS.length - 1
+                  ? "sm:col-span-2 lg:col-span-3 lg:mx-auto lg:w-[calc(((100%-3rem)/3)*2)]"
+                  : ""
+              }`}
+            >
               <h2 className="font-heading text-lg font-semibold text-navy">{step.title}</h2>
               <p className="mt-2 font-body text-sm text-charcoal">{step.body}</p>
             </li>
