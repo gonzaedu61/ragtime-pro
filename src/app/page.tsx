@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import ExternalLinkIcon from "@/components/ExternalLinkIcon";
-import RoadmapVideoButton from "@/components/RoadmapVideoButton";
 import RotatingHeadline from "@/components/RotatingHeadline";
 
 const VALUE_BLOCKS = [
@@ -34,12 +33,24 @@ const VALUE_BLOCKS = [
 export default function Home() {
   return (
     <>
-      <section className="mx-auto max-w-7xl px-6 pt-10 pb-20 text-center">
+      <section className="mx-auto max-w-7xl px-6 pt-10 pb-10 text-center">
         <RotatingHeadline />
-        <p className="mt-6 font-body text-lg text-charcoal">
-          A safe, structured, and high‑impact approach to AI‑driven modernization for legacy software products.
+        <p className="mt-6 font-body text-xl text-charcoal">
+          A safe, structured, and effective approach to AI‑driven modernization for legacy software products.
         </p>
-        <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:justify-center">
+        <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:justify-center sm:gap-20">
+          <Link href="/start" className="group flex flex-col items-center gap-3">
+            <span className="rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
+              Start the journey …
+            </span>
+            <Image
+              src="/start.svg"
+              alt=""
+              width={124}
+              height={132}
+              className="h-12 w-auto"
+            />
+          </Link>
           <Link href="/contact" className="group flex flex-col items-center gap-3">
             <span className="rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
               Book an Intro Call
@@ -52,12 +63,6 @@ export default function Home() {
               className="h-12 w-auto"
             />
           </Link>
-          <RoadmapVideoButton
-            label={'Watch the "Legacy Software Modernization" video'}
-            lowBandwidthSrc="/AI_Roadmap_Guide_lowbandwidth.mp4"
-            ariaLabel="Play the AI Roadmap Guide video"
-            blueHoverIcon={false}
-          />
         </div>
       </section>
 

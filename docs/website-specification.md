@@ -119,13 +119,14 @@ Immediate clarity: what Ragtime-Pro does, for whom, and why it matters.
   the capacity to make it happen.", "If customer satisfaction is losing momentum… we
   help your product win their hearts again", "If AI modernization feels overwhelming…
   we make it simple and doable".
-- **Subheadline:** A safe, structured, and high‑impact approach to AI‑driven
-  modernization for legacy software products.
-- **CTAs:**  
+- **Subheadline:** A safe, structured, and effective approach to AI‑driven
+  modernization for legacy software products. (`text-xl`, up from the sitewide
+  default `text-lg` used for most intro paragraphs.)
+- **CTAs** (left to right, `sm:gap-20` between the two):  
+  - Start the journey … → `/start` (with the `start.svg` icon displayed beneath the
+    button; replaced the former "Watch the AI-Roadmap-Guide video" `RoadmapVideoButton`)
   - Book an Intro Call → `/contact` (with the `discovery_call.svg` icon displayed
     beneath the button)
-  - "Watch the AI-Roadmap-Guide video" — a `RoadmapVideoButton` that opens the AI
-    Roadmap Guide video in a modal (not a download)
 
 ### Hero Visual
 Removed. The Home hero no longer includes a separate large logo motif; the
