@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | The BrokerAI",
-  description: "How The BrokerAI collects, uses, and protects the information you share with us.",
+  title: "Privacy Policy | Ragtime-Pro",
+  description: "How Ragtime-Pro collects, uses, and protects the information you share with us.",
 };
 
 const SECTIONS = [
   {
     title: "Who we are",
-    body: "The BrokerAI is a European network of AI consultants helping SMEs adopt AI safely and effectively. This policy explains what information we collect through this website and how we use it.",
+    body: "Ragtime-Pro is a modernization partner for European software vendors, combining an AI-augmented Modernization Agent with expert consulting to help legacy software products modernize safely and incrementally. This policy explains what information we collect through this website and how we use it.",
   },
   {
     title: "Information we collect",
-    body: "When you use the contact form, we collect the information you choose to provide: your name, company, email address, and message, plus an optional phone number and optional description of your AI interest. We do not collect this information anywhere else on the site, and we do not use cookies, analytics, or tracking scripts.",
+    body: "When you use the contact form, we collect the information you choose to provide: your name, company, email address, and message, plus an optional phone number and optional description of your AI modernization interest. We do not collect this information anywhere else on the site, and we do not use cookies, analytics, or tracking scripts.",
   },
   {
     title: "How we use your information",
-    body: "We use the information you submit solely to respond to your enquiry and, if you engage us, to deliver our services — for example, to schedule a discovery call or follow up on your request. We do not sell your information or use it for advertising.",
+    body: "We use the information you submit solely to respond to your enquiry and, if you engage us, to deliver our services — for example, to schedule an introductory consultation or follow up on your request. We do not sell your information or use it for advertising.",
   },
   {
     title: "Legal basis for processing",
@@ -24,7 +24,7 @@ const SECTIONS = [
   },
   {
     title: "Sharing your information",
-    body: "We do not share your information with third parties, except where required to deliver the service you requested (for example, a specialist within our network directly relevant to your enquiry) or where required by law. Any such sharing is limited to what is necessary for that purpose.",
+    body: "We do not share your information with third parties, except service providers who help us operate this website and respond to your enquiry (for example, email delivery infrastructure), or where required by law. Any such sharing is limited to what is necessary for that purpose.",
   },
   {
     title: "Data retention",
@@ -45,7 +45,7 @@ export default function PrivacyPolicyPage() {
     <>
       <section className="mx-auto max-w-3xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">Privacy Policy</h1>
-        <p className="mt-2 font-body text-sm text-charcoal">Last updated: July 30, 2026</p>
+        <p className="mt-2 font-body text-sm text-charcoal">Last updated: August 10, 2026</p>
       </section>
 
       <section className="mx-auto max-w-3xl px-6 pb-16">
@@ -63,10 +63,10 @@ export default function PrivacyPolicyPage() {
               If you have any questions about this policy or wish to exercise your rights,
               contact us at{" "}
               <a
-                href="mailto:info@thebrokerAI.tech"
+                href="mailto:info@ragtime.pro"
                 className="font-semibold text-electric-blue"
               >
-                info@thebrokerAI.tech
+                info@ragtime.pro
               </a>
               .
             </p>

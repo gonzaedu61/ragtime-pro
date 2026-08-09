@@ -19,7 +19,7 @@ export async function POST(request: Request) {
       await sendAcknowledgement({ name, company, email, phone, aiInterest, message });
 
       await transporter.sendMail({
-        from: `"The BrokerAI Website" <${FROM_ADDRESS}>`,
+        from: `"Ragtime-Pro Website" <${FROM_ADDRESS}>`,
         to: INFO_ADDRESS,
         replyTo: email,
         subject: `New contact form submission from ${name}`,
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
           `Company: ${company}`,
           `Email: ${email}`,
           `Phone: ${phone || "—"}`,
-          `AI Interest: ${aiInterest || "—"}`,
+          `AI Modernization Interest: ${aiInterest || "—"}`,
           "",
           "Message:",
           message,

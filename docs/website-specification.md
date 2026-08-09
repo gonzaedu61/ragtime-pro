@@ -6,10 +6,9 @@ Claude Code must maintain this document and ensure it always reflects the curren
 
 # 1. Website Purpose & Positioning
 
-**Transitional note:** Home has been rebranded to Ragtime-Pro's AI-driven,
-legacy-software-modernization positioning. The remaining pages described below
-still reflect the prior general "SME AI adoption" positioning and copy, and will be
-reconciled page by page as each is rebranded. Our
+**Transitional note:** every page has now been rebranded to Ragtime-Pro's AI-driven,
+legacy-software-modernization positioning. This note is kept for historical context
+on the rebrand's progression rather than as an outstanding-work tracker. Our
 Methodology (including its new Modernization Journey subpage) has been rebranded, as
 have the Boost Point (routed at `/methodology/boost-point` — see PAGE 8), Opportunity
 (see PAGE 9), and Readiness (see PAGE 10) vertex subpages — all three vertices are now
@@ -20,10 +19,13 @@ BrokerAI") is fully rebranded (see PAGE 11), EU AI Act Compliance is fully rebra
 (see PAGE 15), Start Your Journey is fully rebranded (see PAGE 13), The
 Modernization Dilemma (formerly "The AI Dilemma," nav label and route unchanged) is
 fully rebranded (see PAGE 2), Core Barriers to Modernization (formerly "Core
-Barriers") is fully rebranded (see PAGE 3), and Coaching: The AI-Augmented Barrier
-Breaker (formerly "The Barrier's Breaker") is fully rebranded (see PAGE 4). Not yet
-rebranded: Privacy Policy and Terms of Service still reference "The BrokerAI" (see
-PAGE 16 and PAGE 17), as does the `/api/contact` route's email copy.
+Barriers") is fully rebranded (see PAGE 3), Coaching: The AI-Augmented Barrier
+Breaker (formerly "The Barrier's Breaker") is fully rebranded (see PAGE 4), Contact
+is fully rebranded (see PAGE 14), and Privacy Policy and Terms of Service are fully
+rebranded, including the removal of the inapplicable "Vendor referrals" clause (see
+PAGE 16 and PAGE 17). The actual production mail infrastructure (Vercel env vars,
+Purelymail mailbox) has not been updated to match the `info@ragtime.pro` address
+used across the site's copy — see §8.4/§8.5.
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -69,7 +71,7 @@ Home is reached via the navbar logo/brand mark, not a nav item.
 - Terms of Service  
 - Contact  
 
-**Pending:** a LinkedIn link was removed — The BrokerAI does not yet have a LinkedIn
+**Pending:** a LinkedIn link was removed — Ragtime-Pro does not yet have a LinkedIn
 page. Re-add it here (and in `Footer.tsx`) once one exists.
 
 ---
@@ -696,9 +698,11 @@ titles are plain.
 
 ### Layout
 Two-column below the quote (stacks to one column on mobile): left column holds an
-enriched invitation to describe what the visitor needs or wants, in their own words,
-plus the direct email fallback (larger, italic, with the `mail_icon.svg` icon inline to
-its right); right column holds the form (or the "Thank you" confirmation after submit).
+enriched invitation to describe the visitor's product and where modernization fits
+into its future, in their own words — sourced from the PDF's "Modernization Begins
+With a Conversation" and "Your First Step" sections — plus the direct email fallback
+(`text-lg`, italic, with the `mail_icon.svg` icon at `h-12` inline to its right);
+right column holds the form (or the "Thank you" confirmation after submit).
 
 ### Submission Behavior
 Submitting the form does a client-side `fetch` POST to `/api/contact` (see §8.4)
@@ -717,11 +721,14 @@ happen after the response is sent (see §8.4).
 - Company  
 - Email  
 - Optional: “Phone”  
-- Optional: “Describe your AI interest”  
+- Optional: “Describe your AI modernization interest”  
 - Message  
 
 ### Email
-info@thebrokerAI.tech  
+info@ragtime.pro. Also updated on Privacy Policy and Terms of Service (see PAGE 16
+and PAGE 17). The `/api/contact` route itself has no hardcoded address (reads
+`MAIL_FROM_ADDRESS` / `MAIL_INFO_ADDRESS` from env — see §8.4); those production
+values, and the underlying Purelymail mailbox, have not been updated to match.
 
 ---
 
@@ -775,30 +782,55 @@ obligation cards are the page's final content.
 
 ### Purpose
 Footer/legal page explaining what personal data the site collects and how it's used.
+Fully rebranded: entity name and positioning updated throughout (Ragtime-Pro is a
+modernization partner combining the Modernization Agent with expert consulting,
+replacing the prior "European network of AI consultants helping SMEs" framing); no
+PDF chapter exists for legal boilerplate, so this was a terminology/positioning
+rebrand rather than a PDF-sourced content rewrite. "Last updated" bumped to August
+10, 2026.
 
 ### Content
 No quote band. A centered H1 + "Last updated" date, then a single-column list of
 sections: Who we are; Information we collect (drawn from the actual Contact form
-fields — name, company, email, message, optional phone, optional AI interest — and
-noting the site uses no cookies or analytics); How we use your information; Legal
-basis for processing; Sharing your information; Data retention; Your rights (GDPR);
-Changes to this policy; Contact us (mailto link).
+fields — name, company, email, message, optional phone, optional AI modernization
+interest — and noting the site uses no cookies or analytics); How we use your
+information (references "an introductory consultation", matching the Start Your
+Journey page's phase terminology); Legal basis for processing; Sharing your
+information (rewritten to drop the BrokerAI-era "specialist within our network"
+brokerage language — Ragtime-Pro delivers directly, it doesn't broker third-party
+vendors — replaced with generic "service providers who help us operate this website");
+Data retention; Your rights (GDPR); Changes to this policy; Contact us (mailto link,
+`info@ragtime.pro`).
 
 ## PAGE 17 — TERMS OF SERVICE
 
 ### Purpose
 Footer/legal page governing use of the website (a separate signed agreement governs
-any actual consulting engagement).
+any actual consulting engagement). Fully rebranded, same terminology/positioning
+rebrand as Privacy Policy. "Last updated" bumped to August 10, 2026.
 
 ### Content
 No quote band. Same layout as Privacy Policy: centered H1 + "Last updated" date, then
-sections: Acceptance of these terms; About our services; No professional advice
-(the site's content is general information, not legal/financial/regulatory advice);
-Vendor referrals (disclaims responsibility for third-party vendors referred to via the
-brokerage); Intellectual property; Limitation of liability; Changes to these terms;
-Contact us. No governing-law/jurisdiction clause is included — the site owner's
-registered entity and jurisdiction weren't available in the authoritative documents,
-so this was deliberately left for a lawyer or the site owner to add.
+sections: Acceptance of these terms; About our services (Ragtime-Pro's modernization-
+partner positioning, replacing "vendor-neutral network of AI consultants"; "AI Roadmap
+Guide" content reference replaced with "AI Solution Categories, methodology, and
+Modernization Agent descriptions"); No professional advice (the site's content is
+general information, not legal/financial/regulatory advice); Intellectual property
+(the "AI Roadmap Guide storyline... like the Driving-Triad" reference replaced with
+"the Product Modernization Triad and AI Upgrade Module concepts"); Limitation of
+liability; Changes to these terms; Contact us. No governing-law/jurisdiction clause is
+included — the site owner's registered entity and jurisdiction weren't available in
+the authoritative documents, so this was deliberately left for a lawyer or the site
+owner to add.
+
+**Removed section — Vendor referrals:** the original "vendor-neutral brokerage"
+clause disclaiming responsibility for third-party vendors referred to via the
+network no longer applies. Ragtime-Pro is not a broker; per the PDF, it directly
+delivers modernization through its own Modernization Agent, consultants, and AI
+Upgrade Modules, with no third-party vendor referrals in its model. The clause was
+removed rather than reworded, since keeping any form of it would misrepresent how
+the business actually operates. Flagged explicitly to the user as a legal-substance
+change, not just a terminology swap.
 
 ---
 
@@ -911,12 +943,18 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   `openai/azure`) against the `AZURE_OPENAI_ENDPOINT` resource — deployment
   `o4-mini`, api version `2024-12-01-preview`, authenticated with
   `AZURE_AI_PROJECT_API_KEY` (a 25s timeout). It sends a prompt built from the
-  submitter's name, company (optional), email, phone, AI interest, and
-  message, asking for a JSON response (`personalizedReply`,
+  submitter's name, company (optional), email, phone, AI modernization
+  interest, and message, asking for a JSON response (`personalizedReply`,
   `replySubject`), auto-detecting and replying in the visitor's own language.
-  If the call fails, times out, or the response doesn't parse into valid,
-  non-empty JSON, `generateAiReply` returns `null` and the route falls back to
-  a fixed acknowledgement text and subject.
+  The prompt describes Ragtime-Pro as a modernization partner combining the
+  Modernization Agent with expert consulting (rebranded from the prior "The
+  BrokerAI, a consulting firm that helps SMEs adopt AI" framing), and signs
+  off as "The Ragtime-Pro Team". If the call fails, times out, or the
+  response doesn't parse into valid, non-empty JSON, `generateAiReply`
+  returns `null` and the route falls back to a fixed acknowledgement text
+  and subject (also rebranded — sender name "Ragtime-Pro", fallback subject
+  "We've received your message — Ragtime-Pro", fallback body referencing
+  "modernize your product").
 - **Shared send helper:** `src/lib/acknowledgement.ts` exports
   `sendAcknowledgement()`, which calls `generateAiReply` and sends the
   resulting (or fallback) text via the Nodemailer transporter, from
@@ -951,15 +989,21 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   production. Never committed. In addition to `PURELYMAIL_SMTP_USER` /
   `PURELYMAIL_SMTP_PASS` (SMTP auth), two address vars control the visible
   headers: `MAIL_FROM_ADDRESS` (the "From" on both outgoing emails, currently
-  `noreply@thebrokerai.tech`) and `MAIL_INFO_ADDRESS` (the "To" on the
-  internal notification email and the "Bcc" on every acknowledgement email,
-  currently `info@thebrokerai.tech`).
+  `noreply@thebrokerai.tech` in production) and `MAIL_INFO_ADDRESS` (the "To"
+  on the internal notification email and the "Bcc" on every acknowledgement
+  email, currently `info@thebrokerai.tech` in production).
   `MAIL_ACK_BLOCKLIST` (comma-separated addresses that are never
-  acknowledged; see §8.5) is also part of this group.
+  acknowledged; see §8.5) is also part of this group. **Note:** website copy
+  (Contact, Privacy Policy, Terms of Service) now displays `info@ragtime.pro`
+  and `.env.local.example`'s `PURELYMAIL_SMTP_USER` placeholder has been
+  updated to match, but the actual Vercel production env vars and Purelymail
+  mailbox still need to be provisioned/updated separately — this repo cannot
+  do that.
 
 ## 8.5 Inbox Polling & Auto-Acknowledgement
 - **Purpose:** automatically sends the same AI-generated acknowledgement
-  (§8.4) to anyone who emails `info@thebrokerai.tech` directly, not just
+  (§8.4) to anyone who emails the configured info address directly (currently
+  `info@thebrokerai.tech` in production — see note in §8.4), not just
   visitors who use the Contact form.
 - **API route:** `src/app/api/inbox-poll/route.ts` — a `GET` Route Handler,
   protected by a shared secret: the request must include
@@ -968,15 +1012,16 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
 - **IMAP polling:** on each invocation, connects via `imapflow` to
   `PURELYMAIL_IMAP_HOST:PURELYMAIL_IMAP_PORT` (Purelymail,
   `imap.purelymail.com:993`) authenticated with `PURELYMAIL_IMAP_USER` /
-  `PURELYMAIL_IMAP_PASS` (a separate Purelymail account/password for
-  `info@thebrokerai.tech`, distinct from the `noreply@` SMTP credentials in
-  §8.4). Opens `INBOX`, searches for unseen messages (capped at 10 per run),
+  `PURELYMAIL_IMAP_PASS` (a separate Purelymail account/password for the
+  info address, distinct from the `noreply@` SMTP credentials in §8.4).
+  Opens `INBOX`, searches for unseen messages (capped at 10 per run),
   downloads and parses each with `mailparser`, and immediately marks it
   `\Seen` so a later failure doesn't cause it to be reprocessed forever.
 - **Loop/spam guard:** a message is skipped (still marked `\Seen`, but no
   acknowledgement sent) if its sender address is in `MAIL_ACK_BLOCKLIST`
   (comma-separated env var, defaults to the site's own sending addresses —
-  `noreply@thebrokerai.tech`, `info@thebrokerai.tech`) or if it carries an
+  currently `noreply@thebrokerai.tech`, `info@thebrokerai.tech` in
+  production) or if it carries an
   `Auto-Submitted` header other than `no` (autoresponders, bounces). This
   exists specifically to prevent an acknowledgement from triggering another
   acknowledgement in an infinite loop.
@@ -998,7 +1043,9 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
 
 ## 8.6 Deployment & Production Promotion
 - **Hosting:** Vercel project `thebrokerai` (team `the-broker-ai`), linked to
-  the `gonzaedu61/theBrokerAI` GitHub repository.
+  the `gonzaedu61/ragtime-pro` GitHub repository. *(Vercel project/team names
+  unconfirmed — not yet verified as renamed; only the GitHub repo name is
+  confirmed current.)*
 - **No auto-deploy on `main`:** `vercel.json` sets
   `git.deploymentEnabled.main` to `false`, so pushes to `main` no longer
   trigger an automatic Vercel build or deployment (production or preview).

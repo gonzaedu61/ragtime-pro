@@ -22,15 +22,15 @@ interface AiReply {
   subject: string;
 }
 
-const FALLBACK_SUBJECT = "We've received your message — The BrokerAI";
+const FALLBACK_SUBJECT = "We've received your message — Ragtime-Pro";
 
 function buildPrompt({ name, company, email, phone, aiInterest, message }: ContactFields): string {
-  return `You are an email response assistant for The BrokerAI, a consulting firm that helps SMEs adopt AI safely and effectively.
+  return `You are an email response assistant for Ragtime-Pro, a modernization partner that helps legacy software vendors adopt AI safely and incrementally, combining an AI-augmented Modernization Agent with expert consulting.
 A visitor just submitted our website's contact form. Write a warm, professional acknowledgement reply and return it as JSON.
 
 Return exactly this JSON structure (no code fences, no extra text):
 {
-  "personalizedReply": "A friendly, professional reply email addressed to the visitor by name. Acknowledge their message, briefly reflect what they're asking about or interested in, and state that the team will review it and follow up shortly with the information they're looking for. Do not invent specific answers, prices, or commitments. Close with a sign-off from 'The BrokerAI Team'.",
+  "personalizedReply": "A friendly, professional reply email addressed to the visitor by name. Acknowledge their message, briefly reflect what they're asking about or interested in, and state that the team will review it and follow up shortly with the information they're looking for. Do not invent specific answers, prices, or commitments. Close with a sign-off from 'The Ragtime-Pro Team'.",
   "replySubject": "A short (10 words max) subject line describing their request, e.g. 'Your question about ...'"
 }
 
@@ -45,7 +45,7 @@ Name: ${name}
 Company: ${company || "not provided"}
 Email: ${email}
 Phone: ${phone || "not provided"}
-AI interest: ${aiInterest || "not specified"}
+AI modernization interest: ${aiInterest || "not specified"}
 Message: ${message}`;
 }
 

@@ -54,22 +54,23 @@ export default function ContactPage() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
           <div className="text-center lg:text-left">
             <p className="font-body text-lg text-charcoal">
-              Tell us a bit about your business and where AI fits into it. Whether you already
-              have a specific project in mind or you&apos;re still trying to figure out where to
-              start, we want to hear it in your own words — the problem you&apos;re trying to
-              solve, the process that&apos;s slowing your team down, or simply the question you
-              haven&apos;t found a good answer to yet. There&apos;s no wrong way to describe it;
-              the clearer picture you give us, the faster we can point you toward what&apos;s
-              actually worth doing next.
+              Tell us about your product and where modernization fits into its future.
+              Whether you already know exactly what you want to modernize or
+              you&apos;re still mapping out where to begin, we want to hear it in your
+              own words — the workflow that&apos;s slowing your team down, the
+              customers asking for more, or simply the question you haven&apos;t found
+              a good answer to yet. There&apos;s no wrong way to describe it: the
+              clearer picture you give us, the faster we can map a modernization path
+              worth pursuing.
             </p>
-            <p className="mt-4 flex flex-wrap items-center justify-center gap-2 font-body text-base italic text-charcoal lg:justify-start">
+            <p className="mt-4 flex flex-wrap items-center justify-center gap-2 font-body text-lg italic text-charcoal lg:justify-start">
               <span>
                 Or reach us directly at{" "}
                 <a
-                  href="mailto:info@thebrokerAI.tech"
+                  href="mailto:info@ragtime.pro"
                   className="font-semibold text-electric-blue"
                 >
-                  info@thebrokerAI.tech
+                  info@ragtime.pro
                 </a>
               </span>
               <Image
@@ -77,7 +78,7 @@ export default function ContactPage() {
                 alt=""
                 width={149}
                 height={149}
-                className="h-10 w-auto"
+                className="h-12 w-auto"
               />
             </p>
           </div>
@@ -148,7 +149,7 @@ export default function ContactPage() {
                     htmlFor="aiInterest"
                     className="font-body text-sm font-semibold text-navy"
                   >
-                    Describe your AI interest{" "}
+                    Describe your AI modernization interest{" "}
                     <span className="font-normal text-charcoal">(optional)</span>
                   </label>
                   <input
