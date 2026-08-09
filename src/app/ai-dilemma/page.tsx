@@ -32,7 +32,7 @@ export default function AiDilemmaPage() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
-        <h1 className="font-heading text-4xl font-bold text-navy">The Modernization Dilemma</h1>
+        <h1 className="font-heading text-4xl font-bold text-navy">The AI Modernization Dilemma</h1>
       </section>
 
       <section className="bg-navy py-8">

@@ -4,27 +4,27 @@ import type { Metadata } from "next";
 import RoadmapVideoButton from "@/components/RoadmapVideoButton";
 
 export const metadata: Metadata = {
-  title: "Core Barriers to AI Adoption | The BrokerAI",
+  title: "Core Barriers to Modernization | Ragtime-Pro",
   description:
-    "The four barriers holding SMEs back from AI adoption: cost perception, skills gap, organizational resistance, and EU AI Act compliance.",
+    "The four barriers holding legacy software vendors back from AI modernization: cost perception, skills gap, organizational resistance, and compliance & ethics.",
 };
 
 const BARRIERS = [
   {
     title: "Cost Perception",
-    body: "Fear of choosing wrong becomes a financial barrier.",
+    body: "Modernization feels expensive and unpredictable — but the real cost isn't modernizing, it's stagnation: declining competitiveness, rising maintenance costs, and customer churn.",
   },
   {
     title: "Skills Gap",
-    body: "Teams often lack the internal expertise to evaluate, implement, or trust AI tools with confidence.",
+    body: "Your team knows the product deeply. But AI engineering, RAG architecture, and modernization sequencing require different expertise — one we bring alongside your team, not instead of it.",
   },
   {
     title: "Organizational Resistance",
-    body: "Change meets hesitation — from leadership uncertainty to team-level pushback against new ways of working.",
+    body: "Even with leadership support, fear of destabilizing the product or losing control can stall progress. We reduce resistance with clarity, evidence, and incremental wins.",
   },
   {
     title: "Compliance & Ethics",
-    body: "Navigating evolving EU regulations adds a layer of risk that many SMEs aren't equipped to manage alone.",
+    body: "The EU AI Act introduces real obligations — transparency, risk classification, data governance, human oversight. We build alignment into the roadmap from day one.",
   },
 ];
 
@@ -32,13 +32,13 @@ export default function CoreBarriersPage() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
-        <h1 className="font-heading text-4xl font-bold text-navy">Core Barriers</h1>
+        <h1 className="font-heading text-4xl font-bold text-navy">Core Barriers to Modernization</h1>
       </section>
 
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;These barriers are real — but they are also solvable.&rdquo;
+            &ldquo;The four barriers are real — but they are not unbreakable.&rdquo;
           </p>
         </div>
       </section>
@@ -54,15 +54,14 @@ export default function CoreBarriersPage() {
               />
             </div>
             <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              Four barriers consistently stand between SMEs and confident AI adoption. They
-              aren&apos;t signs of weakness — they&apos;re natural consequences of operating with
-              limited resources, lean teams, and constant pressure to maintain stability. AI
-              promises transformation, but transformation requires clarity, and clarity is often
-              what&apos;s missing. The result is a landscape where SMEs feel both motivated and
-              constrained: they see the opportunity but fear the complexity, want to innovate but
-              worry about risk, and recognize the need to modernize without a clear roadmap for
-              doing so. With structured guidance and practical coaching, these barriers can be
-              overcome one at a time.
+              Modernizing a legacy software product is not simply a technical challenge —
+              it is a multidimensional transformation that touches architecture,
+              operations, customer expectations, and organizational psychology. Most
+              vendors do not fail to modernize because they lack ambition — they face
+              four systemic barriers that make modernization feel risky, overwhelming,
+              or unclear. These barriers are universal across industries, architectures,
+              and product types. They are the reason modernization stalls — and the
+              reason a structured partner is essential.
             </p>
           </div>
           <Link
@@ -87,7 +86,21 @@ export default function CoreBarriersPage() {
         {BARRIERS.map((barrier) => (
           <div key={barrier.title} className="rounded-lg bg-light-grey p-6">
             <h2 className="font-heading text-lg font-semibold text-navy">{barrier.title}</h2>
-            <p className="mt-2 font-body text-sm text-charcoal">{barrier.body}</p>
+            <p className="mt-2 font-body text-sm text-charcoal">
+              {barrier.title === "Compliance & Ethics" ? (
+                <>
+                  The{" "}
+                  <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
+                    EU AI Act
+                  </Link>{" "}
+                  introduces real obligations — transparency, risk classification, data
+                  governance, human oversight. We build alignment into the roadmap from
+                  day one.
+                </>
+              ) : (
+                barrier.body
+              )}
+            </p>
           </div>
         ))}
       </section>

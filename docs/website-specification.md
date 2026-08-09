@@ -8,8 +8,8 @@ Claude Code must maintain this document and ensure it always reflects the curren
 
 **Transitional note:** Home has been rebranded to Ragtime-Pro's AI-driven,
 legacy-software-modernization positioning. The remaining pages described below
-(Core Barriers, Coaching, etc.) still reflect the prior general "SME AI adoption"
-positioning and copy, and will be reconciled page by page as each is rebranded. Our
+(Coaching, etc.) still reflect the prior general "SME AI adoption" positioning and
+copy, and will be reconciled page by page as each is rebranded. Our
 Methodology (including its new Modernization Journey subpage) has been rebranded, as
 have the Boost Point (routed at `/methodology/boost-point` — see PAGE 8), Opportunity
 (see PAGE 9), and Readiness (see PAGE 10) vertex subpages — all three vertices are now
@@ -17,9 +17,10 @@ rebranded. Solutions is also fully rebranded — overview page, card teasers, an
 five detail pages (see PAGE 5 and PAGE 6). The Modernization Agent page (formerly
 "Engagement Model") is fully rebranded (see PAGE 12), About (formerly "About The
 BrokerAI") is fully rebranded (see PAGE 11), EU AI Act Compliance is fully rebranded
-(see PAGE 15), Start Your Journey is fully rebranded (see PAGE 13), and The
+(see PAGE 15), Start Your Journey is fully rebranded (see PAGE 13), The
 Modernization Dilemma (formerly "The AI Dilemma," nav label and route unchanged) is
-fully rebranded (see PAGE 2).
+fully rebranded (see PAGE 2), and Core Barriers to Modernization (formerly "Core
+Barriers") is fully rebranded (see PAGE 3).
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -141,11 +142,12 @@ top-right, bottom-left, bottom-right):
 
 ### Purpose
 Explain the problem legacy software vendors face. Sourced from the PDF's "PAGE 2 —
-THE MODERNIZATION DILEMMA" chapter. H1 and metadata title renamed from "The AI
-Dilemma" to "The Modernization Dilemma" to match the PDF chapter title; the nav label
-("The AI Dilemma") and route (`/ai-dilemma`) are unchanged for now — same
-kept-until-explicitly-renamed pattern as the Modernization Agent page before its own
-route rename (see PAGE 12).
+THE MODERNIZATION DILEMMA" chapter. Metadata title renamed from "The AI Dilemma" to
+"The Modernization Dilemma" to match the PDF chapter title; the H1 reads "The AI
+Modernization Dilemma" (kept distinct from the metadata title by explicit request).
+The nav label ("The AI Dilemma") and route (`/ai-dilemma`) are unchanged for now —
+same kept-until-explicitly-renamed pattern as the Modernization Agent page before its
+own route rename (see PAGE 12).
 
 ### Quote
 “The product still works — but the market has moved.”
@@ -171,31 +173,41 @@ the other AI Roadmap pages.
 
 ---
 
-## PAGE 3 — CORE BARRIERS
+## PAGE 3 — CORE BARRIERS TO MODERNIZATION
 
 ### Purpose
-Show empathy and expertise by naming the four barriers.
+Show empathy and expertise by naming the four barriers to legacy software
+modernization. Sourced from the PDF's "PAGE 3 — CORE BARRIERS TO MODERNIZATION"
+chapter. H1 and metadata title renamed from "Core Barriers" to "Core Barriers to
+Modernization"; nav breadcrumb label "Core Barriers" (linked from The AI Dilemma
+page) is unchanged.
 
 ### Quote
-“These barriers are real — but they are also solvable.”
+“The four barriers are real — but they are not unbreakable.” *(adapted from the PDF
+chapter's closing section, "not permanent")*
 
 ### Intro Text + Icon/CTA (below quote, above cards)
 A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `The_Core_Barriers.mp4`) beside intro text opening with
-the former hero subheadline ("Four barriers consistently stand between SMEs and
-confident AI adoption"), then drawing on the AI Roadmap Guide's "Core Barriers"
-section — the barriers as natural consequences of limited resources and lean teams
-rather than weakness, the motivated-but-constrained paradox, and that structured
-guidance and coaching make them solvable one at a time. On the right, the
-`broken_barrier.svg` icon above a "Break the barriers …" link button →
-`/ai-dilemma/coaching`. Same layout pattern as The AI Dilemma page's intro
-text + barriers icon/button group.
+(`RoadmapVideoButton`, playing `The_Core_Barriers.mp4`) beside intro text explaining
+that modernizing a legacy software product is a multidimensional transformation
+touching architecture, operations, customer expectations, and organizational
+psychology — vendors don't fail to modernize for lack of ambition, but because they
+face four systemic barriers universal across industries, architectures, and product
+types. On the right, the `broken_barrier.svg` icon above a "Break the barriers …"
+link button → `/ai-dilemma/coaching`. Same layout pattern as The Modernization
+Dilemma page's intro text + barriers icon/button group.
 
 ### Four Barrier Cards
-1. **Cost Perception** — “Fear of choosing wrong becomes a financial barrier.”  
-2. **Skills Gap**  
-3. **Organizational Resistance**  
-4. **Compliance & Ethics**  
+1. **Cost Perception** — the real cost isn't modernizing, it's stagnation:
+   declining competitiveness, rising maintenance costs, and customer churn.
+2. **Skills Gap** — AI engineering, RAG architecture, and modernization sequencing
+   require expertise brought alongside the vendor's team, not instead of it.
+3. **Organizational Resistance** — fear of destabilizing the product or losing
+   control stalls progress even with leadership support; reduced with clarity,
+   evidence, and incremental wins.
+4. **Compliance & Ethics** — body text nests an inline `<Link>` on "EU AI Act" →
+   `/eu-ai-act-compliance`; transparency, risk classification, data governance, and
+   human oversight built into the roadmap from day one.
 
 ---
 
