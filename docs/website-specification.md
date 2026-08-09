@@ -543,31 +543,48 @@ Core Barriers, and Coaching pages.
 
 ---
 
-## PAGE 12 — VALUE‑CENTRIC MODEL
+## PAGE 12 — THE MODERNIZATION AGENT
 
 ### Purpose
-Explain the engagement model.
+Explain the Modernization Agent: Ragtime-Pro's proprietary AI system and the internal
+intelligence engine behind every modernization engagement — not a customer-facing tool.
 
 ### Quote
-“Understanding the organization and evolving through continuous value delivery.”
+“It is the engine behind our modernization service.”
 
-### Intro Text + CTA (below quote, above the six step cards)
+### Intro Text + CTA (below quote, above the six cards)
 A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `Engagement_Model.mp4`) beside intro text summarizing the
-AI Roadmap Guide's "A Value-Centric Model" section — adoption as a structured
-transformation rather than a technology experiment, walking through discovery, roadmap
-blueprinting via the Driving-Triad, vendor brokerage, change management, and compliance
-guidance, tied together by a continuous ROI feedback loop. On the right, the
-`value_layers.svg` icon above a link button, "See the business value layers …" →
-`/engagement-model/value-centered-layers`.
+(`RoadmapVideoButton`, playing `Engagement_Model.mp4`) beside intro text explaining that
+the Modernization Agent ingests the product's entire context — source code in any
+language or architecture, user manuals, technical specifications, actual and intended
+workflows, business processes, industry constraints, regulatory context, and the
+competitive landscape — and produces actionable modernization intelligence, showing
+exactly how legacy systems can be enhanced, extended, or transformed. On the right, the
+`roadmap.svg` icon
+above a link button, "See Our Methodology …" → `/methodology`.
 
-### Six Steps
-1. Structured discovery  
-2. Roadmap blueprinting  
-3. Vendor brokerage  
-4. Change management  
-5. Compliance guidance  
-6. Continuous ROI tracking  
+Note: the CTA previously targeted `/engagement-model/value-centered-layers`. That
+subpage still exists in the codebase but is now orphaned (no inbound links) since its
+"business value layers" content no longer matches this page's Modernization Agent
+framing; it was intentionally left in place rather than deleted.
+
+### Six Cards
+1. Maps the Full Picture — maps the product's architecture and understands its
+   workflows and data flows, end to end.
+2. Detects Boost Points — identifies the modernization hotspots where AI can create the
+   highest value with minimal disruption.
+3. Classifies the Right Module — matches each Boost Point to one of the 5 AI Upgrade
+   Module categories and drafts its specification.
+4. Adapts to Your Industry — tunes the Product Modernization Triad to the product's
+   specific industry and constraints.
+5. Produces the Blueprint — generates the modernization blueprint and suggests safe
+   integration patterns for the architecture.
+6. Ensures Safe Execution — ensures compliance alignment and supports our consultants
+   throughout execution.
+
+Sourced from the PDF's opening "1. The Modernization Agent" section and the "PAGE 4 —
+COACHING" chapter's "2. The Modernization Agent: Your AI Partner" section. Text-only
+cards (no icons), grid `sm:grid-cols-2 lg:grid-cols-3`.
 
 ---
 

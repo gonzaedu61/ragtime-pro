@@ -4,41 +4,35 @@ import type { Metadata } from "next";
 import RoadmapVideoButton from "@/components/RoadmapVideoButton";
 
 export const metadata: Metadata = {
-  title: "Engagement Model | The BrokerAI",
+  title: "The Modernization Agent | Ragtime-Pro",
   description:
-    "A six-step, value-centric engagement model — from structured discovery to continuous ROI tracking.",
+    "Ragtime-Pro's proprietary AI system — the internal intelligence engine behind every modernization engagement.",
 };
 
 const STEPS = [
   {
-    title: "Structured Discovery",
-    body: "We start by understanding your business, processes, and goals before any technology is discussed.",
-    icon: "/step_1.svg",
+    title: "Maps the Full Picture",
+    body: "Maps your product's architecture and understands its workflows and data flows, end to end.",
   },
   {
-    title: "Roadmap Blueprinting",
-    body: "We translate discovery into a sequenced, prioritized AI roadmap tailored to your readiness and goals.",
-    icon: "/step_2.svg",
+    title: "Detects Boost Points",
+    body: "Identifies the modernization hotspots where AI can create the highest value with minimal disruption.",
   },
   {
-    title: "Vendor Brokerage",
-    body: "We identify and negotiate with the right vendors on your behalf — staying neutral throughout.",
-    icon: "/step_3.svg",
+    title: "Classifies the Right Module",
+    body: "Matches each Boost Point to one of the 5 AI Upgrade Module categories and drafts its specification.",
   },
   {
-    title: "Change Management",
-    body: "We guide your team through adoption, reducing resistance and building lasting internal capability.",
-    icon: "/step_4.svg",
+    title: "Adapts to Your Industry",
+    body: "Tunes the Product Modernization Triad to your product's specific industry and constraints.",
   },
   {
-    title: "Compliance Guidance",
-    body: "We ensure every step of the roadmap aligns with EU AI Act and broader regulatory requirements.",
-    icon: "/step_5.svg",
+    title: "Produces the Blueprint",
+    body: "Generates the modernization blueprint and suggests safe integration patterns for your architecture.",
   },
   {
-    title: "Continuous ROI Tracking",
-    body: "We measure impact against the original business case, adjusting the roadmap as results come in.",
-    icon: "/step_6.svg",
+    title: "Ensures Safe Execution",
+    body: "Ensures compliance alignment and supports our consultants throughout execution.",
   },
 ];
 
@@ -46,14 +40,13 @@ export default function EngagementModelPage() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
-        <h1 className="font-heading text-4xl font-bold text-navy">Engagement Model</h1>
+        <h1 className="font-heading text-4xl font-bold text-navy">The Modernization Agent</h1>
       </section>
 
       <section className="bg-navy py-8">
         <div className="mx-auto max-w-7xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
-            &ldquo;Understanding the organization and evolving through continuous value
-            delivery.&rdquo;
+            &ldquo;It is the engine behind our modernization service.&rdquo;
           </p>
         </div>
       </section>
@@ -64,35 +57,31 @@ export default function EngagementModelPage() {
             <div className="lg:self-start">
               <RoadmapVideoButton
                 src="/Engagement_Model.mp4"
-                ariaLabel="Play the Engagement Model video"
+                ariaLabel="Play the Modernization Agent video"
                 iconClassName="h-9 w-auto"
               />
             </div>
             <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              Our value-centric engagement model is built on six steps, delivering impact across
-              three layers of business value. Rather than treating AI as a technology
-              experiment, we treat adoption as a structured transformation that begins with
-              understanding the organization and evolving through continuous value delivery. It
-              starts with structured discovery into your workflows and readiness, moves into
-              roadmap blueprinting guided by the Driving-Triad, and continues through vendor
-              brokerage, change management, and compliance guidance — all held together by a
-              continuous feedback loop that tracks ROI and refines the roadmap as the needs,
-              opportunities, and readiness evolve.
+              The Modernization Agent is Ragtime-Pro&apos;s proprietary AI system — not a
+              customer-facing tool, but the internal intelligence engine behind every
+              modernization engagement. It ingests your product&apos;s entire context:
+              source code in any language or architecture, user manuals, technical
+              specifications, actual and intended workflows, business processes, industry
+              constraints, regulatory context, and the competitive landscape. The output is
+              actionable modernization intelligence, showing exactly how legacy systems can
+              be enhanced, extended, or transformed.
             </p>
           </div>
-          <Link
-            href="/engagement-model/value-centered-layers"
-            className="group flex flex-col items-center gap-4"
-          >
+          <Link href="/methodology" className="group flex flex-col items-center gap-4">
             <Image
-              src="/value_layers.svg"
-              alt="Value layers icon"
-              width={822}
-              height={1160}
+              src="/roadmap.svg"
+              alt="Roadmap icon"
+              width={198}
+              height={263}
               className="h-32 w-auto"
             />
             <span className="whitespace-nowrap rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
-              See the business value layers …
+              See Our Methodology …
             </span>
           </Link>
         </div>
@@ -102,17 +91,7 @@ export default function EngagementModelPage() {
         <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {STEPS.map((step) => (
             <li key={step.title} className="rounded-lg bg-light-grey p-6">
-              <div className="flex items-center gap-4">
-                <div className="relative h-14 w-24 shrink-0">
-                  <Image
-                    src={step.icon}
-                    alt=""
-                    fill
-                    className="object-contain object-left"
-                  />
-                </div>
-                <h2 className="font-heading text-lg font-semibold text-navy">{step.title}</h2>
-              </div>
+              <h2 className="font-heading text-lg font-semibold text-navy">{step.title}</h2>
               <p className="mt-2 font-body text-sm text-charcoal">{step.body}</p>
             </li>
           ))}
