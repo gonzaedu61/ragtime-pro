@@ -9,19 +9,19 @@ const VALUE_BLOCKS = [
     title: "We Bring Structure",
     description:
       "We analyze your product end-to-end, map its architecture, and identify modernization Boost Points that deliver maximum value with minimum disruption.",
-    href: "/methodology",
+    href: "/methodology/boost-point",
   },
   {
     title: "Our Modernization Agent",
     description:
       "Trained specifically for legacy modernization, our proprietary AI Agent carries the bulk of the analytical and code-generation work. Our consultants act as the human factor, validating each step to keep the transformation safe.",
-    href: "/about",
+    href: "/engagement-model",
   },
   {
     title: "Incremental Modernization",
     description:
       "Guided by our Product-Modernization Triad — Boost Point, Opportunity, and Readiness — we sequence each upgrade step by step, ensuring stability, continuity, and customer trust.",
-    href: "/engagement-model",
+    href: "/methodology",
   },
   {
     title: "AI Upgrade Modules",

@@ -126,9 +126,9 @@ flip-animated logo lockup now appears only in the navbar (see §10.1).
 ### Key Value Blocks
 Each block links to the page that expands on it. Grid order (2 columns: top-left,
 top-right, bottom-left, bottom-right):
-1. We Bring Structure → `/methodology`
-2. Our Modernization Agent → `/about`
-3. Incremental Modernization → `/engagement-model`
+1. We Bring Structure → `/methodology/boost-point`
+2. Our Modernization Agent → `/engagement-model`
+3. Incremental Modernization → `/methodology`
 4. AI Upgrade Modules → `/solutions`
 
 ---
