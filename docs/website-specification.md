@@ -118,8 +118,8 @@ Immediate clarity: what Ragtime-Pro does, for whom, and why it matters.
   navigation to `/`) rather than always opening on the same one: "If your product seems
   to be falling behind… we bring it back to the front", "Your software doesn't need a
   rewrite… It needs a new rhythm.", "If daily operations lock your resources… we bring
-  the capacity to make it happen.", "If customer satisfaction is losing momentum… we
-  help your product win their hearts again", "If AI modernization feels overwhelming…
+  the capacity to make it happen.", "If customer satisfaction is fading… we help your
+  product win their hearts again", "If AI modernization feels overwhelming…
   we make it simple and doable".
 - **Subheadline:** A safe, structured, and effective approach to AI‑driven
   modernization for legacy software products. (`text-xl`, up from the sitewide
