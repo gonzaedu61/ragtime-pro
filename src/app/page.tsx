@@ -43,11 +43,11 @@ export default function Home() {
           <HeroAvatarVideo />
         </div>
 
-        <p className="mt-6 text-center font-body text-xl text-charcoal lg:col-start-2 lg:row-start-2">
+        <p className="mt-6 text-center font-body text-xl text-charcoal lg:col-start-1 lg:col-span-2 lg:row-start-2">
           A safe, structured, and effective approach to AI‑driven modernization for legacy software products.
         </p>
 
-        <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:justify-center sm:gap-20 lg:col-start-2 lg:row-start-3">
+        <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:justify-center sm:gap-20 lg:col-start-1 lg:col-span-2 lg:row-start-3">
           <Link href="/start" className="group flex flex-col items-center gap-3">
             <span className="rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
               Start the journey …
