@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ExternalLinkIcon from "@/components/ExternalLinkIcon";
-import RoadmapVideoButton from "@/components/RoadmapVideoButton";
+import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import { SOLUTIONS } from "@/lib/solutions";
 
 export const metadata: Metadata = {
@@ -14,8 +14,12 @@ export const metadata: Metadata = {
 export default function SolutionsPage() {
   return (
     <>
-      <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
+      <section className="relative mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">AI Solution Categories</h1>
+
+        <div className="mt-4 flex justify-center lg:absolute lg:left-[-9rem] lg:top-1/2 lg:z-[60] lg:mt-0 lg:-translate-y-1/2">
+          <HeroAvatarVideo videoSrc="/AI_Solutions.mp4" imageSrc="/Clint.jpg" />
+        </div>
       </section>
 
       <section className="bg-navy py-8">
@@ -29,30 +33,21 @@ export default function SolutionsPage() {
 
       <section className="mx-auto max-w-7xl px-6 pt-8 pb-12">
         <div className="flex flex-col items-center gap-12 text-center lg:flex-row lg:justify-center lg:gap-20">
-          <div className="flex flex-col items-center gap-4 lg:flex-row lg:items-start">
-            <div className="lg:self-start">
-              <RoadmapVideoButton
-                src="/AI_Solutions.mp4"
-                ariaLabel="Play the AI Solutions video"
-                iconClassName="h-9 w-auto"
-              />
-            </div>
-            <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              Modernizing a legacy software product is not a single leap — it is a
-              structured progression. Different products, architectures, and customer
-              bases require different modernization intensities, so we organize
-              modernization into five AI Solution Categories, each a distinct layer of
-              capability, complexity, and value. Each category can be integrated
-              incrementally, and is analyzed and sequenced by our{" "}
-              <Link href="/modernization-agent" className="underline hover:text-electric-blue">
-                Modernization Agent
-              </Link>{" "}
-              to ensure safe integration into your legacy architecture.
-              These categories are not a menu of features to pick from — they are
-              carefully crafted into a roadmap, letting you modernize confidently without
-              overwhelming your team or destabilizing your product.
-            </p>
-          </div>
+          <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
+            Modernizing a legacy software product is not a single leap — it is a
+            structured progression. Different products, architectures, and customer
+            bases require different modernization intensities, so we organize
+            modernization into five AI Solution Categories, each a distinct layer of
+            capability, complexity, and value. Each category can be integrated
+            incrementally, and is analyzed and sequenced by our{" "}
+            <Link href="/modernization-agent" className="underline hover:text-electric-blue">
+              Modernization Agent
+            </Link>{" "}
+            to ensure safe integration into your legacy architecture.
+            These categories are not a menu of features to pick from — they are
+            carefully crafted into a roadmap, letting you modernize confidently without
+            overwhelming your team or destabilizing your product.
+          </p>
           <Link href="/methodology" className="group flex flex-col items-center gap-4">
             <Image
               src="/roadmap.svg"

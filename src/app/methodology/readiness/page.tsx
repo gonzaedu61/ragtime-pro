@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import VertexTriadNav from "@/components/VertexTriadNav";
 
 export const metadata: Metadata = {
@@ -31,8 +32,12 @@ const CARDS = [
 export default function ReadinessPage() {
   return (
     <>
-      <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
+      <section className="relative mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">&ldquo;Readiness&rdquo; Vertex</h1>
+
+        <div className="mt-4 flex justify-center lg:absolute lg:left-[-9rem] lg:top-1/2 lg:z-[60] lg:mt-0 lg:-translate-y-1/2">
+          <HeroAvatarVideo videoSrc="/Readiness.mp4" imageSrc="/Mary.jpg" />
+        </div>
       </section>
 
       <section className="bg-navy py-8">

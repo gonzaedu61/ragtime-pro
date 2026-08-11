@@ -3,7 +3,13 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-export default function HeroAvatarVideo({ videoSrc = "/Home.mp4" }: { videoSrc?: string }) {
+export default function HeroAvatarVideo({
+  videoSrc = "/Home.mp4",
+  imageSrc = "/Liz.jpg",
+}: {
+  videoSrc?: string;
+  imageSrc?: string;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [active, setActive] = useState(false);
   const [videoPaused, setVideoPaused] = useState(false);
@@ -72,7 +78,7 @@ export default function HeroAvatarVideo({ videoSrc = "/Home.mp4" }: { videoSrc?:
           active ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
-        <Image src="/Liz.jpg" alt="" fill sizes="144px" className="object-cover" />
+        <Image src={imageSrc} alt="" fill sizes="144px" className="object-cover" />
         <span
           className={`absolute inset-0 flex items-center justify-center bg-navy/0 transition-colors duration-200 ${
             hovering ? "bg-navy/20" : ""

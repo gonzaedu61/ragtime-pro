@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import RoadmapVideoButton from "@/components/RoadmapVideoButton";
 import { SOLUTIONS, type SolutionClass } from "@/lib/solutions";
 
@@ -14,8 +15,14 @@ export default function SolutionDetail({ solution }: { solution: SolutionClass }
 
   return (
     <>
-      <section className="mx-auto max-w-4xl px-6 pt-6 pb-8 text-center">
+      <section className="relative mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">{solution.title}</h1>
+
+        {solution.heroAvatarEnabled && solution.video && (
+          <div className="mt-4 flex justify-center lg:absolute lg:left-[-9rem] lg:top-1/2 lg:z-[60] lg:mt-0 lg:-translate-y-1/2">
+            <HeroAvatarVideo videoSrc={solution.video} imageSrc={solution.heroAvatarImage} />
+          </div>
+        )}
       </section>
 
       <section className="bg-navy py-8">
@@ -30,7 +37,7 @@ export default function SolutionDetail({ solution }: { solution: SolutionClass }
         <div className="mx-auto max-w-5xl px-6 pt-8 pb-8 min-[1440px]:col-start-2 min-[1440px]:row-start-1 min-[1440px]:h-72 min-[1440px]:overflow-hidden">
           <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-start sm:text-left">
             <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:text-left">
-              {solution.video && (
+              {solution.video && !solution.heroAvatarEnabled && (
                 <div className="shrink-0">
                   <RoadmapVideoButton
                     src={solution.video}

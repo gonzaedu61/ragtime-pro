@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import RoadmapVideoButton from "@/components/RoadmapVideoButton";
+import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 
 export const metadata: Metadata = {
   title: "Coaching: The AI-Augmented Barrier Breaker | Ragtime-Pro",
@@ -35,10 +35,14 @@ const KEY_BLOCKS = [
 export default function CoachingPage() {
   return (
     <>
-      <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
+      <section className="relative mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">
           The AI-Augmented Barrier Breaker
         </h1>
+
+        <div className="mt-4 flex justify-center lg:absolute lg:left-[-9rem] lg:top-1/2 lg:z-[60] lg:mt-0 lg:-translate-y-1/2">
+          <HeroAvatarVideo videoSrc="/Barriers_Breaker.mp4" />
+        </div>
       </section>
 
       <section className="bg-navy py-8">
@@ -52,35 +56,26 @@ export default function CoachingPage() {
 
       <section className="mx-auto max-w-7xl px-6 pt-8 pb-12">
         <div className="flex flex-col items-center gap-12 text-center lg:flex-row lg:justify-center lg:gap-20">
-          <div className="flex flex-col items-center gap-4 lg:flex-row lg:items-start">
-            <div className="lg:self-start">
-              <RoadmapVideoButton
-                src="/Barriers_Breaker.mp4"
-                ariaLabel="Play the Barrier's Breaker video"
-                iconClassName="h-9 w-auto"
-              />
-            </div>
-            <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              Modernizing a legacy software product traditionally depended entirely on
-              human consultants. Ragtime-Pro&apos;s coaching is AI-augmented, powered by
-              the{" "}
-              <Link href="/modernization-agent" className="underline hover:text-electric-blue">
-                Modernization Agent
-              </Link>
-              , which performs the heavy analytical work — scanning code, mapping
-              dependencies, identifying{" "}
-              <Link href="/methodology/boost-point" className="underline hover:text-electric-blue">
-                Boost Points
-              </Link>
-              , evaluating integration paths, and assessing{" "}
-              <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
-                EU AI Act
-              </Link>{" "}
-              implications. Your team brings product knowledge, our consultants bring
-              modernization expertise, and the Modernization Agent brings analytical
-              acceleration — together breaking every barrier.
-            </p>
-          </div>
+          <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
+            Modernizing a legacy software product traditionally depended entirely on
+            human consultants. Ragtime-Pro&apos;s coaching is AI-augmented, powered by
+            the{" "}
+            <Link href="/modernization-agent" className="underline hover:text-electric-blue">
+              Modernization Agent
+            </Link>
+            , which performs the heavy analytical work — scanning code, mapping
+            dependencies, identifying{" "}
+            <Link href="/methodology/boost-point" className="underline hover:text-electric-blue">
+              Boost Points
+            </Link>
+            , evaluating integration paths, and assessing{" "}
+            <Link href="/eu-ai-act-compliance" className="underline hover:text-electric-blue">
+              EU AI Act
+            </Link>{" "}
+            implications. Your team brings product knowledge, our consultants bring
+            modernization expertise, and the Modernization Agent brings analytical
+            acceleration — together breaking every barrier.
+          </p>
           <Link href="/about" className="group flex flex-col items-center gap-4">
             <Image
               src="/Ragtime-Pro_Logo.png"

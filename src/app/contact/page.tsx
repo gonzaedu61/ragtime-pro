@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, type FormEvent } from "react";
+import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -38,8 +39,12 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="mx-auto max-w-3xl px-6 pt-6 pb-8 text-center">
+      <section className="relative mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">Contact Us</h1>
+
+        <div className="mt-4 flex justify-center lg:absolute lg:left-[-9rem] lg:top-1/2 lg:z-[60] lg:mt-0 lg:-translate-y-1/2">
+          <HeroAvatarVideo videoSrc="/Contact_Us.mp4" />
+        </div>
       </section>
 
       <section className="bg-navy py-8">

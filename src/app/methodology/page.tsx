@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ExternalLinkIcon from "@/components/ExternalLinkIcon";
-import RoadmapVideoButton from "@/components/RoadmapVideoButton";
+import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 
 export const metadata: Metadata = {
   title: "Our Methodology | Ragtime-Pro",
@@ -31,8 +31,12 @@ const PILLARS = [
 export default function MethodologyPage() {
   return (
     <>
-      <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
+      <section className="relative mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">Our Methodology</h1>
+
+        <div className="mt-4 flex justify-center lg:absolute lg:left-[-9rem] lg:top-1/2 lg:z-[60] lg:mt-0 lg:-translate-y-1/2">
+          <HeroAvatarVideo videoSrc="/Our_Methodology.mp4" imageSrc="/Mary.jpg" />
+        </div>
       </section>
 
       <section className="bg-navy py-8">
@@ -61,26 +65,17 @@ export default function MethodologyPage() {
               Check the steps ...
             </span>
           </Link>
-          <div className="flex flex-col items-center gap-4 lg:flex-row lg:items-start">
-            <div className="shrink-0 lg:self-start">
-              <RoadmapVideoButton
-                src="/Our_Methodology.mp4"
-                ariaLabel="Play the Our Methodology video"
-                iconClassName="h-9 w-auto"
-              />
-            </div>
-            <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              The <strong>Product Modernization Triad</strong> is our strategic framework,
-              built on three vertices — <strong>Boost Point</strong>,{" "}
-              <strong>Opportunity</strong>, and <strong>Readiness</strong>. Modernizing a
-              legacy product is not a linear checklist — it is a strategic decision system.
-              Without alignment, even promising AI pilots become isolated experiments. The
-              Triad is the compass ensuring every recommendation is checked against where AI
-              can create the highest value, the AI Upgrade Module that fits best, and your
-              product&apos;s actual readiness to integrate it safely — and it gets
-              continuously adjusted as your product and its context evolves.
-            </p>
-          </div>
+          <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
+            The <strong>Product Modernization Triad</strong> is our strategic framework,
+            built on three vertices — <strong>Boost Point</strong>,{" "}
+            <strong>Opportunity</strong>, and <strong>Readiness</strong>. Modernizing a
+            legacy product is not a linear checklist — it is a strategic decision system.
+            Without alignment, even promising AI pilots become isolated experiments. The
+            Triad is the compass ensuring every recommendation is checked against where AI
+            can create the highest value, the AI Upgrade Module that fits best, and your
+            product&apos;s actual readiness to integrate it safely — and it gets
+            continuously adjusted as your product and its context evolves.
+          </p>
           <div className="flex w-64 shrink-0 flex-col items-center gap-1">
             <Image
               src="/product_modernization_triad.svg"

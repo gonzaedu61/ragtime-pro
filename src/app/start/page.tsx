@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import RoadmapVideoButton from "@/components/RoadmapVideoButton";
+import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 
 export const metadata: Metadata = {
   title: "Start Your Journey | Ragtime-Pro",
@@ -27,8 +27,12 @@ const PHASES = [
 export default function StartPage() {
   return (
     <>
-      <section className="mx-auto max-w-3xl px-6 pt-6 pb-8 text-center">
+      <section className="relative mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">Start Your Journey</h1>
+
+        <div className="mt-4 flex justify-center lg:absolute lg:left-[-9rem] lg:top-1/2 lg:z-[60] lg:mt-0 lg:-translate-y-1/2">
+          <HeroAvatarVideo videoSrc="/Start_Journey.mp4" />
+        </div>
       </section>
 
       <section className="bg-navy py-8">
@@ -42,27 +46,18 @@ export default function StartPage() {
 
       <section className="mx-auto max-w-7xl px-6 pt-8 pb-12">
         <div className="flex flex-col items-center gap-8 text-center lg:flex-row lg:items-center lg:justify-center lg:gap-16">
-          <div className="flex flex-col items-center gap-4 text-center lg:flex-row lg:items-start">
-            <div className="shrink-0 lg:self-start">
-              <RoadmapVideoButton
-                src="/Starting_The_Journey.mp4"
-                ariaLabel="Play the Starting Your Journey video"
-                iconClassName="h-9 w-auto"
-              />
-            </div>
-            <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              Legacy modernization is not a transaction — it is a partnership. Every
-              product has its own history, architecture, constraints, and ambitions, so
-              engagement with{" "}
-              <Link href="/about" className="underline hover:text-electric-blue">
-                Ragtime-Pro
-              </Link>{" "}
-              begins not with a proposal, but with a conversation: one where we listen,
-              understand, and map your modernization reality. From that first
-              interaction, our goal is simple — give you clarity, give you structure,
-              give you confidence.
-            </p>
-          </div>
+          <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
+            Legacy modernization is not a transaction — it is a partnership. Every
+            product has its own history, architecture, constraints, and ambitions, so
+            engagement with{" "}
+            <Link href="/about" className="underline hover:text-electric-blue">
+              Ragtime-Pro
+            </Link>{" "}
+            begins not with a proposal, but with a conversation: one where we listen,
+            understand, and map your modernization reality. From that first
+            interaction, our goal is simple — give you clarity, give you structure,
+            give you confidence.
+          </p>
           <Link href="/contact" className="group flex flex-col items-center gap-3">
             <span className="whitespace-nowrap rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
               Request a Modernization Consultation

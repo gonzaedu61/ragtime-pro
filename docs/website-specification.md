@@ -134,6 +134,15 @@ Immediate clarity: what Ragtime-Pro does, for whom, and why it matters.
 Removed. The Home hero no longer includes a separate large logo motif; the
 flip-animated logo lockup now appears only in the navbar (see §10.1).
 
+### Hero Avatar Video
+`HeroAvatarVideo` (`Liz.jpg` + `Home.mp4`), horizontally aligned with the
+`RotatingHeadline` row via a `lg:grid-cols-[calc(50%-33rem)_1fr]` layout (avatar in
+column 1, headline in column 2), sized and positioned before the "move it left"
+refinement pass settled on `lg:justify-start` within that first column. See §10.3
+"Hero avatar video" for the component's general behavior — Home was the first page
+to receive it and predates the left-gutter/absolute-positioning approach used on
+every other page.
+
 ### Key Value Blocks
 Each block links to the page that expands on it. Grid order (2 columns: top-left,
 top-right, bottom-left, bottom-right):
@@ -155,13 +164,17 @@ The nav label ("The AI Dilemma") and route (`/ai-dilemma`) are unchanged for now
 same kept-until-explicitly-renamed pattern as the Modernization Agent page before its
 own route rename (see PAGE 12).
 
+### Hero Avatar Video
+`HeroAvatarVideo` (`Liz.jpg` + `The_AI_Dilema.mp4`), horizontally aligned with the H1
+— see §10.3 "Hero avatar video".
+
 ### Quote
 “The product still works — but the market has moved.”
 
-### Intro Text + Icon/CTA (below quote, above cards)
-A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `The_AI_Dilema.mp4`) beside intro text explaining that
-thousands of European software vendors run legacy products that are stable and
+### Intro Text + CTA (below quote, above cards)
+A centered two-column group (stacks on mobile): on the left, intro text (the video
+icon formerly here has moved to the Hero Avatar Video above the H1 — see §10.3)
+explaining that thousands of European software vendors run legacy products that are stable and
 trusted but risk falling behind as AI-native competitors move faster, customers
 expect modern experiences, and regulatory pressure increases — and that while AI
 itself (RAG, workflow automation, reasoning agents, custom models) is ready and
@@ -188,13 +201,18 @@ chapter. H1 and metadata title renamed from "Core Barriers" to "Core Barriers to
 Modernization"; nav breadcrumb label "Core Barriers" (linked from The AI Dilemma
 page) is unchanged.
 
+### Hero Avatar Video
+`HeroAvatarVideo` (`Liz.jpg` + `Core_Barriers.mp4`), horizontally aligned with the H1
+— see §10.3 "Hero avatar video".
+
 ### Quote
 “The four barriers are real — but they are not unbreakable.” *(adapted from the PDF
 chapter's closing section, "not permanent")*
 
-### Intro Text + Icon/CTA (below quote, above cards)
-A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `The_Core_Barriers.mp4`) beside intro text explaining
+### Intro Text + CTA (below quote, above cards)
+A centered two-column group (stacks on mobile): on the left, intro text (the video
+icon formerly here has moved to the Hero Avatar Video above the H1 — see §10.3)
+explaining
 that modernizing a legacy software product is a multidimensional transformation
 touching architecture, operations, customer expectations, and organizational
 psychology — vendors don't fail to modernize for lack of ambition, but because they
@@ -225,12 +243,17 @@ Sourced from the PDF's "PAGE 4 — COACHING: THE AI-AUGMENTED BARRIER BREAKER" c
 H1 and metadata title renamed from "The Barrier's Breaker" to "The AI-Augmented
 Barrier Breaker" (metadata title keeps the "Coaching:" prefix, H1 does not).
 
+### Hero Avatar Video
+`HeroAvatarVideo` (`Liz.jpg` + `Barriers_Breaker.mp4`), horizontally aligned with the
+H1 — see §10.3 "Hero avatar video".
+
 ### Quote
 “Coaching becomes the engine breaking the barriers - amplified by AI itself.”
 
-### Intro Text + Icon/CTA (below quote, above cards)
-A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `Barriers_Breaker.mp4`) beside intro text explaining
+### Intro Text + CTA (below quote, above cards)
+A centered two-column group (stacks on mobile): on the left, intro text (the video
+icon formerly here has moved to the Hero Avatar Video above the H1 — see §10.3)
+explaining
 that modernization coaching traditionally depended entirely on human consultants, but
 Ragtime-Pro's coaching is AI-augmented, powered by the Modernization Agent (first
 mention is an inline `<Link>` → `/modernization-agent`), which performs the heavy
@@ -262,13 +285,18 @@ Modernization pages' intro text + icon/button groups.
 ### Purpose
 Introduce the five AI Solution Categories as a modernization roadmap, not a menu.
 
+### Hero Avatar Video
+`HeroAvatarVideo` (`Clint.jpg` + `AI_Solutions.mp4`), horizontally aligned with the H1
+— see §10.3 "Hero avatar video".
+
 ### Quote
 “There is no single AI solution — only the right category for the right challenge.”
 *(kept on one line via `lg:whitespace-nowrap` on wide viewports)*
 
-### Intro Text + Icon/CTA (below quote, above cards)
-A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `AI_Solutions.mp4`) beside intro text explaining that
+### Intro Text + CTA (below quote, above cards)
+A centered two-column group (stacks on mobile): on the left, intro text (the video
+icon formerly here has moved to the Hero Avatar Video above the H1 — see §10.3)
+explaining that
 different products, architectures, and customer bases require different modernization
 intensities, so modernization is organized into five AI Solution Categories — each a
 distinct layer of capability, complexity, and value, integrable incrementally, and
@@ -310,11 +338,20 @@ flanking-CTA layouts. Below 1440px, all three stack into a single column in the 
 intro, sidebar, cards, roadmap CTA.
 
 ### Structure
-- Hero: solution title only (no subheading)  
+- Hero: solution title only (no subheading), plus a Hero Avatar Video —
+  `HeroAvatarVideo` using the solution's own `video` field and, currently, `Clint.jpg`
+  for all five solutions, gated by the `heroAvatarEnabled` field on each
+  `src/lib/solutions.ts` entry (all five are now `true`) and the image overridden per
+  entry via `heroAvatarImage`. This hero section was widened from `max-w-4xl` to
+  `max-w-7xl` (matching every other page) so the avatar's left-gutter position lines
+  up sitewide — see §10.3 "Hero avatar video".
 - Quote (per-solution pull-quote, stored as `quote` on each entry in `src/lib/solutions.ts`)  
-- **Center, row 1 — Intro block:** a video icon (`RoadmapVideoButton`, playing the
-  solution's `video` field) beside the overview paragraph (`overview` field), with an
-  optional solution icon (`icon` field) to the right. This block has a fixed height
+- **Center, row 1 — Intro block:** the overview paragraph (`overview` field), with an
+  optional solution icon (`icon` field) to the right. The old inline `RoadmapVideoButton`
+  video icon that used to sit beside this paragraph is now conditionally rendered only
+  when `heroAvatarEnabled` is `false` on that solution (currently never, since all five
+  are enabled) — retained in the component as a fallback rather than deleted, in case a
+  future solution is added without a hero avatar. This block has a fixed height
   (`min-[1440px]:h-72`, clipped via `overflow-hidden`) on wide viewports so that switching
   between solutions never shifts the sidebar or roadmap CTA below it vertically,
   regardless of how long a given solution's overview text is — the wider `max-w-5xl`
@@ -368,6 +405,10 @@ generated `<title>` now reads `{title} | Ragtime-Pro`.
 ### Purpose
 Explain the strategic framework.
 
+### Hero Avatar Video
+`HeroAvatarVideo` (`Mary.jpg` + `Our_Methodology.mp4`), horizontally aligned with the
+H1 — see §10.3 "Hero avatar video".
+
 ### Quote
 “Legacy modernization is not a matter of inspiration or experimentation. It is a strategic discipline.”
 
@@ -375,8 +416,9 @@ Explain the strategic framework.
 A centered three-column row (stacks on mobile; vertically centered at `lg` and up).
 On the left, the Steps CTA — the `steps.svg` icon above a "Check the steps ..." link
 button, → `/methodology/process`, pointing readers to the eight-step Modernization
-Journey (see PAGE 7A). In the middle, a video icon (`RoadmapVideoButton`, playing
-`Our_Methodology.mp4`) beside intro text explaining the Product Modernization Triad —
+Journey (see PAGE 7A). In the middle, intro text (the video icon formerly here has
+moved to the Hero Avatar Video above the H1 — see §10.3) explaining the Product
+Modernization Triad —
 Boost Point, Opportunity, and Readiness — and how it keeps every recommendation checked
 against where AI can create the highest value, the AI Upgrade Module that fits best, and
 the product's actual readiness to integrate it safely, continuously adjusted as the
@@ -408,13 +450,17 @@ Lay out the eight-step process behind every modernization engagement, sourced fr
 the authoritative modernization spec's "Our Methodology" chapter (Section 4, "The
 Modernization Journey: A Structured Process").
 
+### Hero Avatar Video
+`HeroAvatarVideo` (`Mary.jpg` + `The_Steps.mp4`), horizontally aligned with the H1 —
+see §10.3 "Hero avatar video". This page previously had no video at all; the intro
+text below still has no separate inline video icon.
+
 ### Quote
 “Turning AI modernization from a risky leap into a guided evolution.”
 
 ### Intro Text + CTA (below quote, above steps)
 A centered two-column group (stacks on mobile, `lg:flex-row lg:justify-center`): on the
-left, intro text (no video — no dedicated video asset exists for this page yet)
-explaining that legacy modernization is a strategic discipline, not a matter of
+left, intro text explaining that legacy modernization is a strategic discipline, not a matter of
 inspiration or experimentation, and that the methodology follows a structured,
 repeatable sequence powered by the Modernization Agent (bolded and an inline `<Link>`
 → `/modernization-agent`) and executed by the consultants. On the right, the
@@ -451,6 +497,10 @@ so the pair centers as a group under the row above instead of sitting flush-left
 ### Purpose
 Explain the first vertex of the Product Modernization Triad: the modernization hotspot
 where AI can create the highest product value with minimal disruption.
+
+### Hero Avatar Video
+`HeroAvatarVideo` (`Mary.jpg` + `Boost_Point.mp4`), horizontally aligned with the H1 —
+see §10.3 "Hero avatar video". This page previously had no video at all.
 
 ### Quote
 “The point in the product where AI can create high value with minimal disruption.”
@@ -503,6 +553,10 @@ instead of leaving a large gap sized to the nav's height.
 Explain the second vertex of the Product Modernization Triad: matching the identified
 Boost Point to the best-fit AI Upgrade Module.
 
+### Hero Avatar Video
+`HeroAvatarVideo` (`Mary.jpg` + `Opportunity.mp4`), horizontally aligned with the H1 —
+see §10.3 "Hero avatar video". This page previously had no video at all.
+
 ### Quote
 “Which AI Solution Category fits the Boost Point best.”
 
@@ -535,6 +589,10 @@ Modernization Triad diagram — see PAGE 8) on the left, the `roadmap.svg` icon 
 ### Purpose
 Explain the third vertex of the Product Modernization Triad: how prepared the product is
 for integration.
+
+### Hero Avatar Video
+`HeroAvatarVideo` (`Mary.jpg` + `Readiness.mp4`), horizontally aligned with the H1 —
+see §10.3 "Hero avatar video". This page previously had no video at all.
 
 ### Quote
 “How prepared the product is to safely integrate a new AI Upgrade Module?”
@@ -573,10 +631,15 @@ Modernization Agent, the Product Modernization Triad, the Consulting Layer, and 
 Upgrade Modules working together — sourced from the PDF's "PAGE 13 — ABOUT
 RAGTIME-PRO" chapter.
 
-### Intro Text + Icon/CTA (below quote, above cards)
-A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `We_Can_Help.mp4` — no dedicated About video asset
-exists yet, so the existing asset is reused) beside intro text introducing Ragtime-Pro
+### Hero Avatar Video
+`HeroAvatarVideo` (`Liz.jpg` + `About_Us.mp4`), horizontally aligned with the H1 —
+see §10.3 "Hero avatar video". `About_Us.mp4` is a dedicated video for this page,
+replacing the earlier reused `We_Can_Help.mp4` asset.
+
+### Intro Text + CTA (below quote, above cards)
+A centered two-column group (stacks on mobile): on the left, intro text (the video
+icon formerly here has moved to the Hero Avatar Video above the H1 — see §10.3)
+introducing Ragtime-Pro
 as a modernization partner for legacy software vendors, transforming mission-critical
 products without rewrites or disruptive architectural change, through a combination of
 AI-augmented analysis, structured methodology, expert consulting, and incremental AI
@@ -608,12 +671,18 @@ the Home value blocks and Solution Class cards (see §10.3 Shared Visual Pattern
 Explain the Modernization Agent: Ragtime-Pro's proprietary AI system and the internal
 intelligence engine behind every modernization engagement — not a customer-facing tool.
 
+### Hero Avatar Video
+`HeroAvatarVideo` (`Liz.jpg` + `Modernization_Agent.mp4`), horizontally aligned with
+the H1 — see §10.3 "Hero avatar video". `Modernization_Agent.mp4` is a dedicated video
+for this page, replacing the earlier reused `Engagement_Model.mp4` asset.
+
 ### Quote
 “The engine behind our modernization service.”
 
 ### Intro Text + CTA (below quote, above the seven cards)
-A centered two-column group (stacks on mobile): on the left, a video icon
-(`RoadmapVideoButton`, playing `Engagement_Model.mp4`) beside intro text explaining that
+A centered two-column group (stacks on mobile): on the left, intro text (the video
+icon formerly here has moved to the Hero Avatar Video above the H1 — see §10.3)
+explaining that
 the Modernization Agent ingests the product's entire context — source code in any
 language or architecture, user manuals, technical specifications, actual and intended
 workflows, business processes, industry constraints, regulatory context, and the
@@ -654,13 +723,20 @@ bottom edges of the two cards above it rather than sitting flush-left.
 Conversion page. Sourced from the PDF's "PAGE 14 — CONTACT & ENGAGEMENT" chapter's
 "Modernization Begins With a Conversation" and "How Engagement Works" sections.
 
+### Hero Avatar Video
+`HeroAvatarVideo` (`Liz.jpg` + `Start_Journey.mp4`), horizontally aligned with the H1
+— see §10.3 "Hero avatar video". `Start_Journey.mp4` is a dedicated video for this
+page, replacing the earlier `Starting_The_Journey.mp4` asset. The hero section's
+container was also widened from `max-w-3xl` to `max-w-7xl` so the avatar's
+left-gutter position lines up with every other page.
+
 ### Quote
 “One conversation can change how you see your product's future.”
 
 ### Intro Text + CTA (below quote, above cards)
 A centered two-column group (stacks on mobile, `lg:flex-row lg:justify-center`): on
-the left, a video icon (`RoadmapVideoButton`, playing `Starting_The_Journey.mp4`)
-beside intro text explaining that legacy modernization is a partnership, not a
+the left, intro text (the video icon formerly here has moved to the Hero Avatar Video
+above the H1 — see §10.3) explaining that legacy modernization is a partnership, not a
 transaction — every product has its own history, architecture, constraints, and
 ambitions, so engagement with Ragtime-Pro (inline `<Link>` → `/about`) begins not with
 a proposal but with a conversation, with the goal of giving clarity, structure, and
@@ -692,6 +768,12 @@ titles are plain.
 ---
 
 ## PAGE 14 — CONTACT
+
+### Hero Avatar Video
+`HeroAvatarVideo` (`Liz.jpg` + `Contact_Us.mp4`), horizontally aligned with the H1 —
+see §10.3 "Hero avatar video". This page previously had no video at all. The hero
+section's container was also widened from `max-w-3xl` to `max-w-7xl` so the avatar's
+left-gutter position lines up with every other page.
 
 ### Quote
 “We are prepared to support you from the very first question.”
@@ -744,6 +826,10 @@ penalty figures) since the PDF itself does not contain a dedicated compliance
 chapter. Formerly expanded on a dedicated Home "EU Compliance Support" value block;
 Home no longer includes one after the Ragtime-Pro rebrand, so this page is now
 reached only via the top nav.
+
+### Hero Avatar Video
+`HeroAvatarVideo` (`Liz.jpg` + `EU_Compliance.mp4`), horizontally aligned with the H1
+— see §10.3 "Hero avatar video". This page previously had no video at all.
 
 ### Quote
 “Compliance built into the roadmap — not bolted on after launch.”
@@ -1092,13 +1178,14 @@ Claude must:
 - **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `Ragtime-Pro_Logo.png` lockup (icon + wordmark, no separate text label), flip-animated in an 82×170px box sized to its aspect ratio.
 - **Footer** (`src/components/Footer.tsx`) — footer navigation (Privacy Policy, Terms of Service, Contact) and copyright line. No LinkedIn link yet — see §2.2.
 - **RotatingHeadline** (`src/components/RotatingHeadline.tsx`) — client component cycling through 5 two-line phrases on the Home hero, one every 8 seconds with a cross-fade transition. Starts on a random phrase on each mount (not always the first) so repeat visits and refreshes don't always open on the same line.
-- **RoadmapVideoButton** (`src/components/RoadmapVideoButton.tsx`) — reusable video-icon trigger; renders a small icon (optionally with a text label) that opens a centered modal video player animating in/out from the icon's screen position. Takes a `src` (defaults to the AI Roadmap Guide video), an optional `lowBandwidthSrc` for connection-aware source switching, and a `blueHoverIcon` toggle (icon swaps to an electric-blue variant on hover; disabled on Home and Start Your Journey, where a size-only hover effect is used instead). Used on: Home, Start Your Journey (two instances), The AI Dilemma, Core Barriers, Coaching, About, AI Solution Categories, Our Methodology, the Modernization Agent, and every Solution Class detail page (via `SolutionDetail`).
+- **HeroAvatarVideo** (`src/components/HeroAvatarVideo.tsx`) — clickable circular avatar photo that plays an in-place explainer video with custom minimal controls; positioned in the left gutter beside each page's H1. See §10.3 "Hero avatar video" for full behavior, positioning, and the per-page image/video assignments.
+- **RoadmapVideoButton** (`src/components/RoadmapVideoButton.tsx`) — reusable video-icon trigger; renders a small icon (optionally with a text label) that opens a centered modal video player animating in/out from the icon's screen position. Takes a `src` (defaults to the AI Roadmap Guide video), an optional `lowBandwidthSrc` for connection-aware source switching, and a `blueHoverIcon` toggle (icon swaps to an electric-blue variant on hover; disabled on Home and Start Your Journey, where a size-only hover effect is used instead). **No longer used anywhere** — every page that rendered it now uses `HeroAvatarVideo` instead (see §10.3); the component file remains in the repo but has zero call sites.
 - **VertexTriadNav** (`src/components/VertexTriadNav.tsx`) — small Driving-Triad diagram used in the left-side nav slot on the Need/Opportunity/Readiness pages; highlights the current vertex and links to the other two.
 - **SolutionDetail** (`src/components/SolutionDetail.tsx`) — shared template rendering a single Solution Class's Quote, Overview, sidebar of the other four categories, Value/Examples/Readiness Requirements/Roadmap Fit cards, and a roadmap CTA; used by the dynamic `/solutions/[slug]` route. See Page 6 for its 3-column grid layout.
 - **ExternalLinkIcon** (`src/components/ExternalLinkIcon.tsx`) — small inline SVG "leads elsewhere" arrow icon (hand-drawn, no external asset). Used on every card that is itself a link, positioned bottom-right; see Section 10.3.
 
 ## 10.2 Content Data Sources
-- `src/lib/solutions.ts` — single source of truth for the 5 Solution Class entries (including each solution's `quote`), consumed by both the `/solutions` overview cards and the `/solutions/[slug]` detail pages.
+- `src/lib/solutions.ts` — single source of truth for the 5 Solution Class entries (including each solution's `quote`), consumed by both the `/solutions` overview cards and the `/solutions/[slug]` detail pages. Also carries the optional `heroAvatarEnabled` (boolean gate) and `heroAvatarImage` (image override) fields that control the Hero Avatar Video on each detail page — see §10.3 "Hero avatar video" and Page 6.
 
 ## 10.3 Shared Visual Patterns
 - **Navy pull-quote bar** — a slim `bg-navy py-8` band holding one italic, centered quote (`text-2xl font-medium italic text-white`), placed directly beneath each page's H1 hero. Used on every page except Home. Quotes are sourced verbatim from the AI Roadmap Guide PDF (Section 12 authoritative source), one per page — see each page's "Quote" entry in Section 3.
@@ -1107,7 +1194,39 @@ Claude must:
   - *Every other page*: gray cards (`bg-light-grey`) sit directly on the white page background — no wrapping gray section. This applies to all content card grids (About, AI Dilemma, Core Barriers, Coaching, Methodology, Solution Class cards and detail-page cards, the Modernization Agent's cards, EU AI Act Compliance).
 - **Linked-card indicator** — every card that is itself a `<Link>` (Home value blocks, Solution Class cards) shows the `ExternalLinkIcon` component pinned `absolute bottom-4 right-4` (card given `relative` + extra `pb-10`), at `text-charcoal/40` resting and `text-electric-blue` on hover, in place of any "Learn more →" text. Purely informational cards never show this icon.
 - **Card hover state (linked cards only)** — `border border-transparent` at rest, transitioning to `hover:-translate-y-1 hover:border-electric-blue hover:shadow-md`. Applied only to cards that are actual links (Home value blocks, Solution Class cards); purely informational card grids do not use this pattern.
-- **Intro text + video icon** — most content pages place a small `RoadmapVideoButton` icon at the top-left of the page's intro paragraph (`iconClassName="h-9 w-auto"`, wrapped in a `shrink-0` container to prevent flex-shrink distortion), opening a page-specific explainer video in a modal. See each page's "Intro Text" section above for its video file.
+- **Hero avatar video** — `HeroAvatarVideo` (`src/components/HeroAvatarVideo.tsx`), a
+  small circular (`h-36 w-36`) clickable avatar photo that, on click, plays a short
+  in-place explainer video with fully custom minimal controls (a play triangle before
+  playback; pause/stop icons plus a scrubber, shown only on hover during playback —
+  native browser controls are not used since they get clipped by the circular mask).
+  `disablePictureInPicture`/`disableRemotePlayback` suppress Chrome's native
+  hover-triggered PiP button. Takes `videoSrc` (default `/Home.mp4`) and `imageSrc`
+  (default `/Liz.jpg`) props. Positioned horizontally aligned with the page's H1 (the
+  H1's section is `relative`; the avatar wrapper is
+  `lg:absolute lg:left-[-9rem] lg:top-1/2 lg:-translate-y-1/2`), sitting in the gutter
+  between the viewport's left edge and the navbar logo — outside the page's
+  `max-w-7xl` content column — with `lg:z-[60]` so it renders above the sticky
+  `Navbar` (`z-50`) instead of being clipped by it. Below `lg`, it stacks centered
+  beneath the H1 instead. Rolled out with three image variants depending on page:
+  `Liz.jpg` (Home, The AI Dilemma, Core Barriers, Coaching, About, the Modernization
+  Agent, EU AI Act Compliance, Start Your Journey, Contact), `Clint.jpg` (AI Solution
+  Categories overview and all five Solution Class detail pages, gated per-solution by
+  the `heroAvatarEnabled`/`heroAvatarImage` fields on each `src/lib/solutions.ts`
+  entry), and `Mary.jpg` (Our Methodology, Boost Point, Opportunity, Readiness, and
+  the Modernization Journey). Pages whose hero section previously used a narrower
+  container (`max-w-3xl` on Start Your Journey and Contact; `max-w-4xl` on the
+  Solution Class detail pages) were widened to `max-w-7xl` so the avatar's
+  left-gutter position lines up with every other page — the centered H1 renders
+  identically either way. This pattern superseded the older "Intro text + video icon"
+  pattern below on every page it was added to.
+- **Intro text + video icon (superseded)** — the site's original pattern placed a
+  small `RoadmapVideoButton` icon at the top-left of the page's intro paragraph
+  (`iconClassName="h-9 w-auto"`, wrapped in a `shrink-0` container to prevent
+  flex-shrink distortion), opening a page-specific explainer video in a modal. This
+  has been fully replaced by the Hero avatar video pattern above on every page that
+  used it; `RoadmapVideoButton` (`src/components/RoadmapVideoButton.tsx`) is no
+  longer rendered anywhere in the codebase, though the component file remains. Kept
+  here for historical reference only.
 - **Flanking side CTAs** — on pages with a centered `max-w-4xl` (or `max-w-3xl`/`max-w-5xl`) content column and side elements, the side elements sit in `calc(50% - 26.5rem)` (or `calc(50% - 30rem)`) gutters, flanking the centered column without narrowing it. Two implementations, in increasing order of position stability: Solution Class detail pages (`SolutionDetail`) use an explicit `min-[1440px]:grid` with the intro text pinned to a fixed height (`min-[1440px]:h-72 min-[1440px]:overflow-hidden`) in row 1, and the sidebar nav / roadmap CTA placed in row 2 alongside the Value/Examples/Readiness/Roadmap Fit cards, with `min-[1440px]:items-start` — their Y-start is fixed, but they're still grid siblings of the cards row. Boost Point/Opportunity/Readiness vertex pages go one step further: the flanking `VertexTriadNav` and roadmap CTA are placed in the *same row* as the fixed-height (`lg:h-56`) intro text (row 1), not the cards row (row 2) — fully decoupling their position from the Four/Three Cards grid below, which varies in row count between vertex pages.
 - **Overlay-link cards with a nested link** — Our Methodology's three pillar cards use a `<div>` with an absolutely-positioned full-card `<Link>` underneath (`z-0`, so clicking anywhere still navigates to the pillar page) and `pointer-events-none` on the title (`z-10`) so clicks on it still reach that overlay link. This exists because the Opportunity card's body text contains its own nested `<Link>` (the phrase "AI Solution" → `/solutions`), rendered above the overlay so it stays independently clickable — a plain wrapping `<Link>` can't contain another `<Link>`.
 

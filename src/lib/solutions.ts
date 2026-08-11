@@ -7,6 +7,8 @@ export interface SolutionClass {
   icon?: string;
   iconHover?: string;
   video?: string;
+  heroAvatarEnabled?: boolean;
+  heroAvatarImage?: string;
   quote: string;
   smeValue: string;
   examples: string[];
@@ -27,6 +29,8 @@ export const SOLUTIONS: SolutionClass[] = [
     icon: "/personal_productivity.svg",
     iconHover: "/personal_productivity_blue.svg",
     video: "/Personal_Productivity.mp4",
+    heroAvatarEnabled: true,
+    heroAvatarImage: "/Clint.jpg",
     quote: "Small improvements that create immediate value.",
     smeValue:
       "Boosts legacy software usability by reducing friction, accelerating daily tasks, and helping users work faster with simplified interactions.",
@@ -53,6 +57,8 @@ export const SOLUTIONS: SolutionClass[] = [
     icon: "/intelligent_workflows.svg",
     iconHover: "/intelligent_workflows_blue.svg",
     video: "/Intelligent_Workflows.mp4",
+    heroAvatarEnabled: true,
+    heroAvatarImage: "/Clint.jpg",
     quote: "Automations, … yes. — But smarter ones.",
     smeValue:
       "Transforms rigid legacy processes into smooth, automated flows that reduce delays, errors, and manual handoffs across departments.",
@@ -79,6 +85,8 @@ export const SOLUTIONS: SolutionClass[] = [
     icon: "/RAG.svg",
     iconHover: "/RAG_blue.svg",
     video: "/RAG_Solutions.mp4",
+    heroAvatarEnabled: true,
+    heroAvatarImage: "/Clint.jpg",
     quote: "Users no longer search for answers — the product provides them.",
     smeValue:
       "Adds a modern knowledge layer to legacy software, enabling users to instantly find accurate answers from documents and ERP data.",
@@ -105,6 +113,8 @@ export const SOLUTIONS: SolutionClass[] = [
     icon: "/reasoning_agent.svg",
     iconHover: "/reasoning_agent_blue.svg",
     video: "/Reasoning_Agents.mp4",
+    heroAvatarEnabled: true,
+    heroAvatarImage: "/Clint.jpg",
     quote: "Guiding users through complex decisions... and executing actions when asked.",
     smeValue:
       "Introduces intelligent automation capable of navigating legacy complexity, resolving issues, and completing multi-step tasks autonomously.",
@@ -131,6 +141,8 @@ export const SOLUTIONS: SolutionClass[] = [
     icon: "/custom_models.svg",
     iconHover: "/custom_models_blue.svg",
     video: "/Custom_AI_Models.mp4",
+    heroAvatarEnabled: true,
+    heroAvatarImage: "/Clint.jpg",
     quote: "AI that becomes part of your product's identity.",
     smeValue:
       "Injects predictive intelligence into legacy systems, enabling smarter decisions and proactive insights without changing core architecture.",

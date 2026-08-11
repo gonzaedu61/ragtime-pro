@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import RoadmapVideoButton from "@/components/RoadmapVideoButton";
+import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 
 export const metadata: Metadata = {
   title: "The Modernization Agent | Ragtime-Pro",
@@ -43,8 +43,12 @@ const STEPS = [
 export default function EngagementModelPage() {
   return (
     <>
-      <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
+      <section className="relative mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">Modernization Agent</h1>
+
+        <div className="mt-4 flex justify-center lg:absolute lg:left-[-9rem] lg:top-1/2 lg:z-[60] lg:mt-0 lg:-translate-y-1/2">
+          <HeroAvatarVideo videoSrc="/Modernization_Agent.mp4" />
+        </div>
       </section>
 
       <section className="bg-navy py-8">
@@ -57,25 +61,16 @@ export default function EngagementModelPage() {
 
       <section className="mx-auto max-w-7xl px-6 pt-8 pb-12">
         <div className="flex flex-col items-center gap-8 text-center lg:flex-row lg:justify-center lg:gap-16">
-          <div className="flex flex-col items-center gap-4 lg:flex-row lg:items-start">
-            <div className="lg:self-start">
-              <RoadmapVideoButton
-                src="/Engagement_Model.mp4"
-                ariaLabel="Play the Modernization Agent video"
-                iconClassName="h-9 w-auto"
-              />
-            </div>
-            <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              The Modernization Agent is Ragtime-Pro&apos;s proprietary AI system — not a
-              customer-facing tool, but the internal intelligence engine behind every
-              modernization engagement. It ingests your product&apos;s entire context:
-              source code in any language or architecture, user manuals, technical
-              specifications, actual and intended workflows, business processes, industry
-              constraints, regulatory context, and the competitive landscape. The output is
-              actionable modernization intelligence, showing exactly how legacy systems can
-              be enhanced, extended, or transformed.
-            </p>
-          </div>
+          <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
+            The Modernization Agent is Ragtime-Pro&apos;s proprietary AI system — not a
+            customer-facing tool, but the internal intelligence engine behind every
+            modernization engagement. It ingests your product&apos;s entire context:
+            source code in any language or architecture, user manuals, technical
+            specifications, actual and intended workflows, business processes, industry
+            constraints, regulatory context, and the competitive landscape. The output is
+            actionable modernization intelligence, showing exactly how legacy systems can
+            be enhanced, extended, or transformed.
+          </p>
           <Link href="/methodology" className="group flex flex-col items-center gap-4">
             <Image
               src="/roadmap.svg"
