@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ExternalLinkIcon from "@/components/ExternalLinkIcon";
+import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import RotatingHeadline from "@/components/RotatingHeadline";
 
 const VALUE_BLOCKS = [
@@ -33,12 +34,20 @@ const VALUE_BLOCKS = [
 export default function Home() {
   return (
     <>
-      <section className="mx-auto max-w-7xl px-6 pt-10 pb-10 text-center">
-        <RotatingHeadline />
-        <p className="mt-6 font-body text-xl text-charcoal">
+      <section className="mx-auto max-w-7xl px-6 pt-10 pb-10 lg:grid lg:grid-cols-[calc(50%-33rem)_1fr] lg:items-center lg:gap-x-6">
+        <div className="text-center lg:col-start-2 lg:row-start-1">
+          <RotatingHeadline />
+        </div>
+
+        <div className="mt-4 flex justify-center lg:col-start-1 lg:row-start-1 lg:mt-0 lg:justify-start">
+          <HeroAvatarVideo />
+        </div>
+
+        <p className="mt-6 text-center font-body text-xl text-charcoal lg:col-start-2 lg:row-start-2">
           A safe, structured, and effective approach to AI‑driven modernization for legacy software products.
         </p>
-        <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:justify-center sm:gap-20">
+
+        <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:justify-center sm:gap-20 lg:col-start-2 lg:row-start-3">
           <Link href="/start" className="group flex flex-col items-center gap-3">
             <span className="rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
               Start the journey …
