@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-export default function HeroAvatarVideo() {
+export default function HeroAvatarVideo({ videoSrc = "/Home.mp4" }: { videoSrc?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [active, setActive] = useState(false);
   const [videoPaused, setVideoPaused] = useState(false);
@@ -93,7 +93,7 @@ export default function HeroAvatarVideo() {
 
       <video
         ref={videoRef}
-        src="/Home.mp4"
+        src={videoSrc}
         playsInline
         disablePictureInPicture
         disableRemotePlayback

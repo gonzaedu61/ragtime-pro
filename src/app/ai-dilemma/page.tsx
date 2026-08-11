@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import RoadmapVideoButton from "@/components/RoadmapVideoButton";
+import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 
 export const metadata: Metadata = {
   title: "The Modernization Dilemma | Ragtime-Pro",
@@ -31,8 +31,12 @@ const SECTIONS = [
 export default function AiDilemmaPage() {
   return (
     <>
-      <section className="mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
+      <section className="relative mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">The AI Modernization Dilemma</h1>
+
+        <div className="mt-4 flex justify-center lg:absolute lg:left-[-9rem] lg:top-1/2 lg:z-[60] lg:mt-0 lg:-translate-y-1/2">
+          <HeroAvatarVideo videoSrc="/The_AI_Dilema.mp4" />
+        </div>
       </section>
 
       <section className="bg-navy py-8">
@@ -45,26 +49,17 @@ export default function AiDilemmaPage() {
 
       <section className="mx-auto max-w-7xl px-6 pt-8 pb-12">
         <div className="flex flex-col items-center gap-12 text-center lg:flex-row lg:justify-center lg:gap-20">
-          <div className="flex flex-col items-center gap-4 lg:flex-row lg:items-start">
-            <div className="lg:self-start">
-              <RoadmapVideoButton
-                src="/The_AI_Dilema.mp4"
-                ariaLabel="Play the AI Dilemma video"
-                iconClassName="h-9 w-auto"
-              />
-            </div>
-            <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-              Thousands of European software vendors rely on products built years —
-              sometimes decades — ago: stable, trusted, and deeply embedded in customer
-              operations. But the market around them has changed. AI-native competitors
-              move faster, customers expect modern experiences, and regulatory pressure
-              keeps increasing. Legacy products are not failing — but they risk falling
-              behind. AI itself is ready: RAG, workflow automation, reasoning agents, and
-              custom models are all accessible today. What is not yet clear is the path —
-              where to begin, what is safe to modernize first, and how to integrate AI
-              into an architecture built over years without breaking what already works.
-            </p>
-          </div>
+          <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
+            Thousands of European software vendors rely on products built years —
+            sometimes decades — ago: stable, trusted, and deeply embedded in customer
+            operations. But the market around them has changed. AI-native competitors
+            move faster, customers expect modern experiences, and regulatory pressure
+            keeps increasing. Legacy products are not failing — but they risk falling
+            behind. AI itself is ready: RAG, workflow automation, reasoning agents, and
+            custom models are all accessible today. What is not yet clear is the path —
+            where to begin, what is safe to modernize first, and how to integrate AI
+            into an architecture built over years without breaking what already works.
+          </p>
           <Link
             href="/ai-dilemma/barriers"
             className="group flex flex-col items-center gap-4"
