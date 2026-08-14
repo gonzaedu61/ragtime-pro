@@ -405,6 +405,14 @@ Both env vars are already present in `.env.local`. The RAG answer-generation and
 
 **System prompt:** instructs the model to answer only from retrieved context, admit uncertainty rather than invent pricing/commitments, and point uncertain visitors to the contact form — consistent with the tone in `aiReply.ts` and CLAUDE.md §8's content rules.
 
+**Formatting:** plain bulleted/numbered lists are explicitly allowed for enumerable content (steps, categories, risk tiers) — no markdown syntax (`**bold**`, `#` headers, code fences), since the chat widget renders plain text but does preserve line breaks (confirmed with the product owner; see the 2026-08-14 eval).
+
+**Call-to-action rules**, tuned after reviewing 16 real Q&A pairs (see `docs/rag-qa-eval-2026-08-14.md`) — the model was inconsistently appending "book an intro call" nudges to purely definitional answers, driven by CTA copy bleeding in from retrieved website chunks rather than any deliberate rule. Two explicit rules replace that emergent behavior:
+- **Topical:** the system prompt instructs the model to only invite the visitor to the contact form / intro call when the *question itself* is about next steps, pricing, timelines, implementation phases, or engaging Ragtime-Pro — not on informational/definitional questions.
+- **Cadence:** `generateAnswer()` in `src/rag/answer.ts` computes the current turn number from `session.history.length / 2 + 1` and forces a CTA regardless of topic every 3rd consecutive question in a session (`FORCE_CTA_INSTRUCTION` appended as an extra system message in `buildAnswerMessages()` when `forceCta` is true).
+
+Verified with a 4-turn same-session test: two definitional questions (no CTA), a third definitional question landing on turn 3 (CTA forced by cadence), and a "how long does implementation take" question on turn 4 (CTA triggered by topic, not cadence — and the model correctly declined to invent a specific timeline). See `docs/rag-qa-eval-2026-08-14.md` for the full transcript.
+
 **Verified end-to-end** against the live Azure OpenAI resource and R2 bucket: a two-turn conversation (a question, then a pronoun-referencing follow-up — "Which of those three did you mention first?") produced a correct, context-aware answer, and the R2 session file's `history` array contained all 4 messages in the right order afterward. Also verified: the missing-cookie path auto-creates a distinct session, and a missing `query` field returns 400.
 
 **Not implemented yet — deliberately deferred, see §11:** summarization. `session.summary` is always `""` today, and `buildAnswerMessages` includes the *entire* `session.history` unbounded (no truncation). This is faithful to the spec's pre-summarization state, not a bug, but means very long conversations will grow the prompt without limit until §6's summarization/truncation logic is built.
