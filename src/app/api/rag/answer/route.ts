@@ -1,0 +1,59 @@
+import { NextRequest, NextResponse } from "next/server";
+import { readSession } from "@/r2/readSession";
+import { createSession } from "@/r2/createSession";
+import { updateSession } from "@/r2/updateSession";
+import { getClientIp, SESSION_COOKIE, SESSION_COOKIE_MAX_AGE } from "@/rag/session";
+import { generateAnswer } from "@/rag/answer";
+
+export const maxDuration = 30;
+
+export async function POST(request: NextRequest) {
+  const body = await request.json().catch(() => null);
+  const query = body?.query;
+
+  if (typeof query !== "string" || !query.trim()) {
+    return NextResponse.json({ error: "Missing required field: query" }, { status: 400 });
+  }
+
+  const existingSessionId = request.cookies.get(SESSION_COOKIE)?.value ?? null;
+  const ip = getClientIp(request.headers);
+  const userAgent = request.headers.get("user-agent") ?? "";
+
+  const session =
+    (existingSessionId ? await readSession(existingSessionId) : null) ??
+    (await createSession(ip, userAgent)).session;
+
+  let result;
+  try {
+    result = await generateAnswer(query, session);
+  } catch (error) {
+    console.error("Answer generation error:", error);
+    return NextResponse.json(
+      { error: "Something went wrong generating a response. Please try again." },
+      { status: 502 }
+    );
+  }
+
+  const updatedSession = await updateSession(session.sessionId, {
+    history: [
+      ...session.history,
+      { role: "user", content: query },
+      { role: "assistant", content: result.answer },
+    ],
+  });
+
+  const response = NextResponse.json({
+    sessionId: updatedSession.sessionId,
+    answer: result.answer,
+    sources: result.sources,
+  });
+
+  response.cookies.set(SESSION_COOKIE, updatedSession.sessionId, {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/api",
+    maxAge: SESSION_COOKIE_MAX_AGE,
+  });
+
+  return response;
+}

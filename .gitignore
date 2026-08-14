@@ -1,7 +1,8 @@
 node_modules/
 .next/
 out/
-build/
+.cache/
+models/
 .env
 .env*.local
 *.tsbuildinfo
