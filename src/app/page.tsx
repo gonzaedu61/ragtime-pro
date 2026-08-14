@@ -3,6 +3,7 @@ import Link from "next/link";
 import ExternalLinkIcon from "@/components/ExternalLinkIcon";
 import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import RotatingHeadline from "@/components/RotatingHeadline";
+import ChatBubbleTrigger from "@/components/chat/ChatBubbleTrigger";
 
 const VALUE_BLOCKS = [
   {
@@ -35,8 +36,11 @@ export default function Home() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-10 lg:grid lg:grid-cols-[calc(50%-33rem)_1fr] lg:items-center lg:gap-x-6">
-        <div className="text-center lg:col-start-2 lg:row-start-1">
-          <RotatingHeadline />
+        <div className="flex flex-col items-center gap-4 lg:col-start-2 lg:row-start-1 lg:flex-row lg:justify-center">
+          <div className="flex-1 text-center">
+            <RotatingHeadline />
+          </div>
+          <ChatBubbleTrigger />
         </div>
 
         <div className="mt-4 flex justify-center lg:col-start-1 lg:row-start-1 lg:mt-0 lg:justify-start">

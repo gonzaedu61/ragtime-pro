@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Open_Sans } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ChatWidgetProvider } from "@/components/chat/ChatWidgetContext";
+import ChatWidget from "@/components/chat/ChatWidget";
 import "../../styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -20,9 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${openSans.variable}`}>
       <body className="flex min-h-screen flex-col font-body text-navy">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <ChatWidgetProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <ChatWidget />
+        </ChatWidgetProvider>
       </body>
     </html>
   );
