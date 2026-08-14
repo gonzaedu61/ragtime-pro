@@ -361,6 +361,18 @@ Requirements:
 - **Corrupted summary** (empty or malformed) → regenerate from full history
 - **Missing summary** (`summary == ""`) → generate immediately
 
+### 6.9 Implementation Notes
+
+**Module layout:**
+- `src/rag/prompts/summaryPrompt.ts` — `buildSummaryMessages({ existingSummary, history })`. When `existingSummary` is non-empty, it's prepended to the prompt as "Previous summary: ..." before the conversation text — this is what makes repeated summarization cycles compound correctly instead of each one discarding what the last one captured.
+- `src/rag/summarize.ts` — `shouldSummarize(session)` (the §6.2 thresholds: `history.length > 20` or token count > 1500, via `gpt-tokenizer`) and `summarizeSession(session)` (calls Azure OpenAI, trims history to the last 4 messages per §6.5). The §6.8 failure path — keep existing summary, still truncate history, log the error — lives in a `try/catch` inside `summarizeSession` so a summarization failure never blocks the actual answer from being generated.
+- `src/rag/azureClient.ts` — new shared `AzureOpenAI` client instance, used by both `src/rag/answer.ts` and `src/rag/summarize.ts`. This was a documented open item ("worth consolidating later if a third caller appears") — `summarize.ts` was that third caller. Only the two RAG callers were consolidated; `src/lib/aiReply.ts` (the contact-form auto-reply) still has its own instance, left untouched as an unrelated feature.
+- `src/rag/answer.ts` — `generateAnswer()` now calls `shouldSummarize()` before building the prompt. If triggered, it uses the fresh summary + trimmed history for *that turn's* prompt and returns both so `POST /api/rag/answer` can persist the right state (instead of re-appending onto the pre-summarization history).
+
+**Turn-counting caveat:** the CTA cadence rule (every 3rd turn, built the previous session) computes its turn number from `session.history.length` as loaded — i.e. *before* any in-request summarization trims it. This keeps the *triggering* turn's cadence correct, but since the stored history is shorter afterward, the cadence effectively becomes "every 3rd question since the last summarization event" rather than exact for the whole session lifetime. A precise version would need a persistent turn counter added to `SessionData` (a schema change); deliberately not done for what's a minor engagement nudge. Verified this doesn't actually break in practice — see the 2026-08-14 summarization eval, where the cadence still fired correctly on turns 3, 6, and 9 across multiple summarization cycles.
+
+**Verified end-to-end** (`docs/rag-summarization-eval-2026-08-14.md`): a 12-turn conversation where turn 1 stated a fact ("Acme Corp, 15-year-old Java monolith") and turn 12 asked the assistant to recall it. By turn 12, the raw turn-1 message was no longer in `history` (multiple summarization cycles had already trimmed past it) — the correct recall could only have come from the compounded summary, and it worked. Final summary: 187 tokens, under the 250-token target.
+
 ---
 
 ## 7. Final Answer Generation (Azure OpenAI)
@@ -399,8 +411,8 @@ Both env vars are already present in `.env.local`. The RAG answer-generation and
 
 **Module layout:**
 - `src/rag/prompts/answerPrompt.ts` — `buildAnswerMessages()`, assembling messages in the exact §7.1 order: system instructions → summary (only if non-empty) → full conversation history → retrieved context (only if any chunks matched) → the new user query as the final turn
-- `src/rag/answer.ts` — `generateAnswer(query, session)`: runs `hybridSearch` → `rerankCandidates` → builds the prompt → calls Azure OpenAI, own `AzureOpenAI` client instance (not shared with `aiReply.ts`, to avoid touching existing unrelated code — same credentials and deployment, per §7.3)
-- `src/app/api/rag/answer/route.ts` — `POST { query }`. Resolves the session from the `rag_session` cookie; if missing, auto-creates a fresh session directly (skips the fingerprint-continuity confirmation dance — that's `GET /api/rag/session`'s job, callable separately by the frontend before the chat starts if it wants that UX). Appends both the user query and the assistant answer to R2 history via `updateSession` after a successful generation.
+- `src/rag/answer.ts` — `generateAnswer(query, session)`: checks `shouldSummarize()`, runs `hybridSearch` → `rerankCandidates` → builds the prompt with the (possibly post-summarization) summary/history → calls Azure OpenAI via the shared `src/rag/azureClient.ts` (see §6.9; same credentials and deployment as `aiReply.ts`, per §7.3, but its own client instance since it's a separate feature)
+- `src/app/api/rag/answer/route.ts` — `POST { query }`. Resolves the session from the `rag_session` cookie; if missing, auto-creates a fresh session directly (skips the fingerprint-continuity confirmation dance — that's `GET /api/rag/session`'s job, callable separately by the frontend before the chat starts if it wants that UX). Writes back `result.summary` and appends the new turn onto `result.history` (the post-summarization state, if summarization ran this turn) via `updateSession`.
 - `SESSION_COOKIE` / `SESSION_COOKIE_MAX_AGE` were promoted from copy-pasted per-route constants (in `session/route.ts`, `session/confirm/route.ts`) into `src/rag/session.ts`, now imported by all three session-touching routes including this one.
 
 **System prompt:** instructs the model to answer only from retrieved context, admit uncertainty rather than invent pricing/commitments, and point uncertain visitors to the contact form — consistent with the tone in `aiReply.ts` and CLAUDE.md §8's content rules.
@@ -449,7 +461,9 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 │   │
 │   ├── rag/
 │   │   ├── session.ts             # session orchestration + SESSION_COOKIE/SESSION_COOKIE_MAX_AGE constants
-│   │   ├── answer.ts              # generateAnswer(query, session): retrieve → rerank → Azure OpenAI
+│   │   ├── answer.ts              # generateAnswer(query, session): summarize-if-needed → retrieve → rerank → Azure OpenAI
+│   │   ├── summarize.ts           # shouldSummarize(session), summarizeSession(session)
+│   │   ├── azureClient.ts         # shared AzureOpenAI client (used by answer.ts and summarize.ts)
 │   │   │
 │   │   ├── loaders/
 │   │   │   ├── transformersEnv.ts  # single source of truth for env.cacheDir (global setting - see §3.4)
@@ -470,7 +484,7 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 │   │   │
 │   │   └── prompts/
 │   │       ├── answerPrompt.ts    # buildAnswerMessages() — system + summary + history + context + query
-│   │       ├── summaryPrompt.ts   # (planned) conversation summarization prompt
+│   │       ├── summaryPrompt.ts   # buildSummaryMessages({ existingSummary, history })
 │   │       └── rerankPrompt.ts    # (planned, likely unneeded) optional LLM-based re-ranking prompt
 │   │
 │   └── r2/
@@ -542,14 +556,14 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - [x] Retrieval API route (`POST /api/rag/retrieve` — verified end-to-end against the live corpus)
 - [x] Next.js API route integrating retrieval + answer generation (`POST /api/rag/answer` — verified end-to-end: multi-turn conversation with a pronoun-referencing follow-up, correct answer, R2 history persisted correctly)
 - [x] Prompt template: final answer generation (`src/rag/prompts/answerPrompt.ts`)
-- [ ] Prompt templates: summarization, re-ranking (re-ranking template likely unneeded — cross-encoder re-ranking is already implemented without an LLM prompt)
-- [ ] Summarization trigger logic
-- [ ] Summarization prompt builder
-- [ ] Azure OpenAI summarization call
-- [ ] Summary storage in R2
-- [ ] History truncation logic
-- [ ] Summary injection into final-answer prompts (mechanism already exists in `answerPrompt.ts` — it reads `session.summary` when non-empty; what's missing is generating that summary in the first place)
-- [x] Error handling and fallback behavior — retrieval and session (answer-generation failures return a 502 with a friendly message; missing-session/corrupted-session paths handled per §5.7). Summarization error handling (§6.8) still pending, since summarization itself isn't built.
+- [x] Prompt template: summarization (`src/rag/prompts/summaryPrompt.ts`; re-ranking template unneeded — cross-encoder re-ranking is implemented without an LLM prompt)
+- [x] Summarization trigger logic (`shouldSummarize()` in `src/rag/summarize.ts` — `history.length > 20` or token count > 1500, per §6.2)
+- [x] Summarization prompt builder (`buildSummaryMessages()` — folds in the previous summary, if any, so repeated compressions don't lose earlier facts)
+- [x] Azure OpenAI summarization call (`summarizeSession()`)
+- [x] Summary storage in R2 (written back via `updateSession` in `POST /api/rag/answer`)
+- [x] History truncation logic (trims to last 4 messages per spec §6.5, on both success and failure paths)
+- [x] Summary injection into final-answer prompts (already existed in `answerPrompt.ts`; now actually gets populated)
+- [x] Error handling and fallback behavior — retrieval, session, **and summarization** (a failed summarization call keeps the existing summary and still truncates history, per §6.8, without blocking the actual answer generation)
 
 ---
 
@@ -561,6 +575,6 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - **Corpus is small relative to the spec's numbers:** §8's performance targets assume ~3,000 chunks; the actual current corpus is 125 chunks across 3 source files. Performance should be well within target, but re-verify once more source documents are added.
 - **npm script-approval:** `onnxruntime-node` and `protobufjs` needed their install scripts explicitly approved (`npm approve-scripts`) for `@huggingface/transformers` to run inference — recorded in `package.json`'s `allowScripts` field. Anyone re-cloning the repo and running `npm install` should already inherit this via the committed `package.json`, but flagging it in case it needs re-approval in a different environment (e.g. CI).
 - **Model download adds ~175MB and real time to every `npm run build`:** since `models/` isn't committed or covered by Vercel's default build cache (which caches `node_modules` and `.next/cache`, not arbitrary custom directories), every Vercel deployment build re-downloads both models fresh. Both are currently unquantized fp32 ONNX (largest variant available) — switching to a quantized `dtype` (e.g. `q8`) would cut this substantially if build time becomes a problem. Not addressed now since it works correctly as-is.
-- **Unbounded conversation history until summarization exists:** `POST /api/rag/answer` includes the full `session.history` in every prompt with no truncation (see §7.4). Fine for now; will need the summarization/truncation deliverable (§6) before long conversations are safe from unbounded token growth.
 - **Source data typo:** at least one source PDF (`Ragtime-Pro - Modernizing Legacy Software with AI.pdf`) contains the literal text "RagtIme-Pro" (mixed capitalization) in its opening line. Because answers are grounded in retrieved chunk text, this typo can surface verbatim in generated answers — observed once during end-to-end testing. Not a code bug; would need a source-document correction (and a re-run of `rag:chunk` + `rag:embed` + `rag:bm25`) to fix at the root, or a light post-processing pass on generated answers if that's not practical.
-- **Two separate `AzureOpenAI` client instances exist** (`src/lib/aiReply.ts` for the contact-form auto-reply, `src/rag/answer.ts` for RAG answers) — same credentials and deployment, but not a shared module. Deliberate: avoided refactoring existing, unrelated code without being asked. Worth consolidating later if a third caller appears.
+- **CTA cadence drifts after summarization:** the every-3rd-turn rule is computed from `session.history.length`, which shrinks each time summarization trims it — so cadence is "every 3rd turn since the last summarization event," not exact for the whole session lifetime. See §6.9. Fixing this exactly would need a persistent turn counter on `SessionData` (schema change); not done, since it's a minor engagement nudge and testing showed it still behaves reasonably in practice.
+- **Summarization is now the only remaining unchecked deliverable-adjacent item:** the explicit "summarize this conversation" user request and pre-emptive summarization on session restoration (spec §6.2's other two triggers) were intentionally not built — only the two threshold-based triggers were, per the agreed scope. Worth revisiting if a real chat UI surfaces a need for either.

@@ -35,8 +35,9 @@ export async function POST(request: NextRequest) {
   }
 
   const updatedSession = await updateSession(session.sessionId, {
+    summary: result.summary,
     history: [
-      ...session.history,
+      ...result.history,
       { role: "user", content: query },
       { role: "assistant", content: result.answer },
     ],
