@@ -21,7 +21,7 @@ export default function ChatBubbleTrigger() {
     >
       <span className="relative block h-20 w-[110px]">
         <Image
-          src="/Bubbles.svg"
+          src="/Bubbles_grey.svg"
           alt=""
           width={298}
           height={216}

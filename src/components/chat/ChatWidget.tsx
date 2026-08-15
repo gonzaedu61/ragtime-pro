@@ -246,7 +246,7 @@ export default function ChatWidget() {
               Ragtime-Pro Chat
             </span>
             <Image
-              src="/Bubbles.svg"
+              src="/Bubbles_white.svg"
               alt=""
               width={298}
               height={216}
