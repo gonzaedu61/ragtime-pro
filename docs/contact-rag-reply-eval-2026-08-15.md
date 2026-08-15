@@ -133,6 +133,43 @@ since the question is itself about pricing/engagement (email channel).
 All three scenarios behaved as intended. `npx tsc --noEmit` and
 `npm run lint` clean on the final code.
 
+## Follow-up: clickable links + AI disclosure
+
+Two more requirements landed after the above: URLs in the reply should
+render as real clickable links (not just raw text), and a short disclosure
+should note the reply was AI-generated.
+
+**Implementation** (`src/lib/acknowledgement.ts`):
+- `sendAcknowledgement()` now sends both `text` and `html` bodies
+  (Nodemailer `multipart/alternative`); `linkify()` converts any
+  `https?://` URL in the HTML body into a real `<a href>`.
+- A disclosure line — "This reply was generated automatically by
+  Ragtime-Pro's AI agent." — is appended to both bodies, but **only** when
+  the reply actually came from the model. The static fallback text (used
+  when `generateAiReply` fails/times out) is not AI-generated, so it does
+  not get the disclosure.
+
+**Bug found and fixed during testing:** the first linkify pass captured
+trailing sentence punctuation into the href — a reply ending "...here:
+https://www.ragtime.pro/solutions/rag-solutions." produced
+`href="https://www.ragtime.pro/solutions/rag-solutions."` (trailing period
+included), a dead link. Fixed by matching and stripping a trailing
+`[.,;:!?]+` run off the captured URL before building the anchor, and
+re-appending it as plain text after the `</a>`.
+
+**Test method:** same as above — no real email sent. Temporarily exported
+the normally-private `buildHtmlBody()` from `acknowledgement.ts`, called it
+via a temporary debug route with hand-built sample text, then reverted the
+export. Verified:
+- A reply with a mid-sentence URL followed by a period → link correctly
+  excludes the period (`<a href="https://www.ragtime.pro/solutions/rag-solutions">...</a>.`).
+- A reply with two URLs, one with no trailing punctuation → both linked
+  correctly.
+- A reply with no URL at all → renders as plain paragraphs, no stray
+  anchors.
+- Disclosure paragraph present when passed, cleanly absent when not
+  (the fallback-text case).
+
 ## Cleanup
 
 No R2 or persistent test data was created by this eval (no session/mailbox

@@ -1085,7 +1085,16 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   outgoing acknowledgement is visible internally without exposing that
   address to the visitor. Both the contact form route and the inbox-poll
   route (§8.5) call this single function, so the acknowledgement logic
-  (and the bcc) is defined once.
+  (and the bcc) is defined once. Every send includes both a `text` and an
+  `html` body (Nodemailer sends these as `multipart/alternative`): a
+  `linkify()` helper turns any `https?://` URL in the reply into a real
+  `<a href>` in the HTML version, correctly splitting off trailing sentence
+  punctuation (e.g. the period after "...rag-solutions.") so the link
+  itself isn't broken. When the reply came from the model (not the static
+  fallback), a short footer disclosing that is appended to both bodies —
+  "This reply was generated automatically by Ragtime-Pro's AI agent." —
+  muted-gray styling in the HTML version; omitted on the fallback path
+  since that text isn't actually AI-generated.
 - **API route:** `src/app/api/contact/route.ts` — a server-only Next.js Route
   Handler (`POST`) that validates the required fields (name, company, email,
   message) and sends two emails per submission:

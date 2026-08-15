@@ -538,6 +538,17 @@ an explicit instruction not to answer specific questions at all.
 - Same anti-hallucination posture as the chat prompt: honestly say there
   isn't enough information rather than inventing pricing or commitments,
   and don't force a page link when nothing is a clear match.
+- `sendAcknowledgement()` (`src/lib/acknowledgement.ts`) sends the reply as
+  both `text` and `html` (Nodemailer `multipart/alternative`), so any
+  `https?://` URL the model includes renders as a real clickable link
+  rather than relying on each mail client's own auto-linkify behavior. The
+  `linkify()` helper trims trailing sentence punctuation off a matched URL
+  before building the `<a href>` — otherwise a URL ending a sentence (e.g.
+  "...rag-solutions.") would capture the period into the href and 404.
+  When the reply came from the model (not the static fallback text used on
+  API failure), both bodies get a short appended disclosure - "This reply
+  was generated automatically by Ragtime-Pro's AI agent." - since the
+  fallback path isn't actually AI-generated and shouldn't claim to be.
 
 Verified with three live end-to-end generations (no email actually sent —
 tested `generateAiReply()` directly via a temporary debug route, removed
@@ -545,7 +556,11 @@ after): a clear-match question correctly cited and linked
 `/solutions/rag-solutions` with a form-channel closing; the same question on
 the `"email"` channel correctly invited booking a call at `/start` instead;
 an off-topic pricing question correctly gave no page link and an honest
-non-committal answer. Full transcript:
+non-committal answer. The HTML/linkify + disclosure logic was verified
+separately (also without sending real email, via a temporary debug route
+calling the normally-private `buildHtmlBody()`): a URL followed by a period
+initially produced a broken link with the period inside the href — fixed by
+trimming trailing punctuation before building the anchor. Full transcripts:
 `docs/contact-rag-reply-eval-2026-08-15.md`.
 
 ---
