@@ -1,5 +1,9 @@
 import { SOLUTIONS } from "@/lib/solutions";
 
+// Single source of truth for the site's public origin, used by both the
+// chat prompt and the contact/email reply prompt to build real page URLs.
+export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ragtime.pro";
+
 export interface PageContext {
   title: string;
   description: string;
@@ -83,7 +87,7 @@ const STATIC_PAGES: Record<string, PageContext> = {
   },
   "/contact": {
     title: "Contact",
-    description: "The contact page: a form to reach Ragtime-Pro, or to book an introductory call.",
+    description: "The contact page: a form to reach Ragtime-Pro, or to request an introductory call.",
   },
 };
 

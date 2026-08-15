@@ -127,8 +127,11 @@ Immediate clarity: what Ragtime-Pro does, for whom, and why it matters.
 - **CTAs** (left to right, `sm:gap-20` between the two):  
   - Start the journey … → `/start` (with the `start.svg` icon displayed beneath the
     button; replaced the former "Watch the AI-Roadmap-Guide video" `RoadmapVideoButton`)
-  - Book an Intro Call → `/contact` (with the `discovery_call.svg` icon displayed
-    beneath the button)
+  - Request an Intro Call → `/contact` (with the `discovery_call.svg` icon displayed
+    beneath the button; renamed from "Book an Intro Call" — there's no scheduling/
+    booking mechanism behind it, just the contact form, and the old wording was
+    contributing to the RAG reply prompts hallucinating one — see
+    `docs/rag-hallucination-fixes-2026-08-16.md`)
 
 ### Hero Visual
 Removed. The Home hero no longer includes a separate large logo motif; the

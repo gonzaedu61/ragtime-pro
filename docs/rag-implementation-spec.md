@@ -554,14 +554,64 @@ Verified with three live end-to-end generations (no email actually sent —
 tested `generateAiReply()` directly via a temporary debug route, removed
 after): a clear-match question correctly cited and linked
 `/solutions/rag-solutions` with a form-channel closing; the same question on
-the `"email"` channel correctly invited booking a call at `/start` instead;
-an off-topic pricing question correctly gave no page link and an honest
-non-committal answer. The HTML/linkify + disclosure logic was verified
-separately (also without sending real email, via a temporary debug route
-calling the normally-private `buildHtmlBody()`): a URL followed by a period
-initially produced a broken link with the period inside the href — fixed by
-trimming trailing punctuation before building the anchor. Full transcripts:
+the `"email"` channel correctly invited arranging a call via `/contact`
+instead (see §7.8 for why it's `/contact` and not `/start`); an off-topic
+pricing question correctly gave no page link and an honest non-committal
+answer. The HTML/linkify + disclosure logic was verified separately (also
+without sending real email, via a temporary debug route calling the
+normally-private `buildHtmlBody()`): a URL followed by a period initially
+produced a broken link with the period inside the href — fixed by trimming
+trailing punctuation before building the anchor. Full transcripts:
 `docs/contact-rag-reply-eval-2026-08-15.md`.
+
+### 7.8 Hallucination Fixes: Contact Facts & First-Person Plural
+
+A real bug report on this flow: asked "Are you available for a call
+today?", the reply invented a "Consultation Request form" with a
+time-slot picker (no such feature exists) and a wrong email/domain
+(`hello@ragtime-pro.com` instead of the real `info@ragtime.pro`) — neither
+string appears anywhere in the source docs or website copy, confirmed by
+grep, so these were pure model hallucination rather than a source-data
+error. Also requested: first-person plural ("we") instead of "I."
+
+Fixed in both `src/lib/aiReply.ts` and `src/rag/prompts/answerPrompt.ts`
+(the same hallucination risk applies to chat, not just the email reply) with
+a hard-fact block: the only real contact channels are the contact form
+(`{SITE_ORIGIN}/contact`) and `info@ragtime.pro`; explicitly no calendar,
+time-slot picker, real-time availability system, or automatic calendar
+invite exists. `SITE_ORIGIN` was extracted from a locally-duplicated
+constant in `aiReply.ts` into `src/lib/pageDirectory.ts` as a shared export,
+so both prompts reference the same value.
+
+**Three iterations were needed** — the same lesson as §7.6's page-awareness
+fix: a plain negative instruction ("never invent a time-slot picker") isn't
+reliable on its own.
+1. Pass 1 fixed the wrong email but the model then invented a *different*
+   fabricated mechanism attached to a real URL: "book a slot directly at
+   `/start`, and we'll send a calendar invite right away."
+2. Pass 2 added a concrete before/after example, which mostly worked but
+   left a self-contradiction: "As we don't use automated scheduling..."
+   followed later in the same reply by "book your introductory call
+   directly at `/start`."
+3. Root cause of pass 2's residual bug: `CHANNEL_CLOSING_RULE.email`
+   (the rule that generates that closing sentence) itself said "book an
+   introductory call at `/start`" — and `/start` was the wrong link to
+   begin with. Checked `src/app/page.tsx`: the Home page's actual "Book an
+   Intro Call" CTA links to **`/contact`**, not `/start` (`/start`
+   describes the 3-phase engagement process, not an action page). Fixed
+   the rule to point at `/contact` and reworded it to explicitly forbid
+   "book" and any implication of automatic scheduling. Verified clean on
+   the third pass, on both the email reply and the chat widget.
+
+**Follow-up UI fix:** the Home page button literally read "Book an Intro
+Call" — the same word that was priming the hallucination. Renamed to
+**"Request an Intro Call"** (`src/app/page.tsx`, documented in
+`docs/website-specification.md` §3 Page 1), with the same wording change
+carried into `pageDirectory.ts`'s `/contact` description and
+`answerPrompt.ts`'s two "book an intro call" mentions, so the UI and the
+LLM-facing text stay consistent.
+
+Full transcript: `docs/rag-hallucination-fixes-2026-08-16.md`.
 
 ---
 
@@ -704,6 +754,7 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - [x] Full, never-truncated history persistence + pagination (`SessionData.fullHistory`, `GET /api/rag/session/history`, per §5.10 — verified end-to-end: a 12-turn conversation that crossed the summarization threshold retained all 24 messages in `fullHistory` while `history` was correctly trimmed to 6; see `docs/rag-history-pagination-eval-2026-08-15.md`)
 - [x] Page awareness (`src/lib/pageDirectory.ts`, `pagePath` threaded from `ChatWidget.tsx` through `POST /api/rag/answer` to `generateAnswer()`, per §7.6 — verified end-to-end: without a resolvable page the model honestly declines instead of guessing; with one, it answers the actual topic without describing page/UI structure. See `docs/rag-page-awareness-eval-2026-08-15.md`)
 - [x] RAG-powered contact/email replies (`src/lib/aiReply.ts` now runs retrieval before generating, per §7.7 — verified end-to-end: grounded answers with a correctly-matched page link on a clear-match question, no forced link on an off-topic one, and channel-appropriate closings for both `"form"` and `"email"`. See `docs/contact-rag-reply-eval-2026-08-15.md`)
+- [x] Hallucination fixes: hard contact facts (no invented email/domain/scheduling mechanism) + first-person plural, applied to both `aiReply.ts` and `answerPrompt.ts`, per §7.8 — verified end-to-end on both the email reply and the chat widget after three prompt-tuning passes. See `docs/rag-hallucination-fixes-2026-08-16.md`
 
 ---
 
@@ -719,3 +770,4 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - **CTA cadence drifts after summarization:** the every-3rd-turn rule is computed from `session.history.length`, which shrinks each time summarization trims it — so cadence is "every 3rd turn since the last summarization event," not exact for the whole session lifetime. See §6.9. Fixing this exactly would need a persistent turn counter on `SessionData` (schema change); not done, since it's a minor engagement nudge and testing showed it still behaves reasonably in practice.
 - **Summarization is now the only remaining unchecked deliverable-adjacent item:** the explicit "summarize this conversation" user request and pre-emptive summarization on session restoration (spec §6.2's other two triggers) were intentionally not built — only the two threshold-based triggers were, per the agreed scope. Worth revisiting if a real chat UI surfaces a need for either.
 - **`fullHistory` (§5.10) grows unbounded:** nothing evicts old messages from it, unlike `history`. Fine for storage cost on a consulting-site chatbot (R2 object storage is cheap and conversations aren't likely to run into the thousands of turns), but worth knowing if usage patterns change.
+- **Stale "Book an Intro Call" wording still embedded in the corpus:** §7.8's UI rename to "Request an Intro Call" (`src/app/page.tsx`) was not accompanied by a source-doc correction or corpus rebuild. `docs/RAG_Source_Docs/website-copy-export.md:46` still reads `- "Book an Intro Call" → /contact`, which is compiled as-is into `rag_data/chunks.json` (confirmed via grep — one occurrence) and therefore still reachable by retrieval. Not urgent — §7.8's hard-fact prompt instruction (never say "book," no scheduling mechanism) covers this at the prompt layer regardless of what the retrieved chunk text says — but it's the same class of problem as the "Source data typo" item above: the corpus is a point-in-time compile of the source docs and doesn't auto-track later site-copy changes. **Batch this with any other pending source-doc corrections** the next time `website-copy-export.md` (or another source doc) needs an update, then re-run `rag:chunk` + `rag:embed` + `rag:bm25` once for all of them together, rather than one small rebuild per fix.

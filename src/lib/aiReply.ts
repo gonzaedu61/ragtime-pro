@@ -1,7 +1,7 @@
 import { AzureOpenAI } from "openai/azure";
 import { hybridSearch } from "@/rag/retrieval/hybrid";
 import { rerankCandidates, type RerankedChunk } from "@/rag/retrieval/rerank";
-import { getAllPages } from "@/lib/pageDirectory";
+import { getAllPages, SITE_ORIGIN } from "@/lib/pageDirectory";
 
 const client = new AzureOpenAI({
   endpoint: process.env.AZURE_OPENAI_ENDPOINT,
@@ -10,8 +10,6 @@ const client = new AzureOpenAI({
   deployment: "o4-mini",
   timeout: 25000,
 });
-
-const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ragtime.pro";
 
 interface ContactFields {
   name: string;
@@ -35,7 +33,7 @@ const FALLBACK_SUBJECT = "We've received your message — Ragtime-Pro";
 
 const CHANNEL_CLOSING_RULE: Record<ContactFields["channel"], string> = {
   form: 'End by letting them know the team will follow up with them directly soon, using the contact details they provided — do not ask them to book a call themselves, since submitting the form already means we\'ll reach out.',
-  email: `End with a polite invitation to book an introductory call at ${SITE_ORIGIN}/start, since they reached out directly by email rather than through the contact form.`,
+  email: `End by inviting them to get in touch via the contact form at ${SITE_ORIGIN}/contact to arrange an introductory call, since they reached out directly by email rather than through the form. Do not say "book" or imply the form schedules a specific time automatically.`,
 };
 
 function buildContextBlock(chunks: RerankedChunk[]): string {
@@ -79,6 +77,8 @@ Rules:
 3. Do NOT include explanations outside the JSON.
 4. Detect the language the visitor wrote their message in and reply in that same language.
 5. ${CHANNEL_CLOSING_RULE[channel]}
+6. Always write as Ragtime-Pro in first person plural ("we," "our," "us") — never as an individual ("I," "me").
+7. The only real ways to reach Ragtime-Pro are the contact form at ${SITE_ORIGIN}/contact and emailing info@ragtime.pro directly. There is no calendar, time-slot picker, real-time availability system, or automatic calendar invite — nothing books or confirms a specific time automatically. Never invent a different email address or domain, a phone number, or any of the mechanics above. When asked about scheduling or availability, say only that they can reach out via the contact form or by emailing info@ragtime.pro and the team will coordinate a time — for example, "You can reach out via our contact form or by emailing info@ragtime.pro, and we'll coordinate a time that works for you," never "you can book a slot directly and we'll send a calendar invite."
 
 Visitor details:
 Name: ${name}

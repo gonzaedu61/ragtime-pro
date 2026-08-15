@@ -69,7 +69,7 @@ export default function Home() {
           </Link>
           <Link href="/contact" className="group flex flex-col items-center gap-3">
             <span className="rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
-              Book an Intro Call
+              Request an Intro Call
             </span>
             <Image
               src="/discovery_call.svg"
