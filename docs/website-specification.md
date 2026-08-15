@@ -150,9 +150,14 @@ to the top on mobile (it previously came after the headline+CTA group).
 
 ### Chat Trigger
 `ChatBubbleTrigger` (`src/components/chat/ChatBubbleTrigger.tsx`) shows the
-`Bubbles.svg` icon (`h-20`, scales to `110%` on hover) with the caption "Better a chat
-…?" (`text-lg`, turns electric-blue on hover) beneath it, right of the headline in the
-hero row above. On click, it captures its own screen position and calls `open()` on
+`Bubbles.svg` icon (`h-20`, fixed size — no hover zoom) with the caption "Better a
+chat …?" (`text-lg text-charcoal`, stays black — no hover color change) beneath it,
+right of the headline in the hero row above. On hover, the icon crossfades to
+`Bubbles_blue.svg` (two absolutely-stacked `Image`s with opposing opacity
+transitions — the same crossfade technique `SolutionDetail`'s sidebar uses for its
+`icon`/`iconHover` pair, though that one also scales; this one deliberately doesn't),
+rather than scaling or recoloring. On click, it captures its own screen position and
+calls `open()` on
 `ChatWidgetContext`, which the floating `ChatWidget` uses as the anchor point for its
 zoom-in-from-icon opening animation and symmetric zoom-out-to-icon closing animation —
 see §10.3 "Zoom-from-icon open/close animation" and §8.7. Home-only for this first

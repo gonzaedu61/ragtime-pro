@@ -19,14 +19,23 @@ export default function ChatBubbleTrigger() {
       className="group flex flex-col items-center gap-2"
       aria-label="Open chat"
     >
-      <Image
-        src="/Bubbles.svg"
-        alt=""
-        width={298}
-        height={216}
-        className="h-20 w-auto transition-transform group-hover:scale-110"
-      />
-      <span className="font-body text-lg font-medium text-charcoal transition-colors group-hover:text-electric-blue">
+      <span className="relative block h-20 w-[110px]">
+        <Image
+          src="/Bubbles.svg"
+          alt=""
+          width={298}
+          height={216}
+          className="absolute inset-0 h-full w-full object-contain transition-opacity duration-150 group-hover:opacity-0"
+        />
+        <Image
+          src="/Bubbles_blue.svg"
+          alt=""
+          width={298}
+          height={216}
+          className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+        />
+      </span>
+      <span className="font-body text-lg font-medium text-charcoal">
         Better a chat …?
       </span>
     </button>
