@@ -296,7 +296,12 @@ export default function ChatWidget() {
       maxHeight={maxSize.height}
       bounds="window"
       dragHandleClassName="chat-widget-handle"
-      style={{ position: "fixed", zIndex: 50 }}
+      style={{
+        position: "fixed",
+        // Above the hero avatar's lg:z-[60] (used on every non-Home page)
+        // and the sticky navbar's z-50, so the pane always renders on top.
+        zIndex: 100,
+      }}
       onDragStop={(_event, data) => setPosition({ x: data.x, y: data.y })}
       onResizeStop={(_event, _direction, ref, _delta, pos) => {
         setSize({ width: ref.offsetWidth, height: ref.offsetHeight });
@@ -310,10 +315,7 @@ export default function ChatWidget() {
         style={{ ...originStyle, transitionDuration: `${ANIMATION_MS}ms` }}
       >
         <div className="chat-widget-handle grid h-12 shrink-0 cursor-move grid-cols-[auto_1fr_auto] items-center bg-navy px-4">
-          <div className="flex min-w-0 items-center gap-2">
-            <span className="truncate font-heading text-base font-semibold text-white">
-              Ragtime-Pro Chat
-            </span>
+          <div className="flex min-w-0 items-center gap-3">
             <Image
               src="/Bubbles_white.svg"
               alt=""
@@ -321,6 +323,9 @@ export default function ChatWidget() {
               height={216}
               className="h-6 w-auto shrink-0 brightness-0 invert"
             />
+            <span className="truncate font-heading text-base font-semibold text-white">
+              Ragtime-Pro Chat
+            </span>
           </div>
 
           {/* Drag affordance - purely decorative, the whole bar is already the drag handle.

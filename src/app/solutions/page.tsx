@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import ExternalLinkIcon from "@/components/ExternalLinkIcon";
 import HeroAvatarVideo from "@/components/HeroAvatarVideo";
+import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 import { SOLUTIONS } from "@/lib/solutions";
 
 export const metadata: Metadata = {
@@ -22,7 +23,8 @@ export default function SolutionsPage() {
         </div>
       </section>
 
-      <section className="bg-navy py-8">
+      <section className="relative bg-navy py-8">
+        <ChatBannerTrigger />
         <div className="mx-auto max-w-7xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white lg:whitespace-nowrap">
             &ldquo;There is no single AI solution — only the right category for the right

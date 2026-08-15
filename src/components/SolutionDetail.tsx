@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import RoadmapVideoButton from "@/components/RoadmapVideoButton";
+import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 import { SOLUTIONS, type SolutionClass } from "@/lib/solutions";
 
 const SIDEBAR_ICON_SIZES: Record<string, string> = {
@@ -25,7 +26,8 @@ export default function SolutionDetail({ solution }: { solution: SolutionClass }
         )}
       </section>
 
-      <section className="bg-navy py-8">
+      <section className="relative bg-navy py-8">
+        <ChatBannerTrigger />
         <div className="mx-auto max-w-7xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
             &ldquo;{solution.quote}&rdquo;

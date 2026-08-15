@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import VertexTriadNav from "@/components/VertexTriadNav";
+import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
   title: "Readiness | Ragtime-Pro",
@@ -40,7 +41,8 @@ export default function ReadinessPage() {
         </div>
       </section>
 
-      <section className="bg-navy py-8">
+      <section className="relative bg-navy py-8">
+        <ChatBannerTrigger />
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
             &ldquo;How prepared the product is to safely integrate a new AI Upgrade

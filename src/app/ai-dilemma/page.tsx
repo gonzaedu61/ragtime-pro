@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import HeroAvatarVideo from "@/components/HeroAvatarVideo";
+import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
   title: "The Modernization Dilemma | Ragtime-Pro",
@@ -39,7 +40,8 @@ export default function AiDilemmaPage() {
         </div>
       </section>
 
-      <section className="bg-navy py-8">
+      <section className="relative bg-navy py-8">
+        <ChatBannerTrigger />
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
             &ldquo;The product still works — but the market has moved.&rdquo;

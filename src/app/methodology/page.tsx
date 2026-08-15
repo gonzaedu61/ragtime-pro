@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import ExternalLinkIcon from "@/components/ExternalLinkIcon";
 import HeroAvatarVideo from "@/components/HeroAvatarVideo";
+import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
   title: "Our Methodology | Ragtime-Pro",
@@ -39,7 +40,8 @@ export default function MethodologyPage() {
         </div>
       </section>
 
-      <section className="bg-navy py-8">
+      <section className="relative bg-navy py-8">
+        <ChatBannerTrigger />
         <div className="mx-auto max-w-7xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
             &ldquo;Legacy modernization is not a matter of inspiration or experimentation. It

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import HeroAvatarVideo from "@/components/HeroAvatarVideo";
+import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
   title: "EU AI Act Compliance | Ragtime-Pro",
@@ -47,7 +48,8 @@ export default function EuAiActCompliancePage() {
         </div>
       </section>
 
-      <section className="bg-navy py-8">
+      <section className="relative bg-navy py-8">
+        <ChatBannerTrigger />
         <div className="mx-auto max-w-7xl px-6 text-center">
           <p className="font-heading text-2xl font-medium italic text-white">
             &ldquo;Compliance built into the roadmap — not bolted on after launch.&rdquo;
