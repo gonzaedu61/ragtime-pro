@@ -10,6 +10,7 @@ export const maxDuration = 30;
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null);
   const query = body?.query;
+  const pagePath = typeof body?.pagePath === "string" ? body.pagePath : null;
 
   if (typeof query !== "string" || !query.trim()) {
     return NextResponse.json({ error: "Missing required field: query" }, { status: 400 });
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
 
   let result;
   try {
-    result = await generateAnswer(query, session);
+    result = await generateAnswer(query, session, pagePath);
   } catch (error) {
     console.error("Answer generation error:", error);
     return NextResponse.json(

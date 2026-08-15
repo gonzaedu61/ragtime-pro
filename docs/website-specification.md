@@ -1190,6 +1190,10 @@ summarization. Full design record, implementation notes, and QA evals live
 in `docs/rag-implementation-spec.md` (not duplicated here). API surface:
 - `POST /api/rag/answer` — the main chat endpoint: retrieves + reranks
   context, calls Azure OpenAI, appends the turn to R2, returns the answer.
+  Accepts an optional `pagePath` (the widget sends the current route via
+  `usePathname()`) so the model knows what page the visitor is on, grounded
+  via `src/lib/pageDirectory.ts` rather than inferred — see
+  `docs/rag-implementation-spec.md` §7.6.
 - `GET /api/rag/session` / `POST /api/rag/session/confirm` — session
   resolution and the returning-visitor confirmation flow the widget uses on
   first open.

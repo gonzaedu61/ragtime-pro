@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent, type UIEvent } from "react";
 import { Rnd } from "react-rnd";
 import { useChatWidget } from "./ChatWidgetContext";
@@ -40,6 +41,10 @@ function clamp(value: number, min: number, max: number): number {
 
 export default function ChatWidget() {
   const { isOpen, origin, close } = useChatWidget();
+  // Re-renders on navigation even though ChatWidget itself never unmounts,
+  // so this always reflects the page the visitor is on when they send a
+  // message - not wherever the pane happened to be opened from.
+  const pathname = usePathname();
 
   const [phase, setPhase] = useState<Phase>("hidden");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -241,7 +246,7 @@ export default function ChatWidget() {
       const res = await fetch("/api/rag/answer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query }),
+        body: JSON.stringify({ query, pagePath: pathname }),
       });
 
       if (!res.ok) throw new Error("Request failed");

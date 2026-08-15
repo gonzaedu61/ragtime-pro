@@ -3,6 +3,7 @@ import { hybridSearch } from "@/rag/retrieval/hybrid";
 import { rerankCandidates } from "@/rag/retrieval/rerank";
 import { buildAnswerMessages } from "@/rag/prompts/answerPrompt";
 import { shouldSummarize, summarizeSession } from "@/rag/summarize";
+import { getPageContext } from "@/lib/pageDirectory";
 import type { SessionData, SessionMessage } from "@/r2/types";
 
 export interface AnswerSource {
@@ -18,7 +19,11 @@ export interface AnswerResult {
   history: SessionMessage[];
 }
 
-export async function generateAnswer(query: string, session: SessionData): Promise<AnswerResult> {
+export async function generateAnswer(
+  query: string,
+  session: SessionData,
+  pagePath?: string | null
+): Promise<AnswerResult> {
   // Turn number is derived from the session as loaded, before any
   // in-request summarization trims it - so the request that triggers
   // summarization still counts correctly for the CTA cadence rule. After
@@ -38,8 +43,16 @@ export async function generateAnswer(query: string, session: SessionData): Promi
     history = summarized.history;
   }
 
-  const candidates = await hybridSearch(query);
-  const reranked = await rerankCandidates(query, candidates);
+  const pageContext = getPageContext(pagePath);
+  // Bias retrieval toward the current page's topic (e.g. "what's on this
+  // page?" has no lexical overlap with the right chunks on its own) without
+  // changing the literal query shown to the LLM as the user's turn.
+  const retrievalQuery = pageContext
+    ? `${query} (current page: ${pageContext.title} - ${pageContext.description})`
+    : query;
+
+  const candidates = await hybridSearch(retrievalQuery);
+  const reranked = await rerankCandidates(retrievalQuery, candidates);
 
   const messages = buildAnswerMessages({
     query,
@@ -47,6 +60,7 @@ export async function generateAnswer(query: string, session: SessionData): Promi
     summary,
     history,
     forceCta,
+    pageContext,
   });
 
   const response = await client.chat.completions.create({

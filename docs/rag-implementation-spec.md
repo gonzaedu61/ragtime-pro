@@ -421,10 +421,11 @@ Requirements:
 
 In order:
 1. System instructions
-2. Conversation summary
-3. Recent conversation turns
-4. Top-k retrieved chunks
-5. User query
+2. Current page (only if the frontend supplied a `pagePath` that resolves via `src/lib/pageDirectory.ts` — see §7.6)
+3. Conversation summary
+4. Recent conversation turns
+5. Top-k retrieved chunks
+6. User query
 
 ### 7.2 Flow
 
@@ -450,9 +451,9 @@ Both env vars are already present in `.env.local`. The RAG answer-generation and
 ### 7.4 Implementation Notes
 
 **Module layout:**
-- `src/rag/prompts/answerPrompt.ts` — `buildAnswerMessages()`, assembling messages in the exact §7.1 order: system instructions → summary (only if non-empty) → full conversation history → retrieved context (only if any chunks matched) → the new user query as the final turn
-- `src/rag/answer.ts` — `generateAnswer(query, session)`: checks `shouldSummarize()`, runs `hybridSearch` → `rerankCandidates` → builds the prompt with the (possibly post-summarization) summary/history → calls Azure OpenAI via the shared `src/rag/azureClient.ts` (see §6.9; same credentials and deployment as `aiReply.ts`, per §7.3, but its own client instance since it's a separate feature)
-- `src/app/api/rag/answer/route.ts` — `POST { query }`. Resolves the session from the `rag_session` cookie; if missing, auto-creates a fresh session directly (skips the fingerprint-continuity confirmation dance — that's `GET /api/rag/session`'s job, callable separately by the frontend before the chat starts if it wants that UX). Writes back `result.summary` and appends the new turn onto `result.history` (the post-summarization state, if summarization ran this turn) via `updateSession`.
+- `src/rag/prompts/answerPrompt.ts` — `buildAnswerMessages()`, assembling messages in the exact §7.1 order: system instructions → current-page fact (only if resolved) → summary (only if non-empty) → full conversation history → retrieved context (only if any chunks matched) → the new user query as the final turn
+- `src/rag/answer.ts` — `generateAnswer(query, session, pagePath?)`: checks `shouldSummarize()`, resolves `pagePath` via `getPageContext()` (§7.6), runs `hybridSearch` → `rerankCandidates` → builds the prompt with the (possibly post-summarization) summary/history and the resolved page context → calls Azure OpenAI via the shared `src/rag/azureClient.ts` (see §6.9; same credentials and deployment as `aiReply.ts`, per §7.3, but its own client instance since it's a separate feature)
+- `src/app/api/rag/answer/route.ts` — `POST { query, pagePath? }`. Resolves the session from the `rag_session` cookie; if missing, auto-creates a fresh session directly (skips the fingerprint-continuity confirmation dance — that's `GET /api/rag/session`'s job, callable separately by the frontend before the chat starts if it wants that UX). Writes back `result.summary` and appends the new turn onto `result.history` (the post-summarization state, if summarization ran this turn) via `updateSession`.
 - `SESSION_COOKIE` / `SESSION_COOKIE_MAX_AGE` were promoted from copy-pasted per-route constants (in `session/route.ts`, `session/confirm/route.ts`) into `src/rag/session.ts`, now imported by all three session-touching routes including this one.
 
 **System prompt:** instructs the model to answer only from retrieved context, admit uncertainty rather than invent pricing/commitments, and point uncertain visitors to the contact form — consistent with the tone in `aiReply.ts` and CLAUDE.md §8's content rules.
@@ -468,6 +469,46 @@ Verified with a 4-turn same-session test: two definitional questions (no CTA), a
 **Verified end-to-end** against the live Azure OpenAI resource and R2 bucket: a two-turn conversation (a question, then a pronoun-referencing follow-up — "Which of those three did you mention first?") produced a correct, context-aware answer, and the R2 session file's `history` array contained all 4 messages in the right order afterward. Also verified: the missing-cookie path auto-creates a distinct session, and a missing `query` field returns 400.
 
 **Not implemented yet — deliberately deferred, see §11:** summarization. `session.summary` is always `""` today, and `buildAnswerMessages` includes the *entire* `session.history` unbounded (no truncation). This is faithful to the spec's pre-summarization state, not a bug, but means very long conversations will grow the prompt without limit until §6's summarization/truncation logic is built.
+
+### 7.6 Page Awareness
+
+Before this, the chat had no way to know what page the visitor was on -
+"what's on this page?" style questions were answered by the model inferring
+a page from conversation topic/history, which surfaced as a real bug: a
+hallucinated (if coincidentally correct) page name, described as UI
+structure (cards, sidebar, pull-quote, CTA button) the model has no actual
+access to. Full incident writeup and transcript:
+`docs/rag-page-awareness-eval-2026-08-15.md`.
+
+- `src/lib/pageDirectory.ts` — `getPageContext(pathname)` maps a route to
+  `{ title, description }`. Static pages are hand-written; `/solutions/[slug]`
+  routes are derived from `SOLUTIONS` (`src/lib/solutions.ts`) rather than
+  duplicated. Unmapped paths (including `null`/missing) resolve to `null`.
+- `ChatWidget.tsx` reads the route via `usePathname()` and sends it as
+  `pagePath` on every `POST /api/rag/answer` call - this re-renders on
+  navigation even though the widget itself is mounted once and never
+  unmounts, so it always reflects wherever the visitor is *when they send
+  the message*, not wherever the pane happened to be opened from.
+- When `pagePath` resolves, `generateAnswer()` biases the **retrieval**
+  query (hybrid search + cross-encoder rerank) with the page's title and
+  description — not the literal query shown to the LLM — so topic-less
+  questions like "what's on this page?" retrieve the right chunks instead
+  of leaning on conversation-history bleed-through.
+- The system prompt only permits answering "what page am I on" from the
+  labeled `Current page: "X" — Y` fact block; it must say so honestly when
+  that block is absent rather than guess from context.
+- The system prompt also forbids describing a page as a document/artifact
+  at all - not just specific UI words (card, sidebar, pull-quote, call to
+  action), but the *framing* itself (no "this page introduces," "this
+  material covers," "you'll find"). This took three iterations to actually
+  stick: a plain instruction to avoid UI vocabulary got literal compliance
+  but the model found synonyms ("this material") while keeping the same
+  describing-an-artifact framing; what worked was forbidding the framing
+  directly and giving a concrete before/after example ("start with 'A Boost
+  Point is...', never 'This page introduces Boost Point...'"). Negative
+  word-lists alone were not enough — a positive example of the desired
+  opening sentence was what closed the gap. See the eval doc for the
+  full three-pass transcript.
 
 ---
 
@@ -608,6 +649,7 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - [x] Summary injection into final-answer prompts (already existed in `answerPrompt.ts`; now actually gets populated)
 - [x] Error handling and fallback behavior — retrieval, session, **and summarization** (a failed summarization call keeps the existing summary and still truncates history, per §6.8, without blocking the actual answer generation)
 - [x] Full, never-truncated history persistence + pagination (`SessionData.fullHistory`, `GET /api/rag/session/history`, per §5.10 — verified end-to-end: a 12-turn conversation that crossed the summarization threshold retained all 24 messages in `fullHistory` while `history` was correctly trimmed to 6; see `docs/rag-history-pagination-eval-2026-08-15.md`)
+- [x] Page awareness (`src/lib/pageDirectory.ts`, `pagePath` threaded from `ChatWidget.tsx` through `POST /api/rag/answer` to `generateAnswer()`, per §7.6 — verified end-to-end: without a resolvable page the model honestly declines instead of guessing; with one, it answers the actual topic without describing page/UI structure. See `docs/rag-page-awareness-eval-2026-08-15.md`)
 
 ---
 
