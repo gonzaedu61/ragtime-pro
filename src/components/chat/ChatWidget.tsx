@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { Rnd } from "react-rnd";
 import { useChatWidget } from "./ChatWidgetContext";
@@ -30,7 +31,7 @@ const DEFAULT_WIDTH = 380;
 const DEFAULT_HEIGHT = 520;
 const MIN_WIDTH = 320;
 const MIN_HEIGHT = 380;
-const CLOSE_ANIMATION_MS = 300;
+const ANIMATION_MS = 550;
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), Math.max(min, max));
@@ -104,7 +105,7 @@ export default function ChatWidget() {
       return () => cancelAnimationFrame(frame);
     }
     if (phase === "exiting") {
-      const timeout = setTimeout(() => setPhase("hidden"), CLOSE_ANIMATION_MS);
+      const timeout = setTimeout(() => setPhase("hidden"), ANIMATION_MS);
       return () => clearTimeout(timeout);
     }
   }, [phase]);
@@ -206,7 +207,15 @@ export default function ChatWidget() {
       : { x: 0, y: 0 });
 
   const visible = phase === "shown";
-  const originStyle = origin ? { transformOrigin: `${origin.x}px ${origin.y}px` } : undefined;
+  // transform-origin's pixel values are relative to the element's OWN box,
+  // not the viewport - origin.x/y are viewport-absolute (captured via
+  // getBoundingClientRect on the trigger), so they need to be translated
+  // into pane-local coordinates using the pane's own current position.
+  const originStyle = origin
+    ? {
+        transformOrigin: `${origin.x - effectivePosition.x}px ${origin.y - effectivePosition.y}px`,
+      }
+    : undefined;
 
   return (
     <Rnd
@@ -226,18 +235,49 @@ export default function ChatWidget() {
       }}
     >
       <div
-        className={`flex h-full w-full flex-col overflow-hidden rounded-lg border border-light-grey bg-white shadow-2xl transition-all ease-out ${
+        className={`relative flex h-full w-full flex-col overflow-hidden rounded-lg border border-black bg-white shadow-2xl transition-all ease-out ${
           visible ? "scale-100 opacity-100" : "scale-[0.05] opacity-0"
         }`}
-        style={{ ...originStyle, transitionDuration: `${CLOSE_ANIMATION_MS}ms` }}
+        style={{ ...originStyle, transitionDuration: `${ANIMATION_MS}ms` }}
       >
-        <div className="chat-widget-handle flex h-12 shrink-0 cursor-move items-center justify-between bg-navy px-4">
-          <span className="font-heading text-base font-semibold text-white">Ragtime Chat</span>
+        <div className="chat-widget-handle grid h-12 shrink-0 cursor-move grid-cols-[auto_1fr_auto] items-center bg-navy px-4">
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="truncate font-heading text-base font-semibold text-white">
+              Ragtime-Pro Chat
+            </span>
+            <Image
+              src="/Bubbles.svg"
+              alt=""
+              width={298}
+              height={216}
+              className="h-6 w-auto shrink-0 brightness-0 invert"
+            />
+          </div>
+
+          {/* Drag affordance - purely decorative, the whole bar is already the drag handle.
+              The middle grid column absorbs all leftover space between the title and the
+              close button, and this centers the dots within it — so they stay clear of
+              both neighbors at any pane width instead of colliding (as flat absolute
+              centering on the whole bar used to). */}
+          <svg
+            viewBox="0 0 16 10"
+            fill="currentColor"
+            className="pointer-events-none mx-3 h-4 w-4 shrink-0 justify-self-center text-white/50"
+            aria-hidden="true"
+          >
+            <circle cx="2" cy="2" r="1.3" />
+            <circle cx="8" cy="2" r="1.3" />
+            <circle cx="14" cy="2" r="1.3" />
+            <circle cx="2" cy="8" r="1.3" />
+            <circle cx="8" cy="8" r="1.3" />
+            <circle cx="14" cy="8" r="1.3" />
+          </svg>
+
           <button
             type="button"
             onClick={close}
             aria-label="Close chat"
-            className="flex h-7 w-7 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+            className="flex h-7 w-7 items-center justify-center justify-self-end rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
           >
             <svg
               viewBox="0 0 24 24"
@@ -327,6 +367,19 @@ export default function ChatWidget() {
             Send
           </button>
         </div>
+
+        {/* Resize affordance - purely decorative, react-rnd's actual resize
+            handle already covers this corner underneath. */}
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          className="pointer-events-none absolute bottom-1 right-1 h-4 w-4 text-charcoal/40"
+          aria-hidden="true"
+        >
+          <path d="M14 2L2 14M14 7L7 14M14 12L12 14" strokeLinecap="round" />
+        </svg>
       </div>
     </Rnd>
   );
