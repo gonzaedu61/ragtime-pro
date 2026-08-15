@@ -24,9 +24,9 @@ export default function ChatBubbleTrigger() {
         alt=""
         width={298}
         height={216}
-        className="h-16 w-auto transition-transform group-hover:scale-105"
+        className="h-20 w-auto transition-transform group-hover:scale-110"
       />
-      <span className="font-body text-sm font-medium text-charcoal transition-colors group-hover:text-electric-blue">
+      <span className="font-body text-lg font-medium text-charcoal transition-colors group-hover:text-electric-blue">
         Better a chat …?
       </span>
     </button>
