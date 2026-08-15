@@ -135,13 +135,28 @@ Removed. The Home hero no longer includes a separate large logo motif; the
 flip-animated logo lockup now appears only in the navbar (see §10.1).
 
 ### Hero Avatar Video
-`HeroAvatarVideo` (`Liz.jpg` + `Home.mp4`), horizontally aligned with the
-`RotatingHeadline` row via a `lg:grid-cols-[calc(50%-33rem)_1fr]` layout (avatar in
-column 1, headline in column 2), sized and positioned before the "move it left"
-refinement pass settled on `lg:justify-start` within that first column. See §10.3
-"Hero avatar video" for the component's general behavior — Home was the first page
-to receive it and predates the left-gutter/absolute-positioning approach used on
-every other page.
+Unlike every other page (which uses the left-gutter/absolute-positioning pattern
+described in §10.3), Home keeps an inline hero row, since it also needs to fit the
+`RotatingHeadline` and the `ChatBubbleTrigger` alongside the avatar. The three sit in
+one flex row (`justify-between`) inside a `max-w-[96rem]` container — deliberately
+wider than the `max-w-7xl` used by the Key Value Blocks below, so the avatar and chat
+icon can sit further out toward the edges without needing to align with the card grid.
+`max-width` was used instead of negative margins specifically to avoid
+horizontal-overflow risk at in-between viewport widths (a container can only shrink to
+fit available space, never force overflow beyond it). Below `lg`, the row stacks
+vertically: avatar, then headline, then chat trigger — note this reordered the avatar
+to the top on mobile (it previously came after the headline+CTA group).
+`HeroAvatarVideo` here uses its default `Liz.jpg` + `Home.mp4`.
+
+### Chat Trigger
+`ChatBubbleTrigger` (`src/components/chat/ChatBubbleTrigger.tsx`) shows the
+`Bubbles.svg` icon (`h-20`, scales to `110%` on hover) with the caption "Better a chat
+…?" (`text-lg`, turns electric-blue on hover) beneath it, right of the headline in the
+hero row above. On click, it captures its own screen position and calls `open()` on
+`ChatWidgetContext`, which the floating `ChatWidget` uses as the anchor point for its
+zoom-in-from-icon opening animation and symmetric zoom-out-to-icon closing animation —
+see §10.3 "Zoom-from-icon open/close animation" and §8.7. Home-only for this first
+pass; more pages planned.
 
 ### Key Value Blocks
 Each block links to the page that expands on it. Grid order (2 columns: top-left,
@@ -957,6 +972,7 @@ Avoid hype. Emphasize clarity, safety, readiness.
 - Animated diagrams  
 - Hover reveals on solution cards  
 - Sticky top navigation  
+- Ragtime Chat widget — draggable/resizable floating pane that zooms open from and closed back into its trigger icon's screen position (Home only, for now)
 
 ---
 
@@ -1159,6 +1175,25 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   GitHub user." Local git identity for this repo should stay set to
   the email matching the Vercel account.
 
+## 8.7 RAG Chat Backend
+The Ragtime Chat widget (§10.1, §10.3, Page 1) is backed by a fully
+serverless Retrieval-Augmented Generation pipeline — static local corpus
+(chunking, embeddings, BM25 index, cross-encoder re-ranking), Cloudflare R2
+conversation memory, and Azure OpenAI for answer generation and
+summarization. Full design record, implementation notes, and QA evals live
+in `docs/rag-implementation-spec.md` (not duplicated here). API surface:
+- `POST /api/rag/answer` — the main chat endpoint: retrieves + reranks
+  context, calls Azure OpenAI, appends the turn to R2, returns the answer.
+- `GET /api/rag/session` / `POST /api/rag/session/confirm` — session
+  resolution and the returning-visitor confirmation flow the widget uses on
+  first open.
+- `POST /api/rag/retrieve` — retrieval-only endpoint (no answer generation),
+  used for testing the retrieval pipeline in isolation.
+
+Reuses the same Azure OpenAI credentials/deployment as the contact-form
+auto-reply (§8.4) via its own client instance (`src/rag/azureClient.ts`),
+not a shared module — see `docs/rag-implementation-spec.md` §11 for why.
+
 ---
 
 # 9. Document Governance
@@ -1183,6 +1218,9 @@ Claude must:
 - **VertexTriadNav** (`src/components/VertexTriadNav.tsx`) — small Driving-Triad diagram used in the left-side nav slot on the Need/Opportunity/Readiness pages; highlights the current vertex and links to the other two.
 - **SolutionDetail** (`src/components/SolutionDetail.tsx`) — shared template rendering a single Solution Class's Quote, Overview, sidebar of the other four categories, Value/Examples/Readiness Requirements/Roadmap Fit cards, and a roadmap CTA; used by the dynamic `/solutions/[slug]` route. See Page 6 for its 3-column grid layout.
 - **ExternalLinkIcon** (`src/components/ExternalLinkIcon.tsx`) — small inline SVG "leads elsewhere" arrow icon (hand-drawn, no external asset). Used on every card that is itself a link, positioned bottom-right; see Section 10.3.
+- **ChatWidgetContext** (`src/components/chat/ChatWidgetContext.tsx`) — React context holding the chat widget's open/closed state and the screen-position "origin" of whichever trigger opened it (used for the zoom animation). Provider is mounted once at the root layout (`src/app/layout.tsx`), wrapping the whole site, so widget state survives page navigation.
+- **ChatWidget** (`src/components/chat/ChatWidget.tsx`) — the floating chat pane: draggable/resizable (`react-rnd`; min 320×380px, max 50% of viewport width/height, recomputed on window resize), a navy header ("Ragtime Chat", left-aligned) doubling as the drag handle, a thin custom-scrollbar message list, and an input box wired to `POST /api/rag/answer`. Renders nothing when closed; open/close plays a zoom animation anchored to the trigger's screen position via a `hidden → entering → shown → exiting → hidden` phase state machine, so the closing transition finishes before unmounting. Position and size are local component state — since the component is mounted once at the root layout and never unmounts (only its rendered output toggles), they survive both page navigation and close/reopen. On first open, checks `GET /api/rag/session` for a returning-visitor match and shows a "continue where you left off?" prompt when found. See §8.7 for the backend it talks to.
+- **ChatBubbleTrigger** (`src/components/chat/ChatBubbleTrigger.tsx`) — the `Bubbles.svg` + "Better a chat …?" button that opens the widget; see Page 1 "Chat Trigger". Currently Home-only.
 
 ## 10.2 Content Data Sources
 - `src/lib/solutions.ts` — single source of truth for the 5 Solution Class entries (including each solution's `quote`), consumed by both the `/solutions` overview cards and the `/solutions/[slug]` detail pages. Also carries the optional `heroAvatarEnabled` (boolean gate) and `heroAvatarImage` (image override) fields that control the Hero Avatar Video on each detail page — see §10.3 "Hero avatar video" and Page 6.
@@ -1229,6 +1267,7 @@ Claude must:
   here for historical reference only.
 - **Flanking side CTAs** — on pages with a centered `max-w-4xl` (or `max-w-3xl`/`max-w-5xl`) content column and side elements, the side elements sit in `calc(50% - 26.5rem)` (or `calc(50% - 30rem)`) gutters, flanking the centered column without narrowing it. Two implementations, in increasing order of position stability: Solution Class detail pages (`SolutionDetail`) use an explicit `min-[1440px]:grid` with the intro text pinned to a fixed height (`min-[1440px]:h-72 min-[1440px]:overflow-hidden`) in row 1, and the sidebar nav / roadmap CTA placed in row 2 alongside the Value/Examples/Readiness/Roadmap Fit cards, with `min-[1440px]:items-start` — their Y-start is fixed, but they're still grid siblings of the cards row. Boost Point/Opportunity/Readiness vertex pages go one step further: the flanking `VertexTriadNav` and roadmap CTA are placed in the *same row* as the fixed-height (`lg:h-56`) intro text (row 1), not the cards row (row 2) — fully decoupling their position from the Four/Three Cards grid below, which varies in row count between vertex pages.
 - **Overlay-link cards with a nested link** — Our Methodology's three pillar cards use a `<div>` with an absolutely-positioned full-card `<Link>` underneath (`z-0`, so clicking anywhere still navigates to the pillar page) and `pointer-events-none` on the title (`z-10`) so clicks on it still reach that overlay link. This exists because the Opportunity card's body text contains its own nested `<Link>` (the phrase "AI Solution" → `/solutions`), rendered above the overlay so it stays independently clickable — a plain wrapping `<Link>` can't contain another `<Link>`.
+- **Zoom-from-icon open/close animation** — used by the Ragtime Chat widget: on open, the pane scales in from `scale-[0.05]`/`opacity-0` to full size, with `transform-origin` set to the triggering icon's captured screen coordinates, so it visually "grows out of" the icon. Closing reverses the same transition anchored at the same origin point before the pane unmounts (via the phase state machine described in §10.1). Deliberately not built on the older `RoadmapVideoButton` modal-from-icon pattern (superseded, see above) — the chat pane is draggable/resizable and needs to persist across navigation, which a modal doesn't support.
 
 ---
 
