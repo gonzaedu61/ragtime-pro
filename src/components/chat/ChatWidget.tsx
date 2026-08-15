@@ -235,7 +235,7 @@ export default function ChatWidget() {
       }}
     >
       <div
-        className={`relative flex h-full w-full flex-col overflow-hidden rounded-lg border border-black bg-white shadow-2xl transition-all ease-out ${
+        className={`relative flex h-full w-full flex-col overflow-hidden rounded-lg border-2 border-black bg-white shadow-2xl transition-all ease-out ${
           visible ? "scale-100 opacity-100" : "scale-[0.05] opacity-0"
         }`}
         style={{ ...originStyle, transitionDuration: `${ANIMATION_MS}ms` }}
@@ -262,7 +262,7 @@ export default function ChatWidget() {
           <svg
             viewBox="0 0 16 10"
             fill="currentColor"
-            className="pointer-events-none mx-3 h-4 w-4 shrink-0 justify-self-center text-white/50"
+            className="pointer-events-none mx-3 h-4 w-4 shrink-0 justify-self-center text-white/80"
             aria-hidden="true"
           >
             <circle cx="2" cy="2" r="1.3" />
@@ -292,15 +292,18 @@ export default function ChatWidget() {
           </button>
         </div>
 
-        <div className="chat-widget-scroll flex-1 space-y-3 overflow-y-auto px-4 py-3">
+        <div className="chat-widget-scroll flex-1 space-y-3 overflow-y-auto py-3 pl-4 pr-2">
           {messages.length === 0 && !pendingConfirm && !checkingSession && (
             <p className="font-body text-sm text-charcoal/60">
               Ask me anything about Ragtime-Pro&apos;s AI modernization services.
             </p>
           )}
 
+          {/* Assistant bubbles get an extra pr-2: the list's own pl-4/pr-2 padding
+              is asymmetric (tight to the right border for user bubbles), which
+              would otherwise skew justify-center off the pane's true midline. */}
           {messages.map((message, index) => (
-            <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+            <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-center pr-2"}`}>
               <div
                 className={`max-w-[85%] whitespace-pre-wrap rounded-lg px-3 py-2 font-body text-sm ${
                   message.role === "user" ? "bg-electric-blue text-white" : "bg-light-grey text-charcoal"
@@ -336,7 +339,7 @@ export default function ChatWidget() {
           )}
 
           {sending && (
-            <div className="flex justify-start">
+            <div className="flex justify-center pr-2">
               <div className="rounded-lg bg-light-grey px-3 py-2 font-body text-sm text-charcoal/50">
                 Thinking…
               </div>
@@ -348,7 +351,7 @@ export default function ChatWidget() {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="flex shrink-0 items-end gap-2 border-t border-light-grey p-3">
+        <div className="flex shrink-0 items-end gap-2 border-t border-light-grey px-3 pt-3 pb-6">
           <textarea
             value={input}
             onChange={(event) => setInput(event.target.value)}
