@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type UIEvent } from "react";
 import { Rnd } from "react-rnd";
 import { useChatWidget } from "./ChatWidgetContext";
+import { HISTORY_PAGE_SIZE } from "@/rag/historyPagination";
 
 interface Message {
   role: "user" | "assistant";
@@ -49,6 +50,13 @@ export default function ChatWidget() {
   const [checkingSession, setCheckingSession] = useState(false);
   const [hasCheckedSession, setHasCheckedSession] = useState(false);
 
+  // Pagination over the full (never-truncated) history stored server-side -
+  // see GET /api/rag/session/history. nextBefore is the cursor to pass back
+  // for the next (older) page; hasMoreHistory says whether one exists.
+  const [hasMoreHistory, setHasMoreHistory] = useState(false);
+  const [nextBefore, setNextBefore] = useState(0);
+  const [loadingMore, setLoadingMore] = useState(false);
+
   const [maxSize, setMaxSize] = useState<Size>({ width: 800, height: 800 });
   // Position/size live here (not in context) - ChatWidget is mounted once at
   // the root layout and never unmounts, so this state naturally survives
@@ -57,6 +65,10 @@ export default function ChatWidget() {
   const [size, setSize] = useState<Size | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  // Set right before an older-messages prepend so the scroll-to-bottom
+  // effect below can skip that one render (see loadOlderMessages).
+  const skipAutoScrollRef = useRef(false);
 
   useEffect(() => {
     function updateMaxSize() {
@@ -122,8 +134,18 @@ export default function ChatWidget() {
       .then((data) => {
         if (data.status === "confirm") {
           setPendingConfirm({ candidateSessionId: data.candidateSessionId, lastSeen: data.lastSeen });
-        } else if (data.status === "active" && data.session?.history?.length) {
-          setMessages(data.session.history);
+          return null;
+        }
+        if (data.status === "active") {
+          return fetch(`/api/rag/session/history?limit=${HISTORY_PAGE_SIZE}`).then((res) => res.json());
+        }
+        return null;
+      })
+      .then((page) => {
+        if (page?.messages?.length) {
+          setMessages(page.messages);
+          setHasMoreHistory(page.hasMore);
+          setNextBefore(page.nextBefore);
         }
       })
       .catch(() => {
@@ -133,6 +155,10 @@ export default function ChatWidget() {
   }, [isOpen, hasCheckedSession]);
 
   useEffect(() => {
+    if (skipAutoScrollRef.current) {
+      skipAutoScrollRef.current = false;
+      return;
+    }
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, pendingConfirm]);
 
@@ -148,14 +174,57 @@ export default function ChatWidget() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ candidateSessionId, accept }),
       });
-      const data = await res.json();
-      if (accept && data.session?.history) {
-        setMessages(data.session.history);
+
+      if (accept && res.ok) {
+        const page = await fetch(`/api/rag/session/history?limit=${HISTORY_PAGE_SIZE}`).then((res) =>
+          res.json()
+        );
+        setMessages(page.messages);
+        setHasMoreHistory(page.hasMore);
+        setNextBefore(page.nextBefore);
       }
     } catch {
       // Fall through to a fresh conversation.
     } finally {
       setCheckingSession(false);
+    }
+  }
+
+  async function loadOlderMessages() {
+    if (!hasMoreHistory || loadingMore) return;
+    setLoadingMore(true);
+
+    const container = scrollContainerRef.current;
+    const prevScrollHeight = container?.scrollHeight ?? 0;
+    const prevScrollTop = container?.scrollTop ?? 0;
+
+    try {
+      const res = await fetch(`/api/rag/session/history?before=${nextBefore}&limit=${HISTORY_PAGE_SIZE}`);
+      const page = await res.json();
+
+      skipAutoScrollRef.current = true;
+      setMessages((prev) => [...page.messages, ...prev]);
+      setHasMoreHistory(page.hasMore);
+      setNextBefore(page.nextBefore);
+
+      // Prepending makes the list taller above the fold - restore the
+      // pre-load scroll offset once the browser has painted the new
+      // content, so the view doesn't jump.
+      requestAnimationFrame(() => {
+        if (container) {
+          container.scrollTop = container.scrollHeight - prevScrollHeight + prevScrollTop;
+        }
+      });
+    } catch {
+      // Leave hasMoreHistory as-is - scrolling up again will just retry.
+    } finally {
+      setLoadingMore(false);
+    }
+  }
+
+  function handleScroll(event: UIEvent<HTMLDivElement>) {
+    if (event.currentTarget.scrollTop < 40) {
+      loadOlderMessages();
     }
   }
 
@@ -292,11 +361,19 @@ export default function ChatWidget() {
           </button>
         </div>
 
-        <div className="chat-widget-scroll flex-1 space-y-3 overflow-y-auto py-3 pl-4 pr-2">
+        <div
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
+          className="chat-widget-scroll flex-1 space-y-3 overflow-y-auto py-3 pl-4 pr-2"
+        >
           {messages.length === 0 && !pendingConfirm && !checkingSession && (
             <p className="font-body text-sm text-charcoal/60">
               Ask me anything about Ragtime-Pro&apos;s AI modernization services.
             </p>
+          )}
+
+          {loadingMore && (
+            <p className="text-center font-body text-xs text-charcoal/40">Loading earlier messages…</p>
           )}
 
           {/* Assistant bubbles get an extra pr-2: the list's own pl-4/pr-2 padding

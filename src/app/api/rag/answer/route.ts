@@ -34,13 +34,17 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const newTurn = [
+    { role: "user" as const, content: query },
+    { role: "assistant" as const, content: result.answer },
+  ];
+
   const updatedSession = await updateSession(session.sessionId, {
     summary: result.summary,
-    history: [
-      ...result.history,
-      { role: "user", content: query },
-      { role: "assistant", content: result.answer },
-    ],
+    history: [...result.history, ...newTurn],
+    // Append-only - never truncated, unlike history above (falls back to
+    // history for pre-fullHistory sessions so nothing is silently dropped).
+    fullHistory: [...(session.fullHistory ?? session.history), ...newTurn],
   });
 
   const response = NextResponse.json({

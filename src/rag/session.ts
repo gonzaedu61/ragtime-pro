@@ -13,6 +13,14 @@ export function getClientIp(headers: Headers): string {
   return headers.get("x-real-ip") ?? "unknown";
 }
 
+// fullHistory can grow unbounded over a long conversation - keep it out of
+// the general session-status responses (GET /session, POST /session/confirm)
+// and let the client pull it in pages from GET /session/history instead.
+export function omitFullHistory(session: SessionData): SessionData {
+  const { fullHistory: _fullHistory, ...rest } = session;
+  return rest;
+}
+
 export type ResolveResult =
   | { status: "active"; sessionId: string; session: SessionData }
   | { status: "new"; sessionId: string; session: SessionData }

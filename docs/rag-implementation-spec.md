@@ -211,7 +211,11 @@ Key format: `conversations/{sessionId}.json`
     { "role": "assistant", "content": "Ragtime is a meta-agent framework..." }
   ],
   "summary": "User is exploring Ragtime meta-agent and resolver design.",
-  "lastSeen": "2026-08-13T15:18:00Z"
+  "lastSeen": "2026-08-13T15:18:00Z",
+  "fullHistory": [
+    { "role": "user", "content": "Explain Ragtime architecture." },
+    { "role": "assistant", "content": "Ragtime is a meta-agent framework..." }
+  ]
 }
 ```
 
@@ -219,9 +223,10 @@ Key format: `conversations/{sessionId}.json`
 |---|---|
 | `sessionId` | Canonical session identifier |
 | `fingerprint` | Hashed IP + UA, for continuity detection |
-| `history` | Full list of messages (trimmed as needed) |
+| `history` | Working set sent to the LLM as context; trimmed by summarization (see §6) |
 | `summary` | Optional compressed history for long conversations |
 | `lastSeen` | ISO timestamp of last interaction |
+| `fullHistory` | Append-only, never truncated - the complete transcript for display in the chat pane (see §5.10). Optional on the type for backward compat with sessions written before this field existed; readers fall back to `history`. |
 
 ### 5.5 Session Lifecycle
 
@@ -248,8 +253,9 @@ Key format: `conversations/{sessionId}.json`
 2. Append the new user message to `history`
 3. Append the assistant message after response generation
 4. If `history.length` exceeds the threshold (default 20 messages) → generate/update summary via Azure OpenAI, truncate older messages (see §6)
-5. Update `lastSeen`
-6. Write the updated file back to R2
+5. Append both new messages to `fullHistory` as well - unlike `history`, this never gets truncated (see §5.10)
+6. Update `lastSeen`
+7. Write the updated file back to R2
 
 ### 5.6 Session API (to implement)
 
@@ -279,6 +285,40 @@ Key format: `conversations/{sessionId}.json`
 **Used by:** retrieval pipeline (injects conversation history), answer generation (includes summary + recent turns), frontend chat UI (maintains continuity)
 
 **Provides:** deterministic session identity, persistent multi-turn memory, safe continuity detection, clean R2 storage structure
+
+### 5.10 Full History & Pagination
+
+`history` is deliberately lossy - summarization trims it so the LLM
+prompt stays bounded, which is correct for context but means the chat
+pane's transcript would visibly shrink whenever summarization fires if it
+hydrated from that same field. `fullHistory` (§5.4) exists to give the
+frontend a complete, stable transcript independent of that trimming.
+
+**`GET /api/rag/session/history?before=&limit=`**
+- Reads the session for the `rag_session` cookie, falls back to
+  `session.history` if `fullHistory` is absent (pre-migration sessions).
+- `limit` (default `HISTORY_PAGE_SIZE = 20`, capped at
+  `HISTORY_PAGE_SIZE_MAX = 100`; both in `src/rag/historyPagination.ts`,
+  a constants-only module with no server-only imports so it's safe to
+  import from the client component too).
+- `before` (optional): exclusive upper-bound index into `fullHistory`.
+  Omitted → defaults to `fullHistory.length`, i.e. "the latest page."
+- Returns `{ messages, hasMore, nextBefore }` — `messages` is the page
+  (oldest-to-newest), `nextBefore` is the cursor to pass back for the
+  next older page, `hasMore` says whether one exists.
+- The server still reads the whole session object from R2 (no partial-
+  JSON reads) and slices server-side; the win is bounding what the
+  *client* has to hold and render, not R2 read cost.
+
+**Why `GET /api/rag/session` and `POST /api/rag/session/confirm` don't
+return `fullHistory`:** both endpoints already return the full
+`SessionData` object for other reasons (status/confirmation flow), and
+`fullHistory` grows unboundedly over a long conversation — leaving it in
+those responses would reintroduce the exact bloat problem pagination
+exists to avoid. `omitFullHistory()` (`src/rag/session.ts`) strips it
+before either route serializes its response; the frontend calls
+`GET /api/rag/session/history` separately once it has a resolved
+session ID.
 
 ---
 
@@ -453,14 +493,17 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 │   │   └── api/
 │   │       └── rag/
 │   │           ├── session/
-│   │           │   ├── route.ts          # GET — resolve session (active/new/needs-confirmation)
-│   │           │   └── confirm/
-│   │           │       └── route.ts      # POST — accept/decline restoring a previous session
+│   │           │   ├── route.ts          # GET — resolve session (active/new/needs-confirmation); strips fullHistory
+│   │           │   ├── confirm/
+│   │           │   │   └── route.ts      # POST — accept/decline restoring a previous session; strips fullHistory
+│   │           │   └── history/
+│   │           │       └── route.ts      # GET — paginated read over fullHistory (see §5.10)
 │   │           ├── retrieve/route.ts     # hybrid retrieval + cross-encoder re-ranking
 │   │           └── answer/route.ts       # full RAG answer: retrieve → rerank → Azure OpenAI → append to R2
 │   │
 │   ├── rag/
-│   │   ├── session.ts             # session orchestration + SESSION_COOKIE/SESSION_COOKIE_MAX_AGE constants
+│   │   ├── session.ts             # session orchestration + SESSION_COOKIE/SESSION_COOKIE_MAX_AGE constants + omitFullHistory()
+│   │   ├── historyPagination.ts   # HISTORY_PAGE_SIZE / HISTORY_PAGE_SIZE_MAX - no server-only imports, safe for client use
 │   │   ├── answer.ts              # generateAnswer(query, session): summarize-if-needed → retrieve → rerank → Azure OpenAI
 │   │   ├── summarize.ts           # shouldSummarize(session), summarizeSession(session)
 │   │   ├── azureClient.ts         # shared AzureOpenAI client (used by answer.ts and summarize.ts)
@@ -564,6 +607,7 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - [x] History truncation logic (trims to last 4 messages per spec §6.5, on both success and failure paths)
 - [x] Summary injection into final-answer prompts (already existed in `answerPrompt.ts`; now actually gets populated)
 - [x] Error handling and fallback behavior — retrieval, session, **and summarization** (a failed summarization call keeps the existing summary and still truncates history, per §6.8, without blocking the actual answer generation)
+- [x] Full, never-truncated history persistence + pagination (`SessionData.fullHistory`, `GET /api/rag/session/history`, per §5.10 — verified end-to-end: a 12-turn conversation that crossed the summarization threshold retained all 24 messages in `fullHistory` while `history` was correctly trimmed to 6; see `docs/rag-history-pagination-eval-2026-08-15.md`)
 
 ---
 
@@ -578,3 +622,4 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - **Source data typo:** at least one source PDF (`Ragtime-Pro - Modernizing Legacy Software with AI.pdf`) contains the literal text "RagtIme-Pro" (mixed capitalization) in its opening line. Because answers are grounded in retrieved chunk text, this typo can surface verbatim in generated answers — observed once during end-to-end testing. Not a code bug; would need a source-document correction (and a re-run of `rag:chunk` + `rag:embed` + `rag:bm25`) to fix at the root, or a light post-processing pass on generated answers if that's not practical.
 - **CTA cadence drifts after summarization:** the every-3rd-turn rule is computed from `session.history.length`, which shrinks each time summarization trims it — so cadence is "every 3rd turn since the last summarization event," not exact for the whole session lifetime. See §6.9. Fixing this exactly would need a persistent turn counter on `SessionData` (schema change); not done, since it's a minor engagement nudge and testing showed it still behaves reasonably in practice.
 - **Summarization is now the only remaining unchecked deliverable-adjacent item:** the explicit "summarize this conversation" user request and pre-emptive summarization on session restoration (spec §6.2's other two triggers) were intentionally not built — only the two threshold-based triggers were, per the agreed scope. Worth revisiting if a real chat UI surfaces a need for either.
+- **`fullHistory` (§5.10) grows unbounded:** nothing evicts old messages from it, unlike `history`. Fine for storage cost on a consulting-site chatbot (R2 object storage is cheap and conversations aren't likely to run into the thousands of turns), but worth knowing if usage patterns change.

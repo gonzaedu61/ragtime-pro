@@ -14,6 +14,7 @@ export async function createSession(
     history: [],
     summary: "",
     lastSeen: new Date().toISOString(),
+    fullHistory: [],
   };
 
   await writeSession(session);

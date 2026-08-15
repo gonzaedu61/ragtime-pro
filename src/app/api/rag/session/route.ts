@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getClientIp, resolveSession, SESSION_COOKIE, SESSION_COOKIE_MAX_AGE } from "@/rag/session";
+import { getClientIp, omitFullHistory, resolveSession, SESSION_COOKIE, SESSION_COOKIE_MAX_AGE } from "@/rag/session";
 
 export async function GET(request: NextRequest) {
   const existingSessionId = request.cookies.get(SESSION_COOKIE)?.value ?? null;
@@ -8,7 +8,9 @@ export async function GET(request: NextRequest) {
 
   const result = await resolveSession(existingSessionId, ip, userAgent);
 
-  const response = NextResponse.json(result);
+  const response = NextResponse.json(
+    result.status === "confirm" ? result : { ...result, session: omitFullHistory(result.session) }
+  );
 
   if (result.status !== "confirm") {
     response.cookies.set(SESSION_COOKIE, result.sessionId, {
