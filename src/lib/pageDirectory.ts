@@ -103,3 +103,23 @@ export function getPageContext(pathname: string | null | undefined): PageContext
 
   return null;
 }
+
+export interface PageDirectoryEntry extends PageContext {
+  path: string;
+}
+
+// Every known page as {path, title, description} - used for link-matching
+// in the RAG-powered email reply (src/lib/aiReply.ts), separately from the
+// single-page lookup above used for chat page-awareness.
+export function getAllPages(): PageDirectoryEntry[] {
+  const staticEntries = Object.entries(STATIC_PAGES).map(([path, context]) => ({
+    path,
+    ...context,
+  }));
+  const solutionEntries = SOLUTIONS.map((solution) => ({
+    path: `/solutions/${solution.slug}`,
+    title: solution.title,
+    description: solution.definition,
+  }));
+  return [...staticEntries, ...solutionEntries];
+}

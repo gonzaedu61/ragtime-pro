@@ -74,6 +74,7 @@ export async function GET(request: Request) {
           name: senderName,
           email: senderAddress,
           message: parsed.text || parsed.subject || "(no message body)",
+          channel: "email",
         });
         acknowledged++;
       }

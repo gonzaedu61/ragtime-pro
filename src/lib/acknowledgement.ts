@@ -12,6 +12,7 @@ interface AckFields {
   phone?: string;
   aiInterest?: string;
   message: string;
+  channel: "form" | "email";
 }
 
 function fallbackText(name: string): string {

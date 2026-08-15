@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
   after(async () => {
     try {
-      await sendAcknowledgement({ name, company, email, phone, aiInterest, message });
+      await sendAcknowledgement({ name, company, email, phone, aiInterest, message, channel: "form" });
 
       await transporter.sendMail({
         from: `"Ragtime-Pro Website" <${FROM_ADDRESS}>`,

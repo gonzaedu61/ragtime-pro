@@ -1046,23 +1046,38 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
 - **Transport:** `src/lib/mailer.ts` — a Nodemailer SMTP transport to Purelymail
   (`smtp.purelymail.com:587`), authenticated via the `PURELYMAIL_SMTP_USER` /
   `PURELYMAIL_SMTP_PASS` environment variables.
-- **AI-generated acknowledgement:** `src/lib/aiReply.ts` calls Azure OpenAI
+- **RAG-powered acknowledgement:** `src/lib/aiReply.ts` calls Azure OpenAI
   (via the `openai` package's `AzureOpenAI` client, imported from
   `openai/azure`) against the `AZURE_OPENAI_ENDPOINT` resource — deployment
   `o4-mini`, api version `2024-12-01-preview`, authenticated with
-  `AZURE_AI_PROJECT_API_KEY` (a 25s timeout). It sends a prompt built from the
+  `AZURE_AI_PROJECT_API_KEY` (a 25s timeout). Before calling the model, it
+  runs the visitor's message through the same retrieval pipeline the chat
+  widget uses (`hybridSearch` → `rerankCandidates`, `src/rag/retrieval/`),
+  so the reply can answer their actual question with grounded content
+  instead of only acknowledging it — falling back to an honest "we don't
+  have enough information" rather than inventing details, pricing, or
+  commitments when retrieval doesn't turn up enough. The prompt also
+  receives every known page from `src/lib/pageDirectory.ts` (`getAllPages()`)
+  and is told to mention a page's URL only when one is a clear, specific
+  match — never to force a link. It sends a prompt built from the
   submitter's name, company (optional), email, phone, AI modernization
-  interest, and message, asking for a JSON response (`personalizedReply`,
-  `replySubject`), auto-detecting and replying in the visitor's own language.
-  The prompt describes Ragtime-Pro as a modernization partner combining the
-  Modernization Agent with expert consulting (rebranded from the prior "The
-  BrokerAI, a consulting firm that helps SMEs adopt AI" framing), and signs
-  off as "The Ragtime-Pro Team". If the call fails, times out, or the
-  response doesn't parse into valid, non-empty JSON, `generateAiReply`
-  returns `null` and the route falls back to a fixed acknowledgement text
-  and subject (also rebranded — sender name "Ragtime-Pro", fallback subject
-  "We've received your message — Ragtime-Pro", fallback body referencing
-  "modernize your product").
+  interest, message, the retrieved context, and the page list, asking for a
+  JSON response (`personalizedReply`, `replySubject`), auto-detecting and
+  replying in the visitor's own language. The prompt describes Ragtime-Pro
+  as a modernization partner combining the Modernization Agent with expert
+  consulting, and signs off as "The Ragtime-Pro Team". Its closing line
+  depends on a required `channel: "form" | "email"` field: `"form"` says the
+  team will follow up directly using the details already provided (no
+  self-service call-booking ask, since submitting the form already implies
+  outreach); `"email"` politely invites booking an introductory call at
+  `/start`, since writing directly bypassed the structured lead-capture
+  the form provides. If the call fails, times out, or the response doesn't
+  parse into valid, non-empty JSON, `generateAiReply` returns `null` and
+  the route falls back to a fixed acknowledgement text and subject (sender
+  name "Ragtime-Pro", fallback subject "We've received your message —
+  Ragtime-Pro", fallback body referencing "modernize your product") — this
+  fallback does not vary by channel. See
+  `docs/contact-rag-reply-eval-2026-08-15.md` for verification.
 - **Shared send helper:** `src/lib/acknowledgement.ts` exports
   `sendAcknowledgement()`, which calls `generateAiReply` and sends the
   resulting (or fallback) text via the Nodemailer transporter, from
@@ -1135,8 +1150,10 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   acknowledgement in an infinite loop.
 - **Acknowledgement:** for each message that passes the guard, calls the
   shared `sendAcknowledgement()` (§8.4) with the sender's display name (or
-  address local-part as fallback), email address, and the message body as
-  the "message" field. Company/phone/AI-interest are left unset.
+  address local-part as fallback), email address, the message body as the
+  "message" field, and `channel: "email"` (so the reply invites booking a
+  call rather than saying the team will follow up, per §8.4). Company/phone/
+  AI-interest are left unset.
 - **Response:** returns `{ processed, acknowledged, skipped }` as JSON.
 - **Trigger:** this route is not called by Vercel Cron — the Hobby plan
   limits Vercel's own Cron Jobs to once per day, too infrequent for this
@@ -1208,6 +1225,9 @@ in `docs/rag-implementation-spec.md` (not duplicated here). API surface:
 Reuses the same Azure OpenAI credentials/deployment as the contact-form
 auto-reply (§8.4) via its own client instance (`src/rag/azureClient.ts`),
 not a shared module — see `docs/rag-implementation-spec.md` §11 for why.
+The retrieval pipeline itself (`hybridSearch`/`rerankCandidates`,
+`src/rag/retrieval/`) *is* shared with `src/lib/aiReply.ts` — the contact-
+form/inbox-poll acknowledgement (§8.4) uses it to ground its replies too.
 
 ---
 
