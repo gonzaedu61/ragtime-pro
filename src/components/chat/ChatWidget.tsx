@@ -62,7 +62,7 @@ export default function ChatWidget() {
     function updateMaxSize() {
       setMaxSize({
         width: Math.round(window.innerWidth * 0.5),
-        height: Math.round(window.innerHeight * 0.5),
+        height: Math.round(window.innerHeight * 0.85),
       });
     }
     updateMaxSize();
