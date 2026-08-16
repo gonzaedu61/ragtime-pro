@@ -57,6 +57,12 @@ function buildPagesBlock(): string {
   return `\n\nWebsite pages (only mention one if it's a clear, specific match for what the visitor is asking about — do not force a link if none genuinely fits):\n${pages}`;
 }
 
+function describeChannel(channel: EmailHistoryMessage["channel"]): string {
+  if (channel === "email") return "direct email";
+  if (channel === "noreply") return "an email to noreply@ragtime.pro";
+  return "contact form";
+}
+
 function buildCorrespondenceBlock({ summary, history }: EmailCorrespondence): string {
   if (!summary && history.length === 0) return "";
 
@@ -67,7 +73,7 @@ function buildCorrespondenceBlock({ summary, history }: EmailCorrespondence): st
       ? history
           .map((message) =>
             message.role === "user"
-              ? `Visitor (via ${message.channel === "email" ? "direct email" : "contact form"}): ${message.content}`
+              ? `Visitor (via ${describeChannel(message.channel)}): ${message.content}`
               : `Our reply: ${message.content}`
           )
           .join("\n\n")
@@ -157,6 +163,64 @@ export async function generateAiReply(
     return parseReply(raw);
   } catch (error) {
     console.error("AI reply generation error:", error);
+    return null;
+  }
+}
+
+function buildNoreplyPrompt(
+  name: string,
+  correspondence: EmailCorrespondence
+): string {
+  const hasPriorCorrespondence = !!correspondence.summary || correspondence.history.length > 0;
+
+  return `You are an email response assistant for Ragtime-Pro, a modernization partner that helps legacy software vendors adopt AI safely and incrementally, combining an AI-augmented Modernization Agent with expert consulting.
+A visitor just sent an email to noreply@ragtime.pro. That address is send-only and not monitored by anyone — it cannot receive replies and no one will see what they wrote there. Write a short, warm, professional reply and return it as JSON.
+
+Your reply must:
+- Gently explain that noreply@ragtime.pro doesn't accept incoming messages and isn't read by our team — this is not a scolding, just a friendly heads-up.
+- Encourage them to visit ${SITE_ORIGIN} and use the chat icon there if they'd like an interactive conversation, or to reach out via the contact form at ${SITE_ORIGIN}/contact or by emailing info@ragtime.pro directly for anything else.
+- Do NOT attempt to answer whatever they actually wrote in their message to noreply@ — you have no retrieved context for it here, and that's not the point of this reply.
+- ${
+    hasPriorCorrespondence
+      ? "Briefly and warmly acknowledge their previous interest based on the correspondence summary below, so they feel recognized as someone we already know — one sentence is enough, don't repeat it in detail."
+      : "There is no prior correspondence on file for this address — do not reference or imply any."
+  }
+- Stay brief — this is a redirect, not a full answer.
+- Close with a sign-off from "The Ragtime-Pro Team".
+
+Return exactly this JSON structure (no code fences, no extra text):
+{
+  "personalizedReply": "The reply text, addressed to the visitor by name.",
+  "replySubject": "A short (10 words max) subject line, e.g. 'About your message to noreply@ragtime.pro'"
+}
+
+Rules:
+1. The personalized reply must be warm, polite, and written in natural language — no bullet points, no markdown, though a plain URL is fine.
+2. Do NOT include JSON code fences in your output.
+3. Do NOT include explanations outside the JSON.
+4. Detect the language the visitor wrote their message in and reply in that same language.
+5. Always write as Ragtime-Pro in first person plural ("we," "our," "us") — never as an individual ("I," "me").
+6. Never invent a different email address or domain, a phone number, or a scheduling/booking mechanism of any kind.
+
+Visitor name: ${name}${buildCorrespondenceBlock(correspondence)}`;
+}
+
+export async function generateNoreplyRedirectReply(
+  name: string,
+  correspondence: EmailCorrespondence
+): Promise<AiReply | null> {
+  try {
+    const response = await client.chat.completions.create({
+      model: "o4-mini",
+      messages: [{ role: "user", content: buildNoreplyPrompt(name, correspondence) }],
+    });
+
+    const raw = response.choices[0]?.message?.content;
+    if (!raw) return null;
+
+    return parseReply(raw);
+  } catch (error) {
+    console.error("Noreply redirect reply generation error:", error);
     return null;
   }
 }

@@ -37,7 +37,7 @@ export async function loadEmailContext(email: string): Promise<EmailContext> {
 export async function recordEmailTurn(
   context: EmailContext,
   visitorMessage: string,
-  channel: "form" | "email",
+  channel: "form" | "email" | "noreply",
   reply: string
 ): Promise<void> {
   const newTurn: EmailHistoryMessage[] = [

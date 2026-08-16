@@ -1112,7 +1112,11 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   fallback), a short footer disclosing that is appended to both bodies —
   "This reply was generated automatically by Ragtime-Pro's AI agent." —
   muted-gray styling in the HTML version; omitted on the fallback path
-  since that text isn't actually AI-generated.
+  since that text isn't actually AI-generated. `acknowledgement.ts` also
+  exports `sendNoreplyRedirect()` for the `noreply@` mailbox (§8.5), which
+  mirrors this same structure and reuses its private HTML/linkify helpers,
+  but calls `generateNoreplyRedirectReply()` instead of `generateAiReply()`
+  and records the turn with `channel: "noreply"`.
 - **API route:** `src/app/api/contact/route.ts` — a server-only Next.js Route
   Handler (`POST`) that validates the required fields (name, company, email,
   message) and sends two emails per submission:
@@ -1152,36 +1156,55 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
 
 ## 8.5 Inbox Polling & Auto-Acknowledgement
 - **Purpose:** automatically sends the same AI-generated acknowledgement
-  (§8.4) to anyone who emails the configured info address directly (currently
-  `info@thebrokerai.tech` in production — see note in §8.4), not just
-  visitors who use the Contact form.
+  (§8.4) to anyone who emails the configured info address directly, not
+  just visitors who use the Contact form — plus, separately, redirects
+  anyone who emails `noreply@ragtime.pro` (a send-only address that should
+  never receive mail) to a real channel instead.
 - **API route:** `src/app/api/inbox-poll/route.ts` — a `GET` Route Handler,
   protected by a shared secret: the request must include
   `Authorization: Bearer <INBOX_POLL_SECRET>` or it returns `401`.
   `export const maxDuration = 60`.
-- **IMAP polling:** on each invocation, connects via `imapflow` to
+- **Two mailboxes, one route:** the route polls **two separate IMAP
+  mailboxes** in sequence via a shared `pollMailbox()` helper — `info@` and
+  `noreply@` are genuinely distinct Purelymail mailboxes (not an
+  alias/forward into one inbox), so each needs its own login. Each
+  mailbox's poll runs in its own try/catch, so a credentials problem or
+  failure on one doesn't block the other; the response reports both
+  independently.
+- **IMAP polling (per mailbox):** connects via `imapflow` to
   `PURELYMAIL_IMAP_HOST:PURELYMAIL_IMAP_PORT` (Purelymail,
-  `imap.purelymail.com:993`) authenticated with `PURELYMAIL_IMAP_USER` /
-  `PURELYMAIL_IMAP_PASS` (a separate Purelymail account/password for the
-  info address, distinct from the `noreply@` SMTP credentials in §8.4).
-  Opens `INBOX`, searches for unseen messages (capped at 10 per run),
-  downloads and parses each with `mailparser`, and immediately marks it
-  `\Seen` so a later failure doesn't cause it to be reprocessed forever.
-- **Loop/spam guard:** a message is skipped (still marked `\Seen`, but no
-  acknowledgement sent) if its sender address is in `MAIL_ACK_BLOCKLIST`
-  (comma-separated env var, defaults to the site's own sending addresses —
-  currently `noreply@thebrokerai.tech`, `info@thebrokerai.tech` in
-  production) or if it carries an
-  `Auto-Submitted` header other than `no` (autoresponders, bounces). This
-  exists specifically to prevent an acknowledgement from triggering another
-  acknowledgement in an infinite loop.
-- **Acknowledgement:** for each message that passes the guard, calls the
+  `imap.purelymail.com:993`, shared by both mailboxes — only the
+  user/password differ), authenticated with `PURELYMAIL_IMAP_USER` /
+  `PURELYMAIL_IMAP_PASS` for `info@`, or `PURELYMAIL_IMAP_USER_NOREPLY` /
+  `PURELYMAIL_IMAP_PASS_NOREPLY` for `noreply@` (distinct from the SMTP
+  send credentials in §8.4). Opens `INBOX`, searches for unseen messages
+  (capped at 10 per run, per mailbox), downloads and parses each with
+  `mailparser`, and immediately marks it `\Seen` so a later failure doesn't
+  cause it to be reprocessed forever.
+- **Loop/spam guard** (shared by both mailboxes): a message is skipped
+  (still marked `\Seen`, but no reply sent) if its sender address is in
+  `MAIL_ACK_BLOCKLIST` (comma-separated env var, defaults to the site's own
+  sending addresses) or if it carries an `Auto-Submitted` header other than
+  `no` (autoresponders, bounces). This exists specifically to prevent a
+  reply from triggering another reply in an infinite loop.
+- **`info@` handling:** for each message that passes the guard, calls the
   shared `sendAcknowledgement()` (§8.4) with the sender's display name (or
   address local-part as fallback), email address, the message body as the
-  "message" field, and `channel: "email"` (so the reply invites booking a
-  call rather than saying the team will follow up, per §8.4). Company/phone/
-  AI-interest are left unset.
-- **Response:** returns `{ processed, acknowledged, skipped }` as JSON.
+  "message" field, and `channel: "email"`. Company/phone/AI-interest are
+  left unset.
+- **`noreply@` handling:** never attempts to answer what was actually
+  written there — calls `sendNoreplyRedirect()` (§8.4), which explains that
+  `noreply@ragtime.pro` doesn't accept incoming mail and isn't monitored,
+  points them to the site's chat widget or the contact form / `info@` for
+  a real conversation, and — if there's prior correspondence on file for
+  that email address from an earlier contact-form submission or `info@`
+  email — briefly and warmly acknowledges it, so they feel recognized
+  rather than getting a generic bounce. Recorded with `channel: "noreply"`.
+  See `docs/noreply-redirect-eval-2026-08-16.md`.
+- **Response:** returns `{ info: {processed, acknowledged, skipped},
+  noreply: {processed, acknowledged, skipped} }` (or `{"error": "Poll
+  failed"}` in place of either mailbox's stats if that mailbox's poll
+  threw).
 - **Trigger:** this route is not called by Vercel Cron — the Hobby plan
   limits Vercel's own Cron Jobs to once per day, too infrequent for this
   purpose. Instead it's triggered by an external free scheduler,
@@ -1189,9 +1212,14 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   `Authorization` header set to the `INBOX_POLL_SECRET` value. This keeps the
   polling entirely outside Vercel's native Cron product while remaining free.
 - **Environment variables:** `PURELYMAIL_IMAP_HOST`, `PURELYMAIL_IMAP_PORT`,
-  `PURELYMAIL_IMAP_USER`, `PURELYMAIL_IMAP_PASS`, `INBOX_POLL_SECRET` — same
-  storage rules as §8.4 (documented blank in `.env.local.example`, real
-  values in gitignored `.env.local` / Vercel project settings).
+  `PURELYMAIL_IMAP_USER`, `PURELYMAIL_IMAP_PASS`,
+  `PURELYMAIL_IMAP_USER_NOREPLY`, `PURELYMAIL_IMAP_PASS_NOREPLY`,
+  `INBOX_POLL_SECRET` — same storage rules as §8.4 (documented blank in
+  `.env.local.example`, real values in gitignored `.env.local` / Vercel
+  project settings). **The two `_NOREPLY` vars are not yet set in Vercel**
+  as of this writing — until they are, the `noreply` mailbox's poll fails
+  gracefully without affecting `info@`'s polling; see
+  `docs/noreply-redirect-eval-2026-08-16.md`'s "Outstanding" section.
 
 ## 8.6 Deployment & Production Promotion
 - **Hosting:** Vercel project `thebrokerai` (team `the-broker-ai`), linked to

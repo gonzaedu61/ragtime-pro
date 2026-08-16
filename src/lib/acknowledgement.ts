@@ -1,10 +1,12 @@
 import transporter from "@/lib/mailer";
-import { generateAiReply } from "@/lib/aiReply";
+import { generateAiReply, generateNoreplyRedirectReply } from "@/lib/aiReply";
 import { loadEmailContext, recordEmailTurn } from "@/rag/emailHistory";
+import { SITE_ORIGIN } from "@/lib/pageDirectory";
 
 const FROM_ADDRESS = process.env.MAIL_FROM_ADDRESS!;
 const INFO_ADDRESS = process.env.MAIL_INFO_ADDRESS!;
 const FALLBACK_SUBJECT = "We've received your message — Ragtime-Pro";
+const NOREPLY_FALLBACK_SUBJECT = "About your message to noreply@ragtime.pro";
 
 // Only appended when the reply actually came from the model - the fallback
 // text below is a fixed string, not AI-generated, so claiming otherwise
@@ -23,6 +25,10 @@ interface AckFields {
 
 function fallbackText(name: string): string {
   return `Dear ${name},\n\nThank you for getting in touch with us — we appreciate your interest in exploring how AI could modernize your product. We'll review your message and get back to you shortly with the information you're looking for.\nWe hope the walkthrough on our site has been helpful in shaping your thinking around modernization. With a bit of luck, this first conversation becomes the start of something more meaningful.\n\n— The Ragtime-Pro Team`;
+}
+
+function noreplyFallbackText(name: string): string {
+  return `Dear ${name},\n\nThanks for your message. This address (noreply@ragtime.pro) is used only for sending automated emails and isn't monitored, so we won't see anything sent here.\n\nIf you'd like an interactive conversation, visit ${SITE_ORIGIN} and look for the chat icon — or reach out via our contact form at ${SITE_ORIGIN}/contact or by emailing info@ragtime.pro directly.\n\n— The Ragtime-Pro Team`;
 }
 
 const URL_PATTERN = /(https?:\/\/[^\s<>"')]+)/g;
@@ -79,4 +85,33 @@ export async function sendAcknowledgement(fields: AckFields): Promise<void> {
   // Record what was actually sent - including the fallback path, so the
   // history stays accurate even when AI generation failed this time.
   await recordEmailTurn(context, fields.message, fields.channel, bodyText);
+}
+
+interface NoreplyFields {
+  name: string;
+  email: string;
+  message: string;
+}
+
+// For messages sent to noreply@ragtime.pro: never attempts to answer what
+// was written there (that's not the point), just a gentle redirect to a
+// real channel, personalized with prior correspondence when there is any.
+export async function sendNoreplyRedirect(fields: NoreplyFields): Promise<void> {
+  const context = await loadEmailContext(fields.email);
+  const aiReply = await generateNoreplyRedirectReply(fields.name, context);
+
+  const bodyText = aiReply ? aiReply.text : noreplyFallbackText(fields.name);
+  const disclosure = aiReply ? AI_DISCLOSURE : undefined;
+  const plainText = disclosure ? `${bodyText}\n\n${disclosure}` : bodyText;
+
+  await transporter.sendMail({
+    from: `"Ragtime-Pro" <${FROM_ADDRESS}>`,
+    to: fields.email,
+    bcc: INFO_ADDRESS,
+    subject: aiReply?.subject ?? NOREPLY_FALLBACK_SUBJECT,
+    text: plainText,
+    html: buildHtmlBody(bodyText, disclosure),
+  });
+
+  await recordEmailTurn(context, fields.message, "noreply", bodyText);
 }
