@@ -1,6 +1,7 @@
-import type { SessionMessage } from "@/r2/types";
+import type { SessionMessage, EmailHistoryMessage } from "@/r2/types";
 import type { RerankedChunk } from "@/rag/retrieval/rerank";
 import { SITE_ORIGIN, type PageContext } from "@/lib/pageDirectory";
+import { buildCorrespondenceText, describeEmailChannel } from "@/rag/prompts/correspondenceBlock";
 
 export interface ChatMessage {
   role: "system" | "user" | "assistant";
@@ -19,10 +20,17 @@ Always write as Ragtime-Pro in first person plural ("we," "our," "us") — never
 
 If a message below labeled "Current page" is present, you may use it to answer questions about "this page" or "the page I'm on." Never guess, infer, or assume which page the visitor is on from conversation topic, history, or anything else — if no "Current page" message is present, say honestly that you don't have visibility into which page they're viewing and ask them to specify.
 
-You have no access to any page's visual design, layout, or HTML — not even the current page from the "Current page" note. That note only tells you the page's topic, not its structure. So when asked what a page contains or covers, do not frame the answer as describing an artifact at all — not "this page," "the page," "this material," "this content," "this section," nor any other stand-in noun for the thing being described, and not phrases like "introduces," "covers," "you'll see," or "you'll find." Do not use words like "card," "sidebar," "pull-quote," "call to action," "button," or "link" either, and never format the answer as an inventory or table of contents of parts. Instead, answer the underlying question directly, as if it named the topic instead of the page — begin your very first sentence with the substantive definition or explanation itself. For example, if asked "what's on the Boost Point page," respond exactly as you would to "what is a Boost Point": start with "A Boost Point is..." — never "This page introduces Boost Point..." or "This material covers Boost Point...".`;
+You have no access to any page's visual design, layout, or HTML — not even the current page from the "Current page" note. That note only tells you the page's topic, not its structure. So when asked what a page contains or covers, do not frame the answer as describing an artifact at all — not "this page," "the page," "this material," "this content," "this section," nor any other stand-in noun for the thing being described, and not phrases like "introduces," "covers," "you'll see," or "you'll find." Do not use words like "card," "sidebar," "pull-quote," "call to action," "button," or "link" either, and never format the answer as an inventory or table of contents of parts. Instead, answer the underlying question directly, as if it named the topic instead of the page — begin your very first sentence with the substantive definition or explanation itself. For example, if asked "what's on the Boost Point page," respond exactly as you would to "what is a Boost Point": start with "A Boost Point is..." — never "This page introduces Boost Point..." or "This material covers Boost Point...".
+
+If the visitor implies they've contacted Ragtime-Pro before via email or the contact form, and no "Prior correspondence" message is present below, you may ask for the email address they used, or alternatively their name and/or company, so it can be looked up — don't guess or assume you already know their prior correspondence unless that block is actually present. If a message below instructs you to ask for identity info, confirm a candidate match, or note that none was found, follow it naturally in your own words rather than quoting it verbatim.`;
 
 const FORCE_CTA_INSTRUCTION =
   "Regardless of this question's topic, end your answer with one brief, natural sentence inviting the visitor to continue via the contact form or an introductory call.";
+
+export interface LinkedEmailCorrespondence {
+  summary: string;
+  history: EmailHistoryMessage[];
+}
 
 export function buildAnswerMessages({
   query,
@@ -31,6 +39,8 @@ export function buildAnswerMessages({
   history,
   forceCta = false,
   pageContext = null,
+  linkedCorrespondence = null,
+  emailLinkNote = null,
 }: {
   query: string;
   chunks: RerankedChunk[];
@@ -38,6 +48,13 @@ export function buildAnswerMessages({
   history: SessionMessage[];
   forceCta?: boolean;
   pageContext?: PageContext | null;
+  // Prior email/contact-form correspondence, once a chat session has been
+  // linked to it (see src/rag/answer.ts) - injected every turn from then on.
+  linkedCorrespondence?: LinkedEmailCorrespondence | null;
+  // One-turn instruction covering the email-linking flow's current step
+  // (ask for identity, confirm a candidate, report no match, etc.) - see
+  // src/rag/answer.ts for when each is set.
+  emailLinkNote?: string | null;
 }): ChatMessage[] {
   const messages: ChatMessage[] = [{ role: "system", content: SYSTEM_PROMPT }];
 
@@ -46,6 +63,17 @@ export function buildAnswerMessages({
       role: "system",
       content: `Current page: "${pageContext.title}" — ${pageContext.description}`,
     });
+  }
+
+  if (linkedCorrespondence) {
+    const block = buildCorrespondenceText(
+      "Prior correspondence via email/contact form with this visitor",
+      "the visitor's earlier email/contact-form correspondence",
+      linkedCorrespondence.summary,
+      linkedCorrespondence.history,
+      (message) => `Visitor (via ${describeEmailChannel(message.channel)})`
+    );
+    if (block) messages.push({ role: "system", content: block.trim() });
   }
 
   if (summary) {
@@ -68,6 +96,13 @@ export function buildAnswerMessages({
 
   if (forceCta) {
     messages.push({ role: "system", content: FORCE_CTA_INSTRUCTION });
+  }
+
+  // Positioned right before the final query, same as forceCta above - a
+  // this-turn-specific instruction needs maximum recency/attention weight,
+  // not to be diluted by everything else already in context.
+  if (emailLinkNote) {
+    messages.push({ role: "system", content: emailLinkNote });
   }
 
   messages.push({ role: "user", content: query });

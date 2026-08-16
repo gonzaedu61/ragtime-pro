@@ -1,6 +1,8 @@
 import transporter from "@/lib/mailer";
-import { generateAiReply, generateNoreplyRedirectReply } from "@/lib/aiReply";
+import { generateAiReply, generateNoreplyRedirectReply, type ChatCorrespondence } from "@/lib/aiReply";
 import { loadEmailContext, recordEmailTurn } from "@/rag/emailHistory";
+import { normalizeEmail } from "@/r2/emailHistory";
+import { updateSession } from "@/r2/updateSession";
 import { SITE_ORIGIN } from "@/lib/pageDirectory";
 
 const FROM_ADDRESS = process.env.MAIL_FROM_ADDRESS!;
@@ -21,6 +23,10 @@ interface AckFields {
   aiInterest?: string;
   message: string;
   channel: "form" | "email";
+  // Set by contact/route.ts when the same browser session used the chat
+  // widget before submitting the form (scenario 2: chat -> form linking).
+  chatSessionId?: string;
+  chatContext?: ChatCorrespondence | null;
 }
 
 function fallbackText(name: string): string {
@@ -67,7 +73,7 @@ function buildHtmlBody(replyText: string, disclosure?: string): string {
 
 export async function sendAcknowledgement(fields: AckFields): Promise<void> {
   const context = await loadEmailContext(fields.email);
-  const aiReply = await generateAiReply(fields, context);
+  const aiReply = await generateAiReply(fields, context, fields.chatContext ?? null);
 
   const bodyText = aiReply ? aiReply.text : fallbackText(fields.name);
   const disclosure = aiReply ? AI_DISCLOSURE : undefined;
@@ -84,7 +90,22 @@ export async function sendAcknowledgement(fields: AckFields): Promise<void> {
 
   // Record what was actually sent - including the fallback path, so the
   // history stays accurate even when AI generation failed this time.
-  await recordEmailTurn(context, fields.message, fields.channel, bodyText);
+  // Also persists name/company (for scenario-1 lookups from the chat side)
+  // and links this record to the chat session it accompanied, if any.
+  await recordEmailTurn(context, fields.message, fields.channel, bodyText, {
+    name: fields.name,
+    company: fields.company,
+    linkedSessionId: fields.chatSessionId,
+  });
+
+  // Bidirectional: the chat session also gets to know it's linked, so
+  // future chat turns in that same session pull in this correspondence
+  // too (src/rag/answer.ts).
+  if (fields.chatSessionId) {
+    await updateSession(fields.chatSessionId, { linkedEmail: normalizeEmail(fields.email) }).catch((error) => {
+      console.error("Failed to link chat session to email history:", error);
+    });
+  }
 }
 
 interface NoreplyFields {
@@ -113,5 +134,5 @@ export async function sendNoreplyRedirect(fields: NoreplyFields): Promise<void> 
     html: buildHtmlBody(bodyText, disclosure),
   });
 
-  await recordEmailTurn(context, fields.message, "noreply", bodyText);
+  await recordEmailTurn(context, fields.message, "noreply", bodyText, { name: fields.name });
 }

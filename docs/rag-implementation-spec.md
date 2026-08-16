@@ -757,6 +757,120 @@ record back — the bloated `noreply`-channel turn now matches the
 already-clean `email`-channel turn sent shortly after with the same
 content. Full transcript: `docs/email-quote-stripping-eval-2026-08-16.md`.
 
+### 7.12 Chat ↔ Email/Form History Linking
+
+Reported by the user: submitted the contact form, replied to the
+acknowledgement email (routed to the `noreply@` redirect, §7.10), followed
+its advice to try the chat widget, and had to re-explain everything from
+scratch — the chat had no way to know about that prior correspondence.
+Two scenarios addressed (a third — linking an anonymous past chat session
+to a *later, unprompted* email from a different device — was deferred; see
+"Not built" below):
+
+1. **Chat → email history**: a chat visitor implies prior email/form
+   contact; the assistant looks it up and folds it into the conversation.
+2. **Chat → same-session form submission**: chatting first, then
+   submitting the contact form in the same browser session links the two
+   automatically and enriches the form's email reply with the chat.
+
+**Key architectural choice**: rather than tracking "did we just ask for
+identity info" with regex/state-flag heuristics against free-form chat
+text, detection runs as a small dedicated classifier LLM call each turn
+(only while unlinked) — the same secondary-call pattern already
+established for summarization (§6). `detectEmailLinkIntent()`
+(`src/rag/emailLinkDetector.ts`) analyzes the whole conversation each
+turn and returns structured JSON (whether to ask for identity info, and
+any email/name/company mentioned anywhere so far) rather than trying to
+track which turn asked what.
+
+**Schema** (`src/r2/types.ts`): `SessionData` gained `linkedEmail?` and
+`pendingEmailLinkCandidate?` (never both set; the latter is one-shot,
+cleared the very next turn regardless of outcome). `EmailHistoryData`
+gained `name?`/`company?` (not previously persisted at all) and
+`linkedSessionId?` (bidirectional with `SessionData.linkedEmail`).
+
+**R2 layer** (`src/r2/emailHistory.ts`): `writeEmailHistory()` now also
+writes `name`/`company` as R2 object *metadata*, mirroring
+`findByFingerprint`'s existing pattern (§5.9) exactly, so
+`findEmailHistoryByNameOrCompany()` can scan via cheap `HeadObject` calls
+instead of downloading every record. Matches case-insensitively on
+whichever of name/company was provided, requiring *all* provided fields to
+match for precision; most recently active match wins if several match.
+
+**Business logic** (`src/rag/emailHistory.ts`): `recordEmailTurn()` now
+re-reads the record right before writing (rather than trusting the
+`EmailContext` snapshot captured before the LLM call) when merging
+`name`/`company`/`linkedSessionId`, to avoid dropping a value that
+changed since the context was loaded. `findEmailHistoryByIdentity()` tries
+exact email first, name/company as fallback. `summarizeTopicHint()`
+produces a short (~15-word), deliberately vague excerpt for the "is this
+you?" confirm question — enough to jog a genuine visitor's memory without
+leaking real content to someone who guessed/typo'd their way to a false
+match.
+
+**Shared prompt helper** (`src/rag/prompts/correspondenceBlock.ts`, new):
+the correspondence-block renderer previously local to `aiReply.ts` was
+generalized (`buildCorrespondenceText<M>`) so it's reused by three call
+sites instead of duplicated: email replies showing prior email
+correspondence (existing, §7.9), chat showing prior email/form
+correspondence (new), and email replies showing prior chat correspondence
+(new, scenario 2).
+
+**Orchestration** (`src/rag/answer.ts`'s new `resolveEmailLink()`, called
+from `generateAnswer()` before building the prompt so a just-found match
+can influence *this* turn's answer too): already linked → load and inject
+every turn; pending candidate → classify this turn as confirm/deny/unclear
+via `classifyIdentityConfirmation()`; neither → run the detector, which
+either finds a match (sets `pendingEmailLinkCandidate`, asks to confirm),
+finds nothing (says so honestly), or just asks for identity info if a bare
+hint was given with nothing to look up yet. The resulting `emailLinkNote`
+is deliberately positioned right before the final user query in
+`buildAnswerMessages()` — same placement as the existing `forceCta`
+instruction (§7.4) — since a this-turn-specific directive needs maximum
+recency weight.
+
+**Scenario 2** (`contact/route.ts`, `acknowledgement.ts`, `aiReply.ts`):
+`contact/route.ts` reads the `rag_session` cookie (sent automatically with
+the form POST since it's scoped to path `/api`) and, if a chat session
+exists, passes its `{summary, history}` as `chatContext` through
+`sendAcknowledgement()` to `generateAiReply()`. After sending, both
+records get linked. The R2 read for the chat session stays inside the
+existing `after()` block along with everything else slow (§8.4), so the
+form's response is still instant.
+
+**Verified end-to-end** (real backend, synthetic seeded data, no real
+email sent — mirrors the established testing pattern for
+`sendAcknowledgement`-adjacent code all session; all test data deleted
+after): scenario 1 tested via exact-email match, deny, and name/company-
+only match, including a full multi-turn conversation proving the linked
+context persists and gets used correctly across turns without
+re-explanation. **A real prompt-reliability issue was found and fixed**:
+the first attempt at combining a hint + email in one message caused the
+model to ask for name/company instead of the expected direct yes/no
+confirm (detection itself was correct — `pendingEmailLinkCandidate` was
+set correctly server-side; only the confirm question's phrasing was
+unreliable) — fixed with a concrete example in the instruction text and
+by repositioning it for recency, same lesson as §7.8's three-pass
+hallucination fix. Scenario 2 verified with a chat about a fictional
+COBOL/insurance-claims system, then a simulated same-session form
+submission whose message didn't repeat any specifics — the generated
+email reply correctly detailed a RAG approach specific to that scenario,
+confirming `chatContext` flowed through correctly, with the bidirectional
+link verified on both records. Full transcript:
+`docs/chat-email-linking-eval-2026-08-16.md`.
+
+**Not built (deferred)**: linking an *anonymous* chat session to a later,
+unprompted email arriving from a different device, when the chat visitor
+never gave any identifying info during that chat. There is no reliable,
+privacy-safe signal connecting the two in that case — chat has no login,
+email carries no browser fingerprint. The only way to make this work
+would be for the chat to sometimes proactively ask for an email (e.g. "want
+us to remember this conversation in case you follow up by email?"),
+independent of any lookup, so a later email could search chat sessions by
+that same email (the reverse of scenario 1, reusing the metadata-scan
+approach). That's a product/UX decision, not just backend plumbing, so it
+wasn't built without an explicit go-ahead on that behavior change.
+
 ---
 
 ## 8. Performance Expectations
@@ -794,7 +908,8 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 │   │   ├── historyPagination.ts   # HISTORY_PAGE_SIZE / HISTORY_PAGE_SIZE_MAX - no server-only imports, safe for client use
 │   │   ├── answer.ts              # generateAnswer(query, session): summarize-if-needed → retrieve → rerank → Azure OpenAI
 │   │   ├── summarize.ts           # shouldSummarize({summary,history}), summarizeSession({summary,history}) — generic <M extends SessionMessage>, shared by chat + email
-│   │   ├── emailHistory.ts        # loadEmailContext(email), recordEmailTurn() — email correspondence, see §7.9
+│   │   ├── emailHistory.ts        # loadEmailContext(email), recordEmailTurn(), findEmailHistoryByIdentity(), summarizeTopicHint() — see §7.9, §7.12
+│   │   ├── emailLinkDetector.ts   # detectEmailLinkIntent(), classifyIdentityConfirmation() — chat<->email linking classifiers, see §7.12
 │   │   ├── azureClient.ts         # shared AzureOpenAI client (used by answer.ts and summarize.ts)
 │   │   │
 │   │   ├── loaders/
@@ -817,6 +932,7 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 │   │   └── prompts/
 │   │       ├── answerPrompt.ts    # buildAnswerMessages() — system + summary + history + context + query
 │   │       ├── summaryPrompt.ts   # buildSummaryMessages({ existingSummary, history })
+│   │       ├── correspondenceBlock.ts # buildCorrespondenceText<M>() + describeEmailChannel() — shared by chat + both email prompts, see §7.12
 │   │       └── rerankPrompt.ts    # (planned, likely unneeded) optional LLM-based re-ranking prompt
 │   │
 │   └── r2/
@@ -828,7 +944,7 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 │       ├── findByFingerprint.ts   # fingerprint-based lookup (via HeadObject metadata)
 │       ├── createSession.ts       # generate id + fingerprint, write initial session
 │       ├── updateSession.ts       # merge updates into an existing session, write back
-│       └── emailHistory.ts        # normalizeEmail(), readEmailHistory()/writeEmailHistory() — keyed directly by email, no fingerprint needed
+│       └── emailHistory.ts        # normalizeEmail(), readEmailHistory()/writeEmailHistory() (name/company as R2 metadata), findEmailHistoryByNameOrCompany()
 │
 ├── rag_data/
 │   ├── chunks.json                # chunked corpus (200–300 tokens, overlap)
@@ -902,6 +1018,7 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - [x] RAG-powered contact/email replies (`src/lib/aiReply.ts` now runs retrieval before generating, per §7.7 — verified end-to-end: grounded answers with a correctly-matched page link on a clear-match question, no forced link on an off-topic one, and channel-appropriate closings for both `"form"` and `"email"`. See `docs/contact-rag-reply-eval-2026-08-15.md`)
 - [x] Hallucination fixes: hard contact facts (no invented email/domain/scheduling mechanism) + first-person plural, applied to both `aiReply.ts` and `answerPrompt.ts`, per §7.8 — verified end-to-end on both the email reply and the chat widget after three prompt-tuning passes. See `docs/rag-hallucination-fixes-2026-08-16.md`
 - [x] Email correspondence history, keyed by sender email address with channel tracking (`src/r2/emailHistory.ts`, `src/rag/emailHistory.ts`), per §7.9 — verified end-to-end: empty context on first contact, correct continuity + channel attribution on a follow-up, and summarization behaving identically to the chat feature. See `docs/email-history-eval-2026-08-16.md`
+- [x] Chat ↔ email/form history linking, per §7.12 — verified end-to-end: exact-email match, deny path, name/company-only match, multi-turn persistence after confirmation, and same-session chat-to-form-submission linking with the resulting email reply correctly grounded in the chat's specifics. See `docs/chat-email-linking-eval-2026-08-16.md`
 - [x] noreply@ mailbox polling + redirect reply, per §7.10 — verified end-to-end in production (real reply to a real noreply@ email correctly redirected). See `docs/noreply-redirect-eval-2026-08-16.md`
 - [x] Email reply quote-stripping (`email-reply-parser`), per §7.11 — verified against both a reconstructed sample and real production data, and the one already-bloated production record was retroactively cleaned. See `docs/email-quote-stripping-eval-2026-08-16.md`
 

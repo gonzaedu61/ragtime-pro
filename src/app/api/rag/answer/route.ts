@@ -46,6 +46,12 @@ export async function POST(request: NextRequest) {
     // Append-only - never truncated, unlike history above (falls back to
     // history for pre-fullHistory sessions so nothing is silently dropped).
     fullHistory: [...(session.fullHistory ?? session.history), ...newTurn],
+    // Explicitly included even when undefined - updateSession spreads these
+    // over the existing session, and JSON.stringify drops undefined-valued
+    // keys, so this is what actually clears pendingEmailLinkCandidate after
+    // its one-shot turn (see src/rag/answer.ts's resolveEmailLink).
+    linkedEmail: result.linkedEmail,
+    pendingEmailLinkCandidate: result.pendingEmailLinkCandidate,
   });
 
   const response = NextResponse.json({

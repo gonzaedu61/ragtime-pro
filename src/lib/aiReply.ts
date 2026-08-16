@@ -2,7 +2,8 @@ import { AzureOpenAI } from "openai/azure";
 import { hybridSearch } from "@/rag/retrieval/hybrid";
 import { rerankCandidates, type RerankedChunk } from "@/rag/retrieval/rerank";
 import { getAllPages, SITE_ORIGIN } from "@/lib/pageDirectory";
-import type { EmailHistoryMessage } from "@/r2/types";
+import { buildCorrespondenceText, describeEmailChannel } from "@/rag/prompts/correspondenceBlock";
+import type { EmailHistoryMessage, SessionMessage } from "@/r2/types";
 
 const client = new AzureOpenAI({
   endpoint: process.env.AZURE_OPENAI_ENDPOINT,
@@ -35,6 +36,14 @@ export interface EmailCorrespondence {
   history: EmailHistoryMessage[];
 }
 
+// Prior chat-widget conversation, when the same browser session used the
+// chat before submitting the form/emailing (see contact/route.ts, which
+// reads the rag_session cookie to find it).
+export interface ChatCorrespondence {
+  summary: string;
+  history: SessionMessage[];
+}
+
 const FALLBACK_SUBJECT = "We've received your message — Ragtime-Pro";
 
 const CHANNEL_CLOSING_RULE: Record<ContactFields["channel"], string> = {
@@ -57,36 +66,31 @@ function buildPagesBlock(): string {
   return `\n\nWebsite pages (only mention one if it's a clear, specific match for what the visitor is asking about — do not force a link if none genuinely fits):\n${pages}`;
 }
 
-function describeChannel(channel: EmailHistoryMessage["channel"]): string {
-  if (channel === "email") return "direct email";
-  if (channel === "noreply") return "an email to noreply@ragtime.pro";
-  return "contact form";
+function buildCorrespondenceBlock({ summary, history }: EmailCorrespondence): string {
+  return buildCorrespondenceText(
+    "Prior correspondence with this visitor",
+    "earlier correspondence with this visitor",
+    summary,
+    history,
+    (message) => `Visitor (via ${describeEmailChannel(message.channel)})`
+  );
 }
 
-function buildCorrespondenceBlock({ summary, history }: EmailCorrespondence): string {
-  if (!summary && history.length === 0) return "";
-
-  const summaryPart = summary ? `Summary of earlier correspondence with this visitor:\n${summary}` : "";
-
-  const recentPart =
-    history.length > 0
-      ? history
-          .map((message) =>
-            message.role === "user"
-              ? `Visitor (via ${describeChannel(message.channel)}): ${message.content}`
-              : `Our reply: ${message.content}`
-          )
-          .join("\n\n")
-      : "";
-
-  const combined = [summaryPart, recentPart].filter(Boolean).join("\n\n");
-  return `\n\nPrior correspondence with this visitor (use this for continuity - reference it naturally if relevant, don't just repeat it):\n\n${combined}`;
+function buildChatContextBlock({ summary, history }: ChatCorrespondence): string {
+  return buildCorrespondenceText(
+    "Prior conversation via the website chat with this visitor",
+    "the visitor's earlier website chat conversation",
+    summary,
+    history,
+    () => "Visitor"
+  );
 }
 
 function buildPrompt(
   { name, company, email, phone, aiInterest, message, channel }: ContactFields,
   chunks: RerankedChunk[],
-  correspondence: EmailCorrespondence
+  correspondence: EmailCorrespondence,
+  chatContext: ChatCorrespondence | null
 ): string {
   const channelDescription =
     channel === "form"
@@ -119,7 +123,7 @@ Company: ${company || "not provided"}
 Email: ${email}
 Phone: ${phone || "not provided"}
 AI modernization interest: ${aiInterest || "not specified"}
-Message: ${message}${buildCorrespondenceBlock(correspondence)}${buildContextBlock(chunks)}${buildPagesBlock()}`;
+Message: ${message}${chatContext ? buildChatContextBlock(chatContext) : ""}${buildCorrespondenceBlock(correspondence)}${buildContextBlock(chunks)}${buildPagesBlock()}`;
 }
 
 function parseReply(raw: string): AiReply | null {
@@ -146,7 +150,8 @@ function parseReply(raw: string): AiReply | null {
 
 export async function generateAiReply(
   fields: ContactFields,
-  correspondence: EmailCorrespondence
+  correspondence: EmailCorrespondence,
+  chatContext: ChatCorrespondence | null = null
 ): Promise<AiReply | null> {
   try {
     const candidates = await hybridSearch(fields.message);
@@ -154,7 +159,7 @@ export async function generateAiReply(
 
     const response = await client.chat.completions.create({
       model: "o4-mini",
-      messages: [{ role: "user", content: buildPrompt(fields, reranked, correspondence) }],
+      messages: [{ role: "user", content: buildPrompt(fields, reranked, correspondence, chatContext) }],
     });
 
     const raw = response.choices[0]?.message?.content;

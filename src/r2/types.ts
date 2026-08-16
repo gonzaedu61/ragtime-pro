@@ -17,6 +17,16 @@ export interface SessionData {
    * existed won't have it; readers should fall back to `history`.
    */
   fullHistory?: SessionMessage[];
+  // Set once a chat session gets linked to an email-history record (see
+  // src/rag/answer.ts) - normalized email, the EmailHistoryData R2 key.
+  // Once set, every future turn in this chat pulls in that correspondence
+  // for continuity, so the visitor never has to re-explain themselves.
+  linkedEmail?: string;
+  // Set for exactly one turn while a candidate match is awaiting the
+  // visitor's yes/no confirmation ("is this you?") - cleared the next turn
+  // regardless of outcome (confirmed -> promoted to linkedEmail; denied or
+  // unclear -> just dropped). Never both this and linkedEmail at once.
+  pendingEmailLinkCandidate?: string;
 }
 
 export interface EmailHistoryMessage extends SessionMessage {
@@ -35,4 +45,12 @@ export interface EmailHistoryData {
   // for a complete audit trail even though nothing currently displays it.
   fullHistory: EmailHistoryMessage[];
   lastSeen: string;
+  // Visitor's name/company, if ever provided (contact form, or a chat
+  // visitor stating them) - also written as R2 object metadata so they can
+  // be searched without downloading every record (see findEmailHistoryByNameOrCompany).
+  name?: string;
+  company?: string;
+  // Set when this record gets linked to a chat SessionData (bidirectional
+  // with SessionData.linkedEmail above) - the chat session's sessionId.
+  linkedSessionId?: string;
 }

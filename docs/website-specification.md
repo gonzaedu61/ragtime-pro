@@ -1290,6 +1290,19 @@ The retrieval pipeline itself (`hybridSearch`/`rerankCandidates`,
 `src/rag/retrieval/`) *is* shared with `src/lib/aiReply.ts` — the contact-
 form/inbox-poll acknowledgement (§8.4) uses it to ground its replies too.
 
+- **Chat ↔ email/form history linking:** if a visitor implies prior email or
+  contact-form contact, the chat asks for the email used (or a name/company
+  fallback), looks it up in the same `email-history/` R2 store the contact
+  form and inbox-poll acknowledgements use (§8.4), and — once the visitor
+  confirms a found match is theirs — folds that correspondence into the chat
+  from then on. Separately, a visitor who chats and then submits the contact
+  form in the same browser session has that chat automatically linked, and
+  the resulting acknowledgement email is grounded in the chat's specifics.
+  Both directions are recorded so either record can find the other. Full
+  design, prompt-reliability notes, and verification in
+  `docs/rag-implementation-spec.md` §7.12 and
+  `docs/chat-email-linking-eval-2026-08-16.md`.
+
 ---
 
 # 9. Document Governance
