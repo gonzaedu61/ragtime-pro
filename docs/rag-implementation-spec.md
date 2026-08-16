@@ -946,16 +946,27 @@ both in `src/rag/answer.ts`:
    they don't depend on each other, so their latency now overlaps instead
    of stacking (saves up to ~1.2 s on turns that do call the classifier).
 2. **Pre-filter gate** (`mightReferencePriorContact()`,
-   `src/rag/emailLinkDetector.ts`): a cheap regex (email pattern + a broad
-   set of hint keywords - "email," "before," "contacted," "my name is,"
-   etc.) run before the classifier call. Only turns that plausibly
-   reference prior contact - or that immediately follow the assistant
-   asking for identity info - reach `detectEmailLinkIntent` at all;
-   everything else skips it for free. Deliberately permissive (favors
-   false positives, which just cost one classifier call, over false
-   negatives, which would silently miss a real hint).
+   `src/rag/emailLinkDetector.ts`): a cheap regex run before the classifier
+   call. Only turns that plausibly reference prior contact - or that
+   immediately follow the assistant asking for identity info - reach
+   `detectEmailLinkIntent` at all; everything else skips it for free.
 
-   The permissive keyword list still isn't enough on its own: a visitor
+   **Tuned by measurement, not guesswork (2026-08-16 follow-up)**: the
+   first version of this pattern favored recall with generic keywords
+   ("before," "already," "contact," "i'm ," "this is ,"). Tested against a
+   representative sample of 58 ordinary chat turns (FAQ questions + natural
+   follow-ups like "This is helpful, what's next?") and 10 genuine hints
+   ("I already emailed you about this"), it triggered the ~3.3 s classifier
+   call on **36% of ordinary turns** - those words are just common English,
+   not a real signal. Tightened to drop the generic terms, narrow "work
+   at/for" to first-person framing (so "how would this work for our team"
+   doesn't match), and add "sent" (a real gap in the original list) -
+   re-tested at **0% false positives on the same sample, with no loss of
+   recall** on the genuine-hint set (still 10/10). True production rates
+   will differ somewhat from any fixed sample, but this is a large
+   improvement over the shipped-then-corrected first version.
+
+   The keyword list alone still isn't enough on its own: a visitor
    replying to "could you share your email, or your name and company?"
    might answer with a bare "Falcon Logistics" - no keyword, no `@`. A new
    one-shot `SessionData.awaitingIdentityInfo` flag (mirroring

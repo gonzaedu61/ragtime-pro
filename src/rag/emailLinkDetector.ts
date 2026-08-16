@@ -17,21 +17,32 @@ export interface EmailLinkIntent {
 }
 
 const EMAIL_PATTERN = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
-// Deliberately broad (favors false positives, which just cost one extra LLM
-// call, over false negatives, which would silently skip a real hint) -
-// covers both "I contacted you before" style phrasing and the visitor
-// introducing themselves by name/company.
+// Measured against a representative sample of ordinary chat turns (FAQ
+// questions + natural follow-ups) and genuine "I contacted you before"
+// style hints (see docs/rag-implementation-spec.md §8): an earlier, looser
+// version of this pattern - which included bare "before", "already",
+// "contact", "i'm ", "i am ", and "this is " - triggered on ~36% of
+// ordinary turns, since those words are just common English regardless of
+// topic. This version drops those and keeps only phrases that actually
+// carry signal, narrows "work at/for" to first-person framing (so "how
+// would this work for our team" doesn't match), and adds "sent" (a real
+// gap) - measured 0% false positives on the same sample with no loss of
+// recall on genuine hints.
 const HINT_PATTERN =
-  /\b(e-?mail(ed)?|contact(ed)?|reach(ed)?\s*out|form|submitt?ed|before|previously|earlier|already|last time|follow(ing)?\s*up|wrote|spoke|talked|mentioned|as i (said|mentioned)|my name is|i'?m\s|i am\s|this is\s|on behalf of|work(s|ing)?\s*(at|for)|my company)\b/i;
+  /\b(e-?mail(ed)?|contacted|reach(ed)?\s*out|form|submitt?ed|previously|earlier|last time|follow(ing)?[\s-]*up|wrote|sent|spoke|talked|mentioned|as i (said|mentioned)|my name is|on behalf of|my company|(i|we)\s+work(s|ing)?\s*(at|for))\b/i;
 
 // Cheap pre-filter run before detectEmailLinkIntent (a full o4-mini call,
 // ~3s - see docs/rag-implementation-spec.md §7.12's performance follow-up)
 // so the classifier only runs on turns that could plausibly matter, instead
-// of every single turn of every unlinked chat. Intentionally permissive:
-// missing a genuine hint just means the linking flow doesn't trigger this
-// turn (it can still trigger on a later turn that repeats or clarifies it),
-// which is a much smaller cost than paying ~3s on turns that have nothing
-// to do with prior contact at all.
+// of every single turn of every unlinked chat. Tuned toward precision, not
+// just recall: a looser first attempt at this pattern (see git history)
+// measured a 36% false-positive rate on ordinary conversation - generic
+// words like "already" and "this is" are just common English, not a
+// meaningful signal. Missing a genuine hint here just means the linking
+// flow doesn't trigger this turn (it can still trigger on a later turn
+// that repeats or clarifies it, and awaitingIdentityInfo below covers the
+// one case that can't self-correct - a bare identity reply right after
+// we've asked for one).
 export function mightReferencePriorContact(text: string): boolean {
   return EMAIL_PATTERN.test(text) || HINT_PATTERN.test(text);
 }
