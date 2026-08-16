@@ -18,3 +18,20 @@ export interface SessionData {
    */
   fullHistory?: SessionMessage[];
 }
+
+export interface EmailHistoryMessage extends SessionMessage {
+  // Only meaningful (and set) on "user" turns - which channel this message
+  // arrived through. Our replies always go out by email either way, so
+  // assistant turns don't carry one.
+  channel?: "form" | "email";
+}
+
+export interface EmailHistoryData {
+  email: string; // normalized (lowercased, trimmed) - this is the R2 key
+  history: EmailHistoryMessage[];
+  summary: string;
+  // Append-only, never truncated, mirroring SessionData.fullHistory - kept
+  // for a complete audit trail even though nothing currently displays it.
+  fullHistory: EmailHistoryMessage[];
+  lastSeen: string;
+}

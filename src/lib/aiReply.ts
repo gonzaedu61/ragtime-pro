@@ -2,6 +2,7 @@ import { AzureOpenAI } from "openai/azure";
 import { hybridSearch } from "@/rag/retrieval/hybrid";
 import { rerankCandidates, type RerankedChunk } from "@/rag/retrieval/rerank";
 import { getAllPages, SITE_ORIGIN } from "@/lib/pageDirectory";
+import type { EmailHistoryMessage } from "@/r2/types";
 
 const client = new AzureOpenAI({
   endpoint: process.env.AZURE_OPENAI_ENDPOINT,
@@ -29,6 +30,11 @@ interface AiReply {
   subject: string;
 }
 
+export interface EmailCorrespondence {
+  summary: string;
+  history: EmailHistoryMessage[];
+}
+
 const FALLBACK_SUBJECT = "We've received your message — Ragtime-Pro";
 
 const CHANNEL_CLOSING_RULE: Record<ContactFields["channel"], string> = {
@@ -51,9 +57,30 @@ function buildPagesBlock(): string {
   return `\n\nWebsite pages (only mention one if it's a clear, specific match for what the visitor is asking about — do not force a link if none genuinely fits):\n${pages}`;
 }
 
+function buildCorrespondenceBlock({ summary, history }: EmailCorrespondence): string {
+  if (!summary && history.length === 0) return "";
+
+  const summaryPart = summary ? `Summary of earlier correspondence with this visitor:\n${summary}` : "";
+
+  const recentPart =
+    history.length > 0
+      ? history
+          .map((message) =>
+            message.role === "user"
+              ? `Visitor (via ${message.channel === "email" ? "direct email" : "contact form"}): ${message.content}`
+              : `Our reply: ${message.content}`
+          )
+          .join("\n\n")
+      : "";
+
+  const combined = [summaryPart, recentPart].filter(Boolean).join("\n\n");
+  return `\n\nPrior correspondence with this visitor (use this for continuity - reference it naturally if relevant, don't just repeat it):\n\n${combined}`;
+}
+
 function buildPrompt(
   { name, company, email, phone, aiInterest, message, channel }: ContactFields,
-  chunks: RerankedChunk[]
+  chunks: RerankedChunk[],
+  correspondence: EmailCorrespondence
 ): string {
   const channelDescription =
     channel === "form"
@@ -86,7 +113,7 @@ Company: ${company || "not provided"}
 Email: ${email}
 Phone: ${phone || "not provided"}
 AI modernization interest: ${aiInterest || "not specified"}
-Message: ${message}${buildContextBlock(chunks)}${buildPagesBlock()}`;
+Message: ${message}${buildCorrespondenceBlock(correspondence)}${buildContextBlock(chunks)}${buildPagesBlock()}`;
 }
 
 function parseReply(raw: string): AiReply | null {
@@ -111,14 +138,17 @@ function parseReply(raw: string): AiReply | null {
   };
 }
 
-export async function generateAiReply(fields: ContactFields): Promise<AiReply | null> {
+export async function generateAiReply(
+  fields: ContactFields,
+  correspondence: EmailCorrespondence
+): Promise<AiReply | null> {
   try {
     const candidates = await hybridSearch(fields.message);
     const reranked = await rerankCandidates(fields.message, candidates);
 
     const response = await client.chat.completions.create({
       model: "o4-mini",
-      messages: [{ role: "user", content: buildPrompt(fields, reranked) }],
+      messages: [{ role: "user", content: buildPrompt(fields, reranked, correspondence) }],
     });
 
     const raw = response.choices[0]?.message?.content;

@@ -1,5 +1,6 @@
 import transporter from "@/lib/mailer";
 import { generateAiReply } from "@/lib/aiReply";
+import { loadEmailContext, recordEmailTurn } from "@/rag/emailHistory";
 
 const FROM_ADDRESS = process.env.MAIL_FROM_ADDRESS!;
 const INFO_ADDRESS = process.env.MAIL_INFO_ADDRESS!;
@@ -59,7 +60,8 @@ function buildHtmlBody(replyText: string, disclosure?: string): string {
 }
 
 export async function sendAcknowledgement(fields: AckFields): Promise<void> {
-  const aiReply = await generateAiReply(fields);
+  const context = await loadEmailContext(fields.email);
+  const aiReply = await generateAiReply(fields, context);
 
   const bodyText = aiReply ? aiReply.text : fallbackText(fields.name);
   const disclosure = aiReply ? AI_DISCLOSURE : undefined;
@@ -73,4 +75,8 @@ export async function sendAcknowledgement(fields: AckFields): Promise<void> {
     text: plainText,
     html: buildHtmlBody(bodyText, disclosure),
   });
+
+  // Record what was actually sent - including the fallback path, so the
+  // history stays accurate even when AI generation failed this time.
+  await recordEmailTurn(context, fields.message, fields.channel, bodyText);
 }

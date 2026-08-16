@@ -11,5 +11,6 @@ const r2Client = new S3Client({
 
 export const BUCKET_NAME = process.env.CLOUDFLARE_R2_BUCKET!;
 export const SESSION_PREFIX = "conversations/";
+export const EMAIL_HISTORY_PREFIX = "email-history/";
 
 export default r2Client;

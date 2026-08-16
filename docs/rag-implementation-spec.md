@@ -613,6 +613,64 @@ LLM-facing text stay consistent.
 
 Full transcript: `docs/rag-hallucination-fixes-2026-08-16.md`.
 
+### 7.9 Email Correspondence History
+
+Contact-form and direct-email replies previously had no memory of prior
+correspondence — every message was answered in isolation. This gives them
+the same `history`/`summary`/`fullHistory` pattern already built for the
+chat widget (§5.4, §5.10), keyed by the sender's email address rather than
+a session cookie.
+
+- **`EmailHistoryData`** (`src/r2/types.ts`): `{ email, history, summary,
+  fullHistory, lastSeen }` — same shape as `SessionData`. `email` is
+  normalized (lowercased, trimmed) and used directly as the R2 key, so no
+  fingerprint-matching/confirmation flow is needed (unlike chat sessions,
+  the identity here is already known and stable).
+- **`EmailHistoryMessage`**: `SessionMessage` plus an optional `channel:
+  "form" | "email"`, set only on `"user"` turns, recording which channel
+  that message arrived through (our replies always go out by email either
+  way, so assistant turns don't carry one).
+- **Storage** (`src/r2/emailHistory.ts`): same R2 bucket as chat sessions,
+  new prefix `email-history/` (`EMAIL_HISTORY_PREFIX` in `src/r2/client.ts`).
+- **Summarization reuse:** `shouldSummarize`/`summarizeSession`
+  (`src/rag/summarize.ts`) were generalized from hardcoding `SessionData` to
+  a generic `<M extends SessionMessage>` operating on `{ summary, history }`
+  — the exact same threshold logic (§6.2: >20 messages or >1500 tokens,
+  retaining the last 4 per §6.5) now serves both chat and email without
+  duplicating it. The existing call site in `src/rag/answer.ts` needed no
+  changes; `SessionData` still satisfies the narrower shape structurally.
+- **`src/rag/emailHistory.ts`**: `loadEmailContext(email)` reads existing
+  history and summarizes *before* returning — mirroring exactly how
+  `generateAnswer()` summarizes before building the current turn's prompt
+  (§7.4), so the value used for this turn's prompt and the value written
+  back afterward are decided once, not re-computed twice.
+  `recordEmailTurn(context, message, channel, reply)` appends the new turn
+  to both `history` and `fullHistory` and writes back.
+- **`src/lib/acknowledgement.ts`** orchestrates the read/generate/send/write
+  cycle — the same role `POST /api/rag/answer` plays for chat (§7.4):
+  `loadEmailContext` → `generateAiReply` → send → `recordEmailTurn`. The
+  turn is recorded even on the fallback-text path (API failure), since
+  that's what was actually sent and the history should reflect reality.
+- **`src/lib/aiReply.ts`**: new `buildCorrespondenceBlock()` renders the
+  summary (if any) plus recent turns as text, each visitor line tagged
+  "(via contact form)" / "(via direct email)", appended into the existing
+  single-prompt design alongside the RAG-context and page-list blocks
+  (§7.7) — chosen over restructuring to proper multi-turn messages (as
+  chat does) to keep the change additive rather than a bigger refactor of a
+  file that already works.
+
+**Verified end-to-end** (real R2 reads/writes, no email actually sent — a
+temporary debug route called the same functions `sendAcknowledgement` calls,
+skipping only the actual `transporter.sendMail`, removed after): first
+contact from a new address got empty context; a vague follow-up from the
+same address ("following up on my earlier message...") was answered
+correctly using turn-1 context without the topic being restated, with the
+channel correctly recorded from the *previous* turn; summarization was
+verified by temporarily lowering the message-count threshold, producing an
+accurate summary and the same trim-then-append growth pattern already
+verified for chat's `history` field. Full transcript:
+`docs/email-history-eval-2026-08-16.md`.
+
 ---
 
 ## 8. Performance Expectations
@@ -649,7 +707,8 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 │   │   ├── session.ts             # session orchestration + SESSION_COOKIE/SESSION_COOKIE_MAX_AGE constants + omitFullHistory()
 │   │   ├── historyPagination.ts   # HISTORY_PAGE_SIZE / HISTORY_PAGE_SIZE_MAX - no server-only imports, safe for client use
 │   │   ├── answer.ts              # generateAnswer(query, session): summarize-if-needed → retrieve → rerank → Azure OpenAI
-│   │   ├── summarize.ts           # shouldSummarize(session), summarizeSession(session)
+│   │   ├── summarize.ts           # shouldSummarize({summary,history}), summarizeSession({summary,history}) — generic <M extends SessionMessage>, shared by chat + email
+│   │   ├── emailHistory.ts        # loadEmailContext(email), recordEmailTurn() — email correspondence, see §7.9
 │   │   ├── azureClient.ts         # shared AzureOpenAI client (used by answer.ts and summarize.ts)
 │   │   │
 │   │   ├── loaders/
@@ -675,14 +734,15 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 │   │       └── rerankPrompt.ts    # (planned, likely unneeded) optional LLM-based re-ranking prompt
 │   │
 │   └── r2/
-│       ├── client.ts              # R2 S3-compatible client + bucket/prefix constants
-│       ├── types.ts               # SessionData / SessionMessage types
+│       ├── client.ts              # R2 S3-compatible client + bucket/prefix constants (SESSION_PREFIX, EMAIL_HISTORY_PREFIX)
+│       ├── types.ts               # SessionData/SessionMessage + EmailHistoryData/EmailHistoryMessage types
 │       ├── fingerprint.ts         # computeFingerprint(ip, userAgent) — SHA-256
 │       ├── readSession.ts         # load conversation from R2
 │       ├── writeSession.ts        # save conversation to R2
 │       ├── findByFingerprint.ts   # fingerprint-based lookup (via HeadObject metadata)
 │       ├── createSession.ts       # generate id + fingerprint, write initial session
-│       └── updateSession.ts       # merge updates into an existing session, write back
+│       ├── updateSession.ts       # merge updates into an existing session, write back
+│       └── emailHistory.ts        # normalizeEmail(), readEmailHistory()/writeEmailHistory() — keyed directly by email, no fingerprint needed
 │
 ├── rag_data/
 │   ├── chunks.json                # chunked corpus (200–300 tokens, overlap)
@@ -755,6 +815,7 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - [x] Page awareness (`src/lib/pageDirectory.ts`, `pagePath` threaded from `ChatWidget.tsx` through `POST /api/rag/answer` to `generateAnswer()`, per §7.6 — verified end-to-end: without a resolvable page the model honestly declines instead of guessing; with one, it answers the actual topic without describing page/UI structure. See `docs/rag-page-awareness-eval-2026-08-15.md`)
 - [x] RAG-powered contact/email replies (`src/lib/aiReply.ts` now runs retrieval before generating, per §7.7 — verified end-to-end: grounded answers with a correctly-matched page link on a clear-match question, no forced link on an off-topic one, and channel-appropriate closings for both `"form"` and `"email"`. See `docs/contact-rag-reply-eval-2026-08-15.md`)
 - [x] Hallucination fixes: hard contact facts (no invented email/domain/scheduling mechanism) + first-person plural, applied to both `aiReply.ts` and `answerPrompt.ts`, per §7.8 — verified end-to-end on both the email reply and the chat widget after three prompt-tuning passes. See `docs/rag-hallucination-fixes-2026-08-16.md`
+- [x] Email correspondence history, keyed by sender email address with channel tracking (`src/r2/emailHistory.ts`, `src/rag/emailHistory.ts`), per §7.9 — verified end-to-end: empty context on first contact, correct continuity + channel attribution on a follow-up, and summarization behaving identically to the chat feature. See `docs/email-history-eval-2026-08-16.md`
 
 ---
 

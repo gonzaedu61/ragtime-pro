@@ -1072,15 +1072,30 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   depends on a required `channel: "form" | "email"` field: `"form"` says the
   team will follow up directly using the details already provided (no
   self-service call-booking ask, since submitting the form already implies
-  outreach); `"email"` politely invites booking an introductory call at
-  `/start`, since writing directly bypassed the structured lead-capture
-  the form provides. If the call fails, times out, or the response doesn't
-  parse into valid, non-empty JSON, `generateAiReply` returns `null` and
-  the route falls back to a fixed acknowledgement text and subject (sender
-  name "Ragtime-Pro", fallback subject "We've received your message —
-  Ragtime-Pro", fallback body referencing "modernize your product") — this
-  fallback does not vary by channel. See
-  `docs/contact-rag-reply-eval-2026-08-15.md` for verification.
+  outreach); `"email"` invites getting in touch via the contact form at
+  `/contact` to arrange an introductory call — never "book," and never
+  implying the form schedules a specific time automatically, since no such
+  mechanism exists (see `docs/rag-hallucination-fixes-2026-08-16.md`). If
+  the call fails, times out, or the response doesn't parse into valid,
+  non-empty JSON, `generateAiReply` returns `null` and the route falls back
+  to a fixed acknowledgement text and subject (sender name "Ragtime-Pro",
+  fallback subject "We've received your message — Ragtime-Pro", fallback
+  body referencing "modernize your product") — this fallback does not vary
+  by channel. See `docs/contact-rag-reply-eval-2026-08-15.md` for
+  verification. Also receives a "Prior correspondence" block (summary +
+  recent turns, tagged by which channel each visitor message came through)
+  from `src/rag/emailHistory.ts` — see the new bullet below.
+- **Correspondence history:** `src/rag/emailHistory.ts` gives replies
+  memory across visits, keyed by the sender's (normalized) email address —
+  the same `history`/`summary`/`fullHistory` pattern the chat widget uses
+  (§8.7), stored in R2 under a separate `email-history/` prefix. Each stored
+  visitor turn records which channel it came through (`"form"` or
+  `"email"`), which the LLM sees when the correspondence block is included.
+  `src/lib/acknowledgement.ts` loads this context before generating a reply
+  and records the new turn (visitor message + reply) after sending — even
+  on the fallback-text path, so the history stays accurate to what was
+  actually sent. See `docs/rag-implementation-spec.md` §7.9 for the full
+  design and `docs/email-history-eval-2026-08-16.md` for verification.
 - **Shared send helper:** `src/lib/acknowledgement.ts` exports
   `sendAcknowledgement()`, which calls `generateAiReply` and sends the
   resulting (or fallback) text via the Nodemailer transporter, from
