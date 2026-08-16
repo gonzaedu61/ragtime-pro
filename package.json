@@ -15,6 +15,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "3.1109.0",
     "@huggingface/transformers": "4.2.0",
+    "email-reply-parser": "2.3.9",
     "imapflow": "^1.6.5",
     "mailparser": "^3.9.14",
     "next": "15.5.21",

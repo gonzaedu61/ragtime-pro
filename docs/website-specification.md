@@ -1180,7 +1180,13 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   send credentials in §8.4). Opens `INBOX`, searches for unseen messages
   (capped at 10 per run, per mailbox), downloads and parses each with
   `mailparser`, and immediately marks it `\Seen` so a later failure doesn't
-  cause it to be reprocessed forever.
+  cause it to be reprocessed forever. The parsed plain-text body is passed
+  through `email-reply-parser` (`extractMessageText()`) before use — reply
+  emails carry the entire quoted original thread in their body (`"On DATE,
+  NAME <EMAIL> wrote: > ..."`), and without stripping that, the visitor's
+  "message" would include our own prior reply as if they'd typed it,
+  bloating both the LLM prompt and the stored correspondence history. See
+  `docs/email-quote-stripping-eval-2026-08-16.md`.
 - **Loop/spam guard** (shared by both mailboxes): a message is skipped
   (still marked `\Seen`, but no reply sent) if its sender address is in
   `MAIL_ACK_BLOCKLIST` (comma-separated env var, defaults to the site's own

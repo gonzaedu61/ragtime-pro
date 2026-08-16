@@ -720,6 +720,43 @@ in one sentence before redirecting, without attempting to answer the
 current (vague) message. Full transcript:
 `docs/noreply-redirect-eval-2026-08-16.md`.
 
+### 7.11 Email Reply Quote-Stripping
+
+Found via live testing of §7.10: replying to one of our emails (any mail
+client — Yahoo in the reported case) includes the entire quoted original
+thread in the plain-text body (`"On DATE, NAME <EMAIL> wrote: > ..."`).
+`inbox-poll` was taking `parsed.text` verbatim as "the message," so a
+visitor's reply got recorded (and sent to the LLM) with our own prior
+reply embedded inside it as if they'd typed it themselves. Affects both
+mailboxes, not just `noreply@` — it just wasn't visible until
+correspondence history started being persisted and inspected (§7.9).
+
+- Added `email-reply-parser@2.3.9` (exact-pinned; zero required
+  dependencies; ships its own TypeScript types; used in production at
+  Crisp for ~1M inbound emails/day). Confirmed via the `package-lock.json`
+  diff (exactly one new package added) that the 10 pre-existing high-
+  severity `npm audit` findings and the `esbuild`/`sharp`/`unrs-resolver`
+  install-script warning are unrelated — already present from
+  `@huggingface/transformers`, `next`, `nodemailer`, and
+  `@typescript-eslint` before this install.
+- `src/app/api/inbox-poll/route.ts`: `extractMessageText(text, subject)`
+  runs the raw body through `EmailReplyParser().read(text).getVisibleText()`,
+  falling back through raw text → subject → a fixed placeholder if the
+  stripped result is empty. Replaces the previous
+  `parsed.text || parsed.subject || "(no message body)"` at the single call
+  site shared by both mailboxes.
+
+**Verified** against both a reconstructed sample matching the exact quote
+format from the bug report and the *actual* raw content pulled live from
+the real R2 record involved — both stripped cleanly to just the new
+content. Also retroactively cleaned that one already-bloated production
+record (`email-history/gonzaedu61@yahoo.com.json`, real data from the
+user's own live test, not synthetic) by re-running every stored `"user"`
+message through the same cleaning function and writing the corrected
+record back — the bloated `noreply`-channel turn now matches the
+already-clean `email`-channel turn sent shortly after with the same
+content. Full transcript: `docs/email-quote-stripping-eval-2026-08-16.md`.
+
 ---
 
 ## 8. Performance Expectations
@@ -865,7 +902,8 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - [x] RAG-powered contact/email replies (`src/lib/aiReply.ts` now runs retrieval before generating, per §7.7 — verified end-to-end: grounded answers with a correctly-matched page link on a clear-match question, no forced link on an off-topic one, and channel-appropriate closings for both `"form"` and `"email"`. See `docs/contact-rag-reply-eval-2026-08-15.md`)
 - [x] Hallucination fixes: hard contact facts (no invented email/domain/scheduling mechanism) + first-person plural, applied to both `aiReply.ts` and `answerPrompt.ts`, per §7.8 — verified end-to-end on both the email reply and the chat widget after three prompt-tuning passes. See `docs/rag-hallucination-fixes-2026-08-16.md`
 - [x] Email correspondence history, keyed by sender email address with channel tracking (`src/r2/emailHistory.ts`, `src/rag/emailHistory.ts`), per §7.9 — verified end-to-end: empty context on first contact, correct continuity + channel attribution on a follow-up, and summarization behaving identically to the chat feature. See `docs/email-history-eval-2026-08-16.md`
-- [x] noreply@ mailbox polling + redirect reply, per §7.10 — code complete and `generateNoreplyRedirectReply()` verified directly (correct redirect with/without prior correspondence); **credentials not yet provisioned in Vercel**, see §11. See `docs/noreply-redirect-eval-2026-08-16.md`
+- [x] noreply@ mailbox polling + redirect reply, per §7.10 — verified end-to-end in production (real reply to a real noreply@ email correctly redirected). See `docs/noreply-redirect-eval-2026-08-16.md`
+- [x] Email reply quote-stripping (`email-reply-parser`), per §7.11 — verified against both a reconstructed sample and real production data, and the one already-bloated production record was retroactively cleaned. See `docs/email-quote-stripping-eval-2026-08-16.md`
 
 ---
 
@@ -882,4 +920,4 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 - **Summarization is now the only remaining unchecked deliverable-adjacent item:** the explicit "summarize this conversation" user request and pre-emptive summarization on session restoration (spec §6.2's other two triggers) were intentionally not built — only the two threshold-based triggers were, per the agreed scope. Worth revisiting if a real chat UI surfaces a need for either.
 - **`fullHistory` (§5.10) grows unbounded:** nothing evicts old messages from it, unlike `history`. Fine for storage cost on a consulting-site chatbot (R2 object storage is cheap and conversations aren't likely to run into the thousands of turns), but worth knowing if usage patterns change.
 - **Stale "Book an Intro Call" wording still embedded in the corpus:** §7.8's UI rename to "Request an Intro Call" (`src/app/page.tsx`) was not accompanied by a source-doc correction or corpus rebuild. `docs/RAG_Source_Docs/website-copy-export.md:46` still reads `- "Book an Intro Call" → /contact`, which is compiled as-is into `rag_data/chunks.json` (confirmed via grep — one occurrence) and therefore still reachable by retrieval. Not urgent — §7.8's hard-fact prompt instruction (never say "book," no scheduling mechanism) covers this at the prompt layer regardless of what the retrieved chunk text says — but it's the same class of problem as the "Source data typo" item above: the corpus is a point-in-time compile of the source docs and doesn't auto-track later site-copy changes. **Batch this with any other pending source-doc corrections** the next time `website-copy-export.md` (or another source doc) needs an update, then re-run `rag:chunk` + `rag:embed` + `rag:bm25` once for all of them together, rather than one small rebuild per fix.
-- **`noreply@` IMAP credentials not yet provisioned (§7.10):** `PURELYMAIL_IMAP_USER_NOREPLY` / `PURELYMAIL_IMAP_PASS_NOREPLY` need to be created in Purelymail and added to Vercel (Production + Preview), the same way the R2 credentials gap was closed earlier this session. Until then, `inbox-poll`'s `noreply` mailbox poll fails on every run (harmlessly — isolated from `info@`'s polling, reported as `{"error": "Poll failed"}` in the response).
+- ~~`noreply@` IMAP credentials not yet provisioned~~ **Resolved:** `PURELYMAIL_IMAP_USER_NOREPLY` / `PURELYMAIL_IMAP_PASS_NOREPLY` were created in Purelymail and added to Vercel (Production + Preview); §7.10's feature verified working end-to-end in production against a real email.

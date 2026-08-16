@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { ImapFlow } from "imapflow";
 import { simpleParser } from "mailparser";
+import EmailReplyParser from "email-reply-parser";
 import { sendAcknowledgement, sendNoreplyRedirect } from "@/lib/acknowledgement";
 
 export const maxDuration = 60;
@@ -18,6 +19,19 @@ function isAuthorized(request: Request): boolean {
   const header = request.headers.get("authorization") ?? "";
   const [scheme, token] = header.split(" ");
   return scheme === "Bearer" && !!token && token === process.env.INBOX_POLL_SECRET;
+}
+
+// Reply emails carry the entire quoted thread ("On DATE, NAME <EMAIL>
+// wrote: > ...") in their plain-text body - without stripping it, that
+// quoted content (including our own prior reply) gets treated as if the
+// visitor had typed it, bloating both the LLM prompt and the stored
+// correspondence history. Falls back through raw text / subject if the
+// stripped result is empty (e.g. a reply that's pure quote, no new text).
+function extractMessageText(text: string | undefined, subject: string | undefined): string {
+  if (!text) return subject || "(no message body)";
+
+  const visible = new EmailReplyParser().read(text).getVisibleText().trim();
+  return visible || text.trim() || subject || "(no message body)";
 }
 
 interface MailboxStats {
@@ -83,7 +97,7 @@ async function pollMailbox(config: MailboxConfig): Promise<MailboxStats> {
 
         await config.handleMessage(
           { name: senderName, email: senderAddress },
-          parsed.text || parsed.subject || "(no message body)"
+          extractMessageText(parsed.text, parsed.subject)
         );
         acknowledged++;
       }
