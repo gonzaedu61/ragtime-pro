@@ -4,7 +4,7 @@ import { rerankCandidates } from "@/rag/retrieval/rerank";
 import { buildAnswerMessages, type LinkedEmailCorrespondence } from "@/rag/prompts/answerPrompt";
 import { shouldSummarize, summarizeSession } from "@/rag/summarize";
 import { getPageContext } from "@/lib/pageDirectory";
-import { detectEmailLinkIntent, classifyIdentityConfirmation } from "@/rag/emailLinkDetector";
+import { detectEmailLinkIntent, classifyIdentityConfirmation, mightReferencePriorContact } from "@/rag/emailLinkDetector";
 import { findEmailHistoryByIdentity, summarizeTopicHint } from "@/rag/emailHistory";
 import { hasFormSubmission } from "@/rag/prompts/correspondenceBlock";
 import { readEmailHistory, writeEmailHistory } from "@/r2/emailHistory";
@@ -26,6 +26,7 @@ export interface AnswerResult {
   // state-machine explanation.
   linkedEmail?: string;
   pendingEmailLinkCandidate?: string;
+  awaitingIdentityInfo?: boolean;
 }
 
 // Scenario 1 of the chat <-> email linking feature: if the visitor implies
@@ -46,6 +47,10 @@ async function resolveEmailLink(
   // hasFormSubmission in correspondenceBlock.ts. Always false unless
   // linkedCorrespondence is also set.
   hasSubmittedForm: boolean;
+  // One-shot: true only when this turn just asked for identity info, so
+  // next turn's pre-filter (below) knows to force-run the classifier even
+  // on a reply with none of mightReferencePriorContact's trigger words.
+  awaitingIdentityInfo: boolean;
 }> {
   // Already linked: just load and inject, every turn, no re-detection.
   if (session.linkedEmail) {
@@ -56,6 +61,7 @@ async function resolveEmailLink(
       linkedEmail: session.linkedEmail,
       pendingEmailLinkCandidate: undefined,
       hasSubmittedForm: record ? hasFormSubmission(record.fullHistory) : false,
+      awaitingIdentityInfo: false,
     };
   }
 
@@ -80,6 +86,7 @@ async function resolveEmailLink(
         linkedEmail: session.pendingEmailLinkCandidate,
         pendingEmailLinkCandidate: undefined,
         hasSubmittedForm: record ? hasFormSubmission(record.fullHistory) : false,
+        awaitingIdentityInfo: false,
       };
     }
 
@@ -92,11 +99,28 @@ async function resolveEmailLink(
       linkedEmail: undefined,
       pendingEmailLinkCandidate: undefined,
       hasSubmittedForm: false,
+      awaitingIdentityInfo: false,
     };
   }
 
-  // Nothing linked or pending yet - see if this turn (or the conversation
-  // so far) gives us anything to look up with.
+  // Nothing linked or pending yet. detectEmailLinkIntent is a full o4-mini
+  // call (~3s - see docs/rag-implementation-spec.md §7.12's performance
+  // follow-up), so it's gated behind a cheap pre-filter rather than run on
+  // every turn: only when this turn plausibly hints at prior contact or an
+  // identity value, OR we just asked for identity info last turn (in which
+  // case even a bare "Falcon Logistics" reply needs to reach the
+  // classifier, since it wouldn't otherwise match the keyword filter).
+  if (!session.awaitingIdentityInfo && !mightReferencePriorContact(query)) {
+    return {
+      linkedCorrespondence: null,
+      emailLinkNote: null,
+      linkedEmail: undefined,
+      pendingEmailLinkCandidate: undefined,
+      hasSubmittedForm: false,
+      awaitingIdentityInfo: false,
+    };
+  }
+
   const intent = await detectEmailLinkIntent(session.history, query);
 
   if (intent.email || intent.name || intent.company) {
@@ -114,6 +138,7 @@ async function resolveEmailLink(
         linkedEmail: undefined,
         pendingEmailLinkCandidate: match.email,
         hasSubmittedForm: false,
+        awaitingIdentityInfo: false,
       };
     }
 
@@ -124,6 +149,7 @@ async function resolveEmailLink(
       linkedEmail: undefined,
       pendingEmailLinkCandidate: undefined,
       hasSubmittedForm: false,
+      awaitingIdentityInfo: false,
     };
   }
 
@@ -135,6 +161,7 @@ async function resolveEmailLink(
       linkedEmail: undefined,
       pendingEmailLinkCandidate: undefined,
       hasSubmittedForm: false,
+      awaitingIdentityInfo: true,
     };
   }
 
@@ -144,6 +171,7 @@ async function resolveEmailLink(
     linkedEmail: undefined,
     pendingEmailLinkCandidate: undefined,
     hasSubmittedForm: false,
+    awaitingIdentityInfo: false,
   };
 }
 
@@ -179,11 +207,18 @@ export async function generateAnswer(
     ? `${query} (current page: ${pageContext.title} - ${pageContext.description})`
     : query;
 
-  const candidates = await hybridSearch(retrievalQuery);
-  const reranked = await rerankCandidates(retrievalQuery, candidates);
-
-  const { linkedCorrespondence, emailLinkNote, linkedEmail, pendingEmailLinkCandidate, hasSubmittedForm } =
-    await resolveEmailLink(session, query);
+  // Retrieval and email-link resolution are independent of each other -
+  // run them concurrently rather than stacking their latency serially
+  // (see docs/rag-implementation-spec.md §7.12's performance follow-up).
+  const [reranked, emailLink] = await Promise.all([
+    (async () => {
+      const candidates = await hybridSearch(retrievalQuery);
+      return rerankCandidates(retrievalQuery, candidates);
+    })(),
+    resolveEmailLink(session, query),
+  ]);
+  const { linkedCorrespondence, emailLinkNote, linkedEmail, pendingEmailLinkCandidate, hasSubmittedForm, awaitingIdentityInfo } =
+    emailLink;
 
   const messages = buildAnswerMessages({
     query,
@@ -219,5 +254,6 @@ export async function generateAnswer(
     history,
     linkedEmail,
     pendingEmailLinkCandidate,
+    awaitingIdentityInfo,
   };
 }

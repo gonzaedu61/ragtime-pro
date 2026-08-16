@@ -52,6 +52,10 @@ export async function POST(request: NextRequest) {
     // its one-shot turn (see src/rag/answer.ts's resolveEmailLink).
     linkedEmail: result.linkedEmail,
     pendingEmailLinkCandidate: result.pendingEmailLinkCandidate,
+    // Always an explicit true/false (not undefined) - one-shot, cleared to
+    // false the very next turn regardless of outcome, same lifecycle as
+    // pendingEmailLinkCandidate above (see resolveEmailLink).
+    awaitingIdentityInfo: result.awaitingIdentityInfo,
   });
 
   const response = NextResponse.json({

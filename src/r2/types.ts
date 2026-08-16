@@ -27,6 +27,15 @@ export interface SessionData {
   // regardless of outcome (confirmed -> promoted to linkedEmail; denied or
   // unclear -> just dropped). Never both this and linkedEmail at once.
   pendingEmailLinkCandidate?: string;
+  // Set for exactly one turn right after the assistant asked the visitor
+  // for their email/name/company to look up prior correspondence - cleared
+  // the next turn regardless of outcome. Lets resolveEmailLink
+  // (src/rag/answer.ts) force-run detectEmailLinkIntent on that reply even
+  // if it's a bare name/company with none of mightReferencePriorContact's
+  // keywords (see src/rag/emailLinkDetector.ts), since a terse identity
+  // reply to a question we just asked wouldn't otherwise be caught by the
+  // pre-filter that skips the classifier call on unrelated turns.
+  awaitingIdentityInfo?: boolean;
 }
 
 export interface EmailHistoryMessage extends SessionMessage {

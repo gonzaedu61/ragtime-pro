@@ -16,6 +16,26 @@ export interface EmailLinkIntent {
   company?: string;
 }
 
+const EMAIL_PATTERN = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+// Deliberately broad (favors false positives, which just cost one extra LLM
+// call, over false negatives, which would silently skip a real hint) -
+// covers both "I contacted you before" style phrasing and the visitor
+// introducing themselves by name/company.
+const HINT_PATTERN =
+  /\b(e-?mail(ed)?|contact(ed)?|reach(ed)?\s*out|form|submitt?ed|before|previously|earlier|already|last time|follow(ing)?\s*up|wrote|spoke|talked|mentioned|as i (said|mentioned)|my name is|i'?m\s|i am\s|this is\s|on behalf of|work(s|ing)?\s*(at|for)|my company)\b/i;
+
+// Cheap pre-filter run before detectEmailLinkIntent (a full o4-mini call,
+// ~3s - see docs/rag-implementation-spec.md §7.12's performance follow-up)
+// so the classifier only runs on turns that could plausibly matter, instead
+// of every single turn of every unlinked chat. Intentionally permissive:
+// missing a genuine hint just means the linking flow doesn't trigger this
+// turn (it can still trigger on a later turn that repeats or clarifies it),
+// which is a much smaller cost than paying ~3s on turns that have nothing
+// to do with prior contact at all.
+export function mightReferencePriorContact(text: string): boolean {
+  return EMAIL_PATTERN.test(text) || HINT_PATTERN.test(text);
+}
+
 function parseJson<T>(raw: string | undefined | null): T | null {
   if (!raw) return null;
   try {

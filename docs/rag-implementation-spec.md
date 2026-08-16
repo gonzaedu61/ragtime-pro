@@ -916,6 +916,70 @@ without re-inviting the form. Test R2 records deleted after.
 
 ## 8. Performance Expectations
 
+**Measured (2026-08-16)**, not the original pre-launch estimate below - real
+numbers from a temporary debug route hitting production R2/Azure OpenAI,
+3 runs per stage, `o4-mini`:
+
+| Stage | avg | min–max |
+|---|---|---|
+| Retrieval (hybrid search + cross-encoder rerank) | 1.2 s | 1.0–1.7 s |
+| Email-link classifier (`detectEmailLinkIntent`) | 3.3 s | 2.6–3.8 s |
+| Confirm classifier (`classifyIdentityConfirmation`) | 2.2 s | 2.1–2.3 s |
+| R2 read (already-linked session, no classifier) | 0.2 s | 0.1–0.3 s |
+| Main answer generation | 6.8 s | 5.7–7.3 s |
+| **Full turn, unlinked visitor, pre-optimization** | **12.5 s** | 12.4–12.7 s |
+| **Full turn, unlinked visitor, post-optimization** | **~8.7 s** | (single run, see below) |
+
+The original table below assumed a fast, non-reasoning completion model;
+`o4-mini` is a reasoning model, and every LLM call here - including the
+short classifier calls - pays for that, which is why real numbers are an
+order of magnitude higher than the original estimate. Retrieval itself
+(dense+sparse+rerank) is close to the original estimate; the gap is
+entirely LLM round-trip time.
+
+**Chat↔email linking's classifier cost, and the fix (2026-08-16):**
+`detectEmailLinkIntent` (§7.12) originally ran on *every* turn of *every*
+unlinked chat session - a full ~3.3 s tax even on turns with nothing to do
+with prior contact ("what's your pricing model?"). Two independent fixes,
+both in `src/rag/answer.ts`:
+1. **Parallelized** retrieval with `resolveEmailLink()` via `Promise.all` -
+   they don't depend on each other, so their latency now overlaps instead
+   of stacking (saves up to ~1.2 s on turns that do call the classifier).
+2. **Pre-filter gate** (`mightReferencePriorContact()`,
+   `src/rag/emailLinkDetector.ts`): a cheap regex (email pattern + a broad
+   set of hint keywords - "email," "before," "contacted," "my name is,"
+   etc.) run before the classifier call. Only turns that plausibly
+   reference prior contact - or that immediately follow the assistant
+   asking for identity info - reach `detectEmailLinkIntent` at all;
+   everything else skips it for free. Deliberately permissive (favors
+   false positives, which just cost one classifier call, over false
+   negatives, which would silently miss a real hint).
+
+   The permissive keyword list still isn't enough on its own: a visitor
+   replying to "could you share your email, or your name and company?"
+   might answer with a bare "Falcon Logistics" - no keyword, no `@`. A new
+   one-shot `SessionData.awaitingIdentityInfo` flag (mirroring
+   `pendingEmailLinkCandidate`'s lifecycle) is set whenever `resolveEmailLink`
+   asks for identity info, forcing the classifier to run on the very next
+   turn regardless of what the pre-filter would otherwise decide, then
+   clears unconditionally. Threaded through `AnswerResult` →
+   `POST /api/rag/answer` → `updateSession()`, same pattern as
+   `pendingEmailLinkCandidate`.
+
+   **Verified** via a temporary debug route calling `generateAnswer()`
+   directly (no real email sent, test R2 data deleted after): an ordinary
+   unrelated question on a fresh unlinked session dropped from ~12.5 s to
+   ~8.7 s (classifier skipped entirely); a message containing an explicit
+   hint still correctly triggered the classifier and asked for identity;
+   and - the key regression risk - a bare "Falcon Logistics" reply with no
+   trigger keywords, sent immediately after that ask, still correctly
+   reached the classifier (via `awaitingIdentityInfo`), matched the seeded
+   record by company name, asked for confirmation, and completed the link
+   end-to-end exactly as before this change.
+
+Original pre-launch estimate (kept for reference; superseded by the
+measurements above):
+
 | Stage | Target |
 |---|---|
 | Dense + sparse + hybrid scoring | < 10 ms |
@@ -947,10 +1011,10 @@ Corpus size: ~3,000 chunks. Embedding dimension: 384. All operations are expecte
 │   ├── rag/
 │   │   ├── session.ts             # session orchestration + SESSION_COOKIE/SESSION_COOKIE_MAX_AGE constants + omitFullHistory()
 │   │   ├── historyPagination.ts   # HISTORY_PAGE_SIZE / HISTORY_PAGE_SIZE_MAX - no server-only imports, safe for client use
-│   │   ├── answer.ts              # generateAnswer(query, session): summarize-if-needed → retrieve → rerank → Azure OpenAI
+│   │   ├── answer.ts              # generateAnswer(query, session): summarize-if-needed → (retrieve+rerank ‖ resolveEmailLink) → Azure OpenAI — see §8 for the retrieval/email-link parallelization
 │   │   ├── summarize.ts           # shouldSummarize({summary,history}), summarizeSession({summary,history}) — generic <M extends SessionMessage>, shared by chat + email
 │   │   ├── emailHistory.ts        # loadEmailContext(email), recordEmailTurn(), findEmailHistoryByIdentity(), summarizeTopicHint() — see §7.9, §7.12
-│   │   ├── emailLinkDetector.ts   # detectEmailLinkIntent(), classifyIdentityConfirmation() — chat<->email linking classifiers, see §7.12
+│   │   ├── emailLinkDetector.ts   # detectEmailLinkIntent(), classifyIdentityConfirmation(), mightReferencePriorContact() — chat<->email linking classifiers + pre-filter, see §7.12, §8
 │   │   ├── azureClient.ts         # shared AzureOpenAI client (used by answer.ts and summarize.ts)
 │   │   │
 │   │   ├── loaders/
