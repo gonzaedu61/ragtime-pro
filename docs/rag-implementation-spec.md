@@ -871,6 +871,47 @@ that same email (the reverse of scenario 1, reusing the metadata-scan
 approach). That's a product/UX decision, not just backend plumbing, so it
 wasn't built without an explicit go-ahead on that behavior change.
 
+**Follow-up (2026-08-16): suppress the contact-form CTA once it's already
+been submitted.** Once linked correspondence (either direction) shows a
+past `channel: "form"` turn, replies stop inviting the visitor to submit
+the contact form again — that read as if we'd ignored their earlier
+submission. `hasFormSubmission(fullHistory: EmailHistoryMessage[])`
+(`src/rag/prompts/correspondenceBlock.ts`) checks the *full*, never-trimmed
+history (not the summarization-trimmed view) so an old submission is never
+missed just because it scrolled into the summary text. Wired in at every
+place a CTA/closing line gets generated:
+- `src/rag/answer.ts`'s `resolveEmailLink()` computes it alongside the
+  linked record (both the already-linked branch and the just-confirmed
+  branch) and returns it in `AnswerResult`.
+- `src/rag/prompts/answerPrompt.ts`'s `buildAnswerMessages()` takes the new
+  `hasSubmittedForm` flag: injects a persistent system note right after the
+  linked-correspondence block when true, and swaps in
+  `FORCE_CTA_INSTRUCTION_ALREADY_SUBMITTED` instead of the default
+  `FORCE_CTA_INSTRUCTION` on forced-CTA turns.
+- `src/lib/acknowledgement.ts` computes it from `EmailContext.fullHistory`
+  (`loadEmailContext`) and passes it into `generateAiReply()` /
+  `generateNoreplyRedirectReply()` (`src/lib/aiReply.ts`), which use it to
+  pick a different `CHANNEL_CLOSING_RULE` for the `"email"` channel (the
+  `"form"` channel closing rule never invited the form to begin with, so it
+  didn't need a variant).
+
+**Prompt-reliability issue found and fixed, same lesson as before**: the
+first version of the email-channel instruction just said not to invite the
+form again — the model complied with the "team already has your request"
+line but *also* still added a form link, apparently primed by the general
+"the only real ways to reach us are the form and email" rule stated
+elsewhere in the same prompt. Fixed by making the instruction explicitly
+forbid mentioning or linking the contact form *for this reply*, naming the
+conflicting general rule directly and overriding it, plus a concrete
+before/after example sentence. Verified via a temporary debug route
+(`generateAiReply`/`generateNoreplyRedirectReply`/`buildAnswerMessages`/
+`generateAnswer` called directly, no real email sent): email-channel and
+noreply-channel replies both correctly dropped the form mention once
+`alreadySubmittedForm` was true (retaining it when false), and a full
+chat `generateAnswer()` call against a session linked to a form-submitting
+record produced a forced-CTA turn that referenced the prior submission
+without re-inviting the form. Test R2 records deleted after.
+
 ---
 
 ## 8. Performance Expectations

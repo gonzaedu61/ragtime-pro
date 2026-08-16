@@ -35,3 +35,10 @@ export function describeEmailChannel(channel: EmailHistoryMessage["channel"]): s
   if (channel === "noreply") return "an email to noreply@ragtime.pro";
   return "contact form";
 }
+
+// Checked against the *full*, never-trimmed history (not the
+// summarization-trimmed `history` field) so a form submission from long ago
+// is never missed just because it since scrolled into the summary text.
+export function hasFormSubmission(fullHistory: EmailHistoryMessage[]): boolean {
+  return fullHistory.some((message) => message.role === "user" && message.channel === "form");
+}

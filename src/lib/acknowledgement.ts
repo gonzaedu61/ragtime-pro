@@ -1,6 +1,7 @@
 import transporter from "@/lib/mailer";
 import { generateAiReply, generateNoreplyRedirectReply, type ChatCorrespondence } from "@/lib/aiReply";
 import { loadEmailContext, recordEmailTurn } from "@/rag/emailHistory";
+import { hasFormSubmission } from "@/rag/prompts/correspondenceBlock";
 import { normalizeEmail } from "@/r2/emailHistory";
 import { updateSession } from "@/r2/updateSession";
 import { SITE_ORIGIN } from "@/lib/pageDirectory";
@@ -73,7 +74,8 @@ function buildHtmlBody(replyText: string, disclosure?: string): string {
 
 export async function sendAcknowledgement(fields: AckFields): Promise<void> {
   const context = await loadEmailContext(fields.email);
-  const aiReply = await generateAiReply(fields, context, fields.chatContext ?? null);
+  const alreadySubmittedForm = hasFormSubmission(context.fullHistory);
+  const aiReply = await generateAiReply(fields, context, fields.chatContext ?? null, alreadySubmittedForm);
 
   const bodyText = aiReply ? aiReply.text : fallbackText(fields.name);
   const disclosure = aiReply ? AI_DISCLOSURE : undefined;
@@ -119,7 +121,7 @@ interface NoreplyFields {
 // real channel, personalized with prior correspondence when there is any.
 export async function sendNoreplyRedirect(fields: NoreplyFields): Promise<void> {
   const context = await loadEmailContext(fields.email);
-  const aiReply = await generateNoreplyRedirectReply(fields.name, context);
+  const aiReply = await generateNoreplyRedirectReply(fields.name, context, hasFormSubmission(context.fullHistory));
 
   const bodyText = aiReply ? aiReply.text : noreplyFallbackText(fields.name);
   const disclosure = aiReply ? AI_DISCLOSURE : undefined;

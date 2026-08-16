@@ -46,10 +46,18 @@ export interface ChatCorrespondence {
 
 const FALLBACK_SUBJECT = "We've received your message — Ragtime-Pro";
 
-const CHANNEL_CLOSING_RULE: Record<ContactFields["channel"], string> = {
-  form: 'End by letting them know the team will follow up with them directly soon, using the contact details they provided — do not ask them to book a call themselves, since submitting the form already means we\'ll reach out.',
-  email: `End by inviting them to get in touch via the contact form at ${SITE_ORIGIN}/contact to arrange an introductory call, since they reached out directly by email rather than through the form. Do not say "book" or imply the form schedules a specific time automatically.`,
-};
+// The "email" case only invites the contact form when we don't already know
+// they've used it before (see alreadySubmittedForm) - suggesting it again to
+// someone who's already submitted it reads as if we ignored that submission.
+function getChannelClosingRule(channel: ContactFields["channel"], alreadySubmittedForm: boolean): string {
+  if (channel === "form") {
+    return 'End by letting them know the team will follow up with them directly soon, using the contact details they provided — do not ask them to book a call themselves, since submitting the form already means we\'ll reach out.';
+  }
+  if (alreadySubmittedForm) {
+    return `End by letting them know the team is already aware of their earlier contact-form submission and will follow up soon. Do NOT mention, link, or suggest the contact form anywhere in this reply, and do NOT include the URL ${SITE_ORIGIN}/contact — not even in passing — even though rule 7 below lists it as one of Ragtime-Pro's two real contact channels in general; for THIS reply specifically, they've already used it, so re-suggesting it would read as if we ignored their submission. They're welcome to reply here by email, or continue in our website chat, if there's anything to add in the meantime. For example, end with something like "Our team already has your request on file and will be in touch shortly — feel free to reply here in the meantime if there's anything else to add," never "you can also reach out via our contact form."`;
+  }
+  return `End by inviting them to get in touch via the contact form at ${SITE_ORIGIN}/contact to arrange an introductory call, since they reached out directly by email rather than through the form. Do not say "book" or imply the form schedules a specific time automatically.`;
+}
 
 function buildContextBlock(chunks: RerankedChunk[]): string {
   if (chunks.length === 0) return "";
@@ -90,7 +98,8 @@ function buildPrompt(
   { name, company, email, phone, aiInterest, message, channel }: ContactFields,
   chunks: RerankedChunk[],
   correspondence: EmailCorrespondence,
-  chatContext: ChatCorrespondence | null
+  chatContext: ChatCorrespondence | null,
+  alreadySubmittedForm: boolean
 ): string {
   const channelDescription =
     channel === "form"
@@ -113,7 +122,7 @@ Rules:
 2. Do NOT include JSON code fences in your output.
 3. Do NOT include explanations outside the JSON.
 4. Detect the language the visitor wrote their message in and reply in that same language.
-5. ${CHANNEL_CLOSING_RULE[channel]}
+5. ${getChannelClosingRule(channel, alreadySubmittedForm)}
 6. Always write as Ragtime-Pro in first person plural ("we," "our," "us") — never as an individual ("I," "me").
 7. The only real ways to reach Ragtime-Pro are the contact form at ${SITE_ORIGIN}/contact and emailing info@ragtime.pro directly. There is no calendar, time-slot picker, real-time availability system, or automatic calendar invite — nothing books or confirms a specific time automatically. Never invent a different email address or domain, a phone number, or any of the mechanics above. When asked about scheduling or availability, say only that they can reach out via the contact form or by emailing info@ragtime.pro and the team will coordinate a time — for example, "You can reach out via our contact form or by emailing info@ragtime.pro, and we'll coordinate a time that works for you," never "you can book a slot directly and we'll send a calendar invite."
 
@@ -151,7 +160,12 @@ function parseReply(raw: string): AiReply | null {
 export async function generateAiReply(
   fields: ContactFields,
   correspondence: EmailCorrespondence,
-  chatContext: ChatCorrespondence | null = null
+  chatContext: ChatCorrespondence | null = null,
+  // Whether this visitor/sender has a past "form" channel turn on file -
+  // computed by the caller from the full, untrimmed history (see
+  // hasFormSubmission in correspondenceBlock.ts) since EmailCorrespondence
+  // here only carries the summarization-trimmed view.
+  alreadySubmittedForm: boolean = false
 ): Promise<AiReply | null> {
   try {
     const candidates = await hybridSearch(fields.message);
@@ -159,7 +173,9 @@ export async function generateAiReply(
 
     const response = await client.chat.completions.create({
       model: "o4-mini",
-      messages: [{ role: "user", content: buildPrompt(fields, reranked, correspondence, chatContext) }],
+      messages: [
+        { role: "user", content: buildPrompt(fields, reranked, correspondence, chatContext, alreadySubmittedForm) },
+      ],
     });
 
     const raw = response.choices[0]?.message?.content;
@@ -174,7 +190,8 @@ export async function generateAiReply(
 
 function buildNoreplyPrompt(
   name: string,
-  correspondence: EmailCorrespondence
+  correspondence: EmailCorrespondence,
+  alreadySubmittedForm: boolean
 ): string {
   const hasPriorCorrespondence = !!correspondence.summary || correspondence.history.length > 0;
 
@@ -183,7 +200,11 @@ A visitor just sent an email to noreply@ragtime.pro. That address is send-only a
 
 Your reply must:
 - Gently explain that noreply@ragtime.pro doesn't accept incoming messages and isn't read by our team — this is not a scolding, just a friendly heads-up.
-- Encourage them to visit ${SITE_ORIGIN} and use the chat icon there if they'd like an interactive conversation, or to reach out via the contact form at ${SITE_ORIGIN}/contact or by emailing info@ragtime.pro directly for anything else.
+- ${
+    alreadySubmittedForm
+      ? `Encourage them to visit ${SITE_ORIGIN} and use the chat icon there if they'd like an interactive conversation, or to email info@ragtime.pro directly for anything else — do NOT invite them to the contact form, since they've already submitted it and the team is already aware of their request.`
+      : `Encourage them to visit ${SITE_ORIGIN} and use the chat icon there if they'd like an interactive conversation, or to reach out via the contact form at ${SITE_ORIGIN}/contact or by emailing info@ragtime.pro directly for anything else.`
+  }
 - Do NOT attempt to answer whatever they actually wrote in their message to noreply@ — you have no retrieved context for it here, and that's not the point of this reply.
 - ${
     hasPriorCorrespondence
@@ -212,12 +233,13 @@ Visitor name: ${name}${buildCorrespondenceBlock(correspondence)}`;
 
 export async function generateNoreplyRedirectReply(
   name: string,
-  correspondence: EmailCorrespondence
+  correspondence: EmailCorrespondence,
+  alreadySubmittedForm: boolean = false
 ): Promise<AiReply | null> {
   try {
     const response = await client.chat.completions.create({
       model: "o4-mini",
-      messages: [{ role: "user", content: buildNoreplyPrompt(name, correspondence) }],
+      messages: [{ role: "user", content: buildNoreplyPrompt(name, correspondence, alreadySubmittedForm) }],
     });
 
     const raw = response.choices[0]?.message?.content;

@@ -27,6 +27,15 @@ If the visitor implies they've contacted Ragtime-Pro before via email or the con
 const FORCE_CTA_INSTRUCTION =
   "Regardless of this question's topic, end your answer with one brief, natural sentence inviting the visitor to continue via the contact form or an introductory call.";
 
+// Used instead of FORCE_CTA_INSTRUCTION when the linked correspondence shows
+// a past contact-form submission - resubmitting the form again would read as
+// if we ignored that submission.
+const FORCE_CTA_INSTRUCTION_ALREADY_SUBMITTED =
+  "Regardless of this question's topic, end your answer with one brief, natural sentence letting the visitor know the team already has their earlier contact-form submission and will follow up — do not invite them to submit the contact form again. They're welcome to keep chatting here or email info@ragtime.pro directly if there's anything to add.";
+
+const ALREADY_SUBMITTED_FORM_NOTE =
+  "This visitor has already submitted the contact form before (see the prior correspondence above) - do not invite them to submit it again. If you'd otherwise suggest next steps, instead let them know the team already has their request on file and will follow up, or suggest emailing info@ragtime.pro directly.";
+
 export interface LinkedEmailCorrespondence {
   summary: string;
   history: EmailHistoryMessage[];
@@ -41,6 +50,7 @@ export function buildAnswerMessages({
   pageContext = null,
   linkedCorrespondence = null,
   emailLinkNote = null,
+  hasSubmittedForm = false,
 }: {
   query: string;
   chunks: RerankedChunk[];
@@ -55,6 +65,10 @@ export function buildAnswerMessages({
   // (ask for identity, confirm a candidate, report no match, etc.) - see
   // src/rag/answer.ts for when each is set.
   emailLinkNote?: string | null;
+  // Whether linkedCorrespondence includes a past contact-form submission -
+  // see hasFormSubmission in correspondenceBlock.ts. Suppresses re-inviting
+  // the form so we don't look like we ignored an existing submission.
+  hasSubmittedForm?: boolean;
 }): ChatMessage[] {
   const messages: ChatMessage[] = [{ role: "system", content: SYSTEM_PROMPT }];
 
@@ -74,6 +88,9 @@ export function buildAnswerMessages({
       (message) => `Visitor (via ${describeEmailChannel(message.channel)})`
     );
     if (block) messages.push({ role: "system", content: block.trim() });
+    if (hasSubmittedForm) {
+      messages.push({ role: "system", content: ALREADY_SUBMITTED_FORM_NOTE });
+    }
   }
 
   if (summary) {
@@ -95,7 +112,10 @@ export function buildAnswerMessages({
   }
 
   if (forceCta) {
-    messages.push({ role: "system", content: FORCE_CTA_INSTRUCTION });
+    messages.push({
+      role: "system",
+      content: hasSubmittedForm ? FORCE_CTA_INSTRUCTION_ALREADY_SUBMITTED : FORCE_CTA_INSTRUCTION,
+    });
   }
 
   // Positioned right before the final query, same as forceCta above - a

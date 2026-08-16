@@ -1298,7 +1298,10 @@ form/inbox-poll acknowledgement (§8.4) uses it to ground its replies too.
   from then on. Separately, a visitor who chats and then submits the contact
   form in the same browser session has that chat automatically linked, and
   the resulting acknowledgement email is grounded in the chat's specifics.
-  Both directions are recorded so either record can find the other. Full
+  Both directions are recorded so either record can find the other. Once
+  linked correspondence shows a past contact-form submission, replies (chat
+  or email) stop inviting the visitor to submit the form again — it already
+  reads as a duplicate ask otherwise. Full
   design, prompt-reliability notes, and verification in
   `docs/rag-implementation-spec.md` §7.12 and
   `docs/chat-email-linking-eval-2026-08-16.md`.

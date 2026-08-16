@@ -6,6 +6,7 @@ import { shouldSummarize, summarizeSession } from "@/rag/summarize";
 import { getPageContext } from "@/lib/pageDirectory";
 import { detectEmailLinkIntent, classifyIdentityConfirmation } from "@/rag/emailLinkDetector";
 import { findEmailHistoryByIdentity, summarizeTopicHint } from "@/rag/emailHistory";
+import { hasFormSubmission } from "@/rag/prompts/correspondenceBlock";
 import { readEmailHistory, writeEmailHistory } from "@/r2/emailHistory";
 import type { SessionData, SessionMessage } from "@/r2/types";
 
@@ -41,6 +42,10 @@ async function resolveEmailLink(
   emailLinkNote: string | null;
   linkedEmail: string | undefined;
   pendingEmailLinkCandidate: string | undefined;
+  // Whether the linked record shows a past contact-form submission - see
+  // hasFormSubmission in correspondenceBlock.ts. Always false unless
+  // linkedCorrespondence is also set.
+  hasSubmittedForm: boolean;
 }> {
   // Already linked: just load and inject, every turn, no re-detection.
   if (session.linkedEmail) {
@@ -50,6 +55,7 @@ async function resolveEmailLink(
       emailLinkNote: null,
       linkedEmail: session.linkedEmail,
       pendingEmailLinkCandidate: undefined,
+      hasSubmittedForm: record ? hasFormSubmission(record.fullHistory) : false,
     };
   }
 
@@ -73,6 +79,7 @@ async function resolveEmailLink(
           "The visitor just confirmed the previous conversation is theirs - the correspondence above is now available; use it naturally.",
         linkedEmail: session.pendingEmailLinkCandidate,
         pendingEmailLinkCandidate: undefined,
+        hasSubmittedForm: record ? hasFormSubmission(record.fullHistory) : false,
       };
     }
 
@@ -84,6 +91,7 @@ async function resolveEmailLink(
           : "The visitor's reply didn't clearly confirm or deny the previous conversation found. Don't assume either way - you can ask again naturally if it's still relevant.",
       linkedEmail: undefined,
       pendingEmailLinkCandidate: undefined,
+      hasSubmittedForm: false,
     };
   }
 
@@ -105,6 +113,7 @@ async function resolveEmailLink(
         emailLinkNote: `A previous conversation was found that might belong to this visitor, generally about: "${hint}". Your reply this turn must ask a direct yes/no confirmation question, paraphrasing that topic briefly in your own natural words - never quote the topic text verbatim, especially if it's cut off mid-sentence. For example, if the topic were about automating shipment approval workflows, ask something like "It looks like we received a message from you before about automating your shipment approval process - is that right?" Do NOT ask for more identifying details (name, company, a different email, etc.) at this point - identifying info is exactly what led to this match. Do not reveal any further specific content from that conversation until they confirm.`,
         linkedEmail: undefined,
         pendingEmailLinkCandidate: match.email,
+        hasSubmittedForm: false,
       };
     }
 
@@ -114,6 +123,7 @@ async function resolveEmailLink(
         "No previous correspondence was found matching the information the visitor gave. Tell them honestly, and ask if they'd like to try different details or just continue without it.",
       linkedEmail: undefined,
       pendingEmailLinkCandidate: undefined,
+      hasSubmittedForm: false,
     };
   }
 
@@ -124,6 +134,7 @@ async function resolveEmailLink(
         "The visitor seems to be referring to a prior email or contact-form conversation. Ask them for the email address they used, or alternatively their name and/or company, so it can be looked up.",
       linkedEmail: undefined,
       pendingEmailLinkCandidate: undefined,
+      hasSubmittedForm: false,
     };
   }
 
@@ -132,6 +143,7 @@ async function resolveEmailLink(
     emailLinkNote: null,
     linkedEmail: undefined,
     pendingEmailLinkCandidate: undefined,
+    hasSubmittedForm: false,
   };
 }
 
@@ -170,10 +182,8 @@ export async function generateAnswer(
   const candidates = await hybridSearch(retrievalQuery);
   const reranked = await rerankCandidates(retrievalQuery, candidates);
 
-  const { linkedCorrespondence, emailLinkNote, linkedEmail, pendingEmailLinkCandidate } = await resolveEmailLink(
-    session,
-    query
-  );
+  const { linkedCorrespondence, emailLinkNote, linkedEmail, pendingEmailLinkCandidate, hasSubmittedForm } =
+    await resolveEmailLink(session, query);
 
   const messages = buildAnswerMessages({
     query,
@@ -184,6 +194,7 @@ export async function generateAnswer(
     pageContext,
     linkedCorrespondence,
     emailLinkNote,
+    hasSubmittedForm,
   });
 
   const response = await client.chat.completions.create({
