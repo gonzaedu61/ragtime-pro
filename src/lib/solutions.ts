@@ -14,6 +14,8 @@ export interface SolutionClass {
   examples: string[];
   readinessRequirements: string;
   roadmapFit: string;
+  demoHref?: string;
+  demoLabel?: string;
 }
 
 export const SOLUTIONS: SolutionClass[] = [
@@ -100,6 +102,8 @@ export const SOLUTIONS: SolutionClass[] = [
       "Organized documents, metadata structure, secure access to information sources, and clear ownership of knowledge assets.",
     roadmapFit:
       "Foundational capability that improves usability, reduces dependency on expert users, and supports all future AI initiatives.",
+    demoHref: "/solutions/rag-solutions/almendro-demo",
+    demoLabel: "Try a live demo →",
   },
   {
     slug: "reasoning-agents",

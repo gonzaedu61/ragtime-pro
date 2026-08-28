@@ -35,6 +35,17 @@ export default function SolutionDetail({ solution }: { solution: SolutionClass }
         </div>
       </section>
 
+      {solution.demoHref && (
+        <section className="mx-auto max-w-7xl px-6 pb-8 text-center">
+          <Link
+            href={solution.demoHref}
+            className="inline-block rounded-md border border-electric-blue px-6 py-3 font-body text-sm font-semibold text-electric-blue transition-colors hover:bg-electric-blue hover:text-white"
+          >
+            {solution.demoLabel ?? "Try a live demo →"}
+          </Link>
+        </section>
+      )}
+
       <section className="pb-16 min-[1440px]:grid min-[1440px]:grid-cols-[calc(50%-30rem)_1fr_calc(50%-30rem)]">
         <div className="mx-auto max-w-5xl px-6 pt-8 pb-8 min-[1440px]:col-start-2 min-[1440px]:row-start-1 min-[1440px]:h-72 min-[1440px]:overflow-hidden">
           <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-start sm:text-left">

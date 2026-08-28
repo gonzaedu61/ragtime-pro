@@ -10,7 +10,10 @@
     "rag:chunk": "tsx build/chunk/chunkCorpus.ts",
     "rag:embed": "tsx build/embed/generateEmbeddings.ts",
     "rag:bm25": "tsx build/bm25/buildBm25.ts",
-    "rag:models": "tsx build/export/downloadModels.ts"
+    "rag:models": "tsx build/export/downloadModels.ts",
+    "rag:almendro:chunk": "tsx build/almendro/chunkAlmendro.ts",
+    "rag:almendro:embed": "tsx build/almendro/embedAlmendro.ts",
+    "rag:almendro:bm25": "tsx build/almendro/bm25Almendro.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1109.0",
@@ -21,6 +24,7 @@
     "next": "15.5.21",
     "nodemailer": "6.9.16",
     "openai": "7.3.0",
+    "pdfjs-dist": "5.4.296",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-rnd": "10.5.3"
