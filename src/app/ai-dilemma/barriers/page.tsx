@@ -5,7 +5,7 @@ import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "Core Barriers to Modernization | Ragtime-Pro",
+  title: "Core Barriers to Modernization | RAGnify",
   description:
     "The four barriers holding legacy software vendors back from AI modernization: cost perception, skills gap, organizational resistance, and compliance & ethics.",
 };

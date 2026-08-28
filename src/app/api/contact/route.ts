@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       });
 
       await transporter.sendMail({
-        from: `"Ragtime-Pro Website" <${FROM_ADDRESS}>`,
+        from: `"RAGnify Website" <${FROM_ADDRESS}>`,
         to: INFO_ADDRESS,
         replyTo: email,
         subject: `New contact form submission from ${name}`,

@@ -5,7 +5,7 @@ import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "The Modernization Dilemma | Ragtime-Pro",
+  title: "The Modernization Dilemma | RAGnify",
   description:
     "The product still works — but the market has moved. Why legacy software vendors hesitate to modernize, and what actually gets in the way.",
 };

@@ -18,7 +18,7 @@ const STATIC_PAGES: Record<string, PageContext> = {
   "/": {
     title: "Home",
     description:
-      "Ragtime-Pro's homepage: a safe, structured, effective approach to AI-driven modernization for legacy software products, introducing the Modernization Agent, the Product Modernization Triad, and the AI Upgrade Modules.",
+      "RAGnify's homepage: a safe, structured, effective approach to AI-driven modernization for legacy software products, introducing the Modernization Agent, the Product Modernization Triad, and the AI Upgrade Modules.",
   },
   "/ai-dilemma": {
     title: "The Modernization Dilemma",
@@ -43,7 +43,7 @@ const STATIC_PAGES: Record<string, PageContext> = {
   "/modernization-agent": {
     title: "The Modernization Agent",
     description:
-      "Ragtime-Pro's proprietary AI system - the internal intelligence engine behind every modernization engagement.",
+      "RAGnify's proprietary AI system - the internal intelligence engine behind every modernization engagement.",
   },
   "/methodology": {
     title: "Our Methodology",
@@ -68,26 +68,26 @@ const STATIC_PAGES: Record<string, PageContext> = {
   "/methodology/process": {
     title: "The Modernization Journey",
     description:
-      "The eight-step process behind every Ragtime-Pro modernization engagement, from product discovery to guided implementation.",
+      "The eight-step process behind every RAGnify modernization engagement, from product discovery to guided implementation.",
   },
   "/about": {
-    title: "About Ragtime-Pro",
+    title: "About RAGnify",
     description:
-      "Ragtime-Pro is a modernization partner for legacy software vendors: an AI-augmented Modernization Agent, the Product Modernization Triad, expert consultants, and AI Upgrade Modules.",
+      "RAGnify is a modernization partner for legacy software vendors: an AI-augmented Modernization Agent, the Product Modernization Triad, expert consultants, and AI Upgrade Modules.",
   },
   "/eu-ai-act-compliance": {
     title: "EU AI Act Compliance",
     description:
-      "How the EU AI Act's four risk tiers, transparency, data governance, human oversight, and lifecycle-monitoring obligations apply to AI-modernized legacy software, and how Ragtime-Pro builds compliance into every roadmap.",
+      "How the EU AI Act's four risk tiers, transparency, data governance, human oversight, and lifecycle-monitoring obligations apply to AI-modernized legacy software, and how RAGnify builds compliance into every roadmap.",
   },
   "/start": {
     title: "Start Your Journey",
     description:
-      "Engagement with Ragtime-Pro begins with a conversation, not a proposal: three phases from a free introductory consultation to an ongoing modernization partnership.",
+      "Engagement with RAGnify begins with a conversation, not a proposal: three phases from a free introductory consultation to an ongoing modernization partnership.",
   },
   "/contact": {
     title: "Contact",
-    description: "The contact page: a form to reach Ragtime-Pro, or to request an introductory call.",
+    description: "The contact page: a form to reach RAGnify, or to request an introductory call.",
   },
 };
 

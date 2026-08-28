@@ -5,9 +5,9 @@ import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "The Modernization Journey | Ragtime-Pro",
+  title: "The Modernization Journey | RAGnify",
   description:
-    "The eight-step process behind every Ragtime-Pro modernization engagement — from product discovery to guided implementation.",
+    "The eight-step process behind every RAGnify modernization engagement — from product discovery to guided implementation.",
 };
 
 const STEPS = [
@@ -27,8 +27,8 @@ const STEPS = [
     icon: "/step_3.svg",
   },
   {
-    title: "Standard Ragtime-Pro Modules Mapping",
-    body: "We match each opportunity to Ragtime-Pro's library of pre-built AI Upgrade Modules — reusing one where it fits, or generating a new module for any gap.",
+    title: "Standard RAGnify Modules Mapping",
+    body: "We match each opportunity to RAGnify's library of pre-built AI Upgrade Modules — reusing one where it fits, or generating a new module for any gap.",
     icon: "/step_4.svg",
   },
   {

@@ -5,9 +5,9 @@ import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "EU AI Act Compliance | Ragtime-Pro",
+  title: "EU AI Act Compliance | RAGnify",
   description:
-    "How the EU AI Act's four risk tiers, transparency, data governance, human oversight, and lifecycle-monitoring obligations apply to AI-modernized legacy software — and how Ragtime-Pro builds compliance into every roadmap.",
+    "How the EU AI Act's four risk tiers, transparency, data governance, human oversight, and lifecycle-monitoring obligations apply to AI-modernized legacy software — and how RAGnify builds compliance into every roadmap.",
 };
 
 const OBLIGATIONS = [

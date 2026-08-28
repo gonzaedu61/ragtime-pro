@@ -5,9 +5,9 @@ import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "The Modernization Agent | Ragtime-Pro",
+  title: "The Modernization Agent | RAGnify",
   description:
-    "Ragtime-Pro's proprietary AI system — the internal intelligence engine behind every modernization engagement.",
+    "RAGnify's proprietary AI system — the internal intelligence engine behind every modernization engagement.",
 };
 
 const STEPS = [
@@ -33,7 +33,7 @@ const STEPS = [
   },
   {
     title: "Code AI Upgrade Modules",
-    body: "Generates the required code to adapt and integrate existing standard Ragtime-Pro AI Modules or develop ad-hoc ones if required.",
+    body: "Generates the required code to adapt and integrate existing standard RAGnify AI Modules or develop ad-hoc ones if required.",
   },
   {
     title: "Ensures Safe Execution",
@@ -64,7 +64,7 @@ export default function EngagementModelPage() {
       <section className="mx-auto max-w-7xl px-6 pt-8 pb-12">
         <div className="flex flex-col items-center gap-8 text-center lg:flex-row lg:justify-center lg:gap-16">
           <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-            The Modernization Agent is Ragtime-Pro&apos;s proprietary AI system — not a
+            The Modernization Agent is RAGnify&apos;s proprietary AI system — not a
             customer-facing tool, but the internal intelligence engine behind every
             modernization engagement. It ingests your product&apos;s entire context:
             source code in any language or architecture, user manuals, technical
@@ -121,7 +121,7 @@ export default function EngagementModelPage() {
                 ) : step.title === "Code AI Upgrade Modules" ? (
                   <>
                     Generates the required code to adapt and integrate existing standard
-                    Ragtime-Pro{" "}
+                    RAGnify{" "}
                     <Link href="/solutions" className="underline hover:text-electric-blue">
                       AI Modules
                     </Link>{" "}

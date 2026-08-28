@@ -5,13 +5,13 @@ import Link from "next/link";
 import { useState } from "react";
 
 const NAV_ITEMS = [
-  { label: "The AI Dilemma", href: "/ai-dilemma" },
+  { label: "AI Dilemma", href: "/ai-dilemma" },
   { label: "AI Solutions", href: "/solutions" },
   { label: "Modernization Agent", href: "/modernization-agent" },
-  { label: "Our Methodology", href: "/methodology" },
+  { label: "Methodology", href: "/methodology" },
   { label: "About Us", href: "/about" },
-  { label: "EU Compliance", href: "/eu-ai-act-compliance" },
-  { label: "Start Your Journey", href: "/start" },
+  { label: "Compliance", href: "/eu-ai-act-compliance" },
+  { label: "Start The Journey", href: "/start" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -23,21 +23,21 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-10 px-6 py-4">
         <Link
           href="/"
-          className="group flex shrink-0 items-center gap-2"
+          className="group flex shrink-0 items-start gap-2 self-start"
           onClick={() => setIsOpen(false)}
         >
-          <div className="relative h-[82px] w-[170px] [perspective:1000px]">
-            <div className="relative h-full w-full animate-[spin-3d_10s_linear_infinite] [transform-style:preserve-3d]">
+          <div className="relative h-[84px] w-[260px] [perspective:1000px]">
+            <div className="relative h-full w-full [transform-style:preserve-3d]">
               <Image
-                src="/Ragtime-Pro_Logo.png"
-                alt="Ragtime-Pro"
+                src="/RAGnify_Logo.svg"
+                alt="RAGnify"
                 width={280}
                 height={135}
                 priority
                 className="absolute inset-0 [backface-visibility:hidden]"
               />
               <Image
-                src="/Ragtime-Pro_Logo.png"
+                src="/RAGnify_Logo.svg"
                 alt=""
                 aria-hidden="true"
                 width={280}
@@ -48,12 +48,12 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <nav className="hidden xl:flex xl:items-center xl:gap-6">
+        <nav className="hidden self-start mt-[30px] xl:flex xl:items-center xl:gap-6">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="whitespace-nowrap font-body text-base text-charcoal transition-colors hover:text-electric-blue"
+              className="whitespace-nowrap font-body text-lg text-charcoal transition-colors hover:text-electric-blue"
             >
               {item.label}
             </Link>

@@ -20,7 +20,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${solution.title} | Ragtime-Pro`,
+    title: `${solution.title} | RAGnify`,
     description: solution.definition,
   };
 }

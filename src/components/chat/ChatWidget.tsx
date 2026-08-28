@@ -329,7 +329,7 @@ export default function ChatWidget() {
               className="h-6 w-auto shrink-0 brightness-0 invert"
             />
             <span className="truncate font-heading text-base font-semibold text-white">
-              Ragtime-Pro Chat
+              RAGnify Chat
             </span>
           </div>
 
@@ -378,7 +378,7 @@ export default function ChatWidget() {
         >
           {messages.length === 0 && !pendingConfirm && !checkingSession && (
             <p className="font-body text-sm text-charcoal/60">
-              Ask me anything about Ragtime-Pro&apos;s AI modernization services.
+              Ask me anything about RAGnify&apos;s AI modernization services.
             </p>
           )}
 

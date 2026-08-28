@@ -1,4 +1,4 @@
-# Ragtime-Pro — Website Copy Export
+# RAGnify — Website Copy Export
 
 Plain-text export of all on-page copy across the site, generated from the current codebase. Navigation, buttons, form labels, and body copy are included; layout/styling details are omitted.
 
@@ -6,7 +6,7 @@ Plain-text export of all on-page copy across the site, generated from the curren
 
 ## Global — Navbar
 
-Logo: Ragtime-Pro
+Logo: RAGnify
 
 Nav items:
 - The AI Dilemma → /ai-dilemma
@@ -20,7 +20,7 @@ Nav items:
 
 ## Global — Footer
 
-© {year} Ragtime-Pro. All rights reserved.
+© {year} RAGnify. All rights reserved.
 
 Links:
 - Privacy Policy → /privacy-policy
@@ -63,16 +63,16 @@ The final result is a set of targeted AI capabilities — productivity boosters,
 
 ## About Us (`/about`)
 
-**Meta title:** About Ragtime-Pro | Ragtime-Pro
-**Meta description:** Ragtime-Pro is a modernization partner for legacy software vendors — an AI-augmented Modernization Agent, the Product Modernization Triad, expert consultants, and AI Upgrade Modules.
+**Meta title:** About RAGnify | RAGnify
+**Meta description:** RAGnify is a modernization partner for legacy software vendors — an AI-augmented Modernization Agent, the Product Modernization Triad, expert consultants, and AI Upgrade Modules.
 
-**H1:** About Ragtime-Pro
+**H1:** About RAGnify
 
 **Pull quote:**
 "We are not a generic AI consultancy. We are a modernization partner."
 
 **Body:**
-Ragtime-Pro is a modernization partner for European software vendors who carry the weight — and the value — of legacy products. We specialize in transforming long-standing, mission-critical software into modern, intelligent, competitive products, without rewrites, risky migrations, or disruptive architectural changes. We combine AI-augmented analysis, a structured modernization methodology, expert consulting execution, and incremental, safe AI Upgrade Modules into a single modernization system.
+RAGnify is a modernization partner for European software vendors who carry the weight — and the value — of legacy products. We specialize in transforming long-standing, mission-critical software into modern, intelligent, competitive products, without rewrites, risky migrations, or disruptive architectural changes. We combine AI-augmented analysis, a structured modernization methodology, expert consulting execution, and incremental, safe AI Upgrade Modules into a single modernization system.
 
 **CTA:** "Contact us …" → /contact
 
@@ -94,7 +94,7 @@ The tangible deliverables — Productivity Features, Workflow Automations, RAG A
 
 ## The AI Modernization Dilemma (`/ai-dilemma`)
 
-**Meta title:** The Modernization Dilemma | Ragtime-Pro
+**Meta title:** The Modernization Dilemma | RAGnify
 **Meta description:** The product still works — but the market has moved. Why legacy software vendors hesitate to modernize, and what actually gets in the way.
 
 **H1:** The AI Modernization Dilemma
@@ -125,7 +125,7 @@ Legacy products succeed because they're reliable — and hesitate to evolve for 
 
 ## Core Barriers to Modernization (`/ai-dilemma/barriers`)
 
-**Meta title:** Core Barriers to Modernization | Ragtime-Pro
+**Meta title:** Core Barriers to Modernization | RAGnify
 **Meta description:** The four barriers holding legacy software vendors back from AI modernization: cost perception, skills gap, organizational resistance, and compliance & ethics.
 
 **H1:** Core Barriers to Modernization
@@ -156,7 +156,7 @@ The EU AI Act (→ /eu-ai-act-compliance) introduces real obligations — transp
 
 ## The AI-Augmented Barrier Breaker (`/ai-dilemma/coaching`)
 
-**Meta title:** Coaching: The AI-Augmented Barrier Breaker | Ragtime-Pro
+**Meta title:** Coaching: The AI-Augmented Barrier Breaker | RAGnify
 **Meta description:** How AI-augmented coaching, powered by the Modernization Agent, demystifies modernization, bridges the skills gap, reduces resistance, and ensures EU AI Act compliance.
 
 **H1:** The AI-Augmented Barrier Breaker
@@ -165,7 +165,7 @@ The EU AI Act (→ /eu-ai-act-compliance) introduces real obligations — transp
 "Coaching becomes the engine breaking the barriers - amplified by AI itself."
 
 **Body:**
-Modernizing a legacy software product traditionally depended entirely on human consultants. Ragtime-Pro's coaching is AI-augmented, powered by the Modernization Agent (→ /modernization-agent), which performs the heavy analytical work — scanning code, mapping dependencies, identifying Boost Points (→ /methodology/boost-point), evaluating integration paths, and assessing EU AI Act (→ /eu-ai-act-compliance) implications. Your team brings product knowledge, our consultants bring modernization expertise, and the Modernization Agent brings analytical acceleration — together breaking every barrier.
+Modernizing a legacy software product traditionally depended entirely on human consultants. RAGnify's coaching is AI-augmented, powered by the Modernization Agent (→ /modernization-agent), which performs the heavy analytical work — scanning code, mapping dependencies, identifying Boost Points (→ /methodology/boost-point), evaluating integration paths, and assessing EU AI Act (→ /eu-ai-act-compliance) implications. Your team brings product knowledge, our consultants bring modernization expertise, and the Modernization Agent brings analytical acceleration — together breaking every barrier.
 
 **CTA:** "We can help you …" → /about
 
@@ -190,8 +190,8 @@ The result: a leadership team that understands its modernization roadmap and tru
 
 ## EU AI Act Compliance (`/eu-ai-act-compliance`)
 
-**Meta title:** EU AI Act Compliance | Ragtime-Pro
-**Meta description:** How the EU AI Act's four risk tiers, transparency, data governance, human oversight, and lifecycle-monitoring obligations apply to AI-modernized legacy software — and how Ragtime-Pro builds compliance into every roadmap.
+**Meta title:** EU AI Act Compliance | RAGnify
+**Meta description:** How the EU AI Act's four risk tiers, transparency, data governance, human oversight, and lifecycle-monitoring obligations apply to AI-modernized legacy software — and how RAGnify builds compliance into every roadmap.
 
 **H1:** EU AI Act Compliance
 
@@ -227,7 +227,7 @@ Compliance doesn't end at launch. High-risk systems require post-market monitori
 
 ## Our Methodology (`/methodology`)
 
-**Meta title:** Our Methodology | Ragtime-Pro
+**Meta title:** Our Methodology | RAGnify
 **Meta description:** The Product Modernization Triad: Boost Point, Opportunity, and Readiness — the three vertices that shape every AI-driven legacy modernization roadmap.
 
 **H1:** Our Methodology
@@ -257,7 +257,7 @@ How prepared the product is for integration — architecture, APIs, data quality
 
 ## "Boost Point" Vertex (`/methodology/boost-point`)
 
-**Meta title:** Boost Point | Ragtime-Pro
+**Meta title:** Boost Point | RAGnify
 **Meta description:** The Boost Point vertex of the Product Modernization Triad: the modernization hotspot where AI can create the highest product value with minimal disruption.
 
 **H1:** "Boost Point" Vertex
@@ -291,7 +291,7 @@ A decision process where users currently rely on guesswork or experience, ready 
 
 ## "Opportunity" Vertex (`/methodology/opportunity`)
 
-**Meta title:** Opportunity | Ragtime-Pro
+**Meta title:** Opportunity | RAGnify
 **Meta description:** The Opportunity vertex of the Product Modernization Triad: matching each Boost Point to the best-fit AI Upgrade Module.
 
 **H1:** "Opportunity" Vertex
@@ -319,7 +319,7 @@ How much effort it takes to integrate the module into the product's existing arc
 
 ## "Readiness" Vertex (`/methodology/readiness`)
 
-**Meta title:** Readiness | Ragtime-Pro
+**Meta title:** Readiness | RAGnify
 **Meta description:** The Readiness vertex of the Product Modernization Triad: how prepared the product is to safely integrate the selected AI Upgrade Module.
 
 **H1:** "Readiness" Vertex
@@ -350,8 +350,8 @@ Whether industry-specific constraints and the product's compliance posture — i
 
 ## The Modernization Journey (`/methodology/process`)
 
-**Meta title:** The Modernization Journey | Ragtime-Pro
-**Meta description:** The eight-step process behind every Ragtime-Pro modernization engagement — from product discovery to guided implementation.
+**Meta title:** The Modernization Journey | RAGnify
+**Meta description:** The eight-step process behind every RAGnify modernization engagement — from product discovery to guided implementation.
 
 **H1:** The Modernization Journey
 
@@ -374,8 +374,8 @@ The Modernization Agent (→ /modernization-agent) surfaces friction points, bot
 3. *AI Solution Category Alignment*
 Each opportunity is mapped to one of the five AI Solution Categories, aligning modernization with your product's maturity and readiness.
 
-4. *Standard Ragtime-Pro Modules Mapping*
-We match each opportunity to Ragtime-Pro's library of pre-built AI Upgrade Modules — reusing one where it fits, or generating a new module for any gap.
+4. *Standard RAGnify Modules Mapping*
+We match each opportunity to RAGnify's library of pre-built AI Upgrade Modules — reusing one where it fits, or generating a new module for any gap.
 
 5. *Modernization Sequencing*
 We determine what to modernize first, next, and later — and what needs architectural preparation first — in a Modernization Sequence Plan.
@@ -393,8 +393,8 @@ We work alongside your team on safe, incremental rollout, customer-aware deploym
 
 ## Modernization Agent (`/modernization-agent`)
 
-**Meta title:** The Modernization Agent | Ragtime-Pro
-**Meta description:** Ragtime-Pro's proprietary AI system — the internal intelligence engine behind every modernization engagement.
+**Meta title:** The Modernization Agent | RAGnify
+**Meta description:** RAGnify's proprietary AI system — the internal intelligence engine behind every modernization engagement.
 
 **H1:** Modernization Agent
 
@@ -402,7 +402,7 @@ We work alongside your team on safe, incremental rollout, customer-aware deploym
 "The engine behind our modernization service."
 
 **Body:**
-The Modernization Agent is Ragtime-Pro's proprietary AI system — not a customer-facing tool, but the internal intelligence engine behind every modernization engagement. It ingests your product's entire context: source code in any language or architecture, user manuals, technical specifications, actual and intended workflows, business processes, industry constraints, regulatory context, and the competitive landscape. The output is actionable modernization intelligence, showing exactly how legacy systems can be enhanced, extended, or transformed.
+The Modernization Agent is RAGnify's proprietary AI system — not a customer-facing tool, but the internal intelligence engine behind every modernization engagement. It ingests your product's entire context: source code in any language or architecture, user manuals, technical specifications, actual and intended workflows, business processes, industry constraints, regulatory context, and the competitive landscape. The output is actionable modernization intelligence, showing exactly how legacy systems can be enhanced, extended, or transformed.
 
 **CTA:** "See Our Methodology …" → /methodology
 
@@ -424,7 +424,7 @@ Tunes the Product Modernization Triad (→ /methodology) to your product's speci
 Generates the modernization blueprint and suggests safe integration patterns for your architecture.
 
 6. *Code AI Upgrade Modules*
-Generates the required code to adapt and integrate existing standard Ragtime-Pro AI Modules (→ /solutions) or develop ad-hoc ones if required.
+Generates the required code to adapt and integrate existing standard RAGnify AI Modules (→ /solutions) or develop ad-hoc ones if required.
 
 7. *Ensures Safe Execution*
 Ensures compliance alignment and supports our consultants throughout execution.
@@ -433,7 +433,7 @@ Ensures compliance alignment and supports our consultants throughout execution.
 
 ## AI Solution Categories (`/solutions`)
 
-**Meta title:** AI Solution Categories | Ragtime-Pro
+**Meta title:** AI Solution Categories | RAGnify
 **Meta description:** Five AI Solution Categories for legacy software modernization: personal productivity, workflow automation, RAG, reasoning agents, and custom AI models.
 
 **H1:** AI Solution Categories
@@ -548,8 +548,8 @@ Custom AI Models represent the fifth and deepest category in the modernization s
 
 ## Start Your Journey (`/start`)
 
-**Meta title:** Start Your Journey | Ragtime-Pro
-**Meta description:** Engagement with Ragtime-Pro begins with a conversation, not a proposal — three phases from a free introductory consultation to an ongoing modernization partnership.
+**Meta title:** Start Your Journey | RAGnify
+**Meta description:** Engagement with RAGnify begins with a conversation, not a proposal — three phases from a free introductory consultation to an ongoing modernization partnership.
 
 **H1:** Start Your Journey
 
@@ -557,7 +557,7 @@ Custom AI Models represent the fifth and deepest category in the modernization s
 "One conversation can change how you see your product's future."
 
 **Body:**
-Legacy modernization is not a transaction — it is a partnership. Every product has its own history, architecture, constraints, and ambitions, so engagement with Ragtime-Pro (→ /about) begins not with a proposal, but with a conversation: one where we listen, understand, and map your modernization reality. From that first interaction, our goal is simple — give you clarity, give you structure, give you confidence.
+Legacy modernization is not a transaction — it is a partnership. Every product has its own history, architecture, constraints, and ambitions, so engagement with RAGnify (→ /about) begins not with a proposal, but with a conversation: one where we listen, understand, and map your modernization reality. From that first interaction, our goal is simple — give you clarity, give you structure, give you confidence.
 
 **CTA:** "Request a Modernization Consultation" → /contact
 
@@ -605,14 +605,14 @@ Or reach us directly at info@ragtime.pro
 
 ## Privacy Policy (`/privacy-policy`)
 
-**Meta title:** Privacy Policy | Ragtime-Pro
-**Meta description:** How Ragtime-Pro collects, uses, and protects the information you share with us.
+**Meta title:** Privacy Policy | RAGnify
+**Meta description:** How RAGnify collects, uses, and protects the information you share with us.
 
 **H1:** Privacy Policy
 **Last updated:** August 10, 2026
 
 **Who we are**
-Ragtime-Pro is a modernization partner for European software vendors, combining an AI-augmented Modernization Agent with expert consulting to help legacy software products modernize safely and incrementally. This policy explains what information we collect through this website and how we use it.
+RAGnify is a modernization partner for European software vendors, combining an AI-augmented Modernization Agent with expert consulting to help legacy software products modernize safely and incrementally. This policy explains what information we collect through this website and how we use it.
 
 **Information we collect**
 When you use the contact form, we collect the information you choose to provide: your name, company, email address, and message, plus an optional phone number and optional description of your AI modernization interest. We do not collect this information anywhere else on the site, and we do not use cookies, analytics, or tracking scripts.
@@ -642,26 +642,26 @@ If you have any questions about this policy or wish to exercise your rights, con
 
 ## Terms of Service (`/terms-of-service`)
 
-**Meta title:** Terms of Service | Ragtime-Pro
-**Meta description:** The terms that govern your use of the Ragtime-Pro website and our AI-driven modernization services.
+**Meta title:** Terms of Service | RAGnify
+**Meta description:** The terms that govern your use of the RAGnify website and our AI-driven modernization services.
 
 **H1:** Terms of Service
 **Last updated:** August 10, 2026
 
 **Acceptance of these terms**
-By using this website, you agree to these terms. If you do not agree, please do not use the site. These terms apply to the website only; any consulting engagement with Ragtime-Pro is governed by a separate agreement signed between the parties.
+By using this website, you agree to these terms. If you do not agree, please do not use the site. These terms apply to the website only; any consulting engagement with RAGnify is governed by a separate agreement signed between the parties.
 
 **About our services**
-Ragtime-Pro is a modernization partner for European software vendors, combining an AI-augmented Modernization Agent with expert consulting to help legacy software products modernize safely and incrementally. The content on this website — including our AI Solution Categories, methodology, and Modernization Agent descriptions — is provided for general informational purposes and does not constitute a specific recommendation, professional advice, or a binding offer. Any specific recommendation is developed only through a direct engagement with us.
+RAGnify is a modernization partner for European software vendors, combining an AI-augmented Modernization Agent with expert consulting to help legacy software products modernize safely and incrementally. The content on this website — including our AI Solution Categories, methodology, and Modernization Agent descriptions — is provided for general informational purposes and does not constitute a specific recommendation, professional advice, or a binding offer. Any specific recommendation is developed only through a direct engagement with us.
 
 **No professional advice**
-Nothing on this website should be treated as legal, financial, or regulatory advice, including in relation to the EU AI Act. You should seek independent professional advice before making decisions based on information found here without a formal engagement with Ragtime-Pro.
+Nothing on this website should be treated as legal, financial, or regulatory advice, including in relation to the EU AI Act. You should seek independent professional advice before making decisions based on information found here without a formal engagement with RAGnify.
 
 **Intellectual property**
-The content of this website — including text, graphics, videos, and the Product Modernization Triad and AI Upgrade Module concepts — is owned by Ragtime-Pro or its licensors and may not be copied, reproduced, or distributed without our permission, other than for your own personal, non-commercial reference.
+The content of this website — including text, graphics, videos, and the Product Modernization Triad and AI Upgrade Module concepts — is owned by RAGnify or its licensors and may not be copied, reproduced, or distributed without our permission, other than for your own personal, non-commercial reference.
 
 **Limitation of liability**
-This website and its content are provided "as is," without warranties of any kind. To the extent permitted by law, Ragtime-Pro is not liable for any loss or damage arising from your use of this website or reliance on its content.
+This website and its content are provided "as is," without warranties of any kind. To the extent permitted by law, RAGnify is not liable for any loss or damage arising from your use of this website or reliance on its content.
 
 **Changes to these terms**
 We may update these terms from time to time to reflect changes to the website or our services. The date below reflects the last update.

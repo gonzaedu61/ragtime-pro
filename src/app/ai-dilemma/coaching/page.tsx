@@ -5,7 +5,7 @@ import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "Coaching: The AI-Augmented Barrier Breaker | Ragtime-Pro",
+  title: "Coaching: The AI-Augmented Barrier Breaker | RAGnify",
   description:
     "How AI-augmented coaching, powered by the Modernization Agent, demystifies modernization, bridges the skills gap, reduces resistance, and ensures EU AI Act compliance.",
 };
@@ -60,7 +60,7 @@ export default function CoachingPage() {
         <div className="flex flex-col items-center gap-12 text-center lg:flex-row lg:justify-center lg:gap-20">
           <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
             Modernizing a legacy software product traditionally depended entirely on
-            human consultants. Ragtime-Pro&apos;s coaching is AI-augmented, powered by
+            human consultants. RAGnify&apos;s coaching is AI-augmented, powered by
             the{" "}
             <Link href="/modernization-agent" className="underline hover:text-electric-blue">
               Modernization Agent
@@ -80,11 +80,11 @@ export default function CoachingPage() {
           </p>
           <Link href="/about" className="group flex flex-col items-center gap-4">
             <Image
-              src="/Ragtime-Pro_Logo.png"
-              alt="Ragtime-Pro logo"
+              src="/RAGnify_Logo.svg"
+              alt="RAGnify logo"
               width={280}
               height={135}
-              className="h-32 w-auto"
+              className="h-20 w-auto"
             />
             <span className="whitespace-nowrap rounded-md bg-navy px-6 py-3 font-body text-sm font-semibold text-white transition-colors group-hover:bg-electric-blue">
               We can help you …

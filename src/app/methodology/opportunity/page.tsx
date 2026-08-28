@@ -6,7 +6,7 @@ import VertexTriadNav from "@/components/VertexTriadNav";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "Opportunity | Ragtime-Pro",
+  title: "Opportunity | RAGnify",
   description:
     "The Opportunity vertex of the Product Modernization Triad: matching each Boost Point to the best-fit AI Upgrade Module.",
 };

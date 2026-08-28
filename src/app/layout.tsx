@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const openSans = Open_Sans({ subsets: ["latin"], variable: "--font-open-sans" });
 
 export const metadata: Metadata = {
-  title: "Ragtime-Pro",
+  title: "RAGnify",
   description: "AI-driven modernization for legacy software products.",
 };
 

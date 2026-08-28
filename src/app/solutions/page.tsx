@@ -7,7 +7,7 @@ import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 import { SOLUTIONS } from "@/lib/solutions";
 
 export const metadata: Metadata = {
-  title: "AI Solution Categories | Ragtime-Pro",
+  title: "AI Solution Categories | RAGnify",
   description:
     "Five AI Solution Categories for legacy software modernization: personal productivity, workflow automation, RAG, reasoning agents, and custom AI models.",
 };

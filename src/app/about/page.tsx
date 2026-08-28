@@ -6,9 +6,9 @@ import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "About Ragtime-Pro | Ragtime-Pro",
+  title: "About RAGnify | RAGnify",
   description:
-    "Ragtime-Pro is a modernization partner for legacy software vendors — an AI-augmented Modernization Agent, the Product Modernization Triad, expert consultants, and AI Upgrade Modules.",
+    "RAGnify is a modernization partner for legacy software vendors — an AI-augmented Modernization Agent, the Product Modernization Triad, expert consultants, and AI Upgrade Modules.",
 };
 
 const SECTIONS = [
@@ -38,7 +38,7 @@ export default function AboutPage() {
   return (
     <>
       <section className="relative mx-auto max-w-7xl px-6 pt-6 pb-8 text-center">
-        <h1 className="font-heading text-4xl font-bold text-navy">About Ragtime-Pro</h1>
+        <h1 className="font-heading text-4xl font-bold text-navy">About RAGnify</h1>
 
         <div className="mt-4 flex justify-center lg:absolute lg:left-[-9rem] lg:top-1/2 lg:z-[60] lg:mt-0 lg:-translate-y-1/2">
           <HeroAvatarVideo videoSrc="/About_Us.mp4" />
@@ -57,7 +57,7 @@ export default function AboutPage() {
       <section className="mx-auto max-w-7xl px-6 pt-6 pb-8">
         <div className="flex flex-col items-center gap-12 text-center lg:flex-row lg:justify-center lg:gap-20">
           <p className="text-left font-body text-lg text-charcoal lg:max-w-2xl">
-            Ragtime-Pro is a modernization partner for European software vendors who carry the weight —
+            RAGnify is a modernization partner for European software vendors who carry the weight —
             and the value — of legacy products. We specialize in transforming long-standing,
             mission-critical software into modern, intelligent, competitive products, without
             rewrites, risky migrations, or disruptive architectural changes. We combine

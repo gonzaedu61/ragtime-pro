@@ -1,12 +1,12 @@
-# Ragtime-Pro — Website Specification Document
-This document defines the narrative, deterministic, and human‑readable specification of the Ragtime-Pro website.  
+# RAGnify — Website Specification Document
+This document defines the narrative, deterministic, and human‑readable specification of the RAGnify website.  
 Claude Code must maintain this document and ensure it always reflects the current state of the codebase, architecture, content, design system, and authoritative documents.
 
 ---
 
 # 1. Website Purpose & Positioning
 
-**Transitional note:** every page has now been rebranded to Ragtime-Pro's AI-driven,
+**Transitional note:** every page has now been rebranded to RAGnify's AI-driven,
 legacy-software-modernization positioning. This note is kept for historical context
 on the rebrand's progression rather than as an outstanding-work tracker. Our
 Methodology (including its new Modernization Journey subpage) has been rebranded, as
@@ -61,7 +61,7 @@ Home is reached via the navbar logo/brand mark, not a nav item.
 2. AI Solutions (nav label; page is "Solution Categories")  
 3. Modernization Agent (nav label; page is "The Modernization Agent" — see PAGE 12)  
 4. Our Methodology  
-5. About Us (nav label; page is "About Ragtime-Pro" — see PAGE 11)  
+5. About Us (nav label; page is "About RAGnify" — see PAGE 11)  
 6. EU Compliance (nav label; page is "EU AI Act Compliance")  
 7. Start Your Journey  
 8. Contact  
@@ -71,7 +71,7 @@ Home is reached via the navbar logo/brand mark, not a nav item.
 - Terms of Service  
 - Contact  
 
-**Pending:** a LinkedIn link was removed — Ragtime-Pro does not yet have a LinkedIn
+**Pending:** a LinkedIn link was removed — RAGnify does not yet have a LinkedIn
 page. Re-add it here (and in `Footer.tsx`) once one exists.
 
 ---
@@ -92,14 +92,14 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
   - Boost Point — `/methodology/boost-point` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
   - Opportunity — `/methodology/opportunity` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
   - Readiness — `/methodology/readiness` (standalone route, linked from Our Methodology's pillar cards; not in top nav)
-- About Ragtime-Pro — `/about`
+- About RAGnify — `/about`
 - The Modernization Agent — `/modernization-agent`
 - Start Your Journey — `/start`
 - Contact — `/contact`
 - Privacy Policy — `/privacy-policy`
 - Terms of Service — `/terms-of-service`
 - EU AI Act Compliance — `/eu-ai-act-compliance` *(top-level nav item only — the Home
-  page no longer links here after the Ragtime-Pro rebrand dropped the "EU Compliance
+  page no longer links here after the RAGnify rebrand dropped the "EU Compliance
   Support" value block; not linked from the footer)*
 
 ---
@@ -109,7 +109,7 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
 ## PAGE 1 — HOME
 
 ### Purpose
-Immediate clarity: what Ragtime-Pro does, for whom, and why it matters.
+Immediate clarity: what RAGnify does, for whom, and why it matters.
 
 ### Hero Section
 - **Headline:** A `RotatingHeadline` component (`src/components/RotatingHeadline.tsx`)
@@ -279,14 +279,14 @@ A centered two-column group (stacks on mobile): on the left, intro text (the vid
 icon formerly here has moved to the Hero Avatar Video above the H1 — see §10.3)
 explaining
 that modernization coaching traditionally depended entirely on human consultants, but
-Ragtime-Pro's coaching is AI-augmented, powered by the Modernization Agent (first
+RAGnify's coaching is AI-augmented, powered by the Modernization Agent (first
 mention is an inline `<Link>` → `/modernization-agent`), which performs the heavy
 analytical work (scanning code, mapping dependencies, identifying Boost Points —
 inline `<Link>` → `/methodology/boost-point` — evaluating integration paths,
 assessing EU AI Act implications — inline `<Link>` → `/eu-ai-act-compliance`). The
 consulting team brings modernization expertise, the vendor's team brings product
 knowledge, and the Modernization Agent brings analytical acceleration. On the right,
-the Ragtime-Pro logo (`Ragtime-Pro_Logo.png`) above a "We can help you …" link button
+the RAGnify logo (`RAGnify_Logo.png`) above a "We can help you …" link button
 → `/about`. Same layout pattern as The Modernization Dilemma and Core Barriers to
 Modernization pages' intro text + icon/button groups.
 
@@ -416,7 +416,7 @@ PDF-sourced `roadmapFit` used previously, `Cards.md`'s Roadmap Fit lines do not 
 Category N position at all — they describe each category's role in the roadmap directly
 (e.g. "Ideal early modernization win...", "Strategic long-term investment...") without
 asserting a mandatory sequence. Titles and slugs are unchanged. The
-generated `<title>` now reads `{title} | Ragtime-Pro`.
+generated `<title>` now reads `{title} | RAGnify`.
 
 ### Example (RAG Solutions)
 - Quote: “Users no longer search for answers — the product provides them.”
@@ -496,7 +496,7 @@ repeatable sequence powered by the Modernization Agent (bolded and an inline `<L
 2. Modernization Opportunity Analysis — body text nests an inline `<Link>` on
    "Modernization Agent" → `/modernization-agent`
 3. AI Solution Category Alignment
-4. Standard Ragtime-Pro Modules Mapping — matches each opportunity to Ragtime-Pro's
+4. Standard RAGnify Modules Mapping — matches each opportunity to RAGnify's
    library of pre-built AI Upgrade Modules, reusing one where it fits or generating a
    new module for any gap.
 5. Modernization Sequencing
@@ -650,7 +650,7 @@ Modernization Triad diagram — see PAGE 8) on the left, the `roadmap.svg` icon 
 ## PAGE 11 — ABOUT RAGTIME-PRO
 
 ### Purpose
-Build trust by explaining Ragtime-Pro's modernization system as a whole — the
+Build trust by explaining RAGnify's modernization system as a whole — the
 Modernization Agent, the Product Modernization Triad, the Consulting Layer, and AI
 Upgrade Modules working together — sourced from the PDF's "PAGE 13 — ABOUT
 RAGTIME-PRO" chapter.
@@ -663,13 +663,13 @@ replacing the earlier reused `We_Can_Help.mp4` asset.
 ### Intro Text + CTA (below quote, above cards)
 A centered two-column group (stacks on mobile): on the left, intro text (the video
 icon formerly here has moved to the Hero Avatar Video above the H1 — see §10.3)
-introducing Ragtime-Pro
+introducing RAGnify
 as a modernization partner for legacy software vendors, transforming mission-critical
 products without rewrites or disruptive architectural change, through a combination of
 AI-augmented analysis, structured methodology, expert consulting, and incremental AI
 Upgrade Modules. On the right, the `mail_icon.svg` icon above a "Contact us …" link
 button → `/contact`. Same layout pattern as the intro text + icon/button groups on The
-AI Dilemma, Core Barriers, and Coaching pages. Intro text opens "Ragtime-Pro is a
+AI Dilemma, Core Barriers, and Coaching pages. Intro text opens "RAGnify is a
 modernization partner for European software vendors ..." — "European" added to align
 with the site's EU-focused positioning.
 
@@ -680,7 +680,7 @@ with the site's EU-focused positioning.
 - The Consulting Layer — linked card → `/methodology/process`
 - AI Upgrade Modules — linked card → `/solutions`
 
-The four pillars of Ragtime-Pro's "precision-engineered system," per the PDF chapter's
+The four pillars of RAGnify's "precision-engineered system," per the PDF chapter's
 "What Makes Us Different" section. All four cards link out, same linked-card pattern as
 the Home value blocks and Solution Class cards (see §10.3 Shared Visual Patterns).
 
@@ -692,7 +692,7 @@ the Home value blocks and Solution Class cards (see §10.3 Shared Visual Pattern
 ## PAGE 12 — THE MODERNIZATION AGENT
 
 ### Purpose
-Explain the Modernization Agent: Ragtime-Pro's proprietary AI system and the internal
+Explain the Modernization Agent: RAGnify's proprietary AI system and the internal
 intelligence engine behind every modernization engagement — not a customer-facing tool.
 
 ### Hero Avatar Video
@@ -727,7 +727,7 @@ exactly how legacy systems can be enhanced, extended, or transformed. On the rig
 5. Produces the Blueprint — generates the modernization blueprint and suggests safe
    integration patterns for the architecture.
 6. Code AI Upgrade Modules — generates the required code to adapt and integrate
-   existing standard Ragtime-Pro AI Modules (inline `<Link>` → `/solutions`) or develop
+   existing standard RAGnify AI Modules (inline `<Link>` → `/solutions`) or develop
    ad-hoc ones if required.
 7. Ensures Safe Execution — ensures compliance alignment and supports our consultants
    throughout execution.
@@ -762,7 +762,7 @@ A centered two-column group (stacks on mobile, `lg:flex-row lg:justify-center`):
 the left, intro text (the video icon formerly here has moved to the Hero Avatar Video
 above the H1 — see §10.3) explaining that legacy modernization is a partnership, not a
 transaction — every product has its own history, architecture, constraints, and
-ambitions, so engagement with Ragtime-Pro (inline `<Link>` → `/about`) begins not with
+ambitions, so engagement with RAGnify (inline `<Link>` → `/about`) begins not with
 a proposal but with a conversation, with the goal of giving clarity, structure, and
 confidence. On the right, the
 `discovery_call.svg` icon below a "Request a Modernization Consultation" link button
@@ -842,13 +842,13 @@ values, and the underlying Purelymail mailbox, have not been updated to match.
 
 ### Purpose
 Explain what the EU AI Act requires of software vendors integrating AI into legacy
-products, and how Ragtime-Pro builds compliance into every modernization roadmap.
+products, and how RAGnify builds compliance into every modernization roadmap.
 Content is grounded in the PDF's Core Barriers ("Barrier 4 — Compliance & Ethics")
 and Coaching ("Breaks Barrier 4") chapters, supplemented with current, externally
 researched EU AI Act specifics (risk-tier definitions, obligation deadlines, and
 penalty figures) since the PDF itself does not contain a dedicated compliance
 chapter. Formerly expanded on a dedicated Home "EU Compliance Support" value block;
-Home no longer includes one after the Ragtime-Pro rebrand, so this page is now
+Home no longer includes one after the RAGnify rebrand, so this page is now
 reached only via the top nav.
 
 ### Hero Avatar Video
@@ -892,7 +892,7 @@ obligation cards are the page's final content.
 
 ### Purpose
 Footer/legal page explaining what personal data the site collects and how it's used.
-Fully rebranded: entity name and positioning updated throughout (Ragtime-Pro is a
+Fully rebranded: entity name and positioning updated throughout (RAGnify is a
 modernization partner combining the Modernization Agent with expert consulting,
 replacing the prior "European network of AI consultants helping SMEs" framing); no
 PDF chapter exists for legal boilerplate, so this was a terminology/positioning
@@ -907,7 +907,7 @@ interest — and noting the site uses no cookies or analytics); How we use your
 information (references "an introductory consultation", matching the Start Your
 Journey page's phase terminology); Legal basis for processing; Sharing your
 information (rewritten to drop the BrokerAI-era "specialist within our network"
-brokerage language — Ragtime-Pro delivers directly, it doesn't broker third-party
+brokerage language — RAGnify delivers directly, it doesn't broker third-party
 vendors — replaced with generic "service providers who help us operate this website");
 Data retention; Your rights (GDPR); Changes to this policy; Contact us (mailto link,
 `info@ragtime.pro`).
@@ -921,7 +921,7 @@ rebrand as Privacy Policy. "Last updated" bumped to August 10, 2026.
 
 ### Content
 No quote band. Same layout as Privacy Policy: centered H1 + "Last updated" date, then
-sections: Acceptance of these terms; About our services (Ragtime-Pro's modernization-
+sections: Acceptance of these terms; About our services (RAGnify's modernization-
 partner positioning, replacing "vendor-neutral network of AI consultants"; "AI Roadmap
 Guide" content reference replaced with "AI Solution Categories, methodology, and
 Modernization Agent descriptions"); No professional advice (the site's content is
@@ -935,7 +935,7 @@ owner to add.
 
 **Removed section — Vendor referrals:** the original "vendor-neutral brokerage"
 clause disclaiming responsibility for third-party vendors referred to via the
-network no longer applies. Ragtime-Pro is not a broker; per the PDF, it directly
+network no longer applies. RAGnify is not a broker; per the PDF, it directly
 delivers modernization through its own Modernization Agent, consultants, and AI
 Upgrade Modules, with no third-party vendor referrals in its model. The clause was
 removed rather than reworded, since keeping any form of it would misrepresent how
@@ -947,8 +947,8 @@ change, not just a terminology swap.
 # 4. Visual Identity Specification
 
 ## 4.1 Logo
-Use the Ragtime-Pro lockup (`public/Ragtime-Pro_Logo.png`) — three ascending equalizer
-bars (the "AI" mark) paired with the "RAGTIME-PRO" wordmark — as the brand symbol.
+Use the RAGnify lockup (`public/RAGnify_Logo.svg`) — three ascending equalizer
+bars (the "AI" mark) paired with the "RAGNIFY" wordmark — as the brand symbol.
 
 ## 4.2 Color Palette
 - Primary: Deep navy / charcoal  
@@ -981,7 +981,7 @@ Avoid hype. Emphasize clarity, safety, readiness.
 - Animated diagrams  
 - Hover reveals on solution cards  
 - Sticky top navigation  
-- Ragtime Chat widget — draggable/resizable floating pane that zooms open from and closed back into its trigger icon's screen position; triggered from the Home hero (`ChatBubbleTrigger`) or, on every other page, an icon on the navy pull-quote bar (`ChatBannerTrigger`)
+- RAGnify Chat widget — draggable/resizable floating pane that zooms open from and closed back into its trigger icon's screen position; triggered from the Home hero (`ChatBubbleTrigger`) or, on every other page, an icon on the navy pull-quote bar (`ChatBannerTrigger`)
 
 ---
 
@@ -1066,9 +1066,9 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   submitter's name, company (optional), email, phone, AI modernization
   interest, message, the retrieved context, and the page list, asking for a
   JSON response (`personalizedReply`, `replySubject`), auto-detecting and
-  replying in the visitor's own language. The prompt describes Ragtime-Pro
+  replying in the visitor's own language. The prompt describes RAGnify
   as a modernization partner combining the Modernization Agent with expert
-  consulting, and signs off as "The Ragtime-Pro Team". Its closing line
+  consulting, and signs off as "The RAGnify Team". Its closing line
   depends on a required `channel: "form" | "email"` field: `"form"` says the
   team will follow up directly using the details already provided (no
   self-service call-booking ask, since submitting the form already implies
@@ -1078,8 +1078,8 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   mechanism exists (see `docs/rag-hallucination-fixes-2026-08-16.md`). If
   the call fails, times out, or the response doesn't parse into valid,
   non-empty JSON, `generateAiReply` returns `null` and the route falls back
-  to a fixed acknowledgement text and subject (sender name "Ragtime-Pro",
-  fallback subject "We've received your message — Ragtime-Pro", fallback
+  to a fixed acknowledgement text and subject (sender name "RAGnify",
+  fallback subject "We've received your message — RAGnify", fallback
   body referencing "modernize your product") — this fallback does not vary
   by channel. See `docs/contact-rag-reply-eval-2026-08-15.md` for
   verification. Also receives a "Prior correspondence" block (summary +
@@ -1110,7 +1110,7 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   punctuation (e.g. the period after "...rag-solutions.") so the link
   itself isn't broken. When the reply came from the model (not the static
   fallback), a short footer disclosing that is appended to both bodies —
-  "This reply was generated automatically by Ragtime-Pro's AI agent." —
+  "This reply was generated automatically by RAGnify's AI agent." —
   muted-gray styling in the HTML version; omitted on the fallback path
   since that text isn't actually AI-generated. `acknowledgement.ts` also
   exports `sendNoreplyRedirect()` for the `noreply@` mailbox (§8.5), which
@@ -1260,7 +1260,7 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   the email matching the Vercel account.
 
 ## 8.7 RAG Chat Backend
-The Ragtime Chat widget (§10.1, §10.3, all pages) is backed by a fully
+The RAGnify Chat widget (§10.1, §10.3, all pages) is backed by a fully
 serverless Retrieval-Augmented Generation pipeline — static local corpus
 (chunking, embeddings, BM25 index, cross-encoder re-ranking), Cloudflare R2
 conversation memory, and Azure OpenAI for answer generation and
@@ -1322,7 +1322,7 @@ Claude must:
 # 10. Component Library
 
 ## 10.1 Current Components
-- **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `Ragtime-Pro_Logo.png` lockup (icon + wordmark, no separate text label), flip-animated in an 82×170px box sized to its aspect ratio.
+- **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `RAGnify_Logo.svg` lockup (icon + wordmark, no separate text label), flip-animated in an 82×170px box sized to its aspect ratio.
 - **Footer** (`src/components/Footer.tsx`) — footer navigation (Privacy Policy, Terms of Service, Contact) and copyright line. No LinkedIn link yet — see §2.2.
 - **RotatingHeadline** (`src/components/RotatingHeadline.tsx`) — client component cycling through 5 two-line phrases on the Home hero, one every 8 seconds with a cross-fade transition. Starts on a random phrase on each mount (not always the first) so repeat visits and refreshes don't always open on the same line.
 - **HeroAvatarVideo** (`src/components/HeroAvatarVideo.tsx`) — clickable circular avatar photo that plays an in-place explainer video with custom minimal controls; positioned in the left gutter beside each page's H1. See §10.3 "Hero avatar video" for full behavior, positioning, and the per-page image/video assignments.
@@ -1331,7 +1331,7 @@ Claude must:
 - **SolutionDetail** (`src/components/SolutionDetail.tsx`) — shared template rendering a single Solution Class's Quote, Overview, sidebar of the other four categories, Value/Examples/Readiness Requirements/Roadmap Fit cards, and a roadmap CTA; used by the dynamic `/solutions/[slug]` route. See Page 6 for its 3-column grid layout.
 - **ExternalLinkIcon** (`src/components/ExternalLinkIcon.tsx`) — small inline SVG "leads elsewhere" arrow icon (hand-drawn, no external asset). Used on every card that is itself a link, positioned bottom-right; see Section 10.3.
 - **ChatWidgetContext** (`src/components/chat/ChatWidgetContext.tsx`) — React context holding the chat widget's open/closed state and the screen-position "origin" of whichever trigger opened it (used for the zoom animation). Provider is mounted once at the root layout (`src/app/layout.tsx`), wrapping the whole site, so widget state survives page navigation.
-- **ChatWidget** (`src/components/chat/ChatWidget.tsx`) — the floating chat pane: draggable/resizable (`react-rnd`; min 320×380px, max 50% of viewport width and 85% of viewport height, recomputed on window resize), a black border (`border-2 border-black`) setting the pane apart from page content, a thin custom-scrollbar message list, and an input box wired to `POST /api/rag/answer`. The navy header doubles as the drag handle and uses a 3-column grid (`grid-cols-[auto_1fr_auto]`) so its contents stay clear of each other at any pane width: the left column holds a small white `Bubbles_white.svg` icon (`h-6`, via `brightness-0 invert` — the source artwork has a border ring, forced pure white by the filter) sized to fit the header's height, followed by the left-aligned title "Ragtime-Pro Chat" (`gap-3` between icon and text); the middle (flexible) column centers a 6-dot "draggable" hint (`text-white/80`, tuned for visibility against the navy header) within whatever space is left; the right column holds the close button. The pane renders at `zIndex: 100` (fixed positioning), deliberately above the hero avatar's `lg:z-[60]` (present on every non-Home page, §10.3 "Hero avatar video") and the sticky navbar's `z-50`, so it's never hidden behind other page chrome. A small diagonal-lines resize hint sits in the pane's bottom-right corner (decorative only — the whole pane is already resizable via `react-rnd`); the input row's bottom padding (`pb-6`) keeps the Send button clear of it. The message list has asymmetric horizontal padding (`pl-4 pr-2`, tight to the right border); user bubbles are right-aligned flush against it, while assistant bubbles (and the "Thinking…" placeholder) are centered with a compensating `pr-2` so they sit equidistant from both pane borders rather than inheriting the list's right-side bias. Renders nothing when closed; open/close plays a 550ms zoom animation anchored to the trigger's captured screen position via a `hidden → entering → shown → exiting → hidden` phase state machine, so the closing transition finishes before unmounting. Position and size are local component state — since the component is mounted once at the root layout and never unmounts (only its rendered output toggles), they survive both page navigation and close/reopen. On first open, checks `GET /api/rag/session` for a returning-visitor match and shows a "continue where you left off?" prompt when found, then loads the most recent page of the full transcript from `GET /api/rag/session/history` (not the summarization-trimmed `history` embedded in the session status responses, which stays intentionally short). Scrolling to the top of the message list fetches and prepends the next-older page, preserving scroll position so the view doesn't jump; reaching the actual start of the conversation just stops (no further fetches). See §8.7 for the backend it talks to.
+- **ChatWidget** (`src/components/chat/ChatWidget.tsx`) — the floating chat pane: draggable/resizable (`react-rnd`; min 320×380px, max 50% of viewport width and 85% of viewport height, recomputed on window resize), a black border (`border-2 border-black`) setting the pane apart from page content, a thin custom-scrollbar message list, and an input box wired to `POST /api/rag/answer`. The navy header doubles as the drag handle and uses a 3-column grid (`grid-cols-[auto_1fr_auto]`) so its contents stay clear of each other at any pane width: the left column holds a small white `Bubbles_white.svg` icon (`h-6`, via `brightness-0 invert` — the source artwork has a border ring, forced pure white by the filter) sized to fit the header's height, followed by the left-aligned title "RAGnify Chat" (`gap-3` between icon and text); the middle (flexible) column centers a 6-dot "draggable" hint (`text-white/80`, tuned for visibility against the navy header) within whatever space is left; the right column holds the close button. The pane renders at `zIndex: 100` (fixed positioning), deliberately above the hero avatar's `lg:z-[60]` (present on every non-Home page, §10.3 "Hero avatar video") and the sticky navbar's `z-50`, so it's never hidden behind other page chrome. A small diagonal-lines resize hint sits in the pane's bottom-right corner (decorative only — the whole pane is already resizable via `react-rnd`); the input row's bottom padding (`pb-6`) keeps the Send button clear of it. The message list has asymmetric horizontal padding (`pl-4 pr-2`, tight to the right border); user bubbles are right-aligned flush against it, while assistant bubbles (and the "Thinking…" placeholder) are centered with a compensating `pr-2` so they sit equidistant from both pane borders rather than inheriting the list's right-side bias. Renders nothing when closed; open/close plays a 550ms zoom animation anchored to the trigger's captured screen position via a `hidden → entering → shown → exiting → hidden` phase state machine, so the closing transition finishes before unmounting. Position and size are local component state — since the component is mounted once at the root layout and never unmounts (only its rendered output toggles), they survive both page navigation and close/reopen. On first open, checks `GET /api/rag/session` for a returning-visitor match and shows a "continue where you left off?" prompt when found, then loads the most recent page of the full transcript from `GET /api/rag/session/history` (not the summarization-trimmed `history` embedded in the session status responses, which stays intentionally short). Scrolling to the top of the message list fetches and prepends the next-older page, preserving scroll position so the view doesn't jump; reaching the actual start of the conversation just stops (no further fetches). See §8.7 for the backend it talks to.
 - **ChatBubbleTrigger** (`src/components/chat/ChatBubbleTrigger.tsx`) — the `Bubbles_grey.svg` + "Better a chat …?" button that opens the widget; see Page 1 "Chat Trigger". Currently Home-only.
 - **ChatBannerTrigger** (`src/components/chat/ChatBannerTrigger.tsx`) — icon-only chat trigger (`h-12`, no caption) placed on the navy pull-quote bar (§10.3) of every page except Home, absolutely positioned at the bar's far right edge (`right-6`, vertically centered). Base icon is `Bubbles_white.svg` via `brightness-0 invert` (white-on-navy, matching the pane header's own icon treatment); hovering crossfades to `Bubbles_blue_white_border.svg` using the same two-stacked-`Image`/opposing-opacity technique as `ChatBubbleTrigger`. Opens the same `ChatWidget` via the shared `ChatWidgetContext`, anchoring its zoom-open animation to this icon's screen position exactly like the Home trigger does.
 

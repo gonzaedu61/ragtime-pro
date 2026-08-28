@@ -8,13 +8,13 @@ import { SITE_ORIGIN } from "@/lib/pageDirectory";
 
 const FROM_ADDRESS = process.env.MAIL_FROM_ADDRESS!;
 const INFO_ADDRESS = process.env.MAIL_INFO_ADDRESS!;
-const FALLBACK_SUBJECT = "We've received your message — Ragtime-Pro";
+const FALLBACK_SUBJECT = "We've received your message — RAGnify";
 const NOREPLY_FALLBACK_SUBJECT = "About your message to noreply@ragtime.pro";
 
 // Only appended when the reply actually came from the model - the fallback
 // text below is a fixed string, not AI-generated, so claiming otherwise
 // there would be inaccurate.
-const AI_DISCLOSURE = "This reply was generated automatically by Ragtime-Pro's AI agent.";
+const AI_DISCLOSURE = "This reply was generated automatically by RAGnify's AI agent.";
 
 interface AckFields {
   name: string;
@@ -31,11 +31,11 @@ interface AckFields {
 }
 
 function fallbackText(name: string): string {
-  return `Dear ${name},\n\nThank you for getting in touch with us — we appreciate your interest in exploring how AI could modernize your product. We'll review your message and get back to you shortly with the information you're looking for.\nWe hope the walkthrough on our site has been helpful in shaping your thinking around modernization. With a bit of luck, this first conversation becomes the start of something more meaningful.\n\n— The Ragtime-Pro Team`;
+  return `Dear ${name},\n\nThank you for getting in touch with us — we appreciate your interest in exploring how AI could modernize your product. We'll review your message and get back to you shortly with the information you're looking for.\nWe hope the walkthrough on our site has been helpful in shaping your thinking around modernization. With a bit of luck, this first conversation becomes the start of something more meaningful.\n\n— The RAGnify Team`;
 }
 
 function noreplyFallbackText(name: string): string {
-  return `Dear ${name},\n\nThanks for your message. This address (noreply@ragtime.pro) is used only for sending automated emails and isn't monitored, so we won't see anything sent here.\n\nIf you'd like an interactive conversation, visit ${SITE_ORIGIN} and look for the chat icon — or reach out via our contact form at ${SITE_ORIGIN}/contact or by emailing info@ragtime.pro directly.\n\n— The Ragtime-Pro Team`;
+  return `Dear ${name},\n\nThanks for your message. This address (noreply@ragtime.pro) is used only for sending automated emails and isn't monitored, so we won't see anything sent here.\n\nIf you'd like an interactive conversation, visit ${SITE_ORIGIN} and look for the chat icon — or reach out via our contact form at ${SITE_ORIGIN}/contact or by emailing info@ragtime.pro directly.\n\n— The RAGnify Team`;
 }
 
 const URL_PATTERN = /(https?:\/\/[^\s<>"')]+)/g;
@@ -82,7 +82,7 @@ export async function sendAcknowledgement(fields: AckFields): Promise<void> {
   const plainText = disclosure ? `${bodyText}\n\n${disclosure}` : bodyText;
 
   await transporter.sendMail({
-    from: `"Ragtime-Pro" <${FROM_ADDRESS}>`,
+    from: `"RAGnify" <${FROM_ADDRESS}>`,
     to: fields.email,
     bcc: INFO_ADDRESS,
     subject: aiReply?.subject ?? FALLBACK_SUBJECT,
@@ -128,7 +128,7 @@ export async function sendNoreplyRedirect(fields: NoreplyFields): Promise<void> 
   const plainText = disclosure ? `${bodyText}\n\n${disclosure}` : bodyText;
 
   await transporter.sendMail({
-    from: `"Ragtime-Pro" <${FROM_ADDRESS}>`,
+    from: `"RAGnify" <${FROM_ADDRESS}>`,
     to: fields.email,
     bcc: INFO_ADDRESS,
     subject: aiReply?.subject ?? NOREPLY_FALLBACK_SUBJECT,

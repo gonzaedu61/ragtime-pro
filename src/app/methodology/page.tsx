@@ -6,7 +6,7 @@ import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "Our Methodology | Ragtime-Pro",
+  title: "Our Methodology | RAGnify",
   description:
     "The Product Modernization Triad: Boost Point, Opportunity, and Readiness — the three vertices that shape every AI-driven legacy modernization roadmap.",
 };

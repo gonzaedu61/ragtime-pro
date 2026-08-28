@@ -5,9 +5,9 @@ import HeroAvatarVideo from "@/components/HeroAvatarVideo";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "Start Your Journey | Ragtime-Pro",
+  title: "Start Your Journey | RAGnify",
   description:
-    "Engagement with Ragtime-Pro begins with a conversation, not a proposal — three phases from a free introductory consultation to an ongoing modernization partnership.",
+    "Engagement with RAGnify begins with a conversation, not a proposal — three phases from a free introductory consultation to an ongoing modernization partnership.",
 };
 
 const PHASES = [
@@ -53,7 +53,7 @@ export default function StartPage() {
             product has its own history, architecture, constraints, and ambitions, so
             engagement with{" "}
             <Link href="/about" className="underline hover:text-electric-blue">
-              Ragtime-Pro
+              RAGnify
             </Link>{" "}
             begins not with a proposal, but with a conversation: one where we listen,
             understand, and map your modernization reality. From that first

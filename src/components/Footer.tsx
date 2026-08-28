@@ -11,7 +11,7 @@ export default function Footer() {
     <footer className="border-t border-light-grey bg-navy text-light-grey">
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between">
         <p className="font-body text-sm">
-          &copy; {new Date().getFullYear()} Ragtime-Pro.&nbsp;&nbsp;&nbsp;&nbsp;All rights reserved.
+          &copy; {new Date().getFullYear()} RAGnify.&nbsp;&nbsp;&nbsp;&nbsp;All rights reserved.
         </p>
 
         <nav>

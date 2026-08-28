@@ -6,7 +6,7 @@ import VertexTriadNav from "@/components/VertexTriadNav";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "Boost Point | Ragtime-Pro",
+  title: "Boost Point | RAGnify",
   description:
     "The Boost Point vertex of the Product Modernization Triad: the modernization hotspot where AI can create the highest product value with minimal disruption.",
 };

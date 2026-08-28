@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Ragtime-Pro",
-  description: "How Ragtime-Pro collects, uses, and protects the information you share with us.",
+  title: "Privacy Policy | RAGnify",
+  description: "How RAGnify collects, uses, and protects the information you share with us.",
 };
 
 const SECTIONS = [
   {
     title: "Who we are",
-    body: "Ragtime-Pro is a modernization partner for European software vendors, combining an AI-augmented Modernization Agent with expert consulting to help legacy software products modernize safely and incrementally. This policy explains what information we collect through this website and how we use it.",
+    body: "RAGnify is a modernization partner for European software vendors, combining an AI-augmented Modernization Agent with expert consulting to help legacy software products modernize safely and incrementally. This policy explains what information we collect through this website and how we use it.",
   },
   {
     title: "Information we collect",

@@ -72,14 +72,14 @@ export async function detectEmailLinkIntent(
       .map((m) => `${m.role === "user" ? "Visitor" : "Assistant"}: ${m.content}`)
       .join("\n\n");
 
-    const prompt = `You are analyzing a live website chat conversation with Ragtime-Pro, to detect whether the visitor is referring to prior contact via email or the contact form.
+    const prompt = `You are analyzing a live website chat conversation with RAGnify, to detect whether the visitor is referring to prior contact via email or the contact form.
 
 Conversation so far:
 ${transcript}
 
 Determine:
 1. Has the visitor, anywhere in this conversation, provided an email address, their name, or their company name that could be used to look up a prior email/contact-form conversation?
-2. Does the visitor's LATEST message suggest they've contacted Ragtime-Pro before by email or the contact form (e.g. "I already emailed you", "I submitted the form", "following up on my message", "as I mentioned in my email")?
+2. Does the visitor's LATEST message suggest they've contacted RAGnify before by email or the contact form (e.g. "I already emailed you", "I submitted the form", "following up on my message", "as I mentioned in my email")?
 
 Return exactly this JSON (no code fences, no extra text):
 {

@@ -6,7 +6,7 @@ import VertexTriadNav from "@/components/VertexTriadNav";
 import ChatBannerTrigger from "@/components/chat/ChatBannerTrigger";
 
 export const metadata: Metadata = {
-  title: "Readiness | Ragtime-Pro",
+  title: "Readiness | RAGnify",
   description:
     "The Readiness vertex of the Product Modernization Triad: how prepared the product is to safely integrate the selected AI Upgrade Module.",
 };
