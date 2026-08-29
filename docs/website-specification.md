@@ -1492,10 +1492,26 @@ reads from `@rag_data_almendro/*` via its own path alias, never `@rag_data/*`):
   literal next message, an untranslated topic was measured to silently flip the next
   turn's language. Topics must never reference finding or locating documentation itself.
 - `answer.ts` (`generateAlmendroAnswer`) — hybrid search + query expansion → merge →
-  rerank (pass-through) → build messages → call the **existing** `src/rag/azureClient`
-  (same Azure OpenAI credentials/deployment as §8.4/§8.7, no new secrets), with
-  `response_format: { type: "json_object" }` and one retry — the reasoning model was
-  observed occasionally dropping the JSON envelope entirely for certain answer shapes.
+  rerank (pass-through) → build messages → call `src/almendro/azureClient.ts` (a
+  dedicated client on the same Azure OpenAI resource/credentials as §8.4/§8.7, no new
+  secrets, but its own deployment and a 45s request timeout — the Azure SDK locks the
+  deployment in at client construction and ignores any per-call `model:` string once one
+  is set, so reusing the shared client would have no effect), with
+  `response_format: { type: "json_object" }` and one retry for occasional
+  malformed-JSON envelopes.
+  **Model history for this call site** (also used by `rewriteQuery.ts` above): started
+  on `o4-mini` (shared with §8.4/§8.7), but its reasoning-token count varies enormously
+  per call on identical prompts (measured 704–2240 tokens), driving 10–78s+ latency and
+  an intermittent production timeout (`Vercel Runtime Timeout Error` on this route — see
+  the API surface note below). `reasoning_effort: "low"` cut the reasoning-token count
+  substantially but didn't eliminate the worst-case variance. Tried `gpt-4o-mini` next
+  (non-reasoning, consistently fast), but a repro test found it followed this prompt's
+  many rules — language-matching, `usesManualContent` classification, follow-up-topic
+  grounding — unreliably: roughly a coin flip on language-matching for one query that
+  `o4-mini` had answered correctly all session. Settled on **`gpt-4.1-mini`**, which
+  tested as both fast and reliable (5/5 correct language-matching across
+  English/German/social-turn cases in the same repro suite, consistent 6–8s latency) and
+  is what's deployed now.
   Source citations are built **deterministically from the reranked chunks themselves**
   (top 3 distinct documents, in rank order), not asked of the model — the model can't
   reliably self-report which excerpts it actually used, but the reranked list already is
@@ -1519,6 +1535,10 @@ reads from `@rag_data_almendro/*` via its own path alias, never `@rag_data/*`):
   reload.
 - `POST /api/almendro/answer` — the chat endpoint: retrieves + reranks, calls Azure
   OpenAI, appends the turn to R2, returns `{ answer, sources, followUpTopics }`.
+  `export const maxDuration = 60` (raised from 30 after production hit a
+  `Vercel Runtime Timeout Error` on this route — the main site's 30s default was too
+  tight for this pipeline's two sequential LLM calls; see the model-history note in
+  `answer.ts` above).
 - `POST /api/almendro/session/reset` — deletes the R2 session object and clears the
   cookie, so the next message starts a genuinely fresh conversation. Backs the chat
   pane's reset icon (§10.1).
