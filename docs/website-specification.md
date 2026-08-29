@@ -139,7 +139,7 @@ Immediate clarity: what RAGnify does, for whom, and why it matters.
 
 ### Hero Visual
 Removed. The Home hero no longer includes a separate large logo motif; the
-flip-animated logo lockup now appears only in the navbar (see §10.1).
+logo lockup now appears only in the navbar (see §10.1).
 
 ### Hero Avatar Video
 Unlike every other page (which uses the left-gutter/absolute-positioning pattern
@@ -290,7 +290,7 @@ inline `<Link>` → `/methodology/boost-point` — evaluating integration paths,
 assessing EU AI Act implications — inline `<Link>` → `/eu-ai-act-compliance`). The
 consulting team brings modernization expertise, the vendor's team brings product
 knowledge, and the Modernization Agent brings analytical acceleration. On the right,
-the RAGnify logo (`RAGnify_Logo.png`) above a "We can help you …" link button
+the RAGnify logo (`RAGnify_Logo.svg`, shown smaller here than the navbar's own lockup — `h-20` vs the navbar's `h-[84px]`) above a "We can help you …" link button
 → `/about`. Same layout pattern as The Modernization Dilemma and Core Barriers to
 Modernization pages' intro text + icon/button groups.
 
@@ -1182,10 +1182,16 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   local development and in the Vercel project's environment variables for
   production. Never committed. In addition to `PURELYMAIL_SMTP_USER` /
   `PURELYMAIL_SMTP_PASS` (SMTP auth), two address vars control the visible
-  headers: `MAIL_FROM_ADDRESS` (the "From" on both outgoing emails, currently
-  `noreply@thebrokerai.tech` in production) and `MAIL_INFO_ADDRESS` (the "To"
-  on the internal notification email and the "Bcc" on every acknowledgement
-  email, currently `info@thebrokerai.tech` in production).
+  headers: `MAIL_FROM_ADDRESS` (the "From" on both outgoing emails, previously
+  documented here as `noreply@thebrokerai.tech` in production) and
+  `MAIL_INFO_ADDRESS` (the "To" on the internal notification email and the
+  "Bcc" on every acknowledgement email, previously documented here as
+  `info@thebrokerai.tech` in production). *(Both current-value claims are
+  now flagged unverified: §8.6 found the actual production domain is
+  `ragtime.pro`, not `thebrokerai.tech`, which this section's env var values
+  were written against — they were never independently re-checked against
+  Vercel's actual environment variables, so treat them as likely stale
+  rather than confirmed.)*
   `MAIL_ACK_BLOCKLIST` (comma-separated addresses that are never
   acknowledged; see §8.5) is also part of this group. **Note:** website copy
   (Contact, Privacy Policy, Terms of Service) now displays `info@ragtime.pro`
@@ -1268,10 +1274,12 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
   `docs/noreply-redirect-eval-2026-08-16.md`'s "Outstanding" section.
 
 ## 8.6 Deployment & Production Promotion
-- **Hosting:** Vercel project `thebrokerai` (team `the-broker-ai`), linked to
-  the `gonzaedu61/ragtime-pro` GitHub repository. *(Vercel project/team names
-  unconfirmed — not yet verified as renamed; only the GitHub repo name is
-  confirmed current.)*
+- **Hosting:** Vercel project `ragtime-pro` (team `the-broker-ai`), linked to
+  the `gonzaedu61/ragtime-pro` GitHub repository. *(Project and team confirmed
+  directly from a `vercel --prod` deploy's own output — "Deploying
+  the-broker-ai/ragtime-pro" — on 2026-08-28, superseding this section's
+  earlier "`thebrokerai`" project name, which appears to have been either
+  stale or a planned rename that never happened.)*
 - **No auto-deploy on `main`:** `vercel.json` sets
   `git.deploymentEnabled.main` to `false`, so pushes to `main` no longer
   trigger an automatic Vercel build or deployment (production or preview).
@@ -1281,14 +1289,20 @@ convention (no code in `layout.tsx` needed). Site-wide, not per-page.
 - **Manual production deploys:** shipping a change now requires an explicit
   `vercel --prod` (or a manual "Redeploy" from the Vercel dashboard) run
   against the current `main`.
-- **Production domain:** `thebrokerai.tech` (custom domain, apex +
-  `www`), aliased to the underlying `thebrokerai.vercel.app` Vercel
-  deployment URL.
-- **DNS:** domain is registered with a third-party registrar and DNS is
-  managed via HostGator (not Vercel-managed nameservers). Required
-  records: apex `A @ 76.76.21.21`, `www` `CNAME` to Vercel's assigned
-  `vercel-dns` target. Vercel auto-issues and renews the TLS
-  certificate for both hostnames once DNS verification succeeds — no
+- **Production domain:** `ragtime.pro` — confirmed from the same deploy
+  output ("▲ Aliased https://ragtime.pro") on 2026-08-28, superseding this
+  section's earlier "`thebrokerai.tech`" domain claim. *(Only the aliased
+  domain itself is confirmed; the DNS/registrar details immediately below
+  were written for the old `thebrokerai.tech` claim and are unverified for
+  `ragtime.pro` — likely stale, not re-derived from any direct check.)*
+- **DNS:** *(unverified for the current `ragtime.pro` domain — the following
+  was written for the earlier, likely-incorrect `thebrokerai.tech` domain
+  claim above and has not been re-checked against Vercel's actual DNS
+  requirements for `ragtime.pro`.)* Domain is registered with a third-party
+  registrar and DNS is managed via HostGator (not Vercel-managed
+  nameservers). Required records: apex `A @ 76.76.21.21`, `www` `CNAME` to
+  Vercel's assigned `vercel-dns` target. Vercel auto-issues and renews the
+  TLS certificate for both hostnames once DNS verification succeeds — no
   manual certificate steps.
 - **Git commit author identity (Hobby team constraint):** Vercel only
   accepts/deploys commits whose git author email is a verified email
@@ -1448,7 +1462,7 @@ Claude must:
 # 10. Component Library
 
 ## 10.1 Current Components
-- **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation; renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `RAGnify_Logo.svg` lockup (icon + wordmark, no separate text label), flip-animated in an 82×170px box sized to its aspect ratio.
+- **Navbar** (`src/components/Navbar.tsx`) — sticky top navigation (header height ~117px); renders the 8 top-level nav items (Home is reached via the logo/brand mark, not a nav item; labels shortened per §2.1), logo, and mobile menu toggle. Desktop nav shows at the `xl` breakpoint and above; below that it falls back to the hamburger menu. The logo is the `RAGnify_Logo.svg` lockup (icon + wordmark, no separate text label) in an `h-[84px] w-[260px]` box — sized to match the SVG's actual rendered height exactly, rather than a larger box with dead space below it (an earlier, taller box left ~44px of empty space under the logo, inflating the header for no visual benefit). **Static, not animated** — the box still carries a leftover 3D flip structure (`[perspective:1000px]`, a duplicate back-face `<Image>` rotated 180°) from an earlier animated version, but the rotation itself was removed at the user's request; the back-face image never becomes visible (`backface-visibility:hidden` with no rotation applied), so only the front face ever renders. Both the logo (`self-start` on its wrapping `<Link>`) and the nav items (`self-start` + `mt-[30px]` on the `<nav>`) are top-anchored to the header row and independently nudged to align with the wordmark's visual center — needed because the SVG doesn't fill its own box (it renders top-aligned at its natural aspect ratio), so centering by box bounds alone would visually misalign it against the nav text. Nav item font size is `text-lg` (bumped up from `text-base`).
 - **Footer** (`src/components/Footer.tsx`) — footer navigation (Privacy Policy, Terms of Service, Contact) and copyright line. No LinkedIn link yet — see §2.2.
 - **RotatingHeadline** (`src/components/RotatingHeadline.tsx`) — client component cycling through 5 two-line phrases on the Home hero, one every 8 seconds with a cross-fade transition. Starts on a random phrase on each mount (not always the first) so repeat visits and refreshes don't always open on the same line.
 - **HeroAvatarVideo** (`src/components/HeroAvatarVideo.tsx`) — clickable circular avatar photo that plays an in-place explainer video with custom minimal controls; positioned in the left gutter beside each page's H1. See §10.3 "Hero avatar video" for full behavior, positioning, and the per-page image/video assignments.
@@ -1460,7 +1474,7 @@ Claude must:
 - **ChatWidget** (`src/components/chat/ChatWidget.tsx`) — the floating chat pane: draggable/resizable (`react-rnd`; min 320×380px, max 50% of viewport width and 85% of viewport height, recomputed on window resize), a black border (`border-2 border-black`) setting the pane apart from page content, a thin custom-scrollbar message list, and an input box wired to `POST /api/rag/answer`. The navy header doubles as the drag handle and uses a 3-column grid (`grid-cols-[auto_1fr_auto]`) so its contents stay clear of each other at any pane width: the left column holds a small white `Bubbles_white.svg` icon (`h-6`, via `brightness-0 invert` — the source artwork has a border ring, forced pure white by the filter) sized to fit the header's height, followed by the left-aligned title "RAGnify Chat" (`gap-3` between icon and text); the middle (flexible) column centers a 6-dot "draggable" hint (`text-white/80`, tuned for visibility against the navy header) within whatever space is left; the right column holds the close button. The pane renders at `zIndex: 100` (fixed positioning), deliberately above the hero avatar's `lg:z-[60]` (present on every non-Home page, §10.3 "Hero avatar video") and the sticky navbar's `z-50`, so it's never hidden behind other page chrome. A small diagonal-lines resize hint sits in the pane's bottom-right corner (decorative only — the whole pane is already resizable via `react-rnd`); the input row's bottom padding (`pb-6`) keeps the Send button clear of it. The message list has asymmetric horizontal padding (`pl-4 pr-2`, tight to the right border); user bubbles are right-aligned flush against it, while assistant bubbles (and the "Thinking…" placeholder) are centered with a compensating `pr-2` so they sit equidistant from both pane borders rather than inheriting the list's right-side bias. Renders nothing when closed; open/close plays a 550ms zoom animation anchored to the trigger's captured screen position via a `hidden → entering → shown → exiting → hidden` phase state machine, so the closing transition finishes before unmounting. Position and size are local component state — since the component is mounted once at the root layout and never unmounts (only its rendered output toggles), they survive both page navigation and close/reopen. On first open, checks `GET /api/rag/session` for a returning-visitor match and shows a "continue where you left off?" prompt when found, then loads the most recent page of the full transcript from `GET /api/rag/session/history` (not the summarization-trimmed `history` embedded in the session status responses, which stays intentionally short). Scrolling to the top of the message list fetches and prepends the next-older page, preserving scroll position so the view doesn't jump; reaching the actual start of the conversation just stops (no further fetches). See §8.7 for the backend it talks to.
 - **ChatBubbleTrigger** (`src/components/chat/ChatBubbleTrigger.tsx`) — the `Bubbles_grey.svg` + "Better a chat …?" button that opens the widget; see Page 1 "Chat Trigger". Currently Home-only.
 - **ChatBannerTrigger** (`src/components/chat/ChatBannerTrigger.tsx`) — icon-only chat trigger (`h-12`, no caption) placed on the navy pull-quote bar (§10.3) of every page except Home, absolutely positioned at the bar's far right edge (`right-6`, vertically centered). Base icon is `Bubbles_white.svg` via `brightness-0 invert` (white-on-navy, matching the pane header's own icon treatment); hovering crossfades to `Bubbles_blue_white_border.svg` using the same two-stacked-`Image`/opposing-opacity technique as `ChatBubbleTrigger`. Opens the same `ChatWidget` via the shared `ChatWidgetContext`, anchoring its zoom-open animation to this icon's screen position exactly like the Home trigger does.
-- **AlmendroChatWidget** (`src/components/almendro/AlmendroChatWidget.tsx`) — self-contained trigger + floating pane for the ALMENDRO Manual Assistant demo (PAGE 6A) only; reuses `ChatWidget`'s visual design and `react-rnd` floating/draggable mechanic, but owns its open/closed state locally (no `ChatWidgetContext` — this pane never appears on any other page) and talks to `/api/almendro/*` instead of `/api/rag/*` (§8.8). Differs from `ChatWidget` in three ways: a reset icon in the header bar (next to close) that calls `POST /api/almendro/session/reset` and clears local state immediately; each assistant bubble renders a compact source-citation list underneath it (linking to the source PDF's exact page via `/almendro-manuals/{doc_id}.pdf#page=N`); and each assistant bubble also renders up to 3 clickable follow-up-question chips that resend as the next user turn on click. No returning-visitor confirmation flow or history pagination (§10.1's `ChatWidget` has both) — history loads in full, once, on first open.
+- **AlmendroChatWidget** (`src/components/almendro/AlmendroChatWidget.tsx`) — self-contained trigger + floating pane for the ALMENDRO Manual Assistant demo (PAGE 6A) only; reuses `ChatWidget`'s visual design and `react-rnd` floating/draggable mechanic, but owns its open/closed state locally (no `ChatWidgetContext` — this pane never appears on any other page) and talks to `/api/almendro/*` instead of `/api/rag/*` (§8.8). Differs from `ChatWidget` in three ways: a reset icon in the header bar (next to close) that calls `POST /api/almendro/session/reset` and clears local state immediately; each assistant bubble renders a compact source-citation list underneath it (linking to the source PDF's exact page via `/almendro-manuals/{doc_id}.pdf#page=N`); and each assistant bubble also renders up to 3 clickable follow-up-question chips that resend as the next user turn on click. No returning-visitor confirmation flow or history pagination (§10.1's `ChatWidget` has both) — history loads in full, once, on first open. **Rendered via `createPortal` straight to `document.body`** (gated on a `mounted` flag for SSR safety), unlike `ChatWidget` which renders inline in the root layout — this pane is nested inside this specific page's centered content column, and react-draggable was found to bake the node's in-flow position (from that nesting) into its `position:fixed` transform math, applying a large constant offset that pushed the pane off-screen regardless of the coordinates it was given. `ChatWidget` never hits this because it's declared at the root layout level, with no such ancestor. The displayed position is also clamped against the current window size on every render (not just captured once) as a second safety net.
 
 ## 10.2 Content Data Sources
 - `src/lib/solutions.ts` — single source of truth for the 5 Solution Class entries (including each solution's `quote`), consumed by both the `/solutions` overview cards and the `/solutions/[slug]` detail pages. Also carries the optional `heroAvatarEnabled` (boolean gate) and `heroAvatarImage` (image override) fields that control the Hero Avatar Video on each detail page — see §10.3 "Hero avatar video" and Page 6 — and the optional `demoHref`/`demoLabel` fields (currently set only on RAG Solutions) that render the live-demo CTA described in Page 6.
