@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
         role: "assistant",
         content: result.answer,
         sources: result.sources,
-        followUpQuestions: result.followUpQuestions,
+        followUpTopics: result.followUpTopics,
       },
     ],
   });
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
   const response = NextResponse.json({
     answer: result.answer,
     sources: result.sources,
-    followUpQuestions: result.followUpQuestions,
+    followUpTopics: result.followUpTopics,
   });
 
   response.cookies.set(ALMENDRO_SESSION_COOKIE, updatedSession.sessionId, {

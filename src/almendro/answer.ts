@@ -17,12 +17,12 @@ export interface AlmendroSource {
 export interface AlmendroAnswerResult {
   answer: string;
   sources: AlmendroSource[];
-  followUpQuestions: string[];
+  followUpTopics: string[];
 }
 
 interface ParsedReply {
   answer: string;
-  followUpQuestions: string[];
+  followUpTopics: string[];
 }
 
 function parseReply(raw: string): ParsedReply | null {
@@ -38,8 +38,8 @@ function parseReply(raw: string): ParsedReply | null {
 
     return {
       answer: parsed.answer,
-      followUpQuestions: Array.isArray(parsed.followUpQuestions)
-        ? parsed.followUpQuestions.filter((q: unknown): q is string => typeof q === "string" && q.trim().length > 0)
+      followUpTopics: Array.isArray(parsed.followUpTopics)
+        ? parsed.followUpTopics.filter((q: unknown): q is string => typeof q === "string" && q.trim().length > 0)
         : [],
     };
   } catch {
@@ -115,15 +115,18 @@ export async function generateAlmendroAnswer(
 
   const messages = buildAlmendroMessages(query, reranked, history);
 
-  // o4-mini occasionally emits malformed JSON despite the prompt's explicit
-  // format instructions (observed directly - intermittent, not tied to any
-  // particular query). One retry is enough to recover from that flakiness
-  // without masking a genuine, consistent failure.
+  // o4-mini occasionally dropped the JSON envelope entirely and wrote plain
+  // prose instead - reproduced directly, and more likely on "decline and ask
+  // a clarifying question" replies. response_format enforces valid JSON at
+  // the API level (verified: 3/3 on the exact failing case), so the
+  // remaining retry is just a safety net for other transient failures, not
+  // the primary fix.
   let parsed: ParsedReply | null = null;
   for (let attempt = 0; attempt < 2 && !parsed; attempt++) {
     const response = await client.chat.completions.create({
       model: "o4-mini",
       messages,
+      response_format: { type: "json_object" },
     });
     const raw = response.choices[0]?.message?.content;
     parsed = raw ? parseReply(raw) : null;
@@ -136,6 +139,6 @@ export async function generateAlmendroAnswer(
   return {
     answer: parsed.answer,
     sources: buildSources(reranked),
-    followUpQuestions: parsed.followUpQuestions.slice(0, 3),
+    followUpTopics: parsed.followUpTopics.slice(0, 3),
   };
 }

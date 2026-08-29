@@ -1,223 +1,103 @@
 [
   {
-    "doc_id": "support",
-    "description": "ALMENDRO-Support Programm"
-  },
-  {
-    "doc_id": "basis",
-    "description": "Basisfunktionen Diese Information sollte jedem Anwender zur Verfügung gestellt werden."
-  },
-  {
-    "doc_id": "dienste",
-    "description": "Dienstprogramme Datenimport, Sammeländerungen, …"
-  },
-  {
-    "doc_id": "stamm-adr",
-    "description": "Stammdaten Adressen"
-  },
-  {
-    "doc_id": "stamm-kalk",
-    "description": "Stammdaten Kalkulation Kostenstelle, Arbeitsgang, Leistungskatalog, …"
-  },
-  {
-    "doc_id": "stamm-mat",
-    "description": "Stammdaten Material Material, Artikel, Werkzeug, Halbfabrikat"
-  },
-  {
-    "doc_id": "stamm-sonst",
-    "description": "Stammdaten Sonstige"
-  },
-  {
     "doc_id": "ang-basis",
-    "description": "Angebotsverwaltung"
-  },
-  {
-    "doc_id": "auf-poskalk",
-    "description": "Siehe Auftragsverwaltung - Positionskalkulation"
-  },
-  {
-    "doc_id": "auf-lief",
-    "description": "Lieferschein"
-  },
-  {
-    "doc_id": "auf-rech",
-    "description": "Rechnung, Gutschrift"
-  },
-  {
-    "doc_id": "auf-lade",
-    "description": "Ladeliste Erstellen und Buchen von Ladelisten als Basis für die automatische Lieferscheinerstellung."
-  },
-  {
-    "doc_id": "auf-beil",
-    "description": "Beilagenverteiler Sondermodul für Verteilung von Beilagen im Rollenoffset."
-  },
-  {
-    "doc_id": "versender",
-    "description": "Schnittstelle Versender UPS Worldship"
-  },
-  {
-    "doc_id": "mawi-anfr",
-    "description": "Anfragen"
-  },
-  {
-    "doc_id": "mawi-best",
-    "description": "Bestellung"
-  },
-  {
-    "doc_id": "mawi-abruf",
-    "description": "Abrufe auf der Basis von Bestellungen mit Kennzeichen „auf Abruf“."
-  },
-  {
-    "doc_id": "mawi-lager",
-    "description": "Führen von Beständen, Buchungsschlüssel"
-  },
-  {
-    "doc_id": "mawi-bedarf",
-    "description": "Bedarfsplanung"
-  },
-  {
-    "doc_id": "mawi-konsi",
-    "description": "Konsignationslager"
-  },
-  {
-    "doc_id": "mawi-rech",
-    "description": "Rechnungseingang"
-  },
-  {
-    "doc_id": "mawi-analysen",
-    "description": "Statistiken und Auswertungen"
-  },
-  {
-    "doc_id": "ascii-scanner",
-    "description": "Installation und Einsatz von mobilen Barcode-Scannern"
-  },
-  {
-    "doc_id": "iln-ean-nve",
-    "description": "SSCC-konforme Abwicklung in der Materialwirtschaft"
-  },
-  {
-    "doc_id": "leist-tz",
-    "description": "Tageszettel"
-  },
-  {
-    "doc_id": "leist-bde",
-    "description": "Betriebsdatenerfassung - ALMENDRO"
-  },
-  {
-    "doc_id": "leist-bde-ext",
-    "description": "Betriebsdatenerfassung – externe Systeme"
-  },
-  {
-    "doc_id": "crm",
-    "description": "CRM-Funktionalitäten (Customer Relationship Management)"
-  },
-  {
-    "doc_id": "lohn",
-    "description": "Lohnbearbeitung"
-  },
-  {
-    "doc_id": "planung",
-    "description": "Grafische Produktionsplanung"
-  },
-  {
-    "doc_id": "adm-almendro",
-    "description": "ALMENDRO-System für Administration"
-  },
-  {
-    "doc_id": "adm-client",
-    "description": "Allgemeine Installation des Client"
-  },
-  {
-    "doc_id": "adm-client-verknuepfung",
-    "description": "Bedarfsplanung"
-  },
-  {
-    "doc_id": "adm-client-lokal",
-    "description": "Bedarfsplanung"
-  },
-  {
-    "doc_id": "adm-prog",
-    "description": "Installation Programmstand"
-  },
-  {
-    "doc_id": "adm-share",
-    "description": "Aufbau und Funktion der Share-Laufwerke (cmx_share, cmx_share_ro)"
-  },
-  {
-    "doc_id": "adm-odbc",
-    "description": "cmx_share_ro)"
-  },
-  {
-    "doc_id": "adm-mgruppen",
-    "description": "Aufbau und Funktion der Share-Laufwerke (cmx_share,"
-  },
-  {
-    "doc_id": "adm-kerg",
-    "description": "Funktionen und Steuerung des ALMENDRO- Standardkalkulationsergebnisses"
-  },
-  {
-    "doc_id": "adm-support",
-    "description": "Programm für Supportanfragen"
-  },
-  {
-    "doc_id": "ausw-spz",
-    "description": "Arbeitsblatt, DDE"
-  },
-  {
-    "doc_id": "ausw-standard",
-    "description": "Beschreibung von Standardauswertungen"
-  },
-  {
-    "doc_id": "mand-buch",
-    "description": "Automatisches Buchung zwischen Mandanten"
-  },
-  {
-    "doc_id": "basis-v100",
-    "description": "Workshop „Basis“ mit Stand ALMENDRO-Version 10.0"
-  },
-  {
-    "doc_id": "adm-client-lokal-vor102",
-    "description": "Workshop „Client Installation Lokal“ vor ALMENDRO-Version 10.2"
-  },
-  {
-    "doc_id": "adm-almendro-vor102",
-    "description": "Workshop “Administration ALMENDRO“ mit Stand ALMENDRO- Version 10.0"
-  },
-  {
-    "doc_id": "ang-basis-v92",
-    "description": "Workshop „Angebot Basis“ mit Stand ALMENDRO-Version 9.2"
-  },
-  {
-    "doc_id": "ausw-pc-vor100",
-    "description": "Workshop „Auswertungen PrintClient“ mit Stand ALMENDRO- Version vor 10.0"
+    "description": "Angebotsverwaltung (chapters: Vorwort, Einleitung, Beispiel einer Anfrage, Kopfdaten, Stamm, Termine, Spezifikation, Beschreibende Texte (B-Maske), Varianten, Positionen (P-Maske))"
   },
   {
     "doc_id": "auf-ausschiessen",
     "description": "Vorwort, Straßlach bei München URL: www.almendro.info, Allgemeines, Stammdaten, Auftragsbearbeitung, Arbeitspapiere, Umstellung der Altdaten"
   },
   {
+    "doc_id": "auf-beil",
+    "description": "Beilagenverteiler Sondermodul für Verteilung von Beilagen im Rollenoffset. (chapters: Vorwort, System, Stammdaten Verteiler, Verteiler, Auswertungen Verteiler, Buchen Paletten aus BDE)"
+  },
+  {
     "doc_id": "auf-kpa",
-    "description": "Vorwort, Allgemeines, Stammdaten, Kontrakt, Produktionsauftrag, Abrufauftrag, Lieferschein, Rechnung"
+    "description": "Vorwort, Allgemeines, Stammdaten, Kontrakt, Produktionsauftrag, Abrufauftrag, Lieferschein, Rechnung, Zusatzkosten, Nachkalkulation"
+  },
+  {
+    "doc_id": "auf-lade",
+    "description": "Ladeliste Erstellen und Buchen von Ladelisten als Basis für die automatische Lieferscheinerstellung. (chapters: Vorwort, Stammdaten, Ladeliste, Liste Ladeliste, Buchen Ladeliste, Abschluss Ladeliste, Generieren Ladeliste)"
+  },
+  {
+    "doc_id": "auf-lief",
+    "description": "Lieferschein (chapters: Vorwort, Parameter, Lieferschein, Umbuchungslieferschein, Sammellieferschein, Generieren Lieferscheine, Beleg-Status ändern, Statistik)"
   },
   {
     "doc_id": "auf-pos",
     "description": "Vorwort, Allgemeines, Übersicht Auftragspositionen, Bearbeitungsmaske Auftragspositionen, Buchung, Lieferung, Rechnung"
   },
   {
+    "doc_id": "auf-poskalk",
+    "description": "Siehe Auftragsverwaltung - Positionskalkulation (chapters: Vorwort, Allgemeines, Stammdaten, Angebot, Artikelanlage, Auftrag, Einstellungen)"
+  },
+  {
+    "doc_id": "auf-rech",
+    "description": "Rechnung, Gutschrift (chapters: Vorwort, Parameter, Rechnung, Sammelrechnung, Gutschriften, Provisionsgutschriften, Generieren Rechnungen, Rechnung via Mail, Beleg-Status ändern, Integration Finanzbuchhaltung)"
+  },
+  {
     "doc_id": "auf-xrech",
     "description": "Vorwort, Allgemeines, Stammdaten, Erzeugung der Datei, Übertragung zum Käufer"
+  },
+  {
+    "doc_id": "basis",
+    "description": "Basisfunktionen Diese Information sollte jedem Anwender zur Verfügung gestellt werden. (chapters: Vorwort, Start, Ende, Programme, Registry, Design, Zusatzfiles (Z-Files), Texterfassung)"
+  },
+  {
+    "doc_id": "dienste",
+    "description": "Dienstprogramme Datenimport, Sammeländerungen, … (chapters: Vorwort, Belegsperre löschen einzeln, Belegstatus ändern, Briefe, Datenbereiche ändern, Etiketten, Frachtkosteninfo, Initialisierung Adresskennzeichen, Kostenstellennummer tauschen, Mandantenparameter)"
+  },
+  {
+    "doc_id": "iln-ean-nve",
+    "description": "SSCC-konforme Abwicklung in der Materialwirtschaft (chapters: Vorwort, Allgemeines, Stammdaten, Anlegen/Generieren EAN, Generieren NVE, Zusatzfunktionen, Zusatzprogramme)"
   },
   {
     "doc_id": "leist-analysen",
     "description": "Vorwort, Allgemeines, Stammdaten, Auswertungen, Info Tageszettel, Info Kostenstelle"
   },
   {
+    "doc_id": "leist-bde",
+    "description": "Betriebsdatenerfassung - ALMENDRO (chapters: Vorwort, Allgemeines, Parametereinstellungen, Stammdaten, BDE I, BDE II (Schnellerfassung), BDE III, BDE-Monitor, BDE-Tageszettel)"
+  },
+  {
+    "doc_id": "leist-bde-ext",
+    "description": "Betriebsdatenerfassung – externe Systeme (chapters: Vorwort, Allgemeines, Stammdaten, Datenübernahme)"
+  },
+  {
+    "doc_id": "leist-tz",
+    "description": "Tageszettel (chapters: Vorwort, Parameter, Tageszettelerfassung, Verbuchen / Protokoll)"
+  },
+  {
     "doc_id": "leist-tz-ext",
     "description": "Vorwort, Allgemeines, Datei, Datenübernahme"
   },
   {
+    "doc_id": "lohn",
+    "description": "Lohnbearbeitung (chapters: Vorwort, Stammdaten, Parameter, Lohnerfassung, Auswertungen, Lohnaufbereitung, Monatsabschluss)"
+  },
+  {
+    "doc_id": "mawi-abruf",
+    "description": "Abrufe auf der Basis von Bestellungen mit Kennzeichen „auf Abruf“. (chapters: Vorwort, Stammdaten, Bestellung, Bearbeiten/Generieren Abrufe, Auswertungen, Buchen, Rechnungseingang)"
+  },
+  {
+    "doc_id": "mawi-analysen",
+    "description": "Statistiken und Auswertungen (chapters: Vorwort, Straßlach bei München URL: www.almendro.info, Analysen)"
+  },
+  {
+    "doc_id": "mawi-anfr",
+    "description": "Anfragen (chapters: Vorwort, Anfragewesen, Generieren Bestellung aus Anfrage)"
+  },
+  {
     "doc_id": "mawi-barcode-ze",
     "description": "Vorwort, Straßlach bei München URL: www.almendro.info, Barcode für Zugang Extern"
+  },
+  {
+    "doc_id": "mawi-bedarf",
+    "description": "Bedarfsplanung (chapters: Vorwort, Voraussetzungen, Materialinformationen, Materialeinplanung durch Zentralen Einkauf, Materialeinplanung durch Auftragsbearbeiter, Reservierungen freigeben, Sonderfall Poolaufträge)"
+  },
+  {
+    "doc_id": "mawi-best",
+    "description": "Bestellung (chapters: Vorwort, Bestellwesen, Auswertungen, Bestellabrufe, Programm zum Generieren Bestellungen aus)"
   },
   {
     "doc_id": "mawi-hflager",
@@ -228,15 +108,43 @@
     "description": "Vorwort, Allgemeines, Stammdaten, Ablauf"
   },
   {
+    "doc_id": "mawi-konsi",
+    "description": "Konsignationslager (chapters: Vorwort, Stammdaten, Buchungen, Abrechnung)"
+  },
+  {
+    "doc_id": "mawi-lager",
+    "description": "Führen von Beständen, Buchungsschlüssel (chapters: Vorwort, Buchungsschlüssel allgemein, Buchungsschlüssel, Sonstiges, Abläufe)"
+  },
+  {
     "doc_id": "mawi-papinet",
     "description": "Vorwort, Stammdaten, Bestellung, Auftragsbestätigung, Empfangsbestätigungen"
+  },
+  {
+    "doc_id": "mawi-rech",
+    "description": "Rechnungseingang (chapters: Vorwort, Rechnungseingang, Gutschriftseingang, Auswertungen, Bestellwesen sonstiges)"
   },
   {
     "doc_id": "mawi-tpa",
     "description": "Vorwort, Stammdaten, Auftragstypen, Bearbeiten Transportaufträge, Buchen Transportaufträge"
   },
   {
-    "doc_id": "ws-info",
-    "description": "Support, Grundlagen, Angebotsverwaltung, Auftragsverwaltung, Materialwirtschaft, Leistung, CRM, Lohn"
+    "doc_id": "planung",
+    "description": "Grafische Produktionsplanung (chapters: Vorwort, Stammdaten, Auftragsverwaltung, Aktualisierung der Daten, Bildschirm-Bereiche, Übernahme von Aufträgen, Das FS/SE-Konzept, Planen, Fremdleistung, Rüstzeitoptimierung (RZO))"
+  },
+  {
+    "doc_id": "stamm-adr",
+    "description": "Stammdaten Adressen (chapters: Vorwort, Adressen, Zusatzanschriften, Anredeschlüssel, Länderkennzeichen, Staaten/Provinzen, Postleitzahlen, Währungen, Konditionen, Vertreter (Außendienst))"
+  },
+  {
+    "doc_id": "stamm-kalk",
+    "description": "Stammdaten Kalkulation Kostenstelle, Arbeitsgang, Leistungskatalog, … (chapters: Vorwort, Einflussgrößen / Ausprägungen, Kostenstellen, Arbeitsgänge, Leistungskatalog „Standard“, Leistungskatalog „interpoliert“, Arbeitsschritte, Arbeitspläne, Materialpläne, Zuschlagstabellen)"
+  },
+  {
+    "doc_id": "stamm-mat",
+    "description": "Stammdaten Material Material, Artikel, Werkzeug, Halbfabrikat (chapters: Vorwort, Material / Artikel Stamm, Zusatzstammdaten für Material, Fremdleistungen (X-Kosten / externe Kosten), Preislisten ändern, Aktualisierung aus Excel-File, Löschen Stammdaten, Generieren Materialstamm)"
+  },
+  {
+    "doc_id": "stamm-sonst",
+    "description": "Stammdaten Sonstige (chapters: Vorwort, BDE-Terminalstamm, Betriebskalender, Budgetierung, Fibu-/Sachkonten, Nummernkreise, Rahmenvertrag (Materialplan), Steuerschlüssel, Terminschlüssel, Textbausteine)"
   }
 ]

@@ -4,7 +4,7 @@ export interface AlmendroSessionMessage {
   role: "user" | "assistant";
   content: string;
   sources?: AlmendroSource[];
-  followUpQuestions?: string[];
+  followUpTopics?: string[];
 }
 
 // Deliberately much simpler than src/r2/types.ts's SessionData: no

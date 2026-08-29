@@ -17,7 +17,7 @@ interface Message {
   role: "user" | "assistant";
   content: string;
   sources?: Source[];
-  followUpQuestions?: string[];
+  followUpTopics?: string[];
 }
 
 interface Origin {
@@ -162,7 +162,7 @@ export default function AlmendroChatWidget() {
       const data = await res.json();
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: data.answer, sources: data.sources, followUpQuestions: data.followUpQuestions },
+        { role: "assistant", content: data.answer, sources: data.sources, followUpTopics: data.followUpTopics },
       ]);
     } catch {
       setError("Something went wrong. Please try again.");
@@ -189,10 +189,33 @@ export default function AlmendroChatWidget() {
     }
   }
 
+  // Leaf headings are frequently unnumbered sub-paragraphs of a numbered
+  // section (e.g. ["2 Bestellwesen", "2.1 Bestellung", "Unser Zeichen"]) -
+  // walking up from the end finds the nearest actual section number instead
+  // of showing nothing for those chunks.
+  function leafSectionNumber(headingPath: string[]): string | null {
+    for (let i = headingPath.length - 1; i >= 0; i--) {
+      const match = headingPath[i].match(/^(\d+(?:\.\d+)*)/);
+      if (match) return match[1];
+    }
+    return null;
+  }
+
   function formatSource(source: Source): string {
-    const pages = source.pages.length > 1 ? `pp. ${source.pages[0]}-${source.pages[source.pages.length - 1]}` : `p. ${source.pages[0] ?? "?"}`;
-    const path = source.heading_path.join(" › ");
-    return `${source.doc_title}.pdf · ${pages}${path ? ` · ${path}` : ""}`;
+    const section = leafSectionNumber(source.heading_path);
+    return `${source.doc_title}.pdf${section ? ` · ${section}` : ""}`;
+  }
+
+  // Opens the source PDF in a fixed-position, fixed-size popup window (reused
+  // across clicks via a shared window name) rather than a new tab, so
+  // visitors can compare the chat and the source side by side without losing
+  // their place.
+  function openSourceDocument(href: string) {
+    const width = 900;
+    const height = 850;
+    const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - width) / 2));
+    const top = Math.max(0, Math.round(window.screenY + 40));
+    window.open(href, "almendro-source-viewer", `width=${width},height=${height},left=${left},top=${top},noopener,noreferrer`);
   }
 
   const effectiveWidth = size?.width ?? Math.min(DEFAULT_WIDTH, Math.max(MIN_WIDTH, maxSize.width));
@@ -321,35 +344,46 @@ export default function AlmendroChatWidget() {
                     </div>
 
                     {message.role === "assistant" && !!message.sources?.length && (
-                      <ul className="mt-1.5 space-y-0.5">
-                        {message.sources.map((source, sourceIndex) => (
-                          <li key={sourceIndex}>
+                      <div className="mt-5">
+                        <p className="font-body text-xs font-bold uppercase tracking-wide text-charcoal/90">
+                          Source References
+                        </p>
+                        <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5">
+                          {message.sources.map((source, sourceIndex) => (
                             <a
+                              key={sourceIndex}
                               href={source.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                              onClick={(event) => {
+                                event.preventDefault();
+                                openSourceDocument(source.href);
+                              }}
                               className="font-body text-xs text-charcoal/50 underline decoration-dotted hover:text-electric-blue"
                             >
                               {formatSource(source)}
                             </a>
-                          </li>
-                        ))}
-                      </ul>
+                          ))}
+                        </div>
+                      </div>
                     )}
 
-                    {message.role === "assistant" && !!message.followUpQuestions?.length && (
-                      <div className="mt-2 flex flex-wrap gap-1.5">
-                        {message.followUpQuestions.map((question, qIndex) => (
-                          <button
-                            key={qIndex}
-                            type="button"
-                            onClick={() => sendQuery(question)}
-                            disabled={sending}
-                            className="rounded-full border border-electric-blue/40 px-2.5 py-1 font-body text-xs text-electric-blue transition-colors hover:bg-electric-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
-                          >
-                            {question}
-                          </button>
-                        ))}
+                    {message.role === "assistant" && !!message.followUpTopics?.length && (
+                      <div className="mt-5">
+                        <p className="font-body text-xs font-bold uppercase tracking-wide text-charcoal/90">
+                          Related Topics
+                        </p>
+                        <div className="mt-1 flex flex-wrap gap-1.5">
+                          {message.followUpTopics.map((topic, topicIndex) => (
+                            <button
+                              key={topicIndex}
+                              type="button"
+                              onClick={() => sendQuery(topic)}
+                              disabled={sending}
+                              className="rounded-full border border-electric-blue/40 px-2.5 py-1 font-body text-xs text-electric-blue transition-colors hover:bg-electric-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                            >
+                              {topic}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>

@@ -51,29 +51,31 @@ function extractEntries(chunks: Chunk[]): ManualEntry[] {
   return [...seen.values()];
 }
 
-// ws_info.pdf's own table is incomplete - it's missing at least one manual
-// entirely (auf_pos.pdf, the sales-order-line-item manual, has no row there
-// at all). A doc_id with no directory entry is invisible to the query
-// expansion LLM (rewriteQuery.ts), which then has no way to guess that
-// manual's own vocabulary and keeps producing generic misses. Guarantee
-// every doc_id that actually exists in the corpus gets an entry, falling
-// back to that document's own chapter headings (its most reliable
-// indication of its content, in its own words) when ws_info.pdf is silent
-// on it.
-function buildFallbackEntries(chunks: Chunk[], known: Set<string>): ManualEntry[] {
+// ws_info.pdf's one-line-per-manual descriptions ("Angebotsverwaltung",
+// "Bestellung") name the TOPIC of a manual but not its internal structure -
+// and these manuals are organized by UI panel/data area (Kopfdaten, Stamm,
+// Spezifikation, Positionen...), not by task. Measured directly: a visitor
+// asking "how do I prepare a quote" needs the query-expansion LLM to guess
+// "Kopfdaten" (header data) - the chapter that actually documents starting
+// a new record via the "New" action - but nothing told it that word exists,
+// so it kept guessing task-shaped phrases ("Angebot erstellen") that don't
+// match the manual's own structural vocabulary. Every entry's description is
+// extended with that manual's own top-level chapter titles so this
+// structural vocabulary is visible up front, not just its topic.
+function chapterListByDoc(chunks: Chunk[]): Map<string, string[]> {
   const headingsByDoc = new Map<string, Set<string>>();
   for (const chunk of chunks) {
-    if (known.has(chunk.doc_id)) continue;
     const topHeading = chunk.heading_path[0];
     if (!topHeading) continue;
     if (!headingsByDoc.has(chunk.doc_id)) headingsByDoc.set(chunk.doc_id, new Set());
     headingsByDoc.get(chunk.doc_id)!.add(topHeading.replace(/^\d+(\.\d+)*\s*/, ""));
   }
 
-  return [...headingsByDoc.entries()].map(([docId, headings]) => ({
-    doc_id: docId,
-    description: [...headings].slice(0, 8).join(", "),
-  }));
+  const result = new Map<string, string[]>();
+  for (const [docId, headings] of headingsByDoc) {
+    result.set(docId, [...headings].slice(0, 10));
+  }
+  return result;
 }
 
 async function main() {
@@ -86,12 +88,25 @@ async function main() {
 
   const fromTable = extractEntries(wsInfoChunks);
   const knownDocIds = new Set(fromTable.map((e) => e.doc_id));
-  const fallback = buildFallbackEntries(chunks, knownDocIds);
-  const directory = [...fromTable, ...fallback];
+  const chapters = chapterListByDoc(chunks);
+
+  // Manuals absent from ws_info.pdf's own table (e.g. auf_pos.pdf) still need
+  // an entry - the chapter list alone becomes their description in that case.
+  const allDocIds = new Set(chunks.map((c) => c.doc_id));
+  allDocIds.delete("ws-info");
+
+  const directory: ManualEntry[] = [...allDocIds].map((docId) => {
+    const topicDescription = fromTable.find((e) => e.doc_id === docId)?.description;
+    const chapterList = (chapters.get(docId) ?? []).join(", ");
+    const description = topicDescription
+      ? `${topicDescription} (chapters: ${chapterList})`
+      : chapterList;
+    return { doc_id: docId, description };
+  });
 
   await writeFile(OUTPUT_FILE, JSON.stringify(directory, null, 2));
   console.log(
-    `Wrote ${directory.length} manual directory entries (${fromTable.length} from ws_info.pdf's table, ${fallback.length} derived from headings) to ${path.relative(process.cwd(), OUTPUT_FILE)}`
+    `Wrote ${directory.length} manual directory entries (${knownDocIds.size} with a ws_info.pdf topic description, all with their own chapter list) to ${path.relative(process.cwd(), OUTPUT_FILE)}`
   );
 }
 
