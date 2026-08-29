@@ -27,6 +27,8 @@ First check the directory above for any manual whose description already closely
 
 The chapter lists in parentheses are that manual's own UI-panel/data-area structure (Kopfdaten, Stamm, Spezifikation, Positionen...), not task descriptions - these manuals document "how to create a new X" under a structural chapter like "Kopfdaten" rather than one literally named "anlegen"/"erstellen", so when the visitor is asking how to create or start something, try combining the matching manual's own subject noun with a relevant chapter name (e.g. for a manual about "Angebotsverwaltung" with a "Kopfdaten" chapter, search "Angebot Kopfdaten", not bare "Kopfdaten" alone) - the subject noun keeps the search specific to that manual, since "Kopfdaten" by itself is a generic term shared across many unrelated manuals and won't discriminate.
 
+Separately: when the visitor is asking how to find, select, or edit an EXISTING record (not create a new one), the "basis" manual's "Suchfunktionen" chapter documents that mechanism once for every screen in the system, rather than each manual repeating it - include "Suchfunktionen" as one of your four phrases for that kind of question, since no other manual will name it.
+
 Generate 4 DIFFERENT short German search phrases in total, each covering a different plausible angle, to maximize the chance at least one matches the manuals' actual wording.
 
 Return ONLY a JSON array of 4 strings, no explanation, no code fences.`;

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import AlmendroChatWidget from "@/components/almendro/AlmendroChatWidget";
 
@@ -28,8 +29,7 @@ export default function AlmendroDemoPage() {
           ALMENDRO is a real legacy ERP system for manufacturing and order management, documented across
           38 German-language user manuals covering everything from order processing to warehouse
           logistics and payroll. Rather than describe RAG Solutions in the abstract, this page runs one:
-          the assistant below is grounded entirely in those manuals — retrieval, reranking, and citations
-          included — with no connection to RAGnify&apos;s own site content or the rest of this website&apos;s chat.
+          the assistant below is grounded entirely in those manuals.
         </p>
         <p className="mt-4 font-body text-base text-charcoal/70">
           Ask it in English, German, or any language you like — it detects and replies in kind, and every
@@ -40,9 +40,27 @@ export default function AlmendroDemoPage() {
           <AlmendroChatWidget />
         </div>
 
-        <p className="mt-8">
-          <Link href="/solutions/rag-solutions" className="font-body text-sm text-electric-blue underline hover:text-navy">
-            ← Back to RAG Solutions
+        <p className="mt-8 flex justify-center">
+          <Link
+            href="/solutions/rag-solutions"
+            aria-label="Back to RAG Solutions"
+            title="Back to RAG Solutions"
+            className="group relative inline-block h-12 w-12"
+          >
+            <Image
+              src="/return_icon.svg"
+              alt=""
+              width={393}
+              height={393}
+              className="absolute inset-0 h-full w-full object-contain transition-opacity duration-150 group-hover:opacity-0"
+            />
+            <Image
+              src="/return_icon_blue.svg"
+              alt=""
+              width={393}
+              height={393}
+              className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+            />
           </Link>
         </p>
       </section>

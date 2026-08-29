@@ -75,6 +75,25 @@ function chapterListByDoc(chunks: Chunk[]): Map<string, string[]> {
   for (const [docId, headings] of headingsByDoc) {
     result.set(docId, [...headings].slice(0, 10));
   }
+
+  // Top-level-only chapter titles miss cross-cutting UI conventions nested
+  // deeper in basis.pdf (the one manual documenting mechanics shared by every
+  // other screen, rather than repeating them per manual) - measured directly:
+  // a visitor asking how to edit an existing address needed "Suchfunktionen"
+  // (the universal search/select-before-editing convention, nested under
+  // "4 Programme"), and nothing surfaced it since only level-1 headings are
+  // captured above. Promoting every manual's own level-2 headings would work
+  // too but roughly triples the directory's prompt footprint (measured:
+  // ~1,470 -> ~3,650 tokens) for benefit that's so far only confirmed here -
+  // so only this one manual's relevant sub-chapters are added by hand.
+  const CROSS_CUTTING_SUBCHAPTERS: Record<string, string[]> = {
+    basis: ["Suchfunktionen"],
+  };
+  for (const [docId, extra] of Object.entries(CROSS_CUTTING_SUBCHAPTERS)) {
+    const existing = result.get(docId) ?? [];
+    result.set(docId, [...new Set([...existing, ...extra])]);
+  }
+
   return result;
 }
 

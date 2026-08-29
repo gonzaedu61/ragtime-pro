@@ -35,17 +35,6 @@ export default function SolutionDetail({ solution }: { solution: SolutionClass }
         </div>
       </section>
 
-      {solution.demoHref && (
-        <section className="mx-auto max-w-7xl px-6 pb-8 text-center">
-          <Link
-            href={solution.demoHref}
-            className="inline-block rounded-md border border-electric-blue px-6 py-3 font-body text-sm font-semibold text-electric-blue transition-colors hover:bg-electric-blue hover:text-white"
-          >
-            {solution.demoLabel ?? "Try a live demo →"}
-          </Link>
-        </section>
-      )}
-
       <section className="pb-16 min-[1440px]:grid min-[1440px]:grid-cols-[calc(50%-30rem)_1fr_calc(50%-30rem)]">
         <div className="mx-auto max-w-5xl px-6 pt-8 pb-8 min-[1440px]:col-start-2 min-[1440px]:row-start-1 min-[1440px]:h-72 min-[1440px]:overflow-hidden">
           <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-start sm:text-left">
@@ -145,7 +134,7 @@ export default function SolutionDetail({ solution }: { solution: SolutionClass }
           </div>
         </div>
 
-        <div className="mx-auto mt-10 flex max-w-4xl justify-center px-6 min-[1440px]:col-start-3 min-[1440px]:row-start-2 min-[1440px]:mt-0 min-[1440px]:items-start min-[1440px]:justify-center min-[1440px]:px-0 min-[1440px]:pt-10">
+        <div className="mx-auto mt-10 flex max-w-4xl flex-col items-center gap-8 px-6 min-[1440px]:col-start-3 min-[1440px]:row-start-2 min-[1440px]:mt-0 min-[1440px]:px-0 min-[1440px]:pt-10">
           <Link href="/methodology" className="group flex flex-col items-center gap-4">
             <Image
               src="/roadmap.svg"
@@ -158,6 +147,15 @@ export default function SolutionDetail({ solution }: { solution: SolutionClass }
               Setting the roadmap ...
             </span>
           </Link>
+
+          {solution.demoHref && (
+            <Link
+              href={solution.demoHref}
+              className="whitespace-nowrap rounded-md border border-electric-blue px-6 py-3 font-body text-sm font-semibold text-electric-blue transition-colors hover:bg-electric-blue hover:text-white"
+            >
+              {solution.demoLabel ?? "Try a live demo →"}
+            </Link>
+          )}
         </div>
       </section>
     </>

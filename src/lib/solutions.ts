@@ -103,7 +103,7 @@ export const SOLUTIONS: SolutionClass[] = [
     roadmapFit:
       "Foundational capability that improves usability, reduces dependency on expert users, and supports all future AI initiatives.",
     demoHref: "/solutions/rag-solutions/almendro-demo",
-    demoLabel: "Try a live demo →",
+    demoLabel: "See a RAG Assistant Demo ...",
   },
   {
     slug: "reasoning-agents",

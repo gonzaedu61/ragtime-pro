@@ -22,6 +22,7 @@ export interface AlmendroAnswerResult {
 
 interface ParsedReply {
   answer: string;
+  usesManualContent: boolean;
   followUpTopics: string[];
 }
 
@@ -38,6 +39,10 @@ function parseReply(raw: string): ParsedReply | null {
 
     return {
       answer: parsed.answer,
+      // Defaults to true (attach sources/topics) if the model omits the
+      // field - the risky failure mode is a wrongly-suppressed citation on a
+      // real answer, not an extra one on a conversational reply.
+      usesManualContent: parsed.usesManualContent !== false,
       followUpTopics: Array.isArray(parsed.followUpTopics)
         ? parsed.followUpTopics.filter((q: unknown): q is string => typeof q === "string" && q.trim().length > 0)
         : [],
@@ -136,9 +141,16 @@ export async function generateAlmendroAnswer(
     throw new Error("ALMENDRO answer generation returned an unusable response.");
   }
 
+  // Retrieval runs on the visitor's literal message regardless of what it
+  // actually is, so a purely conversational turn ("thanks!", "ok", a
+  // greeting) still comes back with some reranked chunks - built from
+  // whatever's in the corpus, not from anything the reply actually used.
+  // Attaching them as "sources" on a "you're welcome" reply is worse than
+  // showing none, so both sources and follow-up topics are suppressed
+  // whenever the model itself says this turn didn't draw on the manuals.
   return {
     answer: parsed.answer,
-    sources: buildSources(reranked),
-    followUpTopics: parsed.followUpTopics.slice(0, 3),
+    sources: parsed.usesManualContent ? buildSources(reranked) : [],
+    followUpTopics: parsed.usesManualContent ? parsed.followUpTopics.slice(0, 3) : [],
   };
 }
