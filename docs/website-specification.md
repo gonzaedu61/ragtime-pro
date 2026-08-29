@@ -1363,11 +1363,11 @@ form/inbox-poll acknowledgement (§8.4) uses it to ground its replies too.
 ## 8.8 ALMENDRO RAG Demo Backend
 A second, fully independent RAG pipeline backing the ALMENDRO Manual Assistant demo
 (PAGE 6A) — same architectural pattern as §8.7 (flat-JSON local corpus, hybrid
-dense+BM25 retrieval, cross-encoder reranking, Azure OpenAI for answer generation), but
-a completely separate codebase tree, index, and session store, with none of §8.7's
-cross-session/cross-channel matching. Deliberately simpler by design, not by omission:
-this demo doesn't need visitor identity, fingerprint-based device recovery, or linking
-to email/contact-form history.
+dense+BM25 retrieval, Azure OpenAI for answer generation), but a completely separate
+codebase tree, index, and session store, with none of §8.7's cross-session/cross-channel
+matching. Deliberately simpler by design, not by omission: this demo doesn't need
+visitor identity, fingerprint-based device recovery, or linking to email/contact-form
+history.
 
 **Corpus & indexing pipeline** (`build/almendro/`, manual scripts, not part of the
 default `npm run build` — this corpus only changes when the source manuals do):
@@ -1394,30 +1394,82 @@ default `npm run build` — this corpus only changes when the source manuals do)
   `doc_id`, `doc_title`, `pages`, and `heading_path` through to each chunk for citations.
 - `chunkAlmendro.ts` / `embedAlmendro.ts` / `bm25Almendro.ts` (`npm run
   rag:almendro:chunk` / `:embed` / `:bm25`) — write `rag_data_almendro/{chunks,
-  embeddings,bm25}.json` (3406 chunks across the 38 manuals). Embeddings and BM25 tokens
-  reuse the site's own local embedding model (`src/rag/loaders/loadEmbeddingModel.ts`,
-  same `Xenova/all-MiniLM-L6-v2` weights) — but BM25 tokenization uses a separate
+  embeddings,bm25}.json` (3406 chunks across the 38 manuals). Embeddings use a
+  **dedicated multilingual model** (`src/almendro/loaders/loadEmbeddingModel.ts`,
+  `Xenova/paraphrase-multilingual-MiniLM-L12-v2`) — deliberately separate from the main
+  site's English-only `Xenova/all-MiniLM-L6-v2` (`src/rag/loaders/loadEmbeddingModel.ts`),
+  since this corpus is entirely German and needs real cross-lingual embedding quality
+  for non-German visitor queries. BM25 tokenization uses a separate
   `src/almendro/utils/tokenize.ts`, not the site's `src/rag/utils/tokenize.ts`, since the
-  latter strips non-ASCII characters and would corrupt German umlauts (ä/ö/ü/ß) in this
-  entirely German-language corpus.
+  latter strips non-ASCII characters and would corrupt German umlauts (ä/ö/ü/ß). Both the
+  embedding input and the BM25 tokenizer input are each chunk's heading path prepended to
+  its text, not the text alone — measured directly, many chunks' body text never
+  restates the concept their own heading names (e.g. a paragraph about entering an
+  article number whose heading is "Auftragspositionen" never says "Auftrag"), which
+  otherwise left them invisible to both retrieval methods for exactly the terms that
+  should find them.
+- `buildManualDirectory.ts` (`npm run rag:almendro:directory`) — writes
+  `rag_data_almendro/manualDirectory.json`, one entry per manual (`{ doc_id,
+  description }`), read only by query expansion below, never by retrieval itself. Each
+  description combines that manual's one-line topic summary — extracted from
+  `ws_info.pdf`'s own "Dateiname X.pdf Beschreibung Y" directory table, itself just
+  another chunked manual — with a list of that manual's own top-level chapter titles, so
+  expansion can see both *what* a manual covers and the *structural* vocabulary
+  (Kopfdaten, Stamm, Spezifikation, Positionen...) it's organized by; these manuals
+  document "how to create a new X" under a UI-panel chapter name rather than one that
+  literally reads "anlegen"/"erstellen". Scoped to only the manuals actually present in
+  this build — `ws_info.pdf`'s own table lists some manuals this corpus doesn't include.
 - The 38 source PDFs are also copied into `public/almendro-manuals/` (static assets, no
   serverless function involved) so citations can deep-link straight to the source file
   and page (`/almendro-manuals/{doc_id}.pdf#page=N`).
 
 **Retrieval + answer generation** (`src/almendro/`, mirrors `src/rag/`'s structure but
 reads from `@rag_data_almendro/*` via its own path alias, never `@rag_data/*`):
-- `loaders/`, `retrieval/{dense,sparse,hybrid,rerank}.ts` — same dense-cosine + BM25 +
-  cross-encoder-rerank logic as `src/rag/retrieval/*`, pointed at the ALMENDRO index.
-- `prompts/answerPrompt.ts` — system prompt scoped strictly to the ALMENDRO manuals
-  (no RAGnify/consulting content, no forced CTA), instructed to detect and reply in the
-  visitor's own language regardless of the German source text, and to return structured
-  JSON: `{ answer, followUpQuestions }` (up to 3 short, clickable follow-ups).
-- `answer.ts` (`generateAlmendroAnswer`) — hybrid search → rerank (top 8) → build
-  messages → call the **existing** `src/rag/azureClient` (same Azure OpenAI
-  credentials/deployment as §8.4/§8.7, no new secrets). Source citations are built
-  **deterministically from the reranked chunks themselves** (top 3 distinct documents,
-  in rank order), not asked of the model — the model can't reliably self-report which
-  excerpts it actually used, but the reranked list already is that answer.
+- `retrieval/dense.ts` / `sparse.ts` — dense-cosine + BM25 lookup against the ALMENDRO
+  index, using the dedicated multilingual embedding model and tokenizer above.
+- `retrieval/hybrid.ts` — combines and min-max-normalizes both scores (`ALPHA = 0.5`),
+  returning the top 40 (`TOP_N`, wider than §8.7's 20 — this corpus is far larger, ~3406
+  vs. ~200 chunks). Filters out `ws_info.pdf`'s own directory-listing chunks before
+  scoring — each is a ~9-token line that triple-repeats a manual's short description (in
+  its own heading and body text) and was measured to consistently outrank genuine,
+  longer procedural content for any query matching that description, despite carrying no
+  procedural information itself.
+- `retrieval/rewriteQuery.ts` (`expandQueryForRetrieval`) — since this is a 100%-German,
+  narrow-terminology corpus, a single query rewrite isn't reliable enough (measured
+  directly: one attempt confidently produced a term appearing exactly once in the entire
+  corpus). An LLM call generates 4 diverse German search-phrase variants using the
+  manual directory as grounding context, instructed to reuse a matching directory
+  entry's own wording verbatim rather than paraphrase away from it, and to combine a
+  manual's subject noun with its own chapter vocabulary when the visitor is asking how
+  to create or start something. All variants (plus the original query) are searched via
+  `hybridSearch` and merged, keeping each chunk's best score across searches.
+- `retrieval/rerank.ts` — the English-trained cross-encoder used by §8.7
+  (`Xenova/ms-marco-MiniLM-L-6-v2`) was measured to have no useful signal on this
+  German-only corpus (uniformly near-random, deeply negative scores that discarded
+  genuinely relevant candidates in favor of unrelated noise) — reranking is bypassed in
+  favor of the merged hybrid score directly, widened to a top-20 pass-through window to
+  compensate.
+- `prompts/answerPrompt.ts` — system prompt scoped strictly to the ALMENDRO manuals (no
+  RAGnify/consulting content, no forced CTA); requires the entire reply to match the
+  visitor's language (reinforced a second time immediately before the query, since a
+  single instruction earlier in a longer conversation was observed fading); forbids
+  inventing specific steps from a mere in-passing mention of another manual's name;
+  permits the model to ask the visitor a clarifying question directly in its answer when
+  genuinely needed; requires literal newlines between list items rather than inline
+  enumeration; and returns structured JSON: `{ answer, followUpTopics }` — up to 3 short
+  topic hints (noun phrases, not first-person questions) that must be built from an
+  excerpt's own heading rather than paraphrased or synthesized, so that clicking one
+  reliably retrieves real content instead of a dead end, and must never reference
+  finding or locating documentation itself.
+- `answer.ts` (`generateAlmendroAnswer`) — hybrid search + query expansion → merge →
+  rerank (pass-through) → build messages → call the **existing** `src/rag/azureClient`
+  (same Azure OpenAI credentials/deployment as §8.4/§8.7, no new secrets), with
+  `response_format: { type: "json_object" }` and one retry — the reasoning model was
+  observed occasionally dropping the JSON envelope entirely for certain answer shapes.
+  Source citations are built **deterministically from the reranked chunks themselves**
+  (top 3 distinct documents, in rank order), not asked of the model — the model can't
+  reliably self-report which excerpts it actually used, but the reranked list already is
+  that answer.
 
 **Session persistence** (`src/almendro/session/`, its own R2 object prefix
 `almendro-sessions/` on the same bucket as §8.4/§8.7's — never collides with their
@@ -1426,16 +1478,16 @@ reads from `@rag_data_almendro/*` via its own path alias, never `@rag_data/*`):
   independent of the main site's `rag_session` cookie.
 - No fingerprint, no `linkedEmail`, no returning-visitor confirm flow — a missing or
   unknown session id just starts a new one. The full turn history (including each
-  turn's sources/follow-ups) is stored and returned as-is; the API layer caps how much
-  of it feeds back into the model's prompt (last 12 messages) without truncating what's
-  stored or displayed.
+  turn's sources/follow-up topics) is stored and returned as-is; the API layer caps how
+  much of it feeds back into the model's prompt (last 12 messages) without truncating
+  what's stored or displayed.
 
 **API surface:**
 - `GET /api/almendro/answer` — returns the current session's stored history (empty
   array if none), used by `AlmendroChatWidget` to restore the conversation on page
   reload.
 - `POST /api/almendro/answer` — the chat endpoint: retrieves + reranks, calls Azure
-  OpenAI, appends the turn to R2, returns `{ answer, sources, followUpQuestions }`.
+  OpenAI, appends the turn to R2, returns `{ answer, sources, followUpTopics }`.
 - `POST /api/almendro/session/reset` — deletes the R2 session object and clears the
   cookie, so the next message starts a genuinely fresh conversation. Backs the chat
   pane's reset icon (§10.1).
@@ -1474,7 +1526,7 @@ Claude must:
 - **ChatWidget** (`src/components/chat/ChatWidget.tsx`) — the floating chat pane: draggable/resizable (`react-rnd`; min 320×380px, max 50% of viewport width and 85% of viewport height, recomputed on window resize), a black border (`border-2 border-black`) setting the pane apart from page content, a thin custom-scrollbar message list, and an input box wired to `POST /api/rag/answer`. The navy header doubles as the drag handle and uses a 3-column grid (`grid-cols-[auto_1fr_auto]`) so its contents stay clear of each other at any pane width: the left column holds a small white `Bubbles_white.svg` icon (`h-6`, via `brightness-0 invert` — the source artwork has a border ring, forced pure white by the filter) sized to fit the header's height, followed by the left-aligned title "RAGnify Chat" (`gap-3` between icon and text); the middle (flexible) column centers a 6-dot "draggable" hint (`text-white/80`, tuned for visibility against the navy header) within whatever space is left; the right column holds the close button. The pane renders at `zIndex: 100` (fixed positioning), deliberately above the hero avatar's `lg:z-[60]` (present on every non-Home page, §10.3 "Hero avatar video") and the sticky navbar's `z-50`, so it's never hidden behind other page chrome. A small diagonal-lines resize hint sits in the pane's bottom-right corner (decorative only — the whole pane is already resizable via `react-rnd`); the input row's bottom padding (`pb-6`) keeps the Send button clear of it. The message list has asymmetric horizontal padding (`pl-4 pr-2`, tight to the right border); user bubbles are right-aligned flush against it, while assistant bubbles (and the "Thinking…" placeholder) are centered with a compensating `pr-2` so they sit equidistant from both pane borders rather than inheriting the list's right-side bias. Renders nothing when closed; open/close plays a 550ms zoom animation anchored to the trigger's captured screen position via a `hidden → entering → shown → exiting → hidden` phase state machine, so the closing transition finishes before unmounting. Position and size are local component state — since the component is mounted once at the root layout and never unmounts (only its rendered output toggles), they survive both page navigation and close/reopen. On first open, checks `GET /api/rag/session` for a returning-visitor match and shows a "continue where you left off?" prompt when found, then loads the most recent page of the full transcript from `GET /api/rag/session/history` (not the summarization-trimmed `history` embedded in the session status responses, which stays intentionally short). Scrolling to the top of the message list fetches and prepends the next-older page, preserving scroll position so the view doesn't jump; reaching the actual start of the conversation just stops (no further fetches). See §8.7 for the backend it talks to.
 - **ChatBubbleTrigger** (`src/components/chat/ChatBubbleTrigger.tsx`) — the `Bubbles_grey.svg` + "Better a chat …?" button that opens the widget; see Page 1 "Chat Trigger". Currently Home-only.
 - **ChatBannerTrigger** (`src/components/chat/ChatBannerTrigger.tsx`) — icon-only chat trigger (`h-12`, no caption) placed on the navy pull-quote bar (§10.3) of every page except Home, absolutely positioned at the bar's far right edge (`right-6`, vertically centered). Base icon is `Bubbles_white.svg` via `brightness-0 invert` (white-on-navy, matching the pane header's own icon treatment); hovering crossfades to `Bubbles_blue_white_border.svg` using the same two-stacked-`Image`/opposing-opacity technique as `ChatBubbleTrigger`. Opens the same `ChatWidget` via the shared `ChatWidgetContext`, anchoring its zoom-open animation to this icon's screen position exactly like the Home trigger does.
-- **AlmendroChatWidget** (`src/components/almendro/AlmendroChatWidget.tsx`) — self-contained trigger + floating pane for the ALMENDRO Manual Assistant demo (PAGE 6A) only; reuses `ChatWidget`'s visual design and `react-rnd` floating/draggable mechanic, but owns its open/closed state locally (no `ChatWidgetContext` — this pane never appears on any other page) and talks to `/api/almendro/*` instead of `/api/rag/*` (§8.8). Differs from `ChatWidget` in three ways: a reset icon in the header bar (next to close) that calls `POST /api/almendro/session/reset` and clears local state immediately; each assistant bubble renders a compact source-citation list underneath it (linking to the source PDF's exact page via `/almendro-manuals/{doc_id}.pdf#page=N`); and each assistant bubble also renders up to 3 clickable follow-up-question chips that resend as the next user turn on click. No returning-visitor confirmation flow or history pagination (§10.1's `ChatWidget` has both) — history loads in full, once, on first open. **Rendered via `createPortal` straight to `document.body`** (gated on a `mounted` flag for SSR safety), unlike `ChatWidget` which renders inline in the root layout — this pane is nested inside this specific page's centered content column, and react-draggable was found to bake the node's in-flow position (from that nesting) into its `position:fixed` transform math, applying a large constant offset that pushed the pane off-screen regardless of the coordinates it was given. `ChatWidget` never hits this because it's declared at the root layout level, with no such ancestor. The displayed position is also clamped against the current window size on every render (not just captured once) as a second safety net.
+- **AlmendroChatWidget** (`src/components/almendro/AlmendroChatWidget.tsx`) — self-contained trigger + floating pane for the ALMENDRO Manual Assistant demo (PAGE 6A) only; reuses `ChatWidget`'s visual design and `react-rnd` floating/draggable mechanic, but owns its open/closed state locally (no `ChatWidgetContext` — this pane never appears on any other page) and talks to `/api/almendro/*` instead of `/api/rag/*` (§8.8). Differs from `ChatWidget` in four ways: a reset icon in the header bar (next to close) that calls `POST /api/almendro/session/reset` and clears local state immediately; each assistant bubble renders a "Source References" list underneath it — document name plus leaf section number only (e.g. "mawi_best.pdf · 2.1.1"), laid out horizontally rather than stacked, each link opening the source PDF in a fixed-position, fixed-size popup window (reused across clicks via a shared window name, `window.open` with explicit `left`/`top`/`width`/`height`) rather than a new tab; each assistant bubble also renders a "Related Topics" list of up to 3 clickable follow-up-topic chips that resend the topic phrase as the next user turn on click; and both labels render bold, dark (`text-charcoal/90`), and with extra top spacing to separate them visually from the message body. No returning-visitor confirmation flow or history pagination (§10.1's `ChatWidget` has both) — history loads in full, once, on first open. **Rendered via `createPortal` straight to `document.body`** (gated on a `mounted` flag for SSR safety), unlike `ChatWidget` which renders inline in the root layout — this pane is nested inside this specific page's centered content column, and react-draggable was found to bake the node's in-flow position (from that nesting) into its `position:fixed` transform math, applying a large constant offset that pushed the pane off-screen regardless of the coordinates it was given. `ChatWidget` never hits this because it's declared at the root layout level, with no such ancestor. The displayed position is also clamped against the current window size on every render (not just captured once) as a second safety net.
 
 ## 10.2 Content Data Sources
 - `src/lib/solutions.ts` — single source of truth for the 5 Solution Class entries (including each solution's `quote`), consumed by both the `/solutions` overview cards and the `/solutions/[slug]` detail pages. Also carries the optional `heroAvatarEnabled` (boolean gate) and `heroAvatarImage` (image override) fields that control the Hero Avatar Video on each detail page — see §10.3 "Hero avatar video" and Page 6 — and the optional `demoHref`/`demoLabel` fields (currently set only on RAG Solutions) that render the live-demo CTA described in Page 6.
