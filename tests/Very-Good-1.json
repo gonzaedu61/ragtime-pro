@@ -1,0 +1,512 @@
+{
+  "sessionId": "7a4f0d41-24e2-4332-854c-bdbd0ea9d49a",
+  "history": [
+    {
+      "role": "user",
+      "content": "Wie stelle ich eine neue Angebot ein?"
+    },
+    {
+      "role": "assistant",
+      "content": "Um ein neues Angebot in ALMENDRO anzulegen, verwenden Sie die Aktion „Neu“ im Bereich der Produktspezifikation. Damit können neue Produktteile für das Angebot erstellt werden. Außerdem können Sie mit der Funktion „Übernehmen Produktteil“ Produkte oder einzelne Teile aus anderen Angeboten oder Aufträgen in das aktuelle Angebot übernehmen, um neue Kalkulationen zusammenzustellen, zum Beispiel aus Standardkalkulationen. Für die Eingabe der Angebotskopfdaten kann neben der Kundennummer auch eine Anschriftnummer gepflegt werden, die bei der Ausgabe von Angeboten automatisch vorgeschlagen wird. Wenn eine neue Anschrift benötigt wird, kann diese direkt in der Adressverwaltung angelegt werden. Details zu einzelnen Eingabefeldern und Suchkriterien sind in den ALMENDRO-Handbüchern im Abschnitt zu Spezifikation und Kopfdaten beschrieben.",
+      "sources": [
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            30
+          ],
+          "heading_path": [
+            "4 Programme",
+            "4.5 Suchfunktionen",
+            "4.5.1 Selektionskriterien"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=30"
+        },
+        {
+          "doc_id": "auf-lade",
+          "doc_title": "auf lade",
+          "pages": [
+            32
+          ],
+          "heading_path": [
+            "6 Abschluss Ladeliste",
+            "6.6 Frachtbrief drucken",
+            "6.6.2 Nachträgliches Drucken",
+            "Suchfunktionen"
+          ],
+          "href": "/almendro-manuals/auf-lade.pdf#page=32"
+        },
+        {
+          "doc_id": "ang-basis",
+          "doc_title": "ang basis",
+          "pages": [
+            38
+          ],
+          "heading_path": [
+            "7 Spezifikation",
+            "7.6 Übernehmen PT"
+          ],
+          "href": "/almendro-manuals/ang-basis.pdf#page=38"
+        }
+      ],
+      "followUpTopics": [
+        "Neuanlage von Produktteilen",
+        "Übernehmen von Produktteilen aus anderen Belegen",
+        "Angebotskopfdaten und Anschriftenpflege"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Angebotskopfdaten und Anschriftenpflege"
+    },
+    {
+      "role": "assistant",
+      "content": "Die Angebotskopfdaten umfassen grundlegende Informationen wie Kundennummer und Anschriftnummer, die bei der Ausgabe von Angeboten verwendet werden. Die Anschriftnummer wird automatisch vorgeschlagen, sofern sie gepflegt ist. Wenn Sie eine neue Anschrift benötigen, können Sie diese direkt in der Adressverwaltung anlegen. Beide Datenfelder sind essentiell für die korrekte Erstellung und Ausgabe von Angeboten und helfen bei der Zuordnung zu Kunden und Lieferadressen. Genauere Informationen zur Pflege der Kopfdaten und Anschriften finden sich im entsprechenden Handbuch zu Spezifikation und Kopfdaten in ALMENDRO.",
+      "sources": [
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            30
+          ],
+          "heading_path": [
+            "4 Programme",
+            "4.5 Suchfunktionen",
+            "4.5.1 Selektionskriterien"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=30"
+        },
+        {
+          "doc_id": "auf-pos",
+          "doc_title": "auf pos",
+          "pages": [
+            46
+          ],
+          "heading_path": [
+            "5 Buchung, Lieferung, Rechnung",
+            "5.3 Lieferung und Lagerabbuchung"
+          ],
+          "href": "/almendro-manuals/auf-pos.pdf#page=46"
+        },
+        {
+          "doc_id": "mawi-bedarf",
+          "doc_title": "mawi bedarf",
+          "pages": [
+            14
+          ],
+          "heading_path": [
+            "4 Materialeinplanung durch Zentralen Einkauf",
+            "4.1 Zusammenstellung des Bedarfs"
+          ],
+          "href": "/almendro-manuals/mawi-bedarf.pdf#page=14"
+        }
+      ],
+      "followUpTopics": [
+        "Material und Fremdleistung in Angeboten",
+        "Produktteilspezifikation im Angebot",
+        "Adressverwaltung und Pflege"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Was sind die wichtigsten funktionen in ALMENDRO?"
+    },
+    {
+      "role": "assistant",
+      "content": "Die wichtigsten Funktionen in ALMENDRO umfassen unter anderem die Verwaltung von Umbuchungslieferscheinen, die Pflege großer Datenbestände durch Übernahmefunktionen, umfangreiche Such- und Selektionsmöglichkeiten zur Filterung von Datensätzen sowie die Variantenkalkulation für Produkte. Zudem ermöglicht ALMENDRO die detaillierte Pflege von Angebots- und Auftragsdaten mit Kopfdaten und Spezifikationen. Für Lagerbewegungen gibt es spezielle Programme zur Umbuchung von Lagerorten und zur Erzeugung von Lieferscheinen aus Buchungsbelegen. Auch Rechnungs- und Statistikfunktionen zur Auswertung der Daten sind wesentliche Bestandteile des Systems.",
+      "sources": [
+        {
+          "doc_id": "auf-lief",
+          "doc_title": "auf lief",
+          "pages": [
+            26
+          ],
+          "heading_path": [
+            "4 Umbuchungslieferschein",
+            "4.3 Lieferschein",
+            "4.3.2 Übernahme in Lieferschein"
+          ],
+          "href": "/almendro-manuals/auf-lief.pdf#page=26"
+        },
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            30
+          ],
+          "heading_path": [
+            "4 Programme",
+            "4.5 Suchfunktionen",
+            "4.5.1 Selektionskriterien"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=30"
+        },
+        {
+          "doc_id": "dienste",
+          "doc_title": "dienste",
+          "pages": [
+            45
+          ],
+          "heading_path": [
+            "17 Übernehmen"
+          ],
+          "href": "/almendro-manuals/dienste.pdf#page=45"
+        }
+      ],
+      "followUpTopics": [
+        "Verwaltung von Umbuchungslieferscheinen",
+        "Variantenkalkulation",
+        "Suchfunktionen und Selektionskriterien"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Are there data interfaces to other external systems in ALMENDRO?"
+    },
+    {
+      "role": "assistant",
+      "content": "Yes, ALMENDRO supports data interfaces to external systems. Data such as operational performance or time recording can be imported from external programs in formats like ASCII files, CSV files, XML documents, or directly from tables within the ALMENDRO database. The external programs are expected to perform plausibility checks as far as possible. ALMENDRO then performs additional data validation during the import process. Incorrect data will not be imported. The imported data, both correct and incorrect, are logged either to files or printed reports. The import runs in configurable background cycles, and simultaneous data entry and background import are not possible. Data with future timestamps are not recorded. It is important to ensure that the system time on the external systems matches the ALMENDRO server time to maintain consistency.",
+      "sources": [
+        {
+          "doc_id": "auf-xrech",
+          "doc_title": "auf xrech",
+          "pages": [
+            16
+          ],
+          "heading_path": [
+            "5 Übertragung zum Käufer",
+            "5.1 Allgemein"
+          ],
+          "href": "/almendro-manuals/auf-xrech.pdf#page=16"
+        },
+        {
+          "doc_id": "leist-tz-ext",
+          "doc_title": "leist tz ext",
+          "pages": [
+            8
+          ],
+          "heading_path": [
+            "4 Datenübernahme",
+            "4.2 Übernahme",
+            "4.2.1 Datenprüfung"
+          ],
+          "href": "/almendro-manuals/leist-tz-ext.pdf#page=8"
+        },
+        {
+          "doc_id": "leist-bde-ext",
+          "doc_title": "leist bde ext",
+          "pages": [
+            8
+          ],
+          "heading_path": [
+            "4 Datenübernahme",
+            "4.1 Programm",
+            "4.1.1 Startparameter",
+            "4.1.1.8 Z-Personal mit Auto-Kommt-Buchung"
+          ],
+          "href": "/almendro-manuals/leist-bde-ext.pdf#page=8"
+        }
+      ],
+      "followUpTopics": [
+        "Data import from CSV files",
+        "XML data import procedure",
+        "Setting start parameters for data import"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Provee ALMENDRO soporte al proceso de recursos humanos?"
+    },
+    {
+      "role": "assistant",
+      "content": "Die bereitgestellten Auszüge enthalten keine spezifischen Informationen darüber, ob ALMENDRO Funktionen für das Personalwesen oder die Unterstützung von Humanressourcenprozessen bietet. Daher kann ich dazu keine sichere Auskunft geben.",
+      "sources": [
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            30
+          ],
+          "heading_path": [
+            "4 Programme",
+            "4.5 Suchfunktionen",
+            "4.5.1 Selektionskriterien"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=30"
+        },
+        {
+          "doc_id": "auf-lade",
+          "doc_title": "auf lade",
+          "pages": [
+            32
+          ],
+          "heading_path": [
+            "6 Abschluss Ladeliste",
+            "6.6 Frachtbrief drucken",
+            "6.6.2 Nachträgliches Drucken",
+            "Suchfunktionen"
+          ],
+          "href": "/almendro-manuals/auf-lade.pdf#page=32"
+        },
+        {
+          "doc_id": "stamm-adr",
+          "doc_title": "stamm adr",
+          "pages": [
+            23
+          ],
+          "heading_path": [
+            "5 Länderkennzeichen"
+          ],
+          "href": "/almendro-manuals/stamm-adr.pdf#page=23"
+        }
+      ],
+      "followUpTopics": [
+        "Lohnarten in Tageszettelerfassung",
+        "Leistungskatalog und Lohnartenermittlung",
+        "Suchfunktionen im ALMENDRO-System"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Pero que funciones relacionadas con recursos humanos hay en ALMENDRO?"
+    },
+    {
+      "role": "assistant",
+      "content": "Die bereitgestellten Auszüge enthalten keine spezifischen Informationen über Funktionen für das Personalwesen oder Humanressourcen in ALMENDRO. Daher kann ich dazu keine gesicherte Auskunft geben.",
+      "sources": [
+        {
+          "doc_id": "auf-rech",
+          "doc_title": "auf rech",
+          "pages": [
+            34
+          ],
+          "heading_path": [
+            "8 Rechnung via Mail",
+            "8.2 Einrichtung"
+          ],
+          "href": "/almendro-manuals/auf-rech.pdf#page=34"
+        },
+        {
+          "doc_id": "stamm-mat",
+          "doc_title": "stamm mat",
+          "pages": [
+            27
+          ],
+          "heading_path": [
+            "2 Material / Artikel Stamm",
+            "2.5 1-Kalk (Kalkulationsdaten 1)",
+            "ALMENDRO"
+          ],
+          "href": "/almendro-manuals/stamm-mat.pdf#page=27"
+        },
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            30
+          ],
+          "heading_path": [
+            "4 Programme",
+            "4.5 Suchfunktionen",
+            "4.5.1 Selektionskriterien"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=30"
+        }
+      ],
+      "followUpTopics": []
+    },
+    {
+      "role": "user",
+      "content": "Welche HR funktionen ALMENDRO hat?"
+    },
+    {
+      "role": "assistant",
+      "content": "ALMENDRO enthält Funktionen im Bereich der Lohn- und Leistungsdatenerfassung, welche mit Aspekten des Personalwesens verbunden sind. Dazu gehören die Erfassung von Tageszetteln mit Stunden und Lohnarten, die Bearbeitung von Lohnarten auf Basis von Kopfdaten und Parametern sowie die Verwaltung von Lohnkostenstellen. Außerdem gibt es Funktionen zur Pflege von Betriebskalendern, die in Leistungsstatistiken verwendet werden. Weiterhin bietet das System eine integrierte Adressverwaltung, mit der auch Mitarbeiterkontaktdaten und Briefe verwaltet werden können. Konkrete umfassende HR-Module wie Personalentwicklung oder Recruiting sind in den vorliegenden Auszügen nicht erwähnt, aber die Lohn- und Leistungserfassung sind zentrale HR-bezogene Funktionen in ALMENDRO.",
+      "sources": [
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            30
+          ],
+          "heading_path": [
+            "4 Programme",
+            "4.5 Suchfunktionen",
+            "4.5.1 Selektionskriterien"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=30"
+        },
+        {
+          "doc_id": "lohn",
+          "doc_title": "lohn",
+          "pages": [
+            6
+          ],
+          "heading_path": [
+            "2 Stammdaten",
+            "2.2 Betriebskalender",
+            "Plantag"
+          ],
+          "href": "/almendro-manuals/lohn.pdf#page=6"
+        },
+        {
+          "doc_id": "auf-lade",
+          "doc_title": "auf lade",
+          "pages": [
+            32
+          ],
+          "heading_path": [
+            "6 Abschluss Ladeliste",
+            "6.6 Frachtbrief drucken",
+            "6.6.2 Nachträgliches Drucken",
+            "Suchfunktionen"
+          ],
+          "href": "/almendro-manuals/auf-lade.pdf#page=32"
+        }
+      ],
+      "followUpTopics": [
+        "Lohn- und Leistungserfassung",
+        "Adressverwaltung und Mitarbeitermanagement",
+        "Betriebskalender und Leistungsstatistiken"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "How does ALMENDRO support production planning?"
+    },
+    {
+      "role": "assistant",
+      "content": "ALMENDRO supports production planning through a structured process where orders are actively passed by the order processor to the planning department for scheduling. The system provides a function called 'Reservation > Planning' within the order management module for this purpose. Once orders are handed over, planning updates the schedule immediately, and the related dates appear in the order details. Dates can be entered manually or automatically via the scheduling system and are marked with statuses like \"planning manual\" for manually set dates or \"planning auto\" for automatically scheduled dates. The planning module allows creating detailed PDFs of orders for planning purposes and supports features like checking scheduling conflicts, assigning planning time keys for specific situations (e.g., customer visits), and viewing lists of scheduled production orders by cost center. It also manages statuses and restrictions based on scheduling keys. Overall, ALMENDRO integrates order data closely with planning, allowing both automatic and manual scheduling, conflict management, and detailed oversight of production timelines.",
+      "sources": [
+        {
+          "doc_id": "planung",
+          "doc_title": "planung",
+          "pages": [
+            53
+          ],
+          "heading_path": [
+            "3 Auftragsverwaltung",
+            "3.2 Übergabe Daten an Planung",
+            "3.2.2 Übergabe durch Funktion Planung"
+          ],
+          "href": "/almendro-manuals/planung.pdf#page=53"
+        },
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            30
+          ],
+          "heading_path": [
+            "4 Programme",
+            "4.5 Suchfunktionen",
+            "4.5.1 Selektionskriterien"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=30"
+        },
+        {
+          "doc_id": "auf-lade",
+          "doc_title": "auf lade",
+          "pages": [
+            32
+          ],
+          "heading_path": [
+            "6 Abschluss Ladeliste",
+            "6.6 Frachtbrief drucken",
+            "6.6.2 Nachträgliches Drucken",
+            "Suchfunktionen"
+          ],
+          "href": "/almendro-manuals/auf-lade.pdf#page=32"
+        }
+      ],
+      "followUpTopics": [
+        "Order data handover to planning",
+        "Scheduling keys and statuses",
+        "Planning special functions and conflict management"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Planning special functions and conflict management"
+    },
+    {
+      "role": "assistant",
+      "content": "ALMENDRO offers special planning functions to handle unique situations and manage scheduling conflicts effectively. For example, in the cost center master data, a scheduling key like \"Customer visit\" can be set to coordinate production timing with customer appointments. When orders receive dates from planning, they are marked with the status \"planning auto,\" indicating automatic scheduling. These auto-scheduled dates are updated by the planning function and are shown clearly in the order overview.\n\nThe system also allows for immediate updating of order dates upon scheduling changes, visible in the order details. It supports conflict checking such as collision detection to avoid overlapping schedules. Moreover, planners can assign specific scheduling keys to handle exceptional cases that require special attention in the timeline. Additionally, production orders scheduled for a cost center can be listed for review, and finished orders can be reported back to planning to free capacity for other jobs. This integrated conflict management and special key assignment help ensure smooth, informed production planning.",
+      "sources": [
+        {
+          "doc_id": "planung",
+          "doc_title": "planung",
+          "pages": [
+            130
+          ],
+          "heading_path": [
+            "8 Planen",
+            "8.7 Sonderfunktionen",
+            "Auswirkung in Planung"
+          ],
+          "href": "/almendro-manuals/planung.pdf#page=130"
+        }
+      ],
+      "followUpTopics": [
+        "Scheduling status and date management",
+        "Customer visit scheduling key",
+        "Reporting completion to planning"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "What happens if the actual job duration is far different from the originally estimated one? How to get that estimation improved in future jobs?"
+    },
+    {
+      "role": "assistant",
+      "content": "The provided excerpts do not contain specific information on how ALMENDRO handles significant differences between actual and estimated job durations or on methods to improve future estimations based on these differences. However, ALMENDRO includes a function called Setup Time Optimization (Rüstzeitoptimierung, RZO), which automatically reduces setup times for consecutive production orders if technical data match, helping to optimize planning and scheduling. Although not explicitly stated, using such optimization features could indirectly enhance future job duration estimates by improving planning accuracy. For more precise details on adjusting estimations based on actual durations, additional documentation beyond the excerpts would be needed.",
+      "sources": [
+        {
+          "doc_id": "auf-kpa",
+          "doc_title": "auf kpa",
+          "pages": [
+            51
+          ],
+          "heading_path": [
+            "9 Zusatzkosten",
+            "9.1 Berechnen von Zusatzkosten"
+          ],
+          "href": "/almendro-manuals/auf-kpa.pdf#page=51"
+        },
+        {
+          "doc_id": "planung",
+          "doc_title": "planung",
+          "pages": [
+            214
+          ],
+          "heading_path": [
+            "21 Konfiguration",
+            "21.1 Parameter",
+            "Rüstzeit optimieren"
+          ],
+          "href": "/almendro-manuals/planung.pdf#page=214"
+        },
+        {
+          "doc_id": "auf-pos",
+          "doc_title": "auf pos",
+          "pages": [
+            20
+          ],
+          "heading_path": [
+            "4 Bearbeitungsmaske Auftragspositionen",
+            "4.2 Spalten/Felder",
+            "PosNr",
+            "Kz Zusatzkosten"
+          ],
+          "href": "/almendro-manuals/auf-pos.pdf#page=20"
+        }
+      ],
+      "followUpTopics": [
+        "Setup Time Optimization (Rüstzeitoptimierung)",
+        "Production Scheduling and Planning",
+        "Order Position Additional Costs"
+      ]
+    }
+  ],
+  "lastSeen": "2026-08-29T22:37:56.957Z"
+}

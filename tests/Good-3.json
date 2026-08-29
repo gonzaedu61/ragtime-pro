@@ -1,0 +1,124 @@
+{
+  "sessionId": "1bce9415-9ca1-47e7-9102-8c33bc35b6f2",
+  "history": [
+    {
+      "role": "user",
+      "content": "I need to update one customer address. How should I do it?"
+    },
+    {
+      "role": "assistant",
+      "content": "In ALMENDRO you update customer addresses in the address master:\n1. Open the address master (Adressenstamm).\n2. Use the search functions to find the existing customer (for example by customer number or name). Leaving a search field blank applies no filter.\n3. Open the displayed customer record.\n4. Edit the address fields you need to change.\n5. Save your changes.\n\nIf you need to update a supplementary address, navigate to the additional addresses section in the address master, select the entry, and edit it or use the address-synchronization function to apply changes from the main address.",
+      "sources": [
+        {
+          "doc_id": "stamm-adr",
+          "doc_title": "stamm adr",
+          "pages": [
+            8
+          ],
+          "heading_path": [
+            "2 Adressen",
+            "2.1 Adressenstamm",
+            "Neuanlage",
+            "Beim Kopieren von Zusatzanschriften gibt es 3 Möglichkeiten:"
+          ],
+          "href": "/almendro-manuals/stamm-adr.pdf#page=8"
+        },
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            30
+          ],
+          "heading_path": [
+            "4 Programme",
+            "4.5 Suchfunktionen",
+            "4.5.1 Selektionskriterien"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=30"
+        },
+        {
+          "doc_id": "dienste",
+          "doc_title": "dienste",
+          "pages": [
+            21
+          ],
+          "heading_path": [
+            "4 Briefe",
+            "4.4 Massenbrief",
+            "4.4.2 X-Termine Adressen"
+          ],
+          "href": "/almendro-manuals/dienste.pdf#page=21"
+        }
+      ],
+      "followUpTopics": [
+        "Using search functions",
+        "Synchronizing supplementary addresses",
+        "Text groups for addresses"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Using search functions"
+    },
+    {
+      "role": "assistant",
+      "content": "To use ALMENDRO’s search functions:  \n1. Open the search dialog in the module you’re using.  \n2. Fill in one or more filter fields with your selection criteria:  \n   - Use * as a wildcard to match any number of characters (for example, M*er finds Meier, Maikäfer, Müller).  \n   - Prefix numeric values with > or < to filter greater or less than a given number (for example, >5000 finds numbers above 5000).  \n   - Leave a field blank to include all values for that criterion.  \n3. Execute the search to display matching records.  \n4. The results appear in a list you can modify using the available list options.",
+      "sources": [
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            30
+          ],
+          "heading_path": [
+            "4 Programme",
+            "4.5 Suchfunktionen",
+            "4.5.1 Selektionskriterien"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=30"
+        },
+        {
+          "doc_id": "stamm-kalk",
+          "doc_title": "stamm kalk",
+          "pages": [
+            74
+          ],
+          "heading_path": [
+            "9 Materialpläne",
+            "Nummer",
+            "Stelle Beschreibung Beispiel",
+            "Bezeichnung"
+          ],
+          "href": "/almendro-manuals/stamm-kalk.pdf#page=74"
+        },
+        {
+          "doc_id": "dienste",
+          "doc_title": "dienste",
+          "pages": [
+            54
+          ],
+          "heading_path": [
+            "19 Mails versenden",
+            "19.3 Anlage manuell"
+          ],
+          "href": "/almendro-manuals/dienste.pdf#page=54"
+        }
+      ],
+      "followUpTopics": [
+        "Selection criteria",
+        "Result list"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Thanks!"
+    },
+    {
+      "role": "assistant",
+      "content": "You’re welcome!",
+      "sources": [],
+      "followUpTopics": []
+    }
+  ],
+  "lastSeen": "2026-08-29T17:58:22.918Z"
+}

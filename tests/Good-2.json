@@ -1,0 +1,115 @@
+{
+  "sessionId": "8d7c6434-f0ff-49b1-9f0c-0567d010b77e",
+  "history": [
+    {
+      "role": "user",
+      "content": "I want to add some notes to a quotation explaining some special requirements. How do I do it?"
+    },
+    {
+      "role": "assistant",
+      "content": "To add notes to a quotation, use the Descriptive Texts (B-Mask) for that offer:\n1. Open the quotation in editing mode.\n2. Invoke the Descriptive Texts function for the current document (B-Mask).\n3. Choose the Change action to open the texts for editing.\n4. In the Text Lines area, add your note and assign the appropriate department and line type.\n5. Save and exit the B-Mask to return to the quotation.",
+      "sources": [
+        {
+          "doc_id": "ang-basis",
+          "doc_title": "ang basis",
+          "pages": [
+            54
+          ],
+          "heading_path": [
+            "7 Spezifikation",
+            "7.8 Fertigungsmaske (F-Maske)",
+            "7.8.11 Beschreibende Texte"
+          ],
+          "href": "/almendro-manuals/ang-basis.pdf#page=54"
+        },
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            90
+          ],
+          "heading_path": [
+            "8 Texterfassung",
+            "8.3 Kopier-, Ausschneide- und Einfügefunktionen",
+            "8.3.3 Einfügefunktion",
+            "8.3.3.8 Einfügen von Texten mit unterschiedlichen Breiten"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=90"
+        },
+        {
+          "doc_id": "auf-beil",
+          "doc_title": "auf beil",
+          "pages": [
+            17
+          ],
+          "heading_path": [
+            "4 Verteiler",
+            "4.2 Kopfdaten",
+            "Auslage"
+          ],
+          "href": "/almendro-manuals/auf-beil.pdf#page=17"
+        }
+      ],
+      "followUpTopics": [
+        "Header data",
+        "Text lines"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Thanks! That worked."
+    },
+    {
+      "role": "assistant",
+      "content": "Glad to hear that it worked. Let me know if you need any further assistance.",
+      "sources": [
+        {
+          "doc_id": "ang-basis",
+          "doc_title": "ang basis",
+          "pages": [
+            54
+          ],
+          "heading_path": [
+            "7 Spezifikation",
+            "7.8 Fertigungsmaske (F-Maske)",
+            "7.8.11 Beschreibende Texte"
+          ],
+          "href": "/almendro-manuals/ang-basis.pdf#page=54"
+        },
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            88
+          ],
+          "heading_path": [
+            "8 Texterfassung",
+            "8.3 Kopier-, Ausschneide- und Einfügefunktionen",
+            "8.3.3 Einfügefunktion",
+            "8.3.3.7 Einfügen beschreibende Texte aus Angebot oder Auftrag"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=88"
+        },
+        {
+          "doc_id": "planung",
+          "doc_title": "planung",
+          "pages": [
+            213
+          ],
+          "heading_path": [
+            "21 Konfiguration",
+            "21.1 Parameter",
+            "Abteilung beschreibende Texte"
+          ],
+          "href": "/almendro-manuals/planung.pdf#page=213"
+        }
+      ],
+      "followUpTopics": [
+        "Inserting descriptive texts from a quotation or order",
+        "Special characters in descriptive texts",
+        "Text modules in descriptive texts"
+      ]
+    }
+  ],
+  "lastSeen": "2026-08-29T17:01:19.370Z"
+}

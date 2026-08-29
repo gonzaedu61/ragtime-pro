@@ -1,0 +1,56 @@
+{
+  "sessionId": "1bd2f220-f5be-4c9d-a02c-bde52c821051",
+  "history": [
+    {
+      "role": "user",
+      "content": "Como busco cual ha sido la ultima factura enviada a un cliente?"
+    },
+    {
+      "role": "assistant",
+      "content": "Para localizar la última factura enviada a un cliente, utilice el programa de estadísticas de facturas. Vaya al módulo Estadísticas > Posiciones de factura. Allí abra las funciones de búsqueda e introduzca el número de cliente como único criterio, dejando los demás campos en blanco para incluir todas las facturas. Ejecute la búsqueda y, en la lista de resultados, ordene por fecha de factura (o por número de factura) en orden descendente. La primera línea mostrará la factura más reciente.",
+      "sources": [
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            30
+          ],
+          "heading_path": [
+            "4 Programme",
+            "4.5 Suchfunktionen",
+            "4.5.1 Selektionskriterien"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=30"
+        },
+        {
+          "doc_id": "auf-rech",
+          "doc_title": "auf rech",
+          "pages": [
+            37
+          ],
+          "heading_path": [
+            "9 Beleg-Status ändern"
+          ],
+          "href": "/almendro-manuals/auf-rech.pdf#page=37"
+        },
+        {
+          "doc_id": "auf-lief",
+          "doc_title": "auf lief",
+          "pages": [
+            32
+          ],
+          "heading_path": [
+            "7 Beleg-Status ändern"
+          ],
+          "href": "/almendro-manuals/auf-lief.pdf#page=32"
+        }
+      ],
+      "followUpTopics": [
+        "Posiciones de factura",
+        "Funciones de búsqueda",
+        "Criterios de selección"
+      ]
+    }
+  ],
+  "lastSeen": "2026-08-29T18:12:35.887Z"
+}

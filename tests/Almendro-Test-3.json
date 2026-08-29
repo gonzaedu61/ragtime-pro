@@ -1,0 +1,165 @@
+{
+  "sessionId": "d306300f-9399-40e4-b50f-656a384b8673",
+  "history": [
+    {
+      "role": "user",
+      "content": "I want to create a purchase order for a material we are running short on. How do I do it?"
+    },
+    {
+      "role": "assistant",
+      "content": "To build a purchase order for a material whose stock has fallen below its safety level, use ALMENDRO’s automatic proposal program:\n\n1. Open Purchase management → Programs for generating purchase orders → Generate orders from minimum-stock suggestion (German: Generieren Bestellung aus Bestellvorschlag Mindestbestand).  \n2. The system lists all materials whose current stock is below the defined minimum.  \n3. Highlight the material you need and press the “Activate” function (bv_best) to mark it for ordering. You can repeat this if you want to order several materials at once.  \n4. Once your selections are activated, press the “Generate order” function (bv_abschl). ALMENDRO will then create a purchase order containing one line per material (or multiple lines for different requirements of the same material), using the suggested quantities and delivery dates.  \n5. The purchase order is created in your chosen currency; for reporting it is converted to the system’s base currency.\n\nIf you prefer to enter an order manually, you would go to Purchase management → Purchase orders → New order and fill in supplier, material, quantity and delivery date. Detailed manual-entry steps aren’t included in the provided excerpts.",
+      "sources": [
+        {
+          "doc_id": "mawi-best",
+          "doc_title": "mawi best",
+          "pages": [
+            4
+          ],
+          "heading_path": [
+            "2 Bestellwesen",
+            "2.1 Bestellung"
+          ],
+          "href": "/almendro-manuals/mawi-best.pdf#page=4"
+        },
+        {
+          "doc_id": "planung",
+          "doc_title": "planung",
+          "pages": [
+            57
+          ],
+          "heading_path": [
+            "4 Aktualisierung der Daten",
+            "4.3 Manuelle Aktualisierung",
+            "Aktion Auswirkung"
+          ],
+          "href": "/almendro-manuals/planung.pdf#page=57"
+        },
+        {
+          "doc_id": "auf-kpa",
+          "doc_title": "auf kpa",
+          "pages": [
+            42
+          ],
+          "heading_path": [
+            "6 Abrufauftrag",
+            "6.1 Anlegen von Abrufaufträgen",
+            "Positionen generiert werden. Andere Positionen müssen manuell nachgetragen"
+          ],
+          "href": "/almendro-manuals/auf-kpa.pdf#page=42"
+        }
+      ],
+      "followUpQuestions": [
+        "Can I adjust the suggested quantity or delivery date before generating the order?",
+        "How does ALMENDRO determine which materials appear in the minimum-stock list?",
+        "Is it possible to generate orders based on production requirements instead of minimum stock?"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Can I adjust the suggested quantity or delivery date before generating the order?"
+    },
+    {
+      "role": "assistant",
+      "content": "The Bestellvorschlag-Programme selbst bieten keine Möglichkeit, die vorgeschlagene Menge oder das vorgeschlagene Lieferdatum direkt in der Auswertung anzupassen. Wenn Sie jedoch auf die Schaltfläche zum Generieren der Bestellung klicken, öffnet ALMENDRO automatisch das Bestell-Programm. Dort verwenden Sie die Funktion Ändern, um Mengen, Liefertermine oder andere Positionen frei zu editieren, bevor Sie die Bestellung speichern.",
+      "sources": [
+        {
+          "doc_id": "mawi-best",
+          "doc_title": "mawi best",
+          "pages": [
+            29
+          ],
+          "heading_path": [
+            "3 Auswertungen",
+            "3.3 Bestellvorschlag"
+          ],
+          "href": "/almendro-manuals/mawi-best.pdf#page=29"
+        },
+        {
+          "doc_id": "auf-pos",
+          "doc_title": "auf pos",
+          "pages": [
+            14
+          ],
+          "heading_path": [
+            "4 Bearbeitungsmaske Auftragspositionen",
+            "4.2 Spalten/Felder",
+            "PosNr",
+            "Termin / KW / Jahr / Zeit"
+          ],
+          "href": "/almendro-manuals/auf-pos.pdf#page=14"
+        },
+        {
+          "doc_id": "planung",
+          "doc_title": "planung",
+          "pages": [
+            212
+          ],
+          "heading_path": [
+            "21 Konfiguration",
+            "21.1 Parameter",
+            "EDatum TS"
+          ],
+          "href": "/almendro-manuals/planung.pdf#page=212"
+        }
+      ],
+      "followUpQuestions": [
+        "Möchten Sie wissen, wie Sie im Bestell-Programm Positionen bearbeiten?",
+        "Interessieren Sie sich dafür, wie Sie die optimale Bestellmenge im Materialstamm anpassen?",
+        "Sollen wir besprechen, wie Sie die Liefertermine über Terminschlüssel steuern?"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Please give me the answer in English"
+    },
+    {
+      "role": "assistant",
+      "content": "I’m sorry, but the provided manual excerpts don’t include information on adjusting the suggested quantity or delivery date within the suggestion program itself before generating the purchase order.",
+      "sources": [
+        {
+          "doc_id": "basis",
+          "doc_title": "basis",
+          "pages": [
+            104
+          ],
+          "heading_path": [
+            "8 Texterfassung",
+            "8.4 Sonstiges",
+            "Mehrsprachige Wörterbücher"
+          ],
+          "href": "/almendro-manuals/basis.pdf#page=104"
+        },
+        {
+          "doc_id": "stamm-mat",
+          "doc_title": "stamm mat",
+          "pages": [
+            20
+          ],
+          "heading_path": [
+            "2 Material / Artikel Stamm",
+            "2.3 Einkauf",
+            "Recycling-Code"
+          ],
+          "href": "/almendro-manuals/stamm-mat.pdf#page=20"
+        },
+        {
+          "doc_id": "mawi-abruf",
+          "doc_title": "mawi abruf",
+          "pages": [
+            10
+          ],
+          "heading_path": [
+            "4 Bearbeiten/Generieren Abrufe",
+            "4.2 Bearbeiten"
+          ],
+          "href": "/almendro-manuals/mawi-abruf.pdf#page=10"
+        }
+      ],
+      "followUpQuestions": [
+        "Would you like to know how to enter or edit a purchase order manually in ALMENDRO?",
+        "Are you looking for details on the change functions available once the purchase-order screen is open?"
+      ]
+    }
+  ],
+  "lastSeen": "2026-08-29T09:17:03.878Z"
+}

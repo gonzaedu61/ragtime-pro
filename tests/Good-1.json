@@ -1,0 +1,261 @@
+{
+  "sessionId": "943aa28f-4e3a-4bc8-91ef-74f014010793",
+  "history": [
+    {
+      "role": "user",
+      "content": "I need to cancel a wrong invoice already sent. How should I proceed?"
+    },
+    {
+      "role": "assistant",
+      "content": "If the invoice has already been posted to the outgoing‐invoice journal, you cannot simply delete it. Instead you create a reversal invoice as follows:\n\n1. Call the copy‐document function (F22 “take over document”) on the invoice you need to cancel. This opens a new invoice form with all original line items.\n2. In the new invoice, enter each item’s quantity with a negative sign. This turns the amounts into a credit that reverses the original invoice.\n3. Post and print (or transmit) this reversal invoice. It will cancel out the originally sent invoice.\n\nIf the invoice had not yet been passed to the outgoing‐invoice journal, you could also just delete its line items; the header remains in the system but the amounts are gone.",
+      "sources": [
+        {
+          "doc_id": "auf-rech",
+          "doc_title": "auf rech",
+          "pages": [
+            19
+          ],
+          "heading_path": [
+            "3 Rechnung",
+            "3.2 Positionen",
+            "3.2.10 Stornieren Rechnungen und Gutschriften"
+          ],
+          "href": "/almendro-manuals/auf-rech.pdf#page=19"
+        },
+        {
+          "doc_id": "auf-lief",
+          "doc_title": "auf lief",
+          "pages": [
+            32
+          ],
+          "heading_path": [
+            "7 Beleg-Status ändern"
+          ],
+          "href": "/almendro-manuals/auf-lief.pdf#page=32"
+        },
+        {
+          "doc_id": "ang-basis",
+          "doc_title": "ang basis",
+          "pages": [
+            18
+          ],
+          "heading_path": [
+            "5 Stamm",
+            "5.2 Schlüssel",
+            "Rechnungsanschrift"
+          ],
+          "href": "/almendro-manuals/ang-basis.pdf#page=18"
+        }
+      ],
+      "followUpTopics": [
+        "Credit memo article positions"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Credit memo article positions"
+    },
+    {
+      "role": "assistant",
+      "content": "Article positions in a credit memo are treated exactly like invoice positions:\n\n• Since version 10.1 they appear in a tabular view; you can hide any unused fields.\n• Position texts are integrated directly into that table.\n• Credit memos use the same number ranges as invoices and are reported back to orders in the same way.\n• By default a credit memo only adjusts the invoiced value; the calculated quantity remains unchanged.\n• If you need to credit quantity (for example for a goods return), you must record the position as an invoice line with a negative quantity—this creates a reversal invoice.\n• There is no collective form for credit memos.",
+      "sources": [
+        {
+          "doc_id": "auf-rech",
+          "doc_title": "auf rech",
+          "pages": [
+            24
+          ],
+          "heading_path": [
+            "5 Gutschriften"
+          ],
+          "href": "/almendro-manuals/auf-rech.pdf#page=24"
+        },
+        {
+          "doc_id": "auf-pos",
+          "doc_title": "auf pos",
+          "pages": [
+            10
+          ],
+          "heading_path": [
+            "3 Übersicht Auftragspositionen",
+            "3.4 Funktionen Info",
+            "3.4.3 Info Rechnung"
+          ],
+          "href": "/almendro-manuals/auf-pos.pdf#page=10"
+        },
+        {
+          "doc_id": "ang-basis",
+          "doc_title": "ang basis",
+          "pages": [
+            18
+          ],
+          "heading_path": [
+            "5 Stamm",
+            "5.2 Schlüssel",
+            "Rechnungsanschrift"
+          ],
+          "href": "/almendro-manuals/ang-basis.pdf#page=18"
+        }
+      ],
+      "followUpTopics": [
+        "Credit memos",
+        "Overview of invoices and credit memos for an article",
+        "Copying a document (F22 takeover)"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Is there an automated way to communicate the invoice reversal to the customer? Or should I do it fully manual?"
+    },
+    {
+      "role": "assistant",
+      "content": "You can automate sending the reversal invoice just like any regular invoice if you have the “invoice via mail” function enabled. Credit memos and reversal invoices use the same numbering and delivery options as invoices. Once you’ve posted the reversal (see the canceling procedure), the system can generate a PDF and email it to the customer automatically by choosing the PC-RechMail option. To use this, you must activate the feature via parameter 2.7 “Invoice via Mail.” If that setup isn’t in place, you’ll need to print or manually email the PDF of the reversal document.",
+      "sources": [
+        {
+          "doc_id": "auf-xrech",
+          "doc_title": "auf xrech",
+          "pages": [
+            14
+          ],
+          "heading_path": [
+            "4 Erzeugung der Datei",
+            "4.2 Weiterverarbeitung mit Skript",
+            "Verzeichnisse, in die die Datei kopiert werden soll müssen zuvor einmalig manuell"
+          ],
+          "href": "/almendro-manuals/auf-xrech.pdf#page=14"
+        },
+        {
+          "doc_id": "auf-rech",
+          "doc_title": "auf rech",
+          "pages": [
+            34
+          ],
+          "heading_path": [
+            "8 Rechnung via Mail",
+            "8.3 Funktion"
+          ],
+          "href": "/almendro-manuals/auf-rech.pdf#page=34"
+        },
+        {
+          "doc_id": "dienste",
+          "doc_title": "dienste",
+          "pages": [
+            65
+          ],
+          "heading_path": [
+            "20 Mail übernehmen",
+            "20.2 Übergabe an Übernahmeverzeichnis"
+          ],
+          "href": "/almendro-manuals/dienste.pdf#page=65"
+        }
+      ],
+      "followUpTopics": [
+        "Parameters – Invoice via Mail",
+        "Invoice via Mail function",
+        "Cancelling invoices and credit memos"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Invoice via Mail function"
+    },
+    {
+      "role": "assistant",
+      "content": "The Invoice via Mail function lets you automatically email a PDF of an invoice to customers flagged for this service, while simultaneously generating an internal copy for accounting or archiving.\n\nTo enable it, set parameter 2.7 “Invoice via Mail.” Detailed setup of customer master data (email versions) and the internal output device is covered in the Administration ALMENDRO workshop.\n\nDuring invoice output:\n• Capture and post the invoice as usual.\n• If Invoice via Mail = yes:\n  • Invoice reports flagged with the special medium “RechnungMail” appear as PC-RechMail (PrintClient with Invoice via Mail function). Reports without “RechnungMail” appear as PC (PrintClient).\n  • Selecting PC-RechMail generates a PDF and sends it via email using the version stored in ALMENDRO.\n  • At the same time, an internal copy is sent to the device defined by the environment variable CMX_RECHMAILD (for example, screen, printer, or file).\n• If Invoice via Mail = no:\n  • The output proceeds as in the standard process: choose PC (PrintClient) and select your desired output medium.",
+      "sources": [
+        {
+          "doc_id": "auf-rech",
+          "doc_title": "auf rech",
+          "pages": [
+            34
+          ],
+          "heading_path": [
+            "8 Rechnung via Mail",
+            "8.1 Allgemein"
+          ],
+          "href": "/almendro-manuals/auf-rech.pdf#page=34"
+        },
+        {
+          "doc_id": "dienste",
+          "doc_title": "dienste",
+          "pages": [
+            63
+          ],
+          "heading_path": [
+            "19 Mails versenden",
+            "19.6 Hinterlegung von definiertem Anhang"
+          ],
+          "href": "/almendro-manuals/dienste.pdf#page=63"
+        },
+        {
+          "doc_id": "iln-ean-nve",
+          "doc_title": "iln ean nve",
+          "pages": [
+            10
+          ],
+          "heading_path": [
+            "3 Stammdaten",
+            "3.2 Adressenstamm"
+          ],
+          "href": "/almendro-manuals/iln-ean-nve.pdf#page=10"
+        }
+      ],
+      "followUpTopics": [
+        "Invoice via Mail general information",
+        "Invoice via Mail setup",
+        "Parameter 2.7 Invoice via Mail"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Great! Thanks"
+    },
+    {
+      "role": "assistant",
+      "content": "You’re welcome! If you need anything else, just let me know.",
+      "sources": [
+        {
+          "doc_id": "auf-lade",
+          "doc_title": "auf lade",
+          "pages": [
+            38
+          ],
+          "heading_path": [
+            "7 Generieren Ladeliste",
+            "7.3 Generieren aus Auftragspositionen (Fertigware)",
+            "Prüfung Beschreibung",
+            "Auftragsposition in Lieferscheinposition)"
+          ],
+          "href": "/almendro-manuals/auf-lade.pdf#page=38"
+        },
+        {
+          "doc_id": "auf-ausschiessen",
+          "doc_title": "auf ausschiessen",
+          "pages": [
+            14
+          ],
+          "heading_path": [
+            "4 Auftragsbearbeitung",
+            "4.2 Worklist"
+          ],
+          "href": "/almendro-manuals/auf-ausschiessen.pdf#page=14"
+        },
+        {
+          "doc_id": "stamm-mat",
+          "doc_title": "stamm mat",
+          "pages": [
+            48
+          ],
+          "heading_path": [
+            "3 Zusatzstammdaten für Material",
+            "3.3 Stammdaten Lagerort",
+            "Bereich"
+          ],
+          "href": "/almendro-manuals/stamm-mat.pdf#page=48"
+        }
+      ],
+      "followUpTopics": []
+    }
+  ],
+  "lastSeen": "2026-08-29T16:30:14.689Z"
+}

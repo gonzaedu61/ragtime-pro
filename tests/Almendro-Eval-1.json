@@ -1,0 +1,933 @@
+[
+  {
+    "lang": "en",
+    "question": "How do I add a new item/position to a sales order in ALMENDRO?",
+    "answer": "Um in ALMENDRO eine neue Position in einem Verkaufsauftrag anzulegen, öffnen Sie den Auftrag und wechseln in den Tab „Positionen“. Dort wählen Sie die Funktion „Neuanlage“ bzw. „Einfügen“ für Artikelpositionen. Tragen Sie anschließend die Artikelnummer (nur Materialart „Artikel“), Menge und ggf. weitere Pflichtfelder ein und speichern Sie. Möchten Sie später einen Artikel ändern, löschen Sie die Position zunächst und legen Sie sie neu an – ein direktes Überschreiben der Artikelnummer ist nicht möglich.",
+    "sources": [
+      {
+        "doc_id": "planung",
+        "doc_title": "planung",
+        "pages": [
+          105
+        ],
+        "heading_path": [
+          "8 Planen",
+          "8.6 Auftrag einzeln",
+          "8.6.4 Einfügen „vor-1“"
+        ],
+        "href": "/almendro-manuals/planung.pdf#page=105"
+      },
+      {
+        "doc_id": "auf-kpa",
+        "doc_title": "auf kpa",
+        "pages": [
+          47
+        ],
+        "heading_path": [
+          "6 Abrufauftrag",
+          "6.1 Anlegen von Abrufaufträgen",
+          "wird der Artikel im Abruf unter Umständen mit dem falschen Preis berechnet und die",
+          "6.1.4.2 Eintragen eines Artikels ohne offene Artikelposition"
+        ],
+        "href": "/almendro-manuals/auf-kpa.pdf#page=47"
+      },
+      {
+        "doc_id": "auf-pos",
+        "doc_title": "auf pos",
+        "pages": [
+          5
+        ],
+        "heading_path": [
+          "2 Allgemeines"
+        ],
+        "href": "/almendro-manuals/auf-pos.pdf#page=5"
+      }
+    ],
+    "score": 3.5,
+    "note": "Mostly grounded; one true-but-unretrieved detail (article number cannot be overwritten) stated without it being in this run's context."
+  },
+  {
+    "lang": "en",
+    "question": "What is a Kontrakt in the KPA module and how do I create one?",
+    "answer": "A Kontrakt im KPA-Modul ist eine spezielle Auftragsart, mit der Sie eine Kundenvereinbarung für einen oder mehrere Artikel abbilden und später in Produktions- und Abrufaufträge gliedern können. Ein Kontrakt enthält pro Position den Artikel, die insgesamt zu liefernde Menge und den vereinbarten Preis.\n\nSo legen Sie einen Kontrakt an:\n1. New Order anlegen oder ein Angebot in einen Auftrag kopieren. Das System vergibt automatisch eine Kontrakt-Auftragsnummer aus dem definierten Nummernkreis und setzt den Status auf „Kontrakt“.  \n2. Im Auftragskopf wie gewohnt die Stammdaten, Spezifikationen und (falls gewünscht) Textblöcke pflegen.  \n3. In den Positionen die Artikel eintragen oder aus dem Stamm generieren. Die vorgeschlagene Menge können Sie bei Bedarf anpassen.  \n4. Den E-Preis übernimmt das System aus der Verkaufsliste oder dem Artikelstamm; falls dort kein Preis hinterlegt ist, müssen Sie ihn manuell eintragen.  \n5. Für die KPA-Verwaltung stellen Sie in jeder Position das Kennzeichen „über Abruf“ ein (dies kann per Parameter auch als Vorschlagswert definiert werden).",
+    "sources": [
+      {
+        "doc_id": "auf-kpa",
+        "doc_title": "auf kpa",
+        "pages": [
+          5
+        ],
+        "heading_path": [
+          "2 Allgemeines",
+          "2.1 Was heißt KPA"
+        ],
+        "href": "/almendro-manuals/auf-kpa.pdf#page=5"
+      },
+      {
+        "doc_id": "auf-pos",
+        "doc_title": "auf pos",
+        "pages": [
+          12
+        ],
+        "heading_path": [
+          "3 Übersicht Auftragspositionen",
+          "3.6 Funktion KPA-Verwaltung"
+        ],
+        "href": "/almendro-manuals/auf-pos.pdf#page=12"
+      }
+    ],
+    "score": 5,
+    "note": "Fully grounded verbatim against auf-kpa 4.1 Anlegen von Kontrakt."
+  },
+  {
+    "lang": "en",
+    "question": "How does inventory counting (Inventur) work with the scanner in the warehouse module?",
+    "answer": "Inventory counting with a scanner in ALMENDRO’s warehouse module is handled by the “Inventur II (Scanner)” process. You carry out a fully bar-code-based count in a defined warehouse area that must be locked for the duration of the count. The basic flow is:\n\n1 Lock the target warehouse area so no goods movements can occur during counting.  \n2 Use a mobile barcode scanner (ASCII scanner with VT-emulation) to record actual stock levels by pallet or material label.  \n3 Load the scanned data into the “Inventur bearbeiten” program to review inventory differences.  \n4 Post the counted quantities (with the Buchen function) so ALMENDRO adjusts its stock records.  \n5 Unlock the warehouse area once all bookings are complete.\n\nAll materials in the counting area must have bar-code labels, and the system relies on the predefined 3-level warehouse structure for scan routing and posting.",
+    "sources": [
+      {
+        "doc_id": "mawi-lager",
+        "doc_title": "mawi lager",
+        "pages": [
+          76
+        ],
+        "heading_path": [
+          "5 Abläufe",
+          "5.5 Inventur II (Scanner)",
+          "Voraussetzungen",
+          "Der Ablauf in folgenden Schritten"
+        ],
+        "href": "/almendro-manuals/mawi-lager.pdf#page=76"
+      },
+      {
+        "doc_id": "mawi-inv",
+        "doc_title": "mawi inv",
+        "pages": [
+          12
+        ],
+        "heading_path": [
+          "4 Ablauf",
+          "4.2 Paletten Scannen",
+          "Scanner-Programm (ASCII-Scanner)"
+        ],
+        "href": "/almendro-manuals/mawi-inv.pdf#page=12"
+      },
+      {
+        "doc_id": "ws-info",
+        "doc_title": "ws info",
+        "pages": [
+          10
+        ],
+        "heading_path": [
+          "5 Materialwirtschaft",
+          "5.12 Inventur mit Barcode (Inventur II)"
+        ],
+        "href": "/almendro-manuals/ws-info.pdf#page=10"
+      }
+    ],
+    "score": 5,
+    "note": "Fully grounded against mawi-lager/mawi-inv 5.5/2.1."
+  },
+  {
+    "lang": "en",
+    "question": "How do I create a new material/article master record?",
+    "answer": "To create a new material or article master record in ALMENDRO you use the “Materialstamm generieren” function in the M-Mask (Spezi­fi­ka­tion > Material und Fremdleistung). When you invoke it against a calculation material, the system searches for a suitable existing material. If none is found, it automatically • copies all data from your calculation material, • supplements it with selected data from the Technical mask of the current product, and • opens the new record for you to review or edit. Once you close and save that material master, its number is written back into the M-Mask as your new material. The underlying mask layout and field definitions are described in the Stammdaten Material/Artikel workshop (stamm_mat.pdf).",
+    "sources": [
+      {
+        "doc_id": "ang-basis",
+        "doc_title": "ang basis",
+        "pages": [
+          66
+        ],
+        "heading_path": [
+          "7 Spezifikation",
+          "7.9 Material und Fremdleistung (M-Maske)",
+          "„geeignetes“ Material"
+        ],
+        "href": "/almendro-manuals/ang-basis.pdf#page=66"
+      },
+      {
+        "doc_id": "leist-bde-ext",
+        "doc_title": "leist bde ext",
+        "pages": [
+          17
+        ],
+        "heading_path": [
+          "4 Datenübernahme",
+          "4.5 XML-Dokument",
+          "4.5.1 Struktur"
+        ],
+        "href": "/almendro-manuals/leist-bde-ext.pdf#page=17"
+      },
+      {
+        "doc_id": "stamm-mat",
+        "doc_title": "stamm mat",
+        "pages": [
+          5
+        ],
+        "heading_path": [
+          "2 Material / Artikel Stamm",
+          "2.1 Stamm"
+        ],
+        "href": "/almendro-manuals/stamm-mat.pdf#page=5"
+      }
+    ],
+    "score": 4,
+    "note": "Grounded in ang-basis 7.9 and stamm-mat; accurate mechanism description."
+  },
+  {
+    "lang": "en",
+    "question": "What are the steps to generate a purchase order from an order position?",
+    "answer": "Um aus einer Auftragsposition direkt eine Bestellung zu erzeugen, gehen Sie laut Auszug wie folgt vor: Sie rufen in der Übersicht Ihrer Auftragspositionen die Funktion „Generieren Bestellung“ auf. Das System öffnet daraufhin automatisch das Bestellprogramm und übernimmt Auftrag- und Positionsnummer in die neue Bestellposition. Anschließend können Sie dort wie gewohnt eine Bestellnummer aus dem Nummernkreis vergeben, den Lieferanten (wird aus den Stammdaten vorgeschlagen) prüfen, bei Bedarf Mengen oder Bedingungen anpassen und die Bestellung speichern. Details zur weiteren Bearbeitung im Bestellprogramm finden Sie im Kapitel Bestellwesen.",
+    "sources": [
+      {
+        "doc_id": "mawi-best",
+        "doc_title": "mawi best",
+        "pages": [
+          36
+        ],
+        "heading_path": [
+          "5 Programm zum Generieren Bestellungen aus",
+          "5.3 Generieren Bestellung aus Bestellvorschlag Mindestbestand"
+        ],
+        "href": "/almendro-manuals/mawi-best.pdf#page=36"
+      },
+      {
+        "doc_id": "mawi-lager",
+        "doc_title": "mawi lager",
+        "pages": [
+          62
+        ],
+        "heading_path": [
+          "4 Sonstiges",
+          "4.4 Buchen in Lieferschein",
+          "Stornobuchungen:",
+          "Bewertung dieser generierten Buchungen:"
+        ],
+        "href": "/almendro-manuals/mawi-lager.pdf#page=62"
+      },
+      {
+        "doc_id": "auf-lade",
+        "doc_title": "auf lade",
+        "pages": [
+          36
+        ],
+        "heading_path": [
+          "7 Generieren Ladeliste",
+          "7.3 Generieren aus Auftragspositionen (Fertigware)",
+          "Prüfung Beschreibung",
+          "Auftragsposition in Ladelistenposition)"
+        ],
+        "href": "/almendro-manuals/auf-lade.pdf#page=36"
+      }
+    ],
+    "score": 4.5,
+    "note": "Grounded in auf-pos/mawi-best Generieren Bestellung function."
+  },
+  {
+    "lang": "en",
+    "question": "How does time tracking (BDE) work for production employees?",
+    "answer": "Production employees record their working times at a BDE terminal by “check-in” (kommt) and “check-out” (geht) bookings. Each employee identifies themselves by their personnel number (optionally via barcode scanner) and selects a shift type. The system then automatically captures their attendance times and displays any active operations for that terminal. Behind the scenes, these BDE bookings can be converted into Tageszettel (daily time cards). Depending on your parameter settings, these Tageszettel entries are either held for manual posting or immediately booked to the costing targets. Corrections to the generated time cards can be made later in the Tageszettel program, but the original BDE records remain unchanged.",
+    "sources": [
+      {
+        "doc_id": "lohn",
+        "doc_title": "lohn",
+        "pages": [
+          44
+        ],
+        "heading_path": [
+          "6 Lohnaufbereitung",
+          "6.6 Personal ohne Tageszettel"
+        ],
+        "href": "/almendro-manuals/lohn.pdf#page=44"
+      },
+      {
+        "doc_id": "ws-info",
+        "doc_title": "ws info",
+        "pages": [
+          11
+        ],
+        "heading_path": [
+          "6 Leistung",
+          "6.3 Betriebsdatenerfassung – externe Systeme"
+        ],
+        "href": "/almendro-manuals/ws-info.pdf#page=11"
+      },
+      {
+        "doc_id": "leist-bde",
+        "doc_title": "leist bde",
+        "pages": [
+          17
+        ],
+        "heading_path": [
+          "5 BDE I",
+          "5.1 Kommt"
+        ],
+        "href": "/almendro-manuals/leist-bde.pdf#page=17"
+      }
+    ],
+    "score": 4,
+    "note": "Core mechanism verified verbatim against leist-bde 3.1; minor unverified details plausible."
+  },
+  {
+    "lang": "en",
+    "question": "How do I set up a new customer address record?",
+    "answer": "In ALMENDRO you create a new customer address in the Adressenstamm. Öffnen Sie im Menü Stammdaten → Adressen → Adressenstamm und wählen Sie „Neuanlage“. Legen Sie als Adressart „Kunde“ fest und erfassen Sie alle benötigten Felder (Name, Straße, PLZ/Ort usw.). Arbeiten Sie mit CRM-Adressarten, steht Ihnen unter „Wechsel – mit Einsatz CRM-Adressarten“ eine Funktion zum Umwandeln (z. B. von Interessent zu Kunde) zur Verfügung (siehe Tabelle von Adressart → nach Adressart). Für eine vollständige Liste der Pflichtfelder und Feldinhalte sehen Sie bitte das Handbuch Stammdaten Adressen (stamm_adr.pdf).",
+    "sources": [
+      {
+        "doc_id": "stamm-adr",
+        "doc_title": "stamm adr",
+        "pages": [
+          7
+        ],
+        "heading_path": [
+          "2 Adressen",
+          "2.1 Adressenstamm",
+          "Neuanlage",
+          "Wechsel – mit Einsatz CRM-Adressarten",
+          "Von Adressart Nach Adressart"
+        ],
+        "href": "/almendro-manuals/stamm-adr.pdf#page=7"
+      },
+      {
+        "doc_id": "lohn",
+        "doc_title": "lohn",
+        "pages": [
+          19
+        ],
+        "heading_path": [
+          "2 Stammdaten",
+          "2.7 Personal",
+          "Adresse"
+        ],
+        "href": "/almendro-manuals/lohn.pdf#page=19"
+      },
+      {
+        "doc_id": "auf-lade",
+        "doc_title": "auf lade",
+        "pages": [
+          6
+        ],
+        "heading_path": [
+          "2 Stammdaten",
+          "2.3 Textarten Adresse / Lieferadresse"
+        ],
+        "href": "/almendro-manuals/auf-lade.pdf#page=6"
+      }
+    ],
+    "score": 4.5,
+    "note": "Verified in detail against stamm-adr 2.1 Neuanlage, including CRM-Adressarten conversion table; menu path is an inferred guess."
+  },
+  {
+    "lang": "en",
+    "question": "What does the production planning module do when scheduling orders?",
+    "answer": "When you schedule production orders in ALMENDRO’s planning module, the system allocates each order into the free capacity of the assigned cost centers and calculates earliest possible start and end dates. You can influence this process via settings in the cost-center master record: for example, ignore existing loads and simply fix the earliest start (“without capacity check”), keep a series of orders together as one block, automatically shift orders before or after a moved order, or close gaps created by deleted or shortened orders (fill left/right). Once scheduled, you can list all planned orders, display any date collisions, and feed the resulting plan into shop-floor terminals.",
+    "sources": [
+      {
+        "doc_id": "planung",
+        "doc_title": "planung",
+        "pages": [
+          204
+        ],
+        "heading_path": [
+          "19 Spezialfunktionen",
+          "19.2 Einplanen mit Option „ohne Prüfung Kapazität“",
+          "19.2.3 Beispiel"
+        ],
+        "href": "/almendro-manuals/planung.pdf#page=204"
+      },
+      {
+        "doc_id": "ws-info",
+        "doc_title": "ws info",
+        "pages": [
+          14
+        ],
+        "heading_path": [
+          "9 Planung",
+          "9.1 Planung"
+        ],
+        "href": "/almendro-manuals/ws-info.pdf#page=14"
+      },
+      {
+        "doc_id": "auf-kpa",
+        "doc_title": "auf kpa",
+        "pages": [
+          27
+        ],
+        "heading_path": [
+          "5 Produktionsauftrag",
+          "5.3 Positionskalkulation",
+          "5.3.3 Generieren eines Produktionsauftrages ohne offene Mengen"
+        ],
+        "href": "/almendro-manuals/auf-kpa.pdf#page=27"
+      }
+    ],
+    "score": 4,
+    "note": "Fuellen links/rechts verified verbatim against planung 8.8; other claims consistent with that chapter."
+  },
+  {
+    "lang": "en",
+    "question": "How do I print a delivery note (Lieferschein)?",
+    "answer": "After you’ve created and closed a delivery note (Lieferschein) in the Lieferschein program, you can print it immediately by choosing the X-Druck command. If you need to reprint an existing note later, open the Lieferschein (or Sammellieferschein) program and use the Wiederholdruck function, entering the Lieferschein number(s).",
+    "sources": [
+      {
+        "doc_id": "auf-lade",
+        "doc_title": "auf lade",
+        "pages": [
+          29
+        ],
+        "heading_path": [
+          "6 Abschluss Ladeliste",
+          "6.5 Lieferscheine drucken",
+          "6.5.2 Nachträgliches Drucken"
+        ],
+        "href": "/almendro-manuals/auf-lade.pdf#page=29"
+      },
+      {
+        "doc_id": "auf-lief",
+        "doc_title": "auf lief",
+        "pages": [
+          20
+        ],
+        "heading_path": [
+          "3 Lieferschein",
+          "3.3 Drucken Einzel- und Sammellieferschein",
+          "Vorsicht:",
+          "viele Belege gedruckt werden!!"
+        ],
+        "href": "/almendro-manuals/auf-lief.pdf#page=20"
+      },
+      {
+        "doc_id": "ws-info",
+        "doc_title": "ws info",
+        "pages": [
+          8
+        ],
+        "heading_path": [
+          "4 Auftragsverwaltung",
+          "4.3 Lieferschein"
+        ],
+        "href": "/almendro-manuals/ws-info.pdf#page=8"
+      }
+    ],
+    "score": 3,
+    "note": "Misattributes X-Druck (actually prints the Frachtbrief per source) as printing the delivery note itself. Wiederholdruck description is correct."
+  },
+  {
+    "lang": "en",
+    "question": "How do I configure a new BDE terminal?",
+    "answer": "In ALMENDRO Sie legen ein neues BDE-Terminal im Programm „Stammdaten Sonstiges“ unter dem BDE-Terminalstamm an. Dort vergeben Sie • eine eindeutige Terminal-Nummer • optional eine fixe Kostenstelle (wenn das Terminal stets an einer Maschine/Kostenstelle läuft) • die gewünschten BDE-Funktionen (z.B. Kostenstellen-Eingabe, Materialerfassung I/III, HF-Bewegungen) • bei Bedarf die Personalnummer(n) der Maschinenführer für BDE III\nDie jeweils verfügbaren Funktionstypen und Schalter finden Sie im Kapitel „BDE-Terminalstamm“ des Handbuchs „Stammdaten Sonstiges“ sowie in Kapitel 4 („Stammdaten“) des Handbuchs „Leistung BDE“. Leider liegen die konkreten Feldbezeichnungen und Bildschirmpfade in den vorliegenden Auszügen nicht vor.",
+    "sources": [
+      {
+        "doc_id": "ws-info",
+        "doc_title": "ws info",
+        "pages": [
+          11
+        ],
+        "heading_path": [
+          "6 Leistung",
+          "6.3 Betriebsdatenerfassung – externe Systeme"
+        ],
+        "href": "/almendro-manuals/ws-info.pdf#page=11"
+      },
+      {
+        "doc_id": "mawi-hflager",
+        "doc_title": "mawi hflager",
+        "pages": [
+          8
+        ],
+        "heading_path": [
+          "4 HF-Bewegung aus BDE"
+        ],
+        "href": "/almendro-manuals/mawi-hflager.pdf#page=8"
+      },
+      {
+        "doc_id": "stamm-sonst",
+        "doc_title": "stamm sonst",
+        "pages": [
+          11
+        ],
+        "heading_path": [
+          "2 BDE-Terminalstamm",
+          "2.2 Funktionen",
+          "2.2.2 Kostenstelle (I, II, III)"
+        ],
+        "href": "/almendro-manuals/stamm-sonst.pdf#page=11"
+      }
+    ],
+    "score": 4,
+    "note": "Grounded in stamm-sonst 2.2; appropriately honest that exact field names are not in the excerpts."
+  },
+  {
+    "lang": "de",
+    "question": "Wie storniere ich eine Rechnung?",
+    "answer": "Um eine Rechnung zu stornieren, gehen Sie wie folgt vor: \n1. Prüfen Sie, ob die Rechnung bereits an das Rechnungsausgangsbuch übergeben wurde. \n2. Ist sie noch nicht übergeben, löschen Sie einfach die zu stornierenden Positionen – der Rechnungskopf bleibt bestehen. \n3. Wurde die Rechnung schon ans Ausgangsbuch übergeben, nutzen Sie im Rechnungserfassungsprogramm die Funktion F22 ‚Beleg übernehmen‘, wählen die zu stornierende Rechnung und übertragen deren Positionen in ein neues Rechnungsformular. \n4. Setzen Sie in den übernommenen Positionen die Mengen mit negativem Vorzeichen. \n5. Speichern und drucken Sie die so entstandene Stornorechnung wie gewohnt.",
+    "sources": [
+      {
+        "doc_id": "auf-rech",
+        "doc_title": "auf rech",
+        "pages": [
+          19
+        ],
+        "heading_path": [
+          "3 Rechnung",
+          "3.2 Positionen",
+          "3.2.10 Stornieren Rechnungen und Gutschriften"
+        ],
+        "href": "/almendro-manuals/auf-rech.pdf#page=19"
+      },
+      {
+        "doc_id": "auf-kpa",
+        "doc_title": "auf kpa",
+        "pages": [
+          50
+        ],
+        "heading_path": [
+          "8 Rechnung",
+          "8.1 Generieren Rechnung"
+        ],
+        "href": "/almendro-manuals/auf-kpa.pdf#page=50"
+      },
+      {
+        "doc_id": "ws-info",
+        "doc_title": "ws info",
+        "pages": [
+          8
+        ],
+        "heading_path": [
+          "4 Auftragsverwaltung",
+          "4.4 Rechnung"
+        ],
+        "href": "/almendro-manuals/ws-info.pdf#page=8"
+      }
+    ],
+    "score": 5,
+    "note": "Near-verbatim match to auf-rech 3.2.10 Stornieren Rechnungen und Gutschriften."
+  },
+  {
+    "lang": "de",
+    "question": "Wie lege ich eine neue Kostenstelle an?",
+    "answer": "Anlage und Pflege von Kostenstellen erfolgt im Kostenstellenstamm (siehe Stammdaten Kalkulation, stamm_kalk.pdf – Kapitel 3 „Kostenstellen“). Dort legen Sie über „Neu“ eine neue Kostenstelle an und füllen alle Pflichtfelder (z. B. Kostenstellennummer, Bezeichnung, Lkt-Version für den Leistungskatalog) sowie weitere Parameter wie die maximale Anzahl paralleler Fertigungsarbeitsgänge. Um ähnliche Kostenstellen schneller zu erzeugen, empfiehlt es sich laut Abschnitt 3.10 der Kopierfunktion eine bereits angelegte Kostenstelle zu kopieren und anschließend nur die abweichenden Merkmale zu ändern.",
+    "sources": [
+      {
+        "doc_id": "stamm-kalk",
+        "doc_title": "stamm kalk",
+        "pages": [
+          8
+        ],
+        "heading_path": [
+          "3 Kostenstellen"
+        ],
+        "href": "/almendro-manuals/stamm-kalk.pdf#page=8"
+      },
+      {
+        "doc_id": "leist-bde",
+        "doc_title": "leist bde",
+        "pages": [
+          11
+        ],
+        "heading_path": [
+          "4 Stammdaten",
+          "4.1 Stammdaten Kostenstelle",
+          "4.1.2 Anzahl Fertigungsarbeitsgänge"
+        ],
+        "href": "/almendro-manuals/leist-bde.pdf#page=11"
+      },
+      {
+        "doc_id": "stamm-sonst",
+        "doc_title": "stamm sonst",
+        "pages": [
+          14
+        ],
+        "heading_path": [
+          "2 BDE-Terminalstamm",
+          "2.2 Funktionen",
+          "2.2.17 Anzahl aktive AG´s (I)"
+        ],
+        "href": "/almendro-manuals/stamm-sonst.pdf#page=14"
+      }
+    ],
+    "score": 5,
+    "note": "Matches stamm-kalk 3 and 3.10 closely, including the specific copy-function section reference."
+  },
+  {
+    "lang": "de",
+    "question": "Was ist der Unterschied zwischen einem Abrufauftrag und einem normalen Auftrag?",
+    "answer": "Ein Abrufauftrag ist im ALMENDRO ein „Call-Off“ auf einen Rahmenvertrag (Kontrakt). Er wird insbesondere für die Lieferung und (ggf. spätere) Berechnung von Artikeln angelegt, die bei Produktionsfertigstellung unbezahlt ins Lager übernommen werden. Dabei können Sie Artikel aus verschiedenen Kontrakten zusammenfassen, Teilmengen abrufen und auch über die im Vertrag stehende Menge hinaus bestellen (wobei im Kontrakt dann ein negativer offener Abruf entsteht).\nEin normaler Auftrag (ohne Abrufkennzeichen) ist dagegen eine klassische Kundenbestellung ohne Bezug auf einen Rahmenvertrag. Er wird einmalig komplett abgearbeitet und abgerechnet, ohne dass im System kontinuierlich Abrufmengen vom Kontrakt nachgeführt werden.\n\nDetails zur Anlage eines normalen Auftrags finden sich in den vorliegenden Auszügen allerdings nicht.",
+    "sources": [
+      {
+        "doc_id": "auf-kpa",
+        "doc_title": "auf kpa",
+        "pages": [
+          6
+        ],
+        "heading_path": [
+          "2 Allgemeines",
+          "2.2 Warum KPA",
+          "Abrufauftrag"
+        ],
+        "href": "/almendro-manuals/auf-kpa.pdf#page=6"
+      },
+      {
+        "doc_id": "mawi-best",
+        "doc_title": "mawi best",
+        "pages": [
+          7
+        ],
+        "heading_path": [
+          "2 Bestellwesen",
+          "2.1 Bestellung",
+          "2.1.2 Positionen",
+          "Zeilenart Funktion",
+          "Auftrag/Produkt/Teil"
+        ],
+        "href": "/almendro-manuals/mawi-best.pdf#page=7"
+      },
+      {
+        "doc_id": "ang-basis",
+        "doc_title": "ang basis",
+        "pages": [
+          140
+        ],
+        "heading_path": [
+          "15 Vorauszahlung",
+          "15.2 Anzeige im Auftrag"
+        ],
+        "href": "/almendro-manuals/ang-basis.pdf#page=140"
+      }
+    ],
+    "score": 4.5,
+    "note": "Core distinction verified against auf-kpa 2.2; honestly flags missing detail on normal-order creation."
+  },
+  {
+    "lang": "de",
+    "question": "Wie funktioniert die Positionskalkulation für einen Artikel?",
+    "answer": "Die Positionskalkulation in ALMENDRO funktioniert folgendermaßen: Sie aktivieren im Artikelstamm das Kennzeichen „Positionskalkulation-Art = Kalkulation“ (PosKalk = 2). Dann erscheint in der Auftragspositionsmaske der Button „Kalkulation“, mit dem Sie eine bestehende Kalkulation bearbeiten oder eine neue Positionskalkulation für diesen Artikel anlegen. Über die Funktion „Kalkulation sichern“ können Sie die aktuelle Kalkulation als neue Basiskalkulation im Artikelstamm speichern. Intern unterscheidet ALMENDRO in der Kalkulation Material, Fremdleistungen, Kostenstellen/Arbeitsgänge usw. (PosKalk-Typen 0 bis 4). Bei Erzeugung eines Produktionsauftrags wird die Positionskalkulation automatisch mit der jeweiligen Produktionsmenge angepasst. Detaillierte Abläufe finden Sie im Workshop „auf_poskalk“.",
+    "sources": [
+      {
+        "doc_id": "auf-pos",
+        "doc_title": "auf pos",
+        "pages": [
+          17
+        ],
+        "heading_path": [
+          "4 Bearbeitungsmaske Auftragspositionen",
+          "4.2 Spalten/Felder",
+          "PosNr",
+          "Die Funktion kann über einen Parametereintrag grundsätzlich deaktiviert werden. Der"
+        ],
+        "href": "/almendro-manuals/auf-pos.pdf#page=17"
+      },
+      {
+        "doc_id": "stamm-mat",
+        "doc_title": "stamm mat",
+        "pages": [
+          71
+        ],
+        "heading_path": [
+          "8 Generieren Materialstamm",
+          "8.3 Generieren Artikel aus Positionskalkulation"
+        ],
+        "href": "/almendro-manuals/stamm-mat.pdf#page=71"
+      },
+      {
+        "doc_id": "mawi-lager",
+        "doc_title": "mawi lager",
+        "pages": [
+          62
+        ],
+        "heading_path": [
+          "4 Sonstiges",
+          "4.4 Buchen in Lieferschein",
+          "Stornobuchungen:",
+          "Bewertung dieser generierten Buchungen:"
+        ],
+        "href": "/almendro-manuals/mawi-lager.pdf#page=62"
+      }
+    ],
+    "score": 3,
+    "note": "FABRICATION: PosKalk=2 and PosKalk-Typen 0-4 do not appear anywhere in the corpus (confirmed by full-text search) despite confident presentation. General mechanism otherwise correct."
+  },
+  {
+    "lang": "de",
+    "question": "Wie erstelle ich eine Anfrage an einen Lieferanten?",
+    "answer": "In ALMENDRO legen Sie eine Lieferanten-Anfrage im Anfragewesen an. Grob gehen Sie dabei so vor:\n1. Programm „Anfrage“ aufrufen und über „Neu“ eine neue Anfrage anlegen. Nummer vergeben Sie manuell oder per Nummernkreis, als Einkäufer wird Ihre User-Nummer vorgeschlagen.\n2. Im Positionsbereich die gewünschten Materialien, Artikel oder Fremdleistungen erfassen – per Eingabe oder per Generierfunktion (z. B. aus Angebots-/Auftragsverwaltung mit GenAnfr oder aus einer Auftragsposition heraus über die Funktion „Generieren Anfrage“).\n3. Im Anschriftenblock die Lieferanten definieren – Sie können sie manuell hinterlegen oder automatisch aus den im Artikelstamm gepflegten Einkaufspreislisten übernehmen lassen.\n4. Für jede Position optional Liefertermin und freie Texte ergänzen.\n5. Anfrage speichern und per Sofortdruck (Drucken, E-Mail, Fax) versenden oder im Änderungsdienst weiterbearbeiten.",
+    "sources": [
+      {
+        "doc_id": "mawi-anfr",
+        "doc_title": "mawi anfr",
+        "pages": [
+          4
+        ],
+        "heading_path": [
+          "2 Anfragewesen",
+          "2.1 Anfrage"
+        ],
+        "href": "/almendro-manuals/mawi-anfr.pdf#page=4"
+      },
+      {
+        "doc_id": "mawi-best",
+        "doc_title": "mawi best",
+        "pages": [
+          19
+        ],
+        "heading_path": [
+          "2 Bestellwesen",
+          "2.5 Anfrage",
+          "2.5.1 Verknüpfung Anfrage in Bestellung"
+        ],
+        "href": "/almendro-manuals/mawi-best.pdf#page=19"
+      },
+      {
+        "doc_id": "auf-pos",
+        "doc_title": "auf pos",
+        "pages": [
+          34
+        ],
+        "heading_path": [
+          "4 Bearbeitungsmaske Auftragspositionen",
+          "4.4 Funktionen Bearbeitungsmaske Artikelstamm",
+          "4.4.10 Zusatzkosten",
+          "4.4.10.1 Generieren Anfrage"
+        ],
+        "href": "/almendro-manuals/auf-pos.pdf#page=34"
+      }
+    ],
+    "score": 5,
+    "note": "Matches mawi-anfr 2.1 and auf-pos 4.4.10.1 Generieren Anfrage almost word for word."
+  },
+  {
+    "lang": "de",
+    "question": "Wie wird ein Auftrag aus der Planung gelöscht?",
+    "answer": "In der ALMENDRO-Planung markieren Sie den Auftrag im Arbeitsvorrat und wählen die Funktion „Löschen“. Damit wird der Auftrag dauerhaft aus der Planung entfernt (nicht nur temporär) – er erscheint nach einem Neustart nicht wieder. Gleichzeitig setzt das System automatisch den Terminschlüssel „TS Löschen Auftrag (Rücklauf)“ mit Soll-Datum/Uhrzeit = jetzt und bietet Ihnen ein Textfeld an, um einen Löschgrund zu erfassen. Voraussetzung für die Löschung ist, dass alle Fertigungsaufträge des Auftrags ausgeplant sind und noch keiner davon in der Planung fertiggemeldet wurde. In der Auftragsverwaltung bleiben alle Daten erhalten, und der Übergabestatus „Planung“ wird zurückgesetzt.",
+    "sources": [
+      {
+        "doc_id": "stamm-kalk",
+        "doc_title": "stamm kalk",
+        "pages": [
+          13
+        ],
+        "heading_path": [
+          "3 Kostenstellen",
+          "3.1 Stamm",
+          "Bezeichnung",
+          "Terminplanung"
+        ],
+        "href": "/almendro-manuals/stamm-kalk.pdf#page=13"
+      },
+      {
+        "doc_id": "planung",
+        "doc_title": "planung",
+        "pages": [
+          161
+        ],
+        "heading_path": [
+          "13 Sammelform",
+          "13.2 Sammelform – komplett",
+          "Löschen"
+        ],
+        "href": "/almendro-manuals/planung.pdf#page=161"
+      },
+      {
+        "doc_id": "auf-kpa",
+        "doc_title": "auf kpa",
+        "pages": [
+          6
+        ],
+        "heading_path": [
+          "2 Allgemeines",
+          "2.2 Warum KPA",
+          "Produktionsauftrag"
+        ],
+        "href": "/almendro-manuals/auf-kpa.pdf#page=6"
+      }
+    ],
+    "score": 5,
+    "note": "Every sentence traces verbatim to planung 12 Auftrag aus Planung Loeschen. Exemplary."
+  },
+  {
+    "lang": "de",
+    "question": "Wie lege ich einen neuen Mitarbeiter im BDE-Terminalstamm an?",
+    "answer": "In den bereitgestellten Auszügen finden sich leider keine konkreten Schritte zur Anlage eines neuen Mitarbeiters im BDE-Terminalstamm. Das Handbuch benennt nur, welche Funktionen und Parameter im Terminalstamm verfügbar sind, nennt aber nicht die genaue Vorgehensweise zum Anlegen eines neuen Personeneintrags.",
+    "sources": [
+      {
+        "doc_id": "leist-bde",
+        "doc_title": "leist bde",
+        "pages": [
+          17
+        ],
+        "heading_path": [
+          "5 BDE I",
+          "5.1 Kommt"
+        ],
+        "href": "/almendro-manuals/leist-bde.pdf#page=17"
+      },
+      {
+        "doc_id": "planung",
+        "doc_title": "planung",
+        "pages": [
+          45
+        ],
+        "heading_path": [
+          "2 Stammdaten",
+          "2.7 BDE-Terminalstamm",
+          "Übernahme Planung"
+        ],
+        "href": "/almendro-manuals/planung.pdf#page=45"
+      },
+      {
+        "doc_id": "stamm-sonst",
+        "doc_title": "stamm sonst",
+        "pages": [
+          21
+        ],
+        "heading_path": [
+          "2 BDE-Terminalstamm",
+          "2.2 Funktionen",
+          "2.2.35 Terminschlüssel / Frage (III)"
+        ],
+        "href": "/almendro-manuals/stamm-sonst.pdf#page=21"
+      }
+    ],
+    "score": 5,
+    "note": "Correctly and honestly declines - corpus documents terminal configuration but never employee-record creation."
+  },
+  {
+    "lang": "de",
+    "question": "Was zeigt die Verkaufsstatistik in den Analysen?",
+    "answer": "Die Verkaufsstatistik in den Analysen erlaubt es, für jede Kunden–Artikel-Kombination die verkauften Mengen und die Erlöse in den einzelnen Perioden auszuwerten. Sie können dabei über von/bis-Monate nur die gewünschten Zeiträume ausgeben lassen und über Zusatzmasken auf den von/bis-Feldern sowohl Kunden- als auch Materialnummern eingrenzen. Buchungen von Stücklistenpositionen werden dabei angezeigt, der Hauptartikel selbst jedoch nicht, da für ihn kein Bestand geführt wird.",
+    "sources": [
+      {
+        "doc_id": "mawi-analysen",
+        "doc_title": "mawi analysen",
+        "pages": [
+          16
+        ],
+        "heading_path": [
+          "2 Analysen",
+          "2.9 Verkaufsstatistik",
+          "Auswahlbeispiel:",
+          "Die Verkaufsstatistik gibt die Möglichkeit pro Kunde/Artikel die Mengen und Erlöse je"
+        ],
+        "href": "/almendro-manuals/mawi-analysen.pdf#page=16"
+      },
+      {
+        "doc_id": "mawi-lager",
+        "doc_title": "mawi lager",
+        "pages": [
+          59
+        ],
+        "heading_path": [
+          "4 Sonstiges",
+          "4.1 Löschfunktionen"
+        ],
+        "href": "/almendro-manuals/mawi-lager.pdf#page=59"
+      },
+      {
+        "doc_id": "leist-analysen",
+        "doc_title": "leist analysen",
+        "pages": [
+          24
+        ],
+        "heading_path": [
+          "4 Auswertungen",
+          "4.10 Analysen Grafik Jahresvergleich"
+        ],
+        "href": "/almendro-manuals/leist-analysen.pdf#page=24"
+      }
+    ],
+    "score": 5,
+    "note": "Verified verbatim against mawi-analysen 2.9, including the BOM-component-vs-parent-article detail."
+  },
+  {
+    "lang": "de",
+    "question": "Wie hänge ich ein Z-File an eine Auftragsposition an?",
+    "answer": "Um ein Z-File an eine Auftragsposition anzuhängen, öffnen Sie in der Auftragsbearbeitung die betreffende Position und klicken in der Aktionsleiste auf den Button „Z-Files“. Wählen Sie im folgenden Dialog die gewünschte Datei aus und bestätigen Sie mit OK oder Enter. In ALMENDRO bis Version 10.1 müssen Sie vor dem Speichern noch die Zeile verlassen (z. B. durch Anklicken einer anderen Zeile oder Pfeil-nach-unten), damit der Eintrag übernommen wird. Ein Abbruch mit Esc verwirft den Anhang.",
+    "sources": [
+      {
+        "doc_id": "basis",
+        "doc_title": "basis",
+        "pages": [
+          51
+        ],
+        "heading_path": [
+          "7 Zusatzfiles (Z-Files)",
+          "7.3 Programmbedienung ab Version 10.2",
+          "Speichern des Z-File"
+        ],
+        "href": "/almendro-manuals/basis.pdf#page=51"
+      },
+      {
+        "doc_id": "ang-basis",
+        "doc_title": "ang basis",
+        "pages": [
+          27
+        ],
+        "heading_path": [
+          "7 Spezifikation",
+          "Bereich",
+          "Positionskalkulation"
+        ],
+        "href": "/almendro-manuals/ang-basis.pdf#page=27"
+      },
+      {
+        "doc_id": "auf-poskalk",
+        "doc_title": "auf poskalk",
+        "pages": [
+          23
+        ],
+        "heading_path": [
+          "4 Angebot",
+          "4.5 Löschen einer Position"
+        ],
+        "href": "/almendro-manuals/auf-poskalk.pdf#page=23"
+      }
+    ],
+    "score": 5,
+    "note": "Matches basis 7.2/7.3 and auf-pos 4.3.3 closely, including the version 10.1-vs-10.2 difference."
+  },
+  {
+    "lang": "de",
+    "question": "Wie funktioniert der Ablauf einer Inventur mit dem Scanner?",
+    "answer": "Der Scanner-basierte Inventurablauf (Inventur II) läuft in ALMENDRO in der Regel so ab:\n\n1. Voraussetzungen prüfen  \n   • Einsatz der ALMENDRO-Lagerstruktur  \n   • Nur Barcode-gekennzeichnete Materialien im Inventurbereich  \n   • Mobile Barcode-Scanner verfügbar (manuelle Erfassung ist nicht sinnvoll)  \n   • Der zu inventierende Lagerbereich wird gesperrt und kann bis zum Abschluss nicht bebucht werden\n\n2. Sperren der Lagerbereiche  \n   Mittels Programm „Lagerbereiche sperren“ verhindern Sie Buchungen durch andere Anwender\n\n3. Bestände erfassen  \n   • Mit dem Scannerprogramm (ASCII-Emulation) oder über Dateiimport:  \n     – Scanner: Barcode des Palettenetiketts (Material<TAB>Charge<TAB>Palette) lesen, Zählmenge eingeben, Barcode des Lagerorts scannen  \n     – Dateiimport: Tabstopp-getrennte Textdatei ohne Kopfzeile im ALMENDRO-Share-Verzeichnis ablegen und im Programm „Inventur Übernahme Datei“ einlesen\n\n4. Inventur bearbeiten  \n   Im Programm „Inventur bearbeiten“ sehen Sie alle gebuchten Mengen und Differenzen im Vergleich zum EDV-Bestand\n\n5. Inventur buchen  \n   Markieren Sie die zu buchenden Positionen mit F8 („Buchen“) und führen Sie die Inventurpostings aus\n\n6. Lagerbereiche entsperren  \n   Nach Abschluss der Buchungen schalten Sie den Bereich mit „Lagerbereiche entsperren“ wieder frei\n\n7. Journal und Belege  \n   Für jede gebuchte Position wird automatisch ein Beleg „Inventur Menge“ erzeugt und ins Journal geschrieben\n",
+    "sources": [
+      {
+        "doc_id": "mawi-barcode-ze",
+        "doc_title": "mawi barcode ze",
+        "pages": [
+          4
+        ],
+        "heading_path": [
+          "2 Barcode für Zugang Extern",
+          "2.1 Funktion"
+        ],
+        "href": "/almendro-manuals/mawi-barcode-ze.pdf#page=4"
+      },
+      {
+        "doc_id": "mawi-lager",
+        "doc_title": "mawi lager",
+        "pages": [
+          76
+        ],
+        "heading_path": [
+          "5 Abläufe",
+          "5.5 Inventur II (Scanner)"
+        ],
+        "href": "/almendro-manuals/mawi-lager.pdf#page=76"
+      },
+      {
+        "doc_id": "mawi-inv",
+        "doc_title": "mawi inv",
+        "pages": [
+          4
+        ],
+        "heading_path": [
+          "2 Allgemeines",
+          "2.1 Funktionsbeschreibung"
+        ],
+        "href": "/almendro-manuals/mawi-inv.pdf#page=4"
+      }
+    ],
+    "score": 4.5,
+    "note": "6-step flow verified against mawi-lager/mawi-inv; file-import format detail pulled from a closely related but distinct section (minor cross-reference, not fabrication)."
+  }
+]
