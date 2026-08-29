@@ -1,4 +1,4 @@
-import { embedQuery } from "@/rag/loaders/loadEmbeddingModel";
+import { embedQuery } from "@/almendro/loaders/loadEmbeddingModel";
 import { EMBEDDING_IDS, EMBEDDING_MATRIX } from "@/almendro/loaders/loadEmbeddings";
 
 export interface ScoredResult {
@@ -13,9 +13,9 @@ function dot(a: Float32Array, b: Float32Array): number {
 }
 
 // Both corpus and query embeddings are L2-normalized (normalize: true), so
-// cosine similarity reduces to a plain dot product. Reuses the site's own
-// local embedding model (src/rag/loaders/loadEmbeddingModel.ts) - same
-// model, same weights, just applied to this separate ALMENDRO index.
+// cosine similarity reduces to a plain dot product. Uses ALMENDRO's own
+// multilingual embedding model (src/almendro/loaders/loadEmbeddingModel.ts),
+// not the main site's English-only one - see that file for why.
 export async function denseSearch(query: string): Promise<ScoredResult[]> {
   const queryEmbedding = Float32Array.from(await embedQuery(query));
 

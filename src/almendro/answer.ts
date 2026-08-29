@@ -1,6 +1,7 @@
 import client from "@/rag/azureClient";
-import { hybridSearch } from "@/almendro/retrieval/hybrid";
+import { hybridSearch, type HybridResult } from "@/almendro/retrieval/hybrid";
 import { rerankCandidates, type RerankedChunk } from "@/almendro/retrieval/rerank";
+import { expandQueryForRetrieval } from "@/almendro/retrieval/rewriteQuery";
 import { buildAlmendroMessages, type AlmendroMessage } from "@/almendro/prompts/answerPrompt";
 
 const MAX_SOURCES = 3;
@@ -72,22 +73,61 @@ function buildSources(chunks: RerankedChunk[]): AlmendroSource[] {
   return sources;
 }
 
+// Keeps the best score seen for each chunk id across every query variant's
+// search, rather than concatenating - the same chunk can plausibly surface
+// under more than one variant, and de-duplicating (instead of reranking it
+// twice) keeps the candidate set focused.
+function mergeCandidates(resultSets: HybridResult[][]): HybridResult[] {
+  const byId = new Map<string, HybridResult>();
+  for (const results of resultSets) {
+    for (const result of results) {
+      const existing = byId.get(result.id);
+      if (!existing || result.score > existing.score) byId.set(result.id, result);
+    }
+  }
+  return [...byId.values()].sort((a, b) => b.score - a.score);
+}
+
 export async function generateAlmendroAnswer(
   query: string,
   history: AlmendroMessage[]
 ): Promise<AlmendroAnswerResult> {
-  const candidates = await hybridSearch(query);
+  // The corpus is entirely German with its own narrow terminology (see
+  // rewriteQuery.ts) - retrieving on the visitor's literal wording alone
+  // misses badly whenever it doesn't happen to match that vocabulary,
+  // regardless of language, and a single "best guess" reformulation isn't
+  // reliable enough either (measured directly: one rewrite confidently
+  // picked a term that's essentially absent from the corpus). Several
+  // different guesses are generated instead and all searched - only one of
+  // them needs to land on the right vocabulary. Expansion runs concurrently
+  // with the original-query search since it doesn't depend on it.
+  const [originalCandidates, queryVariants] = await Promise.all([hybridSearch(query), expandQueryForRetrieval(query)]);
+  const variantResultSets = await Promise.all(
+    queryVariants.filter((variant) => variant !== query).map((variant) => hybridSearch(variant))
+  );
+  const candidates = mergeCandidates([originalCandidates, ...variantResultSets]);
+
+  // Reranks against the original query - it's the most faithful statement of
+  // what the visitor actually wants, and the cross-encoder only needs to
+  // judge relevance among the now much-improved-recall candidate pool above,
+  // not guess the right vocabulary itself.
   const reranked = await rerankCandidates(query, candidates);
 
   const messages = buildAlmendroMessages(query, reranked, history);
 
-  const response = await client.chat.completions.create({
-    model: "o4-mini",
-    messages,
-  });
-
-  const raw = response.choices[0]?.message?.content;
-  const parsed = raw ? parseReply(raw) : null;
+  // o4-mini occasionally emits malformed JSON despite the prompt's explicit
+  // format instructions (observed directly - intermittent, not tied to any
+  // particular query). One retry is enough to recover from that flakiness
+  // without masking a genuine, consistent failure.
+  let parsed: ParsedReply | null = null;
+  for (let attempt = 0; attempt < 2 && !parsed; attempt++) {
+    const response = await client.chat.completions.create({
+      model: "o4-mini",
+      messages,
+    });
+    const raw = response.choices[0]?.message?.content;
+    parsed = raw ? parseReply(raw) : null;
+  }
 
   if (!parsed) {
     throw new Error("ALMENDRO answer generation returned an unusable response.");

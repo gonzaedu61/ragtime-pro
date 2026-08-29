@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir } from "fs/promises";
 import path from "path";
-import { embedQuery } from "@/rag/loaders/loadEmbeddingModel";
+import { embedQuery } from "@/almendro/loaders/loadEmbeddingModel";
 
 const CHUNKS_FILE = path.join(process.cwd(), "rag_data_almendro", "chunks.json");
 const OUTPUT_FILE = path.join(process.cwd(), "rag_data_almendro", "embeddings.json");
@@ -8,11 +8,22 @@ const OUTPUT_FILE = path.join(process.cwd(), "rag_data_almendro", "embeddings.js
 interface Chunk {
   id: string;
   text: string;
+  heading_path: string[];
 }
 
 interface EmbeddingRecord {
   id: string;
   embedding: number[];
+}
+
+// Many chunks' body text never states the concept its heading names (e.g. a
+// paragraph about entering a "Positionsnummer"/"Artikelnummer" whose heading
+// is "Auftragspositionen" - the word "Auftrag" never appears in the text
+// itself). Embedding the text alone makes such chunks topically invisible to
+// dense search for exactly the query terms that should find them.
+// Prepending the heading path restores that context.
+function embeddingInput(chunk: Chunk): string {
+  return `${chunk.heading_path.join(" > ")}\n${chunk.text}`;
 }
 
 async function main() {
@@ -25,7 +36,7 @@ async function main() {
   const output: EmbeddingRecord[] = [];
 
   for (const [index, chunk] of chunks.entries()) {
-    const embedding = await embedQuery(chunk.text);
+    const embedding = await embedQuery(embeddingInput(chunk));
     output.push({ id: chunk.id, embedding });
 
     if ((index + 1) % 25 === 0 || index === chunks.length - 1) {

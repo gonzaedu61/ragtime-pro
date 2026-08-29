@@ -3,7 +3,11 @@ import { sparseSearch } from "./sparse";
 import type { ScoredResult } from "./dense";
 
 const ALPHA = 0.5;
-const TOP_N = 20;
+// Wider than the main site's equivalent (20) - this corpus is much larger
+// (3406 vs. ~200 chunks) and queries are frequently ambiguous/cross-lingual
+// relative to it (see rewriteQuery.ts), so the right chunk is more often
+// buried outside a narrow top-N before reranking gets a chance at it.
+const TOP_N = 40;
 
 // Dense (cosine, ~0-1) and sparse (BM25, unbounded) scores live on very
 // different scales. Min-max normalizing each list per-query before combining

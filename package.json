@@ -13,7 +13,8 @@
     "rag:models": "tsx build/export/downloadModels.ts",
     "rag:almendro:chunk": "tsx build/almendro/chunkAlmendro.ts",
     "rag:almendro:embed": "tsx build/almendro/embedAlmendro.ts",
-    "rag:almendro:bm25": "tsx build/almendro/bm25Almendro.ts"
+    "rag:almendro:bm25": "tsx build/almendro/bm25Almendro.ts",
+    "rag:almendro:directory": "tsx build/almendro/buildManualDirectory.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1109.0",

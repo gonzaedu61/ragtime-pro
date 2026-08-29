@@ -9,6 +9,15 @@ const EPSILON = 0.25;
 interface Chunk {
   id: string;
   text: string;
+  heading_path: string[];
+}
+
+// See embedAlmendro.ts's embeddingInput() for why: a chunk's body text
+// frequently never restates the concept named by its own heading, so
+// indexing text alone leaves BM25 with zero lexical overlap for exactly the
+// terms that should match it.
+function indexInput(chunk: Chunk): string {
+  return `${chunk.heading_path.join(" > ")}\n${chunk.text}`;
 }
 
 interface Bm25Index {
@@ -19,7 +28,7 @@ interface Bm25Index {
 }
 
 function buildIndex(chunks: Chunk[]): Bm25Index {
-  const tokenizedDocs = chunks.map((chunk) => tokenize(chunk.text));
+  const tokenizedDocs = chunks.map((chunk) => tokenize(indexInput(chunk)));
   const docIds = chunks.map((chunk) => chunk.id);
   const corpusSize = tokenizedDocs.length;
 
