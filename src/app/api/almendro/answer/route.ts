@@ -6,7 +6,13 @@ import { ALMENDRO_SESSION_COOKIE, ALMENDRO_SESSION_COOKIE_MAX_AGE } from "@/alme
 import { generateAlmendroAnswer } from "@/almendro/answer";
 import type { AlmendroMessage } from "@/almendro/prompts/answerPrompt";
 
-export const maxDuration = 30;
+// Higher than the main site's equivalent (30s) - this pipeline does an
+// extra full LLM round-trip up front (query expansion), searches a corpus
+// ~17x larger, and retries the main call once on malformed JSON. Measured
+// in production: real requests were hitting Vercel's 30s function timeout
+// (Runtime Timeout Error), especially on a cold start where the local
+// embedding model also has to load.
+export const maxDuration = 60;
 
 // How many prior turns get sent to the model as conversational context -
 // the full transcript is still stored/displayed in full, this only caps
