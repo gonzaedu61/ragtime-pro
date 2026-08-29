@@ -1,4 +1,4 @@
-import client from "@/rag/azureClient";
+import client from "@/almendro/azureClient";
 import { MANUAL_DIRECTORY } from "@/almendro/loaders/loadManualDirectory";
 
 // The corpus is 100% German with its own specific, narrow terminology, and
@@ -37,12 +37,8 @@ Return ONLY a JSON array of 4 strings, no explanation, no code fences.`;
 export async function expandQueryForRetrieval(query: string): Promise<string[]> {
   try {
     const response = await client.chat.completions.create({
-      model: "o4-mini",
+      model: "gpt-4.1-mini",
       messages: [{ role: "user", content: buildPrompt(query) }],
-      // This task (guessing search terms from a directory) doesn't need
-      // deep reasoning - low effort trims reasoning-token overhead without
-      // giving up o4-mini's already-validated reliability on this prompt.
-      reasoning_effort: "low",
     });
 
     const raw = response.choices[0]?.message?.content?.trim() || "[]";
