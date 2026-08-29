@@ -88,7 +88,7 @@ page. Re-add it here (and in `Footer.tsx`) once one exists.
   - Personal Productivity — `/solutions/personal-productivity`
   - Intelligent Workflows — `/solutions/workflow-automation`
   - RAG Solutions — `/solutions/rag-solutions`
-    - ALMENDRO Manual Assistant — `/solutions/rag-solutions/almendro-demo` (standalone route, static path nested under the dynamic `/solutions/[slug]` route with no conflict since Next.js resolves the more specific literal path first; linked from the RAG Solutions detail page's "Try a live demo →" CTA; not in top nav — see PAGE 6A)
+    - ALMENDRO Manual Assistant — `/solutions/rag-solutions/almendro-demo` (standalone route, static path nested under the dynamic `/solutions/[slug]` route with no conflict since Next.js resolves the more specific literal path first; linked from the RAG Solutions detail page's "See a RAG Assistant Demo ..." button; not in top nav — see PAGE 6A)
   - Reasoning Agents — `/solutions/reasoning-agents`
   - Custom AI Models — `/solutions/custom-models`
 - Our Methodology — `/methodology`
@@ -399,13 +399,14 @@ intro, sidebar, cards, roadmap CTA.
   (`smeValue`), Examples (`examples`), Readiness Requirements
   (`readinessRequirements`), Roadmap Fit (`roadmapFit`).
 - **Right, row 2 — Roadmap CTA:** the `roadmap.svg` icon above a "Setting the
-  roadmap …" link button → `/methodology`.
-- **Live-demo CTA (RAG Solutions only):** a centered button between the quote band and
-  the 3-column grid, rendered only when the solution entry sets an optional `demoHref`
+  roadmap …" link button → `/methodology`, with an optional live-demo button (see next
+  bullet) stacked directly below it, both centered on the same horizontal axis.
+- **Live-demo CTA (RAG Solutions only):** a button below the roadmap CTA in the same
+  column, rendered only when the solution entry sets an optional `demoHref`
   (+ `demoLabel`) field on `src/lib/solutions.ts` — currently just RAG Solutions, linking
-  to "Try a live demo →" → `/solutions/rag-solutions/almendro-demo` (PAGE 6A). Built as a
-  generic optional field rather than a RAG-specific special case, so any future solution
-  can add its own live demo the same way.
+  to "See a RAG Assistant Demo ..." → `/solutions/rag-solutions/almendro-demo` (PAGE 6A).
+  Built as a generic optional field rather than a RAG-specific special case, so any
+  future solution can add its own live demo the same way.
 
 ### Content Status
 `quote`, `definition`, and `overview` are rebranded, sourced from the PDF's per-category
@@ -450,9 +451,13 @@ contact-form/email correspondence.
 - Navy pull-quote bar, reusing RAG Solutions' own quote ("Users no longer search for
   answers — the product provides them.") — no `ChatBannerTrigger` here, since the
   page's own chat trigger already serves that role.
-- Intro copy explaining what ALMENDRO is and what the demo shows, followed by the
-  `AlmendroChatWidget` trigger button ("Ask the ALMENDRO assistant") and a "← Back to
-  RAG Solutions" link.
+- Intro copy explaining what ALMENDRO is and what the demo shows (kept to the manuals'
+  own subject matter — an earlier aside describing the pipeline's own architecture was
+  trimmed out; that detail lives in §8.8, not visitor-facing copy), followed by the
+  `AlmendroChatWidget` trigger button ("Ask the ALMENDRO assistant") and a return-arrow
+  icon link back to RAG Solutions (`return_icon.svg`, swapping to `return_icon_blue.svg`
+  on hover via the same crossfade pattern as PAGE 6's sidebar icons) rather than a text
+  link.
 
 ### Content Status
 Original page copy (not sourced from the PDF/`Cards.md` — this page describes the demo
@@ -1043,9 +1048,10 @@ Each page must include:
 - Meta description  
 - OG image  
 
-**Favicon:** `src/app/icon.png` — a copy of `public/favicon.png` (the equalizer-bar
-icon mark only, no wordmark), picked up automatically by Next.js's App Router file
-convention (no code in `layout.tsx` needed). Site-wide, not per-page.
+**Favicon:** `src/app/icon.svg` — a copy of `public/favicon.svg` (the RAGnify logo's
+icon mark only, no wordmark; replaced an earlier `icon.png`), picked up automatically
+by Next.js's App Router file convention (no code in `layout.tsx` needed). Site-wide,
+not per-page.
 
 ---
 
@@ -1419,6 +1425,15 @@ default `npm run build` — this corpus only changes when the source manuals do)
   document "how to create a new X" under a UI-panel chapter name rather than one that
   literally reads "anlegen"/"erstellen". Scoped to only the manuals actually present in
   this build — `ws_info.pdf`'s own table lists some manuals this corpus doesn't include.
+  One hand-curated addition on top of the automatic top-level capture: `basis.pdf`'s
+  "Suchfunktionen" sub-chapter (the search/select convention used to find and edit an
+  existing record, documented once for every screen rather than repeated per manual) is
+  promoted into its entry despite being nested two levels deep — measured directly, a
+  visitor asking how to edit an existing address needed this chapter and nothing
+  surfaced it, since only level-1 headings are captured automatically (a broader fix
+  capturing every manual's level-2 headings was measured to roughly triple the
+  directory's prompt footprint for benefit confirmed only in this one case, so a
+  narrow, hand-picked addition was used instead).
 - The 38 source PDFs are also copied into `public/almendro-manuals/` (static assets, no
   serverless function involved) so citations can deep-link straight to the source file
   and page (`/almendro-manuals/{doc_id}.pdf#page=N`).
@@ -1441,8 +1456,11 @@ reads from `@rag_data_almendro/*` via its own path alias, never `@rag_data/*`):
   manual directory as grounding context, instructed to reuse a matching directory
   entry's own wording verbatim rather than paraphrase away from it, and to combine a
   manual's subject noun with its own chapter vocabulary when the visitor is asking how
-  to create or start something. All variants (plus the original query) are searched via
-  `hybridSearch` and merged, keeping each chunk's best score across searches.
+  to create or start something, and to include "Suchfunktionen" as one variant when the
+  visitor is instead asking how to find, select, or edit an EXISTING record — see the
+  hand-curated directory addition above. All variants (plus the original query) are
+  searched via `hybridSearch` and merged, keeping each chunk's best score across
+  searches.
 - `retrieval/rerank.ts` — the English-trained cross-encoder used by §8.7
   (`Xenova/ms-marco-MiniLM-L-6-v2`) was measured to have no useful signal on this
   German-only corpus (uniformly near-random, deeply negative scores that discarded
@@ -1456,11 +1474,23 @@ reads from `@rag_data_almendro/*` via its own path alias, never `@rag_data/*`):
   inventing specific steps from a mere in-passing mention of another manual's name;
   permits the model to ask the visitor a clarifying question directly in its answer when
   genuinely needed; requires literal newlines between list items rather than inline
-  enumeration; and returns structured JSON: `{ answer, followUpTopics }` — up to 3 short
-  topic hints (noun phrases, not first-person questions) that must be built from an
-  excerpt's own heading rather than paraphrased or synthesized, so that clicking one
-  reliably retrieves real content instead of a dead end, and must never reference
-  finding or locating documentation itself.
+  enumeration; recognizes conversational meta-requests (asking to repeat, translate,
+  shorten, or rephrase the last answer) and answers those directly from the conversation
+  history above rather than the excerpts retrieved for the meta-request's own literal
+  text, which are almost always irrelevant to it; and returns structured JSON:
+  `{ answer, usesManualContent, followUpTopics }`. `usesManualContent` is `false` only
+  for a purely conversational turn (thanks, ok, a greeting) not asking about ALMENDRO at
+  all — `answer.ts` uses it to suppress both source citations and follow-up topics for
+  that turn, since retrieval still runs on the visitor's literal message regardless of
+  what it is and would otherwise attach leftover, irrelevant chunks to a "you're welcome"
+  reply. `followUpTopics` are up to 3 short topic hints (noun phrases, not first-person
+  questions) that must be built from an excerpt's own heading rather than paraphrased or
+  synthesized — reusing the manual's own section wording is what makes clicking one
+  likely to retrieve that same content again — AND fully translated into the visitor's
+  language exactly as the answer text is (a German heading like "Kopfdaten" becomes
+  "Header data", never left untranslated): since a clicked topic becomes the visitor's
+  literal next message, an untranslated topic was measured to silently flip the next
+  turn's language. Topics must never reference finding or locating documentation itself.
 - `answer.ts` (`generateAlmendroAnswer`) — hybrid search + query expansion → merge →
   rerank (pass-through) → build messages → call the **existing** `src/rag/azureClient`
   (same Azure OpenAI credentials/deployment as §8.4/§8.7, no new secrets), with
@@ -1469,7 +1499,8 @@ reads from `@rag_data_almendro/*` via its own path alias, never `@rag_data/*`):
   Source citations are built **deterministically from the reranked chunks themselves**
   (top 3 distinct documents, in rank order), not asked of the model — the model can't
   reliably self-report which excerpts it actually used, but the reranked list already is
-  that answer.
+  that answer. Both citations and `followUpTopics` are returned empty whenever the
+  model's own `usesManualContent` flag is `false` (see `answerPrompt.ts` above).
 
 **Session persistence** (`src/almendro/session/`, its own R2 object prefix
 `almendro-sessions/` on the same bucket as §8.4/§8.7's — never collides with their
