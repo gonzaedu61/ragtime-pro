@@ -132,6 +132,17 @@ export async function generateAlmendroAnswer(
       model: "o4-mini",
       messages,
       response_format: { type: "json_object" },
+      // Measured directly: o4-mini's reasoning-token count varies a lot per
+      // call (704-2240 on identical prompts), driving most of this
+      // pipeline's latency and its worst-case variance. A faster
+      // non-reasoning model (gpt-4o-mini) was tried instead, but proved
+      // unreliable against this prompt's many rules (roughly a coin flip on
+      // language-matching in a repro test) - not an acceptable trade for a
+      // demo whose whole point is showing a working, correct pipeline.
+      // Forcing low reasoning effort keeps o4-mini's already-validated
+      // instruction-following while cutting the reasoning-token overhead
+      // that was driving the worst latency.
+      reasoning_effort: "low",
     });
     const raw = response.choices[0]?.message?.content;
     parsed = raw ? parseReply(raw) : null;
