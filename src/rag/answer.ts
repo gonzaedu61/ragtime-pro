@@ -1,4 +1,4 @@
-import client from "@/rag/azureClient";
+import client from "@/rag/answerAzureClient";
 import { hybridSearch } from "@/rag/retrieval/hybrid";
 import { rerankCandidates } from "@/rag/retrieval/rerank";
 import { buildAnswerMessages, type LinkedEmailCorrespondence } from "@/rag/prompts/answerPrompt";
@@ -233,7 +233,7 @@ export async function generateAnswer(
   });
 
   const response = await client.chat.completions.create({
-    model: "o4-mini",
+    model: "gpt-4.1-mini",
     messages,
   });
 
