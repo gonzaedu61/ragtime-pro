@@ -23,11 +23,12 @@ Barriers") is fully rebranded (see PAGE 3), Coaching: The AI-Augmented Barrier
 Breaker (formerly "The Barrier's Breaker") is fully rebranded (see PAGE 4), Contact
 is fully rebranded (see PAGE 14), and Privacy Policy and Terms of Service are fully
 rebranded, including the removal of the inapplicable "Vendor referrals" clause (see
-PAGE 16 and PAGE 17). The actual production mail infrastructure (Vercel env vars,
-Purelymail mailbox) has not been updated to match the `info@ragnify.pro` address
-used across the site's copy — see §8.4/§8.5. Note the mail domain (`ragnify.pro`)
-is intentionally distinct from the production website domain, which remains
-`ragtime.pro` (see §8.6).
+PAGE 16 and PAGE 17). As of 2026-08-31 the email domain moved from
+`ragtime.pro` to `ragnify.pro` (`info@` / `noreply@`) across site copy,
+chat/email prompt rules, and acknowledgement fallbacks; the user reports the
+Vercel env vars and Purelymail mailboxes were updated to match and the change
+was deployed. `ragnify.pro` is now also the primary production website
+domain, with `ragtime.pro` kept aliased for continuity (see §8.4/§8.5/§8.6).
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -1202,14 +1203,18 @@ not per-page.
   Vercel's actual environment variables, so treat them as likely stale
   rather than confirmed.)*
   `MAIL_ACK_BLOCKLIST` (comma-separated addresses that are never
-  acknowledged; see §8.5) is also part of this group. **Note:** website copy
-  (Contact, Privacy Policy, Terms of Service) now displays `info@ragnify.pro`
-  and `.env.local.example`'s `PURELYMAIL_SMTP_USER` placeholder has been
-  updated to match, but the actual Vercel production env vars and Purelymail
-  mailbox still need to be provisioned/updated separately — this repo cannot
-  do that. The mail domain `ragnify.pro` is deliberately separate from the
-  production website domain `ragtime.pro` (§8.6); only the email addresses
-  moved.
+  acknowledged; see §8.5) is also part of this group.
+  `NEXT_PUBLIC_SITE_URL` (added 2026-08-31, Production) sets the public
+  origin the chat + email-reply prompts use to build page URLs
+  (`src/lib/pageDirectory.ts`'s `SITE_ORIGIN`); its fallback when unset is
+  `https://www.ragnify.pro`. **Rebrand status (2026-08-31):** website copy
+  (Contact, Privacy Policy, Terms of Service), the chat/email prompt rules,
+  and the acknowledgement fallbacks all use `info@ragnify.pro` /
+  `noreply@ragnify.pro`; `.env.local.example` matches; the user reports the
+  Vercel production env vars (`MAIL_FROM_ADDRESS`, `MAIL_INFO_ADDRESS`,
+  SMTP/IMAP creds, `MAIL_ACK_BLOCKLIST`) and the Purelymail mailboxes were
+  updated, and the change was deployed to production. End-to-end mail flow
+  not yet independently verified here.
 
 ## 8.5 Inbox Polling & Auto-Acknowledgement
 - **Purpose:** automatically sends the same AI-generated acknowledgement

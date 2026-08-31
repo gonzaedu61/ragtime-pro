@@ -2,7 +2,7 @@ import { SOLUTIONS } from "@/lib/solutions";
 
 // Single source of truth for the site's public origin, used by both the
 // chat prompt and the contact/email reply prompt to build real page URLs.
-export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ragtime.pro";
+export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ragnify.pro";
 
 export interface PageContext {
   title: string;
