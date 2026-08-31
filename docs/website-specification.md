@@ -23,12 +23,14 @@ Barriers") is fully rebranded (see PAGE 3), Coaching: The AI-Augmented Barrier
 Breaker (formerly "The Barrier's Breaker") is fully rebranded (see PAGE 4), Contact
 is fully rebranded (see PAGE 14), and Privacy Policy and Terms of Service are fully
 rebranded, including the removal of the inapplicable "Vendor referrals" clause (see
-PAGE 16 and PAGE 17). As of 2026-08-31 the email domain moved from
-`ragtime.pro` to `ragnify.pro` (`info@` / `noreply@`) across site copy,
-chat/email prompt rules, and acknowledgement fallbacks; the user reports the
-Vercel env vars and Purelymail mailboxes were updated to match and the change
-was deployed. `ragnify.pro` is now also the primary production website
-domain, with `ragtime.pro` kept aliased for continuity (see §8.4/§8.5/§8.6).
+PAGE 16 and PAGE 17). On 2026-08-31 the brand moved to the `ragnify.pro`
+domain: `info@` / `noreply@ragnify.pro` across site copy, chat/email prompt
+rules, and acknowledgement fallbacks (Vercel env vars and Purelymail
+mailboxes updated by the user), the RAG corpus regenerated from rebranded
+source docs, `NEXT_PUBLIC_SITE_URL` / `SITE_ORIGIN` pointed at
+`https://www.ragnify.pro`, and `ragnify.pro` made the primary production
+domain (with `ragtime.pro` kept aliased for continuity). Deployed and the
+live chat path verified — see §8.4 / §8.6 / §8.7.
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -879,10 +881,11 @@ happen after the response is sent (see §8.4).
 - Message  
 
 ### Email
-info@ragnify.pro. Also updated on Privacy Policy and Terms of Service (see PAGE 16
+info@ragnify.pro. Also shown on Privacy Policy and Terms of Service (see PAGE 16
 and PAGE 17). The `/api/contact` route itself has no hardcoded address (reads
-`MAIL_FROM_ADDRESS` / `MAIL_INFO_ADDRESS` from env — see §8.4); those production
-values, and the underlying Purelymail mailbox, have not been updated to match.
+`MAIL_FROM_ADDRESS` / `MAIL_INFO_ADDRESS` from env — see §8.4); the user updated
+those production values and the Purelymail mailboxes to `ragnify.pro` and
+redeployed on 2026-08-31.
 
 ---
 
@@ -1192,29 +1195,24 @@ not per-page.
   local development and in the Vercel project's environment variables for
   production. Never committed. In addition to `PURELYMAIL_SMTP_USER` /
   `PURELYMAIL_SMTP_PASS` (SMTP auth), two address vars control the visible
-  headers: `MAIL_FROM_ADDRESS` (the "From" on both outgoing emails, previously
-  documented here as `noreply@thebrokerai.tech` in production) and
+  headers: `MAIL_FROM_ADDRESS` (the "From" on both outgoing emails) and
   `MAIL_INFO_ADDRESS` (the "To" on the internal notification email and the
-  "Bcc" on every acknowledgement email, previously documented here as
-  `info@thebrokerai.tech` in production). *(Both current-value claims are
-  now flagged unverified: §8.6 found the actual production domain is
-  `ragtime.pro`, not `thebrokerai.tech`, which this section's env var values
-  were written against — they were never independently re-checked against
-  Vercel's actual environment variables, so treat them as likely stale
-  rather than confirmed.)*
-  `MAIL_ACK_BLOCKLIST` (comma-separated addresses that are never
-  acknowledged; see §8.5) is also part of this group.
-  `NEXT_PUBLIC_SITE_URL` (added 2026-08-31, Production) sets the public
-  origin the chat + email-reply prompts use to build page URLs
-  (`src/lib/pageDirectory.ts`'s `SITE_ORIGIN`); its fallback when unset is
-  `https://www.ragnify.pro`. **Rebrand status (2026-08-31):** website copy
-  (Contact, Privacy Policy, Terms of Service), the chat/email prompt rules,
-  and the acknowledgement fallbacks all use `info@ragnify.pro` /
-  `noreply@ragnify.pro`; `.env.local.example` matches; the user reports the
-  Vercel production env vars (`MAIL_FROM_ADDRESS`, `MAIL_INFO_ADDRESS`,
-  SMTP/IMAP creds, `MAIL_ACK_BLOCKLIST`) and the Purelymail mailboxes were
-  updated, and the change was deployed to production. End-to-end mail flow
-  not yet independently verified here.
+  "Bcc" on every acknowledgement email). `MAIL_ACK_BLOCKLIST`
+  (comma-separated addresses that are never acknowledged; see §8.5) is also
+  part of this group. `NEXT_PUBLIC_SITE_URL` (`https://www.ragnify.pro`,
+  Production, added 2026-08-31) sets the public origin the chat +
+  email-reply prompts use to build page URLs (`src/lib/pageDirectory.ts`'s
+  `SITE_ORIGIN`, which falls back to the same value when the var is unset).
+- **Mail domain (`ragnify.pro`):** as of 2026-08-31 every sending/receiving
+  address is on `ragnify.pro` — `info@ragnify.pro` (contact + monitored
+  inbox) and `noreply@ragnify.pro` (send-only). Website copy, the
+  chat/email prompt rules, the acknowledgement fallbacks, and
+  `.env.local.example` all use these; the user updated the Vercel
+  production env vars and the Purelymail mailboxes to match and redeployed.
+  The live chat path is verified (a `POST /api/rag/answer` on production
+  returns `https://www.ragnify.pro/contact` and `info@ragnify.pro`); the
+  full outbound-email round-trip (SMTP send from `noreply@`, `info@` IMAP
+  poll, SPF/DKIM) has not been independently re-tested here.
 
 ## 8.5 Inbox Polling & Auto-Acknowledgement
 - **Purpose:** automatically sends the same AI-generated acknowledgement
@@ -1284,46 +1282,49 @@ not per-page.
   `PURELYMAIL_IMAP_USER_NOREPLY`, `PURELYMAIL_IMAP_PASS_NOREPLY`,
   `INBOX_POLL_SECRET` — same storage rules as §8.4 (documented blank in
   `.env.local.example`, real values in gitignored `.env.local` / Vercel
-  project settings). **The two `_NOREPLY` vars are not yet set in Vercel**
-  as of this writing — until they are, the `noreply` mailbox's poll fails
-  gracefully without affecting `info@`'s polling; see
-  `docs/noreply-redirect-eval-2026-08-16.md`'s "Outstanding" section.
+  project settings). All seven — including `PURELYMAIL_IMAP_USER_NOREPLY` /
+  `PURELYMAIL_IMAP_PASS_NOREPLY` — are set in Vercel (Production + Preview),
+  confirmed via `vercel env ls`; the `noreply@` redirect flow was verified
+  end-to-end in production (see `docs/noreply-redirect-eval-2026-08-16.md`).
+  Each mailbox's poll still runs in its own try/catch so a credentials
+  problem on one never blocks the other.
 
 ## 8.6 Deployment & Production Promotion
 - **Hosting:** Vercel project `ragtime-pro` (team `the-broker-ai`), linked to
-  the `gonzaedu61/ragtime-pro` GitHub repository. *(Project and team confirmed
-  directly from a `vercel --prod` deploy's own output — "Deploying
-  the-broker-ai/ragtime-pro" — on 2026-08-28, superseding this section's
-  earlier "`thebrokerai`" project name, which appears to have been either
-  stale or a planned rename that never happened.)*
+  the `gonzaedu61/ragtime-pro` GitHub repository. *(Confirmed from `vercel
+  --prod` output — "Deploying the-broker-ai/ragtime-pro" — on 2026-08-28 and
+  again 2026-08-31.)* The project name is still `ragtime-pro`; only the
+  domains changed (see "Production domains" below).
 - **No auto-deploy on `main`:** `vercel.json` sets
   `git.deploymentEnabled.main` to `false`, so pushes to `main` no longer
   trigger an automatic Vercel build or deployment (production or preview).
   This aligns with CLAUDE.md §10.2 ("deploy only when explicitly
   instructed"). Other branches are unaffected and still get preview
   deployments on push.
-- **Manual production deploys:** shipping a change now requires an explicit
+- **Manual production deploys:** shipping a change requires an explicit
   `vercel --prod` (or a manual "Redeploy" from the Vercel dashboard) run
-  against the current `main`.
-- **Production domains:** `ragnify.pro` (primary) and `ragtime.pro`, plus
-  their `www.` variants — all four alias to the `ragtime-pro` project's
-  latest production deploy. Confirmed 2026-08-31 from `vercel --prod`
-  output ("▲ Aliased https://ragnify.pro") and `vercel domains ls` /
-  `vercel alias ls` (`ragnify.pro` added ~2026-08-30). `ragnify.pro` is
-  the brand domain going forward; `ragtime.pro` is kept aliased for
-  continuity. A third domain, `thebrokerai.tech`, still exists on the team
-  but points to an older `thebrokerai` deployment, not this project.
-  *(Only the aliases are confirmed; the DNS/registrar details immediately
-  below are unverified for either current domain.)*
-- **DNS:** *(unverified for the current `ragtime.pro` domain — the following
-  was written for the earlier, likely-incorrect `thebrokerai.tech` domain
-  claim above and has not been re-checked against Vercel's actual DNS
-  requirements for `ragtime.pro`.)* Domain is registered with a third-party
-  registrar and DNS is managed via HostGator (not Vercel-managed
-  nameservers). Required records: apex `A @ 76.76.21.21`, `www` `CNAME` to
-  Vercel's assigned `vercel-dns` target. Vercel auto-issues and renews the
-  TLS certificate for both hostnames once DNS verification succeeds — no
-  manual certificate steps.
+  against the current `main`. Exercised on 2026-08-31 for the RAGnify
+  email + domain rebrand — two production deploys, both READY with a clean
+  runtime-error scan.
+- **Production domains:** `ragnify.pro` and `www.ragnify.pro` (primary),
+  plus `ragtime.pro` and `www.ragtime.pro` — all four alias to the
+  `ragtime-pro` project's latest production deploy. Confirmed 2026-08-31
+  from `vercel --prod` output ("▲ Aliased https://ragnify.pro") and
+  `vercel domains ls` / `vercel alias ls`; `ragnify.pro` was added to the
+  team on 2026-08-30. `ragnify.pro` is the brand domain going forward;
+  `ragtime.pro` is kept aliased for continuity so older links and bookmarks
+  don't break. A third domain, `thebrokerai.tech`,
+  still exists on the team but points to a different, older deployment, not
+  this project.
+- **DNS:** *(not independently verified in this repo for either
+  `ragnify.pro` or `ragtime.pro` — both are registered with a third-party
+  registrar with DNS managed off Vercel. The records below are the general
+  Vercel requirement, not a confirmed capture of the live zones.)* Apex
+  `A @ 76.76.21.21`, `www` `CNAME` to Vercel's assigned `vercel-dns`
+  target. Vercel auto-issues and renews the TLS certificate for each
+  hostname once DNS verification succeeds — no manual certificate steps.
+  Outbound mail for `ragnify.pro` additionally needs Purelymail's MX +
+  SPF/DKIM/DMARC records (managed by the user, not covered here).
 - **Git commit author identity (Hobby team constraint):** Vercel only
   accepts/deploys commits whose git author email is a verified email
   on GitHub *and* recognized as belonging to the Vercel account owner
@@ -1339,7 +1340,11 @@ serverless Retrieval-Augmented Generation pipeline — static local corpus
 (chunking, embeddings, BM25 index, cross-encoder re-ranking), Cloudflare R2
 conversation memory, and Azure OpenAI for answer generation and
 summarization. Full design record, implementation notes, and QA evals live
-in `docs/rag-implementation-spec.md` (not duplicated here). API surface:
+in `docs/rag-implementation-spec.md` (not duplicated here). The committed
+corpus (`rag_data/{chunks,bm25,embeddings}.json` — 125 chunks) was
+regenerated on 2026-08-31 from the rebranded source docs in
+`docs/RAG_Source_Docs/`; it now contains no "Ragtime" / `ragtime.pro`
+references. API surface:
 - `POST /api/rag/answer` — the main chat endpoint: retrieves + reranks
   context, calls Azure OpenAI, appends the turn to R2, returns the answer.
   Accepts an optional `pagePath` (the widget sends the current route via
@@ -1595,10 +1600,11 @@ Claude must:
 
 ## 10.2 Content Data Sources
 - `src/lib/solutions.ts` — single source of truth for the 5 Solution Class entries (including each solution's `quote`), consumed by both the `/solutions` overview cards and the `/solutions/[slug]` detail pages. Also carries the optional `heroAvatarEnabled` (boolean gate) and `heroAvatarImage` (image override) fields that control the Hero Avatar Video on each detail page — see §10.3 "Hero avatar video" and Page 6 — and the optional `demoHref`/`demoLabel` fields (currently set only on RAG Solutions) that render the live-demo CTA described in Page 6.
+- `docs/RAG_Source_Docs/` — source documents for the main site's RAG chat corpus (§8.7): the Section 12 authoritative PDF (`Modernizing Legacy Software with AI.pdf`), the Synthesia avatar-script PDF, and `website-copy-export.md` (a point-in-time export of the site's page copy). `npm run rag:chunk` / `rag:bm25` / `rag:embed` compile these into `rag_data/*.json`. All three are rebranded to RAGnify / `ragnify.pro` as of the 2026-08-31 rebuild.
 - `docs/ALMENDRO_Manuals/` — the 38 source PDFs for the ALMENDRO Manual Assistant demo (PAGE 6A, §8.8); not website copy, a separate demo corpus.
 
 ## 10.3 Shared Visual Patterns
-- **Navy pull-quote bar** — a slim `bg-navy py-8` band (`relative`, to host the trigger below) holding one italic, centered quote (`text-2xl font-medium italic text-white`), placed directly beneath each page's H1 hero. Used on every page except Home. Quotes are sourced verbatim from the AI Roadmap Guide PDF (Section 12 authoritative source), one per page — see each page's "Quote" entry in Section 3. Also hosts `ChatBannerTrigger` (§10.1) at its far right edge on every page it appears on.
+- **Navy pull-quote bar** — a slim `bg-navy py-8` band (`relative`, to host the trigger below) holding one italic, centered quote (`text-2xl font-medium italic text-white`), placed directly beneath each page's H1 hero. Used on every page except Home. Quotes are sourced verbatim from the Section 12 authoritative PDF (`docs/RAG_Source_Docs/Modernizing Legacy Software with AI.pdf`), one per page — see each page's "Quote" entry in Section 3. Also hosts `ChatBannerTrigger` (§10.1) at its far right edge on every page it appears on.
 - **Card color scheme** — two deliberately inverted schemes depending on page:
   - *Home*: white cards (`bg-white`) sit on a gray section (`bg-light-grey`).
   - *Every other page*: gray cards (`bg-light-grey`) sit directly on the white page background — no wrapping gray section. This applies to all content card grids (About, AI Dilemma, Core Barriers, Coaching, Methodology, Solution Class cards and detail-page cards, the Modernization Agent's cards, EU AI Act Compliance).
