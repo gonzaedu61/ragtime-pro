@@ -1300,12 +1300,16 @@ not per-page.
 - **Manual production deploys:** shipping a change now requires an explicit
   `vercel --prod` (or a manual "Redeploy" from the Vercel dashboard) run
   against the current `main`.
-- **Production domain:** `ragtime.pro` — confirmed from the same deploy
-  output ("▲ Aliased https://ragtime.pro") on 2026-08-28, superseding this
-  section's earlier "`thebrokerai.tech`" domain claim. *(Only the aliased
-  domain itself is confirmed; the DNS/registrar details immediately below
-  were written for the old `thebrokerai.tech` claim and are unverified for
-  `ragtime.pro` — likely stale, not re-derived from any direct check.)*
+- **Production domains:** `ragnify.pro` (primary) and `ragtime.pro`, plus
+  their `www.` variants — all four alias to the `ragtime-pro` project's
+  latest production deploy. Confirmed 2026-08-31 from `vercel --prod`
+  output ("▲ Aliased https://ragnify.pro") and `vercel domains ls` /
+  `vercel alias ls` (`ragnify.pro` added ~2026-08-30). `ragnify.pro` is
+  the brand domain going forward; `ragtime.pro` is kept aliased for
+  continuity. A third domain, `thebrokerai.tech`, still exists on the team
+  but points to an older `thebrokerai` deployment, not this project.
+  *(Only the aliases are confirmed; the DNS/registrar details immediately
+  below are unverified for either current domain.)*
 - **DNS:** *(unverified for the current `ragtime.pro` domain — the following
   was written for the earlier, likely-incorrect `thebrokerai.tech` domain
   claim above and has not been re-checked against Vercel's actual DNS
