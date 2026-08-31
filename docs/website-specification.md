@@ -412,7 +412,10 @@ intro, sidebar, cards, roadmap CTA.
   (+ `demoLabel`) field on `src/lib/solutions.ts` — currently just RAG Solutions, linking
   to "See a RAG Assistant Demo ..." → `/solutions/rag-solutions/almendro-demo` (PAGE 6A).
   Built as a generic optional field rather than a RAG-specific special case, so any
-  future solution can add its own live demo the same way.
+  future solution can add its own live demo the same way. **Hidden below the `md`
+  breakpoint** (`hidden … md:inline-block`) — the demo pages carry their own chat
+  widget, which is disabled on narrow viewports for now (see the `ChatWidget` entry
+  in §10.1).
 
 ### Content Status
 `quote`, `definition`, and `overview` are rebranded, sourced from the PDF's per-category

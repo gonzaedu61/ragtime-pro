@@ -149,9 +149,12 @@ export default function SolutionDetail({ solution }: { solution: SolutionClass }
           </Link>
 
           {solution.demoHref && (
+            // Hidden below md: the linked demo pages carry their own chat
+            // widget, which is disabled on narrow viewports for now (see the
+            // parked mobile-chat to-do).
             <Link
               href={solution.demoHref}
-              className="whitespace-nowrap rounded-md border border-electric-blue px-6 py-3 font-body text-sm font-semibold text-electric-blue transition-colors hover:bg-electric-blue hover:text-white"
+              className="hidden whitespace-nowrap rounded-md border border-electric-blue px-6 py-3 font-body text-sm font-semibold text-electric-blue transition-colors hover:bg-electric-blue hover:text-white md:inline-block"
             >
               {solution.demoLabel ?? "Try a live demo →"}
             </Link>
