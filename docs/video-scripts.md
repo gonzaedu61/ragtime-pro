@@ -2,8 +2,8 @@
 
 One-avatar, young-and-confident-tone speech scripts, one per page, matching each
 page's written content. Source priority used when drafting: **1)** the live page's
-own copy, **2)** the authoritative PDF (`Ragtime-Pro - Modernizing Legacy Software
-with AI.pdf`), **3)** trusted internet sources — used only where noted, and only to
+own copy, **2)** the authoritative PDF (`docs/RAG_Source_Docs/Modernizing Legacy
+Software with AI.pdf`), **3)** trusted internet sources — used only where noted, and only to
 add solidity/fluidity, never to introduce claims that conflict with the page or PDF.
 
 These scripts are a standalone content deliverable for external video production —

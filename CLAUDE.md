@@ -163,7 +163,7 @@ Claude must never:
 
 Claude must treat the following documents as canonical:
 
-1. Ragtime-Pro - Modernizing Legacy Software with AI located at the project root folder
+1. Modernizing Legacy Software with AI, located in `docs/RAG_Source_Docs/`
 
 ### 12.1 Usage Rules
 - Claude must reference these documents before generating pages.
