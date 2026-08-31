@@ -54,6 +54,8 @@ export default function ChatWidget() {
   const [pendingConfirm, setPendingConfirm] = useState<PendingConfirm | null>(null);
   const [checkingSession, setCheckingSession] = useState(false);
   const [hasCheckedSession, setHasCheckedSession] = useState(false);
+  const [confirmingReset, setConfirmingReset] = useState(false);
+  const [resetting, setResetting] = useState(false);
 
   // Pagination over the full (never-truncated) history stored server-side -
   // see GET /api/rag/session/history. nextBefore is the cursor to pass back
@@ -260,6 +262,23 @@ export default function ChatWidget() {
     }
   }
 
+  async function handleReset() {
+    setResetting(true);
+    try {
+      await fetch("/api/rag/session/reset", { method: "POST" });
+    } catch {
+      // Even if the server-side delete fails, clearing local state below
+      // still gives the visitor a fresh-feeling conversation.
+    }
+    setMessages([]);
+    setError(null);
+    setPendingConfirm(null);
+    setHasMoreHistory(false);
+    setNextBefore(0);
+    setResetting(false);
+    setConfirmingReset(false);
+  }
+
   function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
@@ -319,7 +338,7 @@ export default function ChatWidget() {
         }`}
         style={{ ...originStyle, transitionDuration: `${ANIMATION_MS}ms` }}
       >
-        <div className="chat-widget-handle grid h-12 shrink-0 cursor-move grid-cols-[auto_1fr_auto] items-center bg-navy px-4">
+        <div className="chat-widget-handle grid h-12 shrink-0 cursor-move grid-cols-[auto_1fr_auto_auto] items-center bg-navy px-4">
           <div className="flex min-w-0 items-center gap-3">
             <Image
               src="/Bubbles_white.svg"
@@ -351,6 +370,26 @@ export default function ChatWidget() {
             <circle cx="8" cy="8" r="1.3" />
             <circle cx="14" cy="8" r="1.3" />
           </svg>
+
+          <button
+            type="button"
+            onClick={() => setConfirmingReset(true)}
+            aria-label="Delete chat history"
+            title="Delete chat history"
+            className="flex h-7 w-7 items-center justify-center justify-self-end rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path d="M3 12a9 9 0 1 1 3 6.7" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M3 17v-5h5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
 
           <button
             type="button"
@@ -470,6 +509,34 @@ export default function ChatWidget() {
         >
           <path d="M14 2L2 14M14 7L7 14M14 12L12 14" strokeLinecap="round" />
         </svg>
+
+        {confirmingReset && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-charcoal/40 p-6">
+            <div className="w-full max-w-[16rem] rounded-lg border border-light-grey bg-white p-5 shadow-xl">
+              <p className="font-body text-sm text-charcoal">
+                Do you want to delete this chat history?
+              </p>
+              <div className="mt-4 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setConfirmingReset(false)}
+                  disabled={resetting}
+                  className="rounded-md border border-navy/20 px-3 py-1.5 font-body text-xs font-semibold text-navy transition-colors hover:border-electric-blue hover:text-electric-blue disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  disabled={resetting}
+                  className="rounded-md bg-navy px-3 py-1.5 font-body text-xs font-semibold text-white transition-colors hover:bg-electric-blue disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {resetting ? "Deleting…" : "Delete"}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </Rnd>
   );
