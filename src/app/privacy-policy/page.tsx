@@ -45,7 +45,7 @@ export default function PrivacyPolicyPage() {
     <>
       <section className="mx-auto max-w-3xl px-6 pt-6 pb-8 text-center">
         <h1 className="font-heading text-4xl font-bold text-navy">Privacy Policy</h1>
-        <p className="mt-2 font-body text-sm text-charcoal">Last updated: August 10, 2026</p>
+        <p className="mt-2 font-body text-sm text-charcoal">Last updated: August 31, 2026</p>
       </section>
 
       <section className="mx-auto max-w-3xl px-6 pb-16">
@@ -63,10 +63,10 @@ export default function PrivacyPolicyPage() {
               If you have any questions about this policy or wish to exercise your rights,
               contact us at{" "}
               <a
-                href="mailto:info@ragtime.pro"
+                href="mailto:info@ragnify.pro"
                 className="font-semibold text-electric-blue"
               >
-                info@ragtime.pro
+                info@ragnify.pro
               </a>
               .
             </p>

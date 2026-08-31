@@ -21,7 +21,7 @@ interface ContactFields {
   aiInterest?: string;
   message: string;
   // "form" (contact form: the visitor already gave their details expecting
-  // to be contacted) vs "email" (wrote directly to info@ragtime.pro: no
+  // to be contacted) vs "email" (wrote directly to info@ragnify.pro: no
   // structured lead capture happened, so the reply invites booking a call).
   channel: "form" | "email";
 }
@@ -104,7 +104,7 @@ function buildPrompt(
   const channelDescription =
     channel === "form"
       ? "just submitted our website's contact form"
-      : "just sent an email directly to our info@ragtime.pro inbox";
+      : "just sent an email directly to our info@ragnify.pro inbox";
 
   return `You are an email response assistant for RAGnify, a modernization partner that helps legacy software vendors adopt AI safely and incrementally, combining an AI-augmented Modernization Agent with expert consulting.
 A visitor ${channelDescription}. Write a warm, professional, and concrete reply and return it as JSON.
@@ -124,7 +124,7 @@ Rules:
 4. Detect the language the visitor wrote their message in and reply in that same language.
 5. ${getChannelClosingRule(channel, alreadySubmittedForm)}
 6. Always write as RAGnify in first person plural ("we," "our," "us") — never as an individual ("I," "me").
-7. The only real ways to reach RAGnify are the contact form at ${SITE_ORIGIN}/contact and emailing info@ragtime.pro directly. There is no calendar, time-slot picker, real-time availability system, or automatic calendar invite — nothing books or confirms a specific time automatically. Never invent a different email address or domain, a phone number, or any of the mechanics above. When asked about scheduling or availability, say only that they can reach out via the contact form or by emailing info@ragtime.pro and the team will coordinate a time — for example, "You can reach out via our contact form or by emailing info@ragtime.pro, and we'll coordinate a time that works for you," never "you can book a slot directly and we'll send a calendar invite."
+7. The only real ways to reach RAGnify are the contact form at ${SITE_ORIGIN}/contact and emailing info@ragnify.pro directly. There is no calendar, time-slot picker, real-time availability system, or automatic calendar invite — nothing books or confirms a specific time automatically. Never invent a different email address or domain, a phone number, or any of the mechanics above. When asked about scheduling or availability, say only that they can reach out via the contact form or by emailing info@ragnify.pro and the team will coordinate a time — for example, "You can reach out via our contact form or by emailing info@ragnify.pro, and we'll coordinate a time that works for you," never "you can book a slot directly and we'll send a calendar invite."
 
 Visitor details:
 Name: ${name}
@@ -196,14 +196,14 @@ function buildNoreplyPrompt(
   const hasPriorCorrespondence = !!correspondence.summary || correspondence.history.length > 0;
 
   return `You are an email response assistant for RAGnify, a modernization partner that helps legacy software vendors adopt AI safely and incrementally, combining an AI-augmented Modernization Agent with expert consulting.
-A visitor just sent an email to noreply@ragtime.pro. That address is send-only and not monitored by anyone — it cannot receive replies and no one will see what they wrote there. Write a short, warm, professional reply and return it as JSON.
+A visitor just sent an email to noreply@ragnify.pro. That address is send-only and not monitored by anyone — it cannot receive replies and no one will see what they wrote there. Write a short, warm, professional reply and return it as JSON.
 
 Your reply must:
-- Gently explain that noreply@ragtime.pro doesn't accept incoming messages and isn't read by our team — this is not a scolding, just a friendly heads-up.
+- Gently explain that noreply@ragnify.pro doesn't accept incoming messages and isn't read by our team — this is not a scolding, just a friendly heads-up.
 - ${
     alreadySubmittedForm
-      ? `Encourage them to visit ${SITE_ORIGIN} and use the chat icon there if they'd like an interactive conversation, or to email info@ragtime.pro directly for anything else — do NOT invite them to the contact form, since they've already submitted it and the team is already aware of their request.`
-      : `Encourage them to visit ${SITE_ORIGIN} and use the chat icon there if they'd like an interactive conversation, or to reach out via the contact form at ${SITE_ORIGIN}/contact or by emailing info@ragtime.pro directly for anything else.`
+      ? `Encourage them to visit ${SITE_ORIGIN} and use the chat icon there if they'd like an interactive conversation, or to email info@ragnify.pro directly for anything else — do NOT invite them to the contact form, since they've already submitted it and the team is already aware of their request.`
+      : `Encourage them to visit ${SITE_ORIGIN} and use the chat icon there if they'd like an interactive conversation, or to reach out via the contact form at ${SITE_ORIGIN}/contact or by emailing info@ragnify.pro directly for anything else.`
   }
 - Do NOT attempt to answer whatever they actually wrote in their message to noreply@ — you have no retrieved context for it here, and that's not the point of this reply.
 - ${
@@ -217,7 +217,7 @@ Your reply must:
 Return exactly this JSON structure (no code fences, no extra text):
 {
   "personalizedReply": "The reply text, addressed to the visitor by name.",
-  "replySubject": "A short (10 words max) subject line, e.g. 'About your message to noreply@ragtime.pro'"
+  "replySubject": "A short (10 words max) subject line, e.g. 'About your message to noreply@ragnify.pro'"
 }
 
 Rules:

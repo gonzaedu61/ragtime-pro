@@ -584,7 +584,7 @@ Once the roadmap is validated, we deliver modernization through incremental AI U
 **Body:**
 Tell us about your product and where modernization fits into its future. Whether you already know exactly what you want to modernize or you're still mapping out where to begin, we want to hear it in your own words — the workflow that's slowing your team down, the customers asking for more, or simply the question you haven't found a good answer to yet. There's no wrong way to describe it: the clearer picture you give us, the faster we can map a modernization path worth pursuing.
 
-Or reach us directly at info@ragtime.pro
+Or reach us directly at info@ragnify.pro
 
 **Form fields:**
 - Name (required)
@@ -609,7 +609,7 @@ Or reach us directly at info@ragtime.pro
 **Meta description:** How RAGnify collects, uses, and protects the information you share with us.
 
 **H1:** Privacy Policy
-**Last updated:** August 10, 2026
+**Last updated:** August 31, 2026
 
 **Who we are**
 RAGnify is a modernization partner for European software vendors, combining an AI-augmented Modernization Agent with expert consulting to help legacy software products modernize safely and incrementally. This policy explains what information we collect through this website and how we use it.
@@ -636,7 +636,7 @@ Under the EU General Data Protection Regulation (GDPR), you have the right to ac
 We may update this policy from time to time to reflect changes in how the site works or in applicable law. The date below reflects the last update.
 
 **Contact us**
-If you have any questions about this policy or wish to exercise your rights, contact us at info@ragtime.pro.
+If you have any questions about this policy or wish to exercise your rights, contact us at info@ragnify.pro.
 
 ---
 
@@ -646,7 +646,7 @@ If you have any questions about this policy or wish to exercise your rights, con
 **Meta description:** The terms that govern your use of the RAGnify website and our AI-driven modernization services.
 
 **H1:** Terms of Service
-**Last updated:** August 10, 2026
+**Last updated:** August 31, 2026
 
 **Acceptance of these terms**
 By using this website, you agree to these terms. If you do not agree, please do not use the site. These terms apply to the website only; any consulting engagement with RAGnify is governed by a separate agreement signed between the parties.
@@ -667,4 +667,4 @@ This website and its content are provided "as is," without warranties of any kin
 We may update these terms from time to time to reflect changes to the website or our services. The date below reflects the last update.
 
 **Contact us**
-If you have any questions about these terms, contact us at info@ragtime.pro.
+If you have any questions about these terms, contact us at info@ragnify.pro.

@@ -40,7 +40,7 @@ export interface SessionData {
 
 export interface EmailHistoryMessage extends SessionMessage {
   // Only meaningful (and set) on "user" turns - which channel this message
-  // arrived through. "noreply" = misdirected to noreply@ragtime.pro (not a
+  // arrived through. "noreply" = misdirected to noreply@ragnify.pro (not a
   // real inquiry channel, but worth recording for continuity). Our replies
   // always go out by email either way, so assistant turns don't carry one.
   channel?: "form" | "email" | "noreply";

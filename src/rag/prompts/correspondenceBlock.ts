@@ -32,7 +32,7 @@ export function buildCorrespondenceText<M extends SessionMessage>(
 
 export function describeEmailChannel(channel: EmailHistoryMessage["channel"]): string {
   if (channel === "email") return "direct email";
-  if (channel === "noreply") return "an email to noreply@ragtime.pro";
+  if (channel === "noreply") return "an email to noreply@ragnify.pro";
   return "contact form";
 }
 

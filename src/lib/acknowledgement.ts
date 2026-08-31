@@ -9,7 +9,7 @@ import { SITE_ORIGIN } from "@/lib/pageDirectory";
 const FROM_ADDRESS = process.env.MAIL_FROM_ADDRESS!;
 const INFO_ADDRESS = process.env.MAIL_INFO_ADDRESS!;
 const FALLBACK_SUBJECT = "We've received your message — RAGnify";
-const NOREPLY_FALLBACK_SUBJECT = "About your message to noreply@ragtime.pro";
+const NOREPLY_FALLBACK_SUBJECT = "About your message to noreply@ragnify.pro";
 
 // Only appended when the reply actually came from the model - the fallback
 // text below is a fixed string, not AI-generated, so claiming otherwise
@@ -35,7 +35,7 @@ function fallbackText(name: string): string {
 }
 
 function noreplyFallbackText(name: string): string {
-  return `Dear ${name},\n\nThanks for your message. This address (noreply@ragtime.pro) is used only for sending automated emails and isn't monitored, so we won't see anything sent here.\n\nIf you'd like an interactive conversation, visit ${SITE_ORIGIN} and look for the chat icon — or reach out via our contact form at ${SITE_ORIGIN}/contact or by emailing info@ragtime.pro directly.\n\n— The RAGnify Team`;
+  return `Dear ${name},\n\nThanks for your message. This address (noreply@ragnify.pro) is used only for sending automated emails and isn't monitored, so we won't see anything sent here.\n\nIf you'd like an interactive conversation, visit ${SITE_ORIGIN} and look for the chat icon — or reach out via our contact form at ${SITE_ORIGIN}/contact or by emailing info@ragnify.pro directly.\n\n— The RAGnify Team`;
 }
 
 const URL_PATTERN = /(https?:\/\/[^\s<>"')]+)/g;
@@ -116,7 +116,7 @@ interface NoreplyFields {
   message: string;
 }
 
-// For messages sent to noreply@ragtime.pro: never attempts to answer what
+// For messages sent to noreply@ragnify.pro: never attempts to answer what
 // was written there (that's not the point), just a gentle redirect to a
 // real channel, personalized with prior correspondence when there is any.
 export async function sendNoreplyRedirect(fields: NoreplyFields): Promise<void> {

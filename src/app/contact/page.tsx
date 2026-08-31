@@ -74,10 +74,10 @@ export default function ContactPage() {
               <span>
                 Or reach us directly at{" "}
                 <a
-                  href="mailto:info@ragtime.pro"
+                  href="mailto:info@ragnify.pro"
                   className="font-semibold text-electric-blue"
                 >
-                  info@ragtime.pro
+                  info@ragnify.pro
                 </a>
               </span>
               <Image

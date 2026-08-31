@@ -24,8 +24,10 @@ Breaker (formerly "The Barrier's Breaker") is fully rebranded (see PAGE 4), Cont
 is fully rebranded (see PAGE 14), and Privacy Policy and Terms of Service are fully
 rebranded, including the removal of the inapplicable "Vendor referrals" clause (see
 PAGE 16 and PAGE 17). The actual production mail infrastructure (Vercel env vars,
-Purelymail mailbox) has not been updated to match the `info@ragtime.pro` address
-used across the site's copy — see §8.4/§8.5.
+Purelymail mailbox) has not been updated to match the `info@ragnify.pro` address
+used across the site's copy — see §8.4/§8.5. Note the mail domain (`ragnify.pro`)
+is intentionally distinct from the production website domain, which remains
+`ragtime.pro` (see §8.6).
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -876,7 +878,7 @@ happen after the response is sent (see §8.4).
 - Message  
 
 ### Email
-info@ragtime.pro. Also updated on Privacy Policy and Terms of Service (see PAGE 16
+info@ragnify.pro. Also updated on Privacy Policy and Terms of Service (see PAGE 16
 and PAGE 17). The `/api/contact` route itself has no hardcoded address (reads
 `MAIL_FROM_ADDRESS` / `MAIL_INFO_ADDRESS` from env — see §8.4); those production
 values, and the underlying Purelymail mailbox, have not been updated to match.
@@ -942,7 +944,7 @@ modernization partner combining the Modernization Agent with expert consulting,
 replacing the prior "European network of AI consultants helping SMEs" framing); no
 PDF chapter exists for legal boilerplate, so this was a terminology/positioning
 rebrand rather than a PDF-sourced content rewrite. "Last updated" bumped to August
-10, 2026.
+31, 2026 (contact address changed from `info@ragtime.pro` to `info@ragnify.pro`).
 
 ### Content
 No quote band. A centered H1 + "Last updated" date, then a single-column list of
@@ -955,14 +957,15 @@ information (rewritten to drop the BrokerAI-era "specialist within our network"
 brokerage language — RAGnify delivers directly, it doesn't broker third-party
 vendors — replaced with generic "service providers who help us operate this website");
 Data retention; Your rights (GDPR); Changes to this policy; Contact us (mailto link,
-`info@ragtime.pro`).
+`info@ragnify.pro`).
 
 ## PAGE 17 — TERMS OF SERVICE
 
 ### Purpose
 Footer/legal page governing use of the website (a separate signed agreement governs
 any actual consulting engagement). Fully rebranded, same terminology/positioning
-rebrand as Privacy Policy. "Last updated" bumped to August 10, 2026.
+rebrand as Privacy Policy. "Last updated" bumped to August 31, 2026 (contact
+address changed from `info@ragtime.pro` to `info@ragnify.pro`).
 
 ### Content
 No quote band. Same layout as Privacy Policy: centered H1 + "Last updated" date, then
@@ -1200,17 +1203,19 @@ not per-page.
   rather than confirmed.)*
   `MAIL_ACK_BLOCKLIST` (comma-separated addresses that are never
   acknowledged; see §8.5) is also part of this group. **Note:** website copy
-  (Contact, Privacy Policy, Terms of Service) now displays `info@ragtime.pro`
+  (Contact, Privacy Policy, Terms of Service) now displays `info@ragnify.pro`
   and `.env.local.example`'s `PURELYMAIL_SMTP_USER` placeholder has been
   updated to match, but the actual Vercel production env vars and Purelymail
   mailbox still need to be provisioned/updated separately — this repo cannot
-  do that.
+  do that. The mail domain `ragnify.pro` is deliberately separate from the
+  production website domain `ragtime.pro` (§8.6); only the email addresses
+  moved.
 
 ## 8.5 Inbox Polling & Auto-Acknowledgement
 - **Purpose:** automatically sends the same AI-generated acknowledgement
   (§8.4) to anyone who emails the configured info address directly, not
   just visitors who use the Contact form — plus, separately, redirects
-  anyone who emails `noreply@ragtime.pro` (a send-only address that should
+  anyone who emails `noreply@ragnify.pro` (a send-only address that should
   never receive mail) to a real channel instead.
 - **API route:** `src/app/api/inbox-poll/route.ts` — a `GET` Route Handler,
   protected by a shared secret: the request must include
@@ -1252,7 +1257,7 @@ not per-page.
   left unset.
 - **`noreply@` handling:** never attempts to answer what was actually
   written there — calls `sendNoreplyRedirect()` (§8.4), which explains that
-  `noreply@ragtime.pro` doesn't accept incoming mail and isn't monitored,
+  `noreply@ragnify.pro` doesn't accept incoming mail and isn't monitored,
   points them to the site's chat widget or the contact form / `info@` for
   a real conversation, and — if there's prior correspondence on file for
   that email address from an earlier contact-form submission or `info@`
