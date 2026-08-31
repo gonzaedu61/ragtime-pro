@@ -77,6 +77,20 @@ export default function ChatWidget() {
   // effect below can skip that one render (see loadOlderMessages).
   const skipAutoScrollRef = useRef(false);
 
+  // Chat is disabled below the `md` breakpoint (768px) for now - the pane
+  // and its triggers aren't adapted for narrow viewports yet (see the
+  // parked to-do). The triggers are already `hidden` below md via CSS, so
+  // on a real phone this pane can never be opened; this guard only matters
+  // when a desktop window is narrowed while the pane is open.
+  const [isNarrow, setIsNarrow] = useState(false);
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsNarrow(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
   useEffect(() => {
     function updateMaxSize() {
       setMaxSize({
@@ -286,7 +300,7 @@ export default function ChatWidget() {
     }
   }
 
-  if (phase === "hidden") return null;
+  if (phase === "hidden" || isNarrow) return null;
 
   const effectiveWidth = size?.width ?? Math.min(DEFAULT_WIDTH, Math.max(MIN_WIDTH, maxSize.width));
   const effectiveHeight = size?.height ?? Math.min(DEFAULT_HEIGHT, Math.max(MIN_HEIGHT, maxSize.height));

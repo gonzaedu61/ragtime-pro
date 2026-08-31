@@ -45,7 +45,9 @@ export default function Home() {
             <RotatingHeadline />
           </div>
 
-          <div className="shrink-0">
+          {/* Chat is desktop/tablet only for now - the pane and this trigger
+              aren't adapted for narrow viewports yet (see the parked to-do). */}
+          <div className="hidden shrink-0 md:block">
             <ChatBubbleTrigger />
           </div>
         </div>

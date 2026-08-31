@@ -23,7 +23,9 @@ export default function ChatBannerTrigger() {
       type="button"
       onClick={handleClick}
       aria-label="Open chat"
-      className="group absolute right-6 top-1/2 -translate-y-1/2"
+      // Desktop/tablet only for now - hidden below md until the pane and
+      // trigger are adapted for narrow viewports (see the parked to-do).
+      className="group absolute right-6 top-1/2 hidden -translate-y-1/2 md:block"
     >
       <span className="relative block h-12 w-[66px]">
         <Image
