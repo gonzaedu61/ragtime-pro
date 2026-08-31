@@ -29,8 +29,9 @@ rules, and acknowledgement fallbacks (Vercel env vars and Purelymail
 mailboxes updated by the user), the RAG corpus regenerated from rebranded
 source docs, `NEXT_PUBLIC_SITE_URL` / `SITE_ORIGIN` pointed at
 `https://www.ragnify.pro`, and `ragnify.pro` made the primary production
-domain (with `ragtime.pro` kept aliased for continuity). Deployed and the
-live chat path verified — see §8.4 / §8.6 / §8.7.
+domain (with `ragtime.pro` kept aliased for continuity). Deployed and
+verified end-to-end — chat path and contact-form email round-trip both
+confirmed working — see §8.4 / §8.6 / §8.7.
 
 ## 1.1 Primary Goal
 Convert SME leaders who feel uncertain about AI adoption into qualified leads for:
@@ -1209,10 +1210,12 @@ not per-page.
   chat/email prompt rules, the acknowledgement fallbacks, and
   `.env.local.example` all use these; the user updated the Vercel
   production env vars and the Purelymail mailboxes to match and redeployed.
-  The live chat path is verified (a `POST /api/rag/answer` on production
-  returns `https://www.ragnify.pro/contact` and `info@ragnify.pro`); the
-  full outbound-email round-trip (SMTP send from `noreply@`, `info@` IMAP
-  poll, SPF/DKIM) has not been independently re-tested here.
+  Verified end-to-end on 2026-08-31: the live chat path (a `POST
+  /api/rag/answer` on production returns `https://www.ragnify.pro/contact`
+  and `info@ragnify.pro`) and the full contact-form email round-trip (form
+  submission → AI acknowledgement delivered from `noreply@ragnify.pro`;
+  SMTP send, `info@` IMAP poll, and SPF/DKIM all working) — the user
+  confirmed the round-trip works.
 
 ## 8.5 Inbox Polling & Auto-Acknowledgement
 - **Purpose:** automatically sends the same AI-generated acknowledgement
